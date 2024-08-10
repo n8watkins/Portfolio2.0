@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 interface MarqueeProps {
@@ -19,17 +20,31 @@ export default function Marquee({
   repeat = 4,
   ...props
 }: MarqueeProps) {
+  const [isPaused, setIsPaused] = useState(false)
+
+  const handleMouseEnter = () => {
+    if (pauseOnHover) {
+      setIsPaused(true)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setIsPaused(false)
+  }
+
   return (
     <div
       {...props}
       className={cn(
-        'group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]',
+        'flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]',
         {
           'flex-row': !vertical,
           'flex-col': vertical,
         },
         className
-      )}>
+      )}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
       {Array(repeat)
         .fill(0)
         .map((_, i) => (
@@ -38,7 +53,7 @@ export default function Marquee({
             className={cn('flex shrink-0 justify-around [gap:var(--gap)]', {
               'animate-marquee flex-row': !vertical,
               'animate-marquee-vertical flex-col': vertical,
-              'group-hover:[animation-play-state:paused]': pauseOnHover,
+              '[animation-play-state:paused]': isPaused,
               '[animation-direction:reverse]': reverse,
             })}>
             {children}
