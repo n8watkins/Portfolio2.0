@@ -2,21 +2,12 @@
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
-import { CiLinkedin, CiLocationOn } from 'react-icons/ci'
-import { FaLinkedin, FaLocationDot, FaXTwitter } from 'react-icons/fa6'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useRef, useState } from 'react'
 import MapDetails from './BentoComponents/MapDetails'
 import GridPattern from '../magicui/grid-pattern'
 import { TechStack } from '../TechStack'
-import { FaExternalLinkAlt } from 'react-icons/fa'
-import { IoMdDownload } from 'react-icons/io'
 import ResumeButtons from './BentoComponents/ResumeButtons'
 import EmailButton from './BentoComponents/EmailButton'
-import { BackgroundGradientAnimation } from './background-gradient-animation'
-import { FiGithub } from 'react-icons/fi'
-import { TiSocialLinkedin } from 'react-icons/ti'
-import MapAnimation from './BentoComponents/MapAnimations'
+import ScrollButton from './BentoComponents/ScrollButton'
 
 export const BentoGrid = ({
   className,
@@ -26,9 +17,10 @@ export const BentoGrid = ({
   children?: React.ReactNode
 }) => {
   return (
+    //2xl:bg-yellow-500 xl:bg-purple-600 lg:bg-green-500 md:bg-red-500 sm:bg-orange-500 bg-teal-500
     <div
       className={cn(
-        'grid  grid-cols-2 grid-rows-11 2xl:bg-yellow-500 xl:bg-purple-600 lg:bg-green-500 md:bg-red-500 sm:bg-orange-500 bg-teal-500 auto-rows-[5rem]  md:auto-rows-[7rem] lg:auto-rows-[8rem] sm:grid-rows-20 md:grid-cols-4 md:grid-rows-7 xl:auto-rows-[10rem] lg:grid-rows-12 gap-2 lg:gap-7  max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-4xl 2xl:max-w-5xl lg:m-auto mx-auto ',
+        'grid  grid-cols-2 grid-rows-11 lg:bg-green-500 auto-rows-[5rem]  md:auto-rows-[7rem] lg:auto-rows-[8rem] sm:grid-rows-20 md:grid-cols-4 md:grid-rows-7 xl:auto-rows-[10rem] lg:grid-rows-8 gap-2 lg:gap-7  max-w-md sm:max-w-lg md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl lg:m-auto mx-auto ',
         className
       )}>
       {children}
@@ -87,7 +79,7 @@ export const BentoGridItem = ({
             <GridPattern className="z-20" />
           </div>
         )) ||
-          ((id === 4 || id == 5 || id == 2) && (
+          ((id === 4 || id == 6 || id == 2) && (
             <div className={`  ${imgContainerClass} `}>
               <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
             </div>
@@ -108,35 +100,39 @@ export const BentoGridItem = ({
           <div className={`${descriptionClass}`}>{description}</div>
         </div>
         {id === 4 && <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />}
+        {id === 6 && (
+          <div className="w-2/5 h-full bottom-9 md:bottom-0 lg:top-5 lg:right-3 item-center justify-center flex relative ">
+            <ScrollButton link="projects" className="lg:h-14 w-40" text="Check it out!" />
+          </div>
+        )}
       </div>
 
-      <div>
-        {
-          //forground images
-          (id === 3 && <TechStack />) ||
-            (id === 1 && (
-              <div className={`absolute z-30 ${imgContainerClass} border-none`}>
-                <Image
-                  src={lightImg}
-                  fill
-                  className={`${theme === 'dark' && `hidden`} ${imgClassName} `}
-                  alt={lightImg}
-                />
-                <Image
-                  src={darkImg}
-                  fill
-                  className={`${theme === 'light' && `hidden`} ${imgClassName} `}
-                  alt={darkImg}
-                />
-              </div>
-            )) ||
-            (id === 7 && (
-              <div className="absolute w-full h-full">
-                <EmailButton buttonClass={buttonClass} buttonContainer={buttonContainer} />
-              </div>
-            )) ||
-            (id === 2 && <div className="z-50"></div>)
-        }
+      {
+        //forground images
+      }
+      <div className="">
+        {(id === 3 && <TechStack />) ||
+          (id === 1 && (
+            <div className={`  z-30 ${imgContainerClass} border-none`}>
+              <Image
+                src={lightImg}
+                fill
+                className={`${theme === 'dark' && `hidden`} ${imgClassName} `}
+                alt={lightImg}
+              />
+              <Image
+                src={darkImg}
+                fill
+                className={`${theme === 'light' && `hidden`} ${imgClassName} `}
+                alt={darkImg}
+              />
+            </div>
+          )) ||
+          (id === 5 && (
+            <div className="absolute w-full h-full">
+              <EmailButton buttonClass={buttonClass} buttonContainer={buttonContainer} />
+            </div>
+          ))}
       </div>
     </div>
   )

@@ -15,7 +15,7 @@ export default function Home() {
     <main className="relative w-full bg-blue-400 dark:bg-darkBlue flex  overflow-hidden  ">
       <div className="w-full   m-auto">
         <Hero />
-        <div className=" m-auto max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-4xl 2xl:max-w-5xl">
+        <div className=" m-auto max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
           <FloatingNav navItems={navItems} />
           <Grid />
           <Projects />

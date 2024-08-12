@@ -63,7 +63,7 @@ export function GridPattern({
   const isLightTheme = theme === 'light'
 
   const gridColor = isLightTheme ? '#60A5FA' : '#020621' // Example: Tailwind's blue-400
-  const gridStrokeColor = isLightTheme ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.5)'
+  const gridStrokeColor = isLightTheme ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.3)'
   const gradientEndColor = isLightTheme ? '#93C5FD' : '#020621'
 
   return (
