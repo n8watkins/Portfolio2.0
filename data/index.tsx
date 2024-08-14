@@ -253,7 +253,7 @@ export const gridItems = [
     description:
       'During COVID, I built a Chrome extension to automate class attendance. Coding to make life easier flipped my learning paradigm.',
     imgContainerClass:
-      ' absolute w-[20rem] h-[20rem] m-5 z-30 top-[17rem] left-12 sm:left-20 md:top-2 md:left-[23rem] md:w-[16rem] md:h-[16rem] lg:top-[17rem] lg:left-12  lg:w-[20rem] lg:h-[20rem] xl:top-2  xl:left-[36rem] xl:w-[16rem] xl:h-[16rem] 2xl:left-[43rem] group overflow-hidden rounded-3xl group-hover:scale-105 transition duraton-200',
+      ' absolute w-[20rem] h-[20rem] m-5 z-30 top-[17rem] left-12 sm:left-20 md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] lg:top-[17rem] lg:left-12  lg:w-[20rem] lg:h-[20rem] xl:top-2  xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] 2xl:left-[50rem] group overflow-hidden rounded-3xl group-hover:scale-105 transition duraton-200',
     imgClassName: '',
     duration: ' rounded-3xl  z-10  ',
     lightImg: '/lightlaptop.jpeg',
@@ -371,7 +371,7 @@ export const projects = [
   {
     id: 1,
     title: 'Net-Trailer - Netflix Clone',
-    des: 'Explore the wonders of our solar system with this captivating 3D simulation of the planets using Three.js.',
+    des: 'A Netflix-inspired web application that showcases movie trailers and information, providing a similar user experience to the popular streaming platform.',
     img: '/projects/netflix.jpg',
     iconLists: ['/next.svg', '/tail.svg', '/ts.svg'],
     github: 'https://github.com/natkins23/net_trailer',
@@ -380,7 +380,7 @@ export const projects = [
   {
     id: 2,
     title: 'Quizmatic - AI Quiz Generation',
-    des: 'Simplify your video conferencing experience with Yoom. Seamlessly connect with colleagues and friends.',
+    des: 'An innovative application that leverages AI to automatically generate quizzes on various topics, enhancing learning and assessment experiences.',
     img: '/projects/netflix.jpg',
     iconLists: ['/next.svg', '/tail.svg', '/ts.svg'],
     github: 'https://github.com/natkins23/Quizmatic',
@@ -389,7 +389,7 @@ export const projects = [
   {
     id: 3,
     title: 'Web Dev Solutions - Consulting Portfolio Page',
-    des: 'A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.',
+    des: 'A professional portfolio website showcasing web development consulting services, highlighting expertise, projects, and client solutions.',
     img: '/projects/netflix.jpg',
     iconLists: ['/next.svg', '/tail.svg', '/ts.svg', '/clerk.svg'],
     github: 'https://github.com/natkins23/Quizmatic',
@@ -398,7 +398,7 @@ export const projects = [
   {
     id: 4,
     title: 'STORE - Ecommerce App',
-    des: 'Recreated the Apple iPhone 15 Pro website, combining GSAP animations and Three.js 3D effects..',
+    des: 'A fully-functional ecommerce application featuring product listings, shopping cart functionality, and secure checkout process for online retail.',
     img: '/projects/netflix.jpg',
     iconLists: ['/next.svg', '/tail.svg', '/ts.svg', '/gsap.svg'],
     github: 'https://github.com/natkins23/Quizmatic',
@@ -415,23 +415,23 @@ export const workExperience = [
     thumbnail: '/exp1.svg',
   },
   {
-    id: 1,
-    title: 'Computer Science Tutor',
-    desc: 'Provided personalized instruction in programming fundamentals, data structures, and algorithms to university students.',
+    id: 2,
+    title: 'Coding Tutor',
+    desc: 'Provided personalized instruction in programming fundamentals, data structures, and algorithms.',
     className: 'md:col-span-2',
     thumbnail: '/exp2.svg',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Web Presence Consultant',
-    desc: 'Advised clients on comprehensive online strategies, including website design, SEO, and social media integration.',
+    desc: 'Advised clients on online strategies including website design, SEO, and social media integration.',
     className: 'md:col-span-2',
     thumbnail: '/exp3.svg',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Freelance Web Developer',
-    desc: 'Developed custom websites for diverse clients, handling all aspects from initial concept to final deployment.',
+    desc: 'Developed custom websites for diverse clients, handling all aspects from initial concept to deployment.',
     className: 'md:col-span-2',
     thumbnail: '/exp4.svg',
   },

@@ -10,7 +10,7 @@ const MapDetails = () => {
       {
         //change top / left here for LA starting point
       }
-      <div className="absolute -top-[8.5rem] left-7  sm:-top-[9.2rem] sm:left-10  md:-top-[8.5rem] md:left-5 lg:-top-[8.5rem] lg:left-6  xl:-top-[8.5rem] xl:left-9 w-14 h-14 z-50 font-semibold dark:font-normal ">
+      <div className="absolute -top-[8.5rem] left-7  sm:-top-[9.2rem] sm:left-10  md:-top-[8.5rem] md:left-5 lg:-top-[8.5rem] lg:left-6  xl:-top-[15rem] xl:left-9 w-14 h-14 z-50 font-semibold dark:font-normal ">
         <div className="flex">
           <div className="group-hover:scale-110 group-hover:-translate-y-1 group-hover:-translate-x-1 transition duration-500 ">
             <FaLocationDot className="absolute text-darkBlue dark:text-yellow-400 w-14 h-14" />

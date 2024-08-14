@@ -17,7 +17,7 @@ const StackContainer = ({
     <figure
       className={cn(
         'stack-container',
-        'relative flex h-28 min-w-36 max-w-52 px-2 cursor-pointer overflow-hidden rounded-xl border pb-2 items-center justify-center',
+        'relative flex h-28 min-w-40 max-w-52 px-2 cursor-pointer overflow-hidden rounded-xl border pb-2 items-center justify-center',
         'border-gray-950/[.1] bg-blue-400 hover:bg-blue-400/90',
         'dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]',
         'transition-all duration-300 ease-in-out',
@@ -29,7 +29,9 @@ const StackContainer = ({
         <figcaption className="icon-name-wrapper mt-2 text-xl font-medium dark:text-white flex flex-col items-center transition-all duration-300 ease-in-out">
           <div className="icon-name flex flex-row gap-2 pt-24">
             <span className="icon transition-transform duration-300 ease-in-out">{icon}</span>
-            <span className="name transition-all duration-300 ease-in-out">{name}</span>
+            <span className="name transition-all duration-300 ease-in-out  whitespace-nowrap">
+              {name}
+            </span>
           </div>
           <div className="description  flex items-start justify-center text-base w-48 h-24 opacity-0 translate-y-2 transition-all duration-300 ease-in-out ">
             {description}

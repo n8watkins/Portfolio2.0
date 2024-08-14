@@ -17,18 +17,18 @@ const Hero = () => {
     <div className="" id="home">
       <AuroraBackground>
         <GridBackground />
-        <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center z-50">
-          <p className="uppercase tracking-widest pb-10 pt-20 text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
+        <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
+          <p className="uppercase tracking-widest pb-10 pt-20 md:pt-0 text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
             <span className="animate-fade-right animate-delay-[3000ms] ">Code.</span>{' '}
             <span className="animate-fade-right animate-delay-[3500ms]">Create.</span>{' '}
             <span className="animate-fade-right animate-delay-[4000ms] ">Innovate.</span>
           </p>
-          <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-10">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-5  ">
             <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-3 ">
-              <h1 className="text-center md:text-start w-full justify-start text-[40px] md:text-5xl lg:text-6xl font-semibold animate-fade-right animate-delay-[1000ms] ">
+              <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold animate-fade-right animate-delay-[1000ms] ">
                 Hi, I&apos;m <span className="text-purple-400">Nathan</span>
               </h1>
-              <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-sm md:text-lg lg:text-2xl animate-fade-up animate-delay-[1200ms] font-semibold dark:font-normal ">
+              <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl animate-fade-up animate-delay-[1200ms] font-semibold dark:font-normal ">
                 A Next.js Developer
               </p>
               <div className="flex items-center justify-center md:justify-start w-full">
@@ -72,6 +72,7 @@ const Hero = () => {
                   src="/portrait.jpg"
                   className="rounded-full object-cover"
                   fill
+                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   alt="Nathan's portrait"
                 />
