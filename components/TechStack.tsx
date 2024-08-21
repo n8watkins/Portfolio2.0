@@ -18,7 +18,7 @@ const StackContainer = ({
       className={cn(
         'stack-container',
         'relative flex h-28 min-w-40 max-w-52 px-2 cursor-pointer overflow-hidden rounded-xl border pb-2 items-center justify-center',
-        'border-gray-950/[.1] bg-blue-400 hover:bg-blue-400/90',
+        'border-gray-950/[.1] bg-blue-300 hover:bg-purple-100/90',
         'dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]',
         'transition-all duration-300 ease-in-out',
         'hover:shadow-lg',
@@ -44,7 +44,7 @@ const StackContainer = ({
 
 export function TechStack() {
   return (
-    <div className="absolute top-0 flex h-[70%] w-full flex-col items-center justify-center overflow-hidden rounded-3xl border-none bg-blue-300 dark:bg-[#020621]">
+    <div className="absolute top-0 flex h-[70%] w-full flex-col items-center justify-center overflow-hidden rounded-3xl border-none bg-blue-500 dark:bg-[#020621]">
       <Marquee reverse pauseOnHover className="[--duration:45s]">
         {tech_libraries.map((tech) => (
           <StackContainer
@@ -65,8 +65,8 @@ export function TechStack() {
           />
         ))}
       </Marquee>
-      <div className="pointer-events-none absolute left-0 w-1/3 h-full bg-gradient-to-r from-blue-300 to-transparent dark:from-[#020621] dark:to-transparent"></div>
-      <div className="pointer-events-none absolute right-0 w-1/3 h-full bg-gradient-to-l from-blue-300 to-transparent dark:from-[#020621] dark:to-transparent"></div>
+      <div className="pointer-events-none absolute left-0 w-1/3 h-full bg-gradient-to-r from-blue-500 to-transparent dark:from-[#020621] dark:to-transparent"></div>
+      <div className="pointer-events-none absolute right-0 w-1/3 h-full bg-gradient-to-l from-blue-500 to-transparent dark:from-[#020621] dark:to-transparent"></div>
     </div>
   )
 }

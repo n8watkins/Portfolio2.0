@@ -26,7 +26,7 @@ const Hero = () => {
           <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-5  ">
             <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-3 ">
               <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold animate-fade-right animate-delay-[1000ms] ">
-                Hi, I&apos;m <span className="text-purple-400">Nathan</span>
+                Hi, I&apos;m <span className="text-purple-500">Nathan</span>
               </h1>
               <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl animate-fade-up animate-delay-[1200ms] font-semibold dark:font-normal ">
                 A Next.js Developer
@@ -38,7 +38,7 @@ const Hero = () => {
                       href="https://github.com/natkins23"
                       target="_blank"
                       rel="noopener noreferrer">
-                      <div className="w-12 h-12 rounded-full hover:bg-slate-900">
+                      <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
                         <FiGithub className="w-full h-full p-3" />
                       </div>
                     </a>
@@ -46,7 +46,7 @@ const Hero = () => {
                       href="https://www.linkedin.com/in/nathancwatkins/"
                       target="_blank"
                       rel="noopener noreferrer">
-                      <div className="w-12 h-12 rounded-full hover:bg-slate-900">
+                      <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
                         <CiLinkedin className="w-full h-full p-2" />
                       </div>
                     </a>
@@ -54,7 +54,7 @@ const Hero = () => {
                       href="https://x.com/nathancwatkins"
                       target="_blank"
                       rel="noopener noreferrer">
-                      <div className="w-12 h-12 rounded-full hover:bg-slate-900">
+                      <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 ">
                         <FaXTwitter className="w-full h-full p-3" />
                       </div>
                     </a>

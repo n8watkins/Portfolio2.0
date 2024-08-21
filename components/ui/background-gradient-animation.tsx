@@ -1,18 +1,19 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { useEffect, useRef, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 export const BackgroundGradientAnimation = ({
-  gradientBackgroundStart = 'rgb(108, 0, 162)',
-  gradientBackgroundEnd = 'rgb(0, 17, 82)',
-  firstColor = '18, 113, 255',
-  secondColor = '221, 74, 255',
-  thirdColor = '100, 220, 255',
-  fourthColor = '200, 50, 50',
-  fifthColor = '180, 180, 50',
-  pointerColor = '140, 100, 255',
+  gradientBackgroundStart = 'rgb(190, 140, 220)', // Light purple
+  gradientBackgroundEnd = 'rgb(100, 140, 220)', // Blue-purple
+  firstColor = '80, 60, 200', // Deep purple
+  secondColor = '180, 130, 220', // Medium purple
+  thirdColor = '140, 100, 240', // Bright purple
+  fourthColor = '200, 100, 220', // Pink-purple
+  fifthColor = '160, 140, 240', // Lavender
+  pointerColor = '120, 80, 220', // Purple
   size = '80%',
-  blendingValue = 'hard-light',
+  blendingValue = 'soft-light',
   children,
   className,
   interactive = true,
@@ -34,23 +35,44 @@ export const BackgroundGradientAnimation = ({
   containerClassName?: string
 }) => {
   const interactiveRef = useRef<HTMLDivElement>(null)
+  const { resolvedTheme } = useTheme()
 
   const [curX, setCurX] = useState(0)
   const [curY, setCurY] = useState(0)
   const [tgX, setTgX] = useState(0)
   const [tgY, setTgY] = useState(0)
+
   useEffect(() => {
-    document.body.style.setProperty('--gradient-background-start', gradientBackgroundStart)
-    document.body.style.setProperty('--gradient-background-end', gradientBackgroundEnd)
-    document.body.style.setProperty('--first-color', firstColor)
-    document.body.style.setProperty('--second-color', secondColor)
-    document.body.style.setProperty('--third-color', thirdColor)
-    document.body.style.setProperty('--fourth-color', fourthColor)
-    document.body.style.setProperty('--fifth-color', fifthColor)
+    const isLightMode = resolvedTheme === 'light'
+    document.body.style.setProperty(
+      '--gradient-background-start',
+      isLightMode ? gradientBackgroundStart : 'rgb(108, 0, 162)'
+    )
+    document.body.style.setProperty(
+      '--gradient-background-end',
+      isLightMode ? gradientBackgroundEnd : 'rgb(0, 17, 82)'
+    )
+    document.body.style.setProperty('--first-color', isLightMode ? firstColor : '18, 113, 255')
+    document.body.style.setProperty('--second-color', isLightMode ? secondColor : '221, 74, 255')
+    document.body.style.setProperty('--third-color', isLightMode ? thirdColor : '100, 220, 255')
+    document.body.style.setProperty('--fourth-color', isLightMode ? fourthColor : '200, 50, 50')
+    document.body.style.setProperty('--fifth-color', isLightMode ? fifthColor : '180, 180, 50')
     document.body.style.setProperty('--pointer-color', pointerColor)
     document.body.style.setProperty('--size', size)
-    document.body.style.setProperty('--blending-value', blendingValue)
-  }, [])
+    document.body.style.setProperty('--blending-value', isLightMode ? blendingValue : 'hard-light')
+  }, [
+    resolvedTheme,
+    gradientBackgroundStart,
+    gradientBackgroundEnd,
+    firstColor,
+    secondColor,
+    thirdColor,
+    fourthColor,
+    fifthColor,
+    pointerColor,
+    size,
+    blendingValue,
+  ])
 
   useEffect(() => {
     function move() {
@@ -83,7 +105,7 @@ export const BackgroundGradientAnimation = ({
   return (
     <div
       className={cn(
-        'absolute w-full h-full z-50 overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]',
+        'absolute w-full h-full z-50 overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] animate-fade duration-500',
         containerClassName
       )}>
       <svg className="hidden">
@@ -161,3 +183,5 @@ export const BackgroundGradientAnimation = ({
     </div>
   )
 }
+
+export default BackgroundGradientAnimation

@@ -36,21 +36,23 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
 
   return (
     <div className="">
-      <BackgroundGradientAnimation className="h-full pb-32 group">
-        <div className="z-50 flex justify-center group-hover:scale-105  text-2xl   pt-5  font-sans font-bold ">
-          <h2 className="">Have a Project? Let&apos;s connect! </h2>
+      <BackgroundGradientAnimation className="h-full pb-32 group pointer-events-none ">
+        <div className="z-50 flex justify-center group-hover:scale-125 duration-200  text-2xl pt-5  font-sans font-bold ">
+          <h2 className="text-slate-800 dark:text-white text-2xl  tracking-tighter  ">
+            Have a Project? Let&apos;s connect!{' '}
+          </h2>
         </div>
         <div key={animationKey} className="absolute top-0 left-0 w-full h-full z-50 ">
           <Lottie options={defaultOptions} height={400} width={400} />
         </div>
         <div className={`${buttonContainer} `}>
           <button
-            className={`${buttonClass} gap-3 bg-[linear-gradient(1100deg,#000103,45%,#1e2631,55%,#000103)] animate-duration-[4000ms] `}
+            className={`${buttonClass}  pointer-events-auto gap-3  bg-[linear-gradient(1100deg,#5b21b6,45%,#6d28d9,55%,#5b21b6)]   dark:bg-[linear-gradient(1100deg,#001f54,45%,#002b76,55%,#001f54)] border-white/30 dark:bg-animate-duration-[4000ms] `}
             onClick={handleEmailClick}>
-            <span className="text-black dark:text-white font-semibold dark:font-normal   ">
+            <span className="text-white dark:text-white font-semibold dark:font-normal   ">
               {copiedEmail ? 'Copied!' : 'Copy Email'}
             </span>{' '}
-            <MdContentCopy className="text-black dark:text-white " />
+            <MdContentCopy className="text-white dark:text-white " />
           </button>
         </div>
       </BackgroundGradientAnimation>

@@ -20,7 +20,7 @@ export const BentoGrid = ({
     //2xl:bg-yellow-500 xl:bg-purple-600 lg:bg-green-500 md:bg-red-500 sm:bg-orange-500 bg-teal-500
     <div
       className={cn(
-        'grid  grid-cols-2 grid-rows-11  auto-rows-[5rem]  md:auto-rows-[7rem] lg:auto-rows-[8rem] sm:grid-rows-20 md:grid-cols-4 md:grid-rows-7 xl:auto-rows-[10rem] lg:grid-rows-8 gap-5 md:gap-7 lg:gap-10   max-w-md sm:max-w-lg md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl lg:m-auto mx-auto ',
+        'grid  grid-cols-2 grid-rows-11  auto-rows-[5rem]  md:auto-rows-[7rem] lg:auto-rows-[8rem] sm:grid-rows-20 md:grid-cols-4 md:grid-rows-7 xl:auto-rows-[5rem] lg:grid-rows-8 gap-5 md:gap-7 lg:gap-8   max-w-md sm:max-w-lg md:max-w-3xl lg:max-w-4xl xl:max-w-5xl lg:m-auto mx-auto ',
         className
       )}>
       {children}
@@ -70,7 +70,7 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        'flex w-full h-full rounded-3xl relative group dark:bg-[#020621] dark:border-white/[0.2] bg-blue-300 border  overflow-hidden  ',
+        'flex w-full h-full rounded-3xl relative group dark:bg-[#020621] dark:border-white/[0.2] bg-blue-500 border  overflow-hidden  ',
         gridItemContainer
       )}>
       {
@@ -80,7 +80,12 @@ export const BentoGridItem = ({
             <GridPattern className="z-20" />
           </div>
         )) ||
-          ((id === 4 || id == 6 || id == 2) && (
+          ((id === 4 || id == 2) && (
+            <div className={`  ${imgContainerClass} `}>
+              <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
+            </div>
+          )) ||
+          (id == 6 && (
             <div className={`  ${imgContainerClass} `}>
               <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
             </div>
@@ -96,8 +101,8 @@ export const BentoGridItem = ({
             <MapDetails />
           </div>
         )}
-        <div className={` ${textOrder} `}>
-          <div className={` ${titleClassName}`}>{title}</div>
+        <div className={` ${textOrder}  `}>
+          <div className={` ${titleClassName} `}>{title}</div>
           <div className={`${descriptionClass}`}>{description}</div>
         </div>
         {id === 4 && <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />}
@@ -115,18 +120,7 @@ export const BentoGridItem = ({
         {(id === 3 && <TechStack />) ||
           (id === 1 && (
             <div className={`  z-30 ${imgContainerClass} border-none`}>
-              <Image
-                src={darkImg}
-                fill
-                className={`${theme === 'light' && `hidden`} ${imgClassName} `}
-                alt={darkImg}
-              />
-              <Image
-                src={lightImg}
-                fill
-                className={`${theme === 'dark' && `hidden`} ${imgClassName} `}
-                alt={lightImg}
-              />
+              <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
             </div>
           )) ||
           (id === 5 && (

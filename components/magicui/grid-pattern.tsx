@@ -1,10 +1,9 @@
 import { useId, useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
+import { coloredSquares } from '@/data'
 
 interface GridPatternProps {
-  svgWidth?: number
-  svgHeight?: number
   width?: number
   height?: number
   x?: number
@@ -13,13 +12,10 @@ interface GridPatternProps {
   strokeDasharray?: string | number
   strokeWidth?: number
   className?: string
-  coloredSquares?: Array<[x: number, y: number]>
   [key: string]: any
 }
 
 export function GridPattern({
-  svgWidth = 900,
-  svgHeight = 305,
   width = 60,
   height = 60,
   x = 0,
@@ -32,100 +28,6 @@ export function GridPattern({
     [3, 3],
   ],
   className,
-  coloredSquares = [
-    [3, 4],
-    [7, 1],
-    [2, 3],
-    [5, 6],
-    [4, 5],
-    [1, 7],
-    [6, 2],
-    [8, 3],
-    [9, 5],
-    [3, 2],
-    [4, 8],
-    [5, 9],
-    [7, 3],
-    [2, 8],
-    [6, 4],
-    [8, 6],
-    [3, 7],
-    [9, 1],
-    [1, 5],
-    [4, 2],
-    [10, 2],
-    [11, 4],
-    [12, 6],
-    [13, 1],
-    [14, 3],
-    [15, 5],
-    [1, 8],
-    [2, 9],
-    [3, 10],
-    [4, 11],
-    [5, 12],
-    [6, 13],
-    [7, 14],
-    [8, 15],
-    [9, 7],
-    [10, 8],
-    [11, 9],
-    [12, 10],
-    [13, 11],
-    [14, 12],
-    [15, 13],
-    [1, 3],
-    [2, 5],
-    [3, 7],
-    [4, 9],
-    [5, 11],
-    [6, 13],
-    [7, 15],
-    [8, 2],
-    [9, 4],
-    [10, 6],
-    [11, 8],
-    [12, 10],
-    [13, 12],
-    [14, 14],
-    [15, 1],
-    [14, 3],
-    [13, 5],
-    [12, 7],
-    [11, 9],
-    [10, 11],
-    [9, 13],
-    [1, 9],
-    [2, 10],
-    [3, 11],
-    [4, 12],
-    [5, 13],
-    [6, 14],
-    [7, 15],
-    [8, 1],
-    [9, 2],
-    [10, 3],
-    [11, 4],
-    [12, 5],
-    [13, 6],
-    [14, 7],
-    [15, 8],
-    [1, 6],
-    [2, 7],
-    [3, 8],
-    [4, 10],
-    [5, 14],
-    [6, 15],
-    [7, 2],
-    [8, 4],
-    [9, 6],
-    [10, 9],
-    [11, 12],
-    [12, 14],
-    [13, 3],
-    [14, 5],
-    [15, 7],
-  ],
   ...props
 }: GridPatternProps) {
   const [mounted, setMounted] = useState(false)
@@ -141,16 +43,23 @@ export function GridPattern({
   }, [])
 
   const isLightTheme = resolvedTheme === 'light'
-  const gridColor = isLightTheme ? '#93C5FD' : '#020621'
-  const gridStrokeColor = isLightTheme ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.3)'
-  const gradientEndColor = isLightTheme ? '#93C5FD' : '#020621'
+  const gridColor = isLightTheme ? '#3B82F6' : '#020621' // blue-500 for light mode
+  const gridStrokeColor = isLightTheme ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.3)'
+  const gradientEndColor = isLightTheme ? '#3B82F6' : '#020621'
+
+  const responsiveClasses = cn(
+    'h-[40rem] w-[28rem]', // base size
+    'sm:h-[40rem] sm:w-[33rem]', // small screens and up
+    'md:h-[20rem] md:w-[50rem]', // medium screens and up
+    'lg:h-[40rem] lg:w-[27rem]', // large screens and up
+    'xl:h-[20rem] xl:w-[65rem]', // extra large screens and up
+    '2xl:h-[20rem] 2xl:w-[80rem]' // 2xl screens and up
+  )
 
   // Placeholder component
   const Placeholder = () => (
-    <div
-      className="animate-pulse bg-blue-300 dark:bg-gray-700"
-      style={{ width: svgWidth, height: svgHeight }}>
-      <div className="h-full w-full bg-gradient-to-br from-blue-200 to-blue-400 dark:from-gray-800 dark:to-gray-900"></div>
+    <div className={cn('animate-pulse bg-blue-300 dark:bg-gray-700', responsiveClasses)}>
+      <div className="h-full w-full bg-gradient-to-br from-blue-400 to-blue-600 dark:from-gray-800 dark:to-gray-900"></div>
     </div>
   )
 
@@ -159,7 +68,7 @@ export function GridPattern({
   if (isLoading) return <Placeholder />
 
   return (
-    <div className={cn('', className)}>
+    <div className={cn('w-full', className)}>
       <style jsx>{`
         @keyframes fade1 {
           0%,
@@ -167,14 +76,14 @@ export function GridPattern({
             fill: ${gridColor};
           }
           50% {
-            fill: ${isLightTheme ? '#BFDBFE' : '#0F172A'};
-          } // Darker for dark mode
+            fill: ${isLightTheme ? '#529fff' : '#162957'};
+          } /* blue-400 */
         }
         @keyframes fade2 {
           0%,
           100% {
-            fill: ${isLightTheme ? '#BFDBFE' : '#0F172A'};
-          } // Darker for dark mode
+            fill: ${isLightTheme ? '#4395fa' : '#141e38'};
+          } /* blue-400 */
           50% {
             fill: ${gridColor};
           }
@@ -182,8 +91,8 @@ export function GridPattern({
         @keyframes fade3 {
           0%,
           100% {
-            fill: ${isLightTheme ? '#60A5FA' : '#1E3A8A'};
-          } // Darker for dark mode
+            fill: ${isLightTheme ? '#7db8fa' : '#14275e'};
+          } /* blue-300 */
           50% {
             fill: ${gridColor};
           }
@@ -200,9 +109,7 @@ export function GridPattern({
       `}</style>
       <svg
         aria-hidden="true"
-        width={svgWidth}
-        height={svgHeight}
-        className="pointer-events-none relative"
+        className={cn('pointer-events-none relative animate-fade duration-1000', responsiveClasses)}
         {...props}>
         <defs>
           <pattern id={id} width={width} height={height} patternUnits="userSpaceOnUse" x={x} y={y}>
@@ -212,11 +119,14 @@ export function GridPattern({
               stroke={gridStrokeColor}
               strokeWidth={strokeWidth}
               strokeDasharray={strokeDasharray}
-              suppressHydrationWarning
             />
           </pattern>
           <radialGradient id={gradientId} cx="50%" cy="50%" r="50%">
-            <stop offset="30%" stopColor="rgba(0,0,0,0)" stopOpacity={0} />
+            <stop
+              offset="30%"
+              stopColor={`${isLightTheme ? '#3b82f6 ' : 'rgba(0,0,0,0)'}`}
+              stopOpacity={0}
+            />
             <stop offset="100%" stopColor={gradientEndColor} stopOpacity={1} />
           </radialGradient>
         </defs>
@@ -232,13 +142,12 @@ export function GridPattern({
                 height={height - 1}
                 x={x * width + 1}
                 y={y * height + 1}
-                suppressHydrationWarning
               />
             )
           })}
         </svg>
-        <rect width="100%" height="100%" fill={`url(#${id})`} suppressHydrationWarning />
-        <rect width="100%" height="100%" fill={`url(#${gradientId})`} suppressHydrationWarning />
+        <rect width="100%" height="100%" fill={`url(#${id})`} />
+        <rect width="100%" height="100%" fill={`url(#${gradientId})`} />
       </svg>
     </div>
   )

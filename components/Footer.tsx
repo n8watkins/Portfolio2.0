@@ -14,7 +14,7 @@ const Footer = () => {
 
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
-          Ready to bring <span className="lg:block text-purple-400">fresh talent</span> to your
+          Ready to bring <span className="lg:block text-purple-500">fresh talent</span> to your
           team?
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
@@ -31,7 +31,7 @@ const Footer = () => {
 
         <div className="flex items-center justify-center pb-2 gap-3 z-50">
           <a href="https://github.com/natkins23" target="_blank" rel="noopener noreferrer">
-            <div className="w-12 h-12 rounded-full hover:bg-slate-900">
+            <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
               <FiGithub className="w-full h-full p-3" />
             </div>
           </a>
@@ -39,12 +39,12 @@ const Footer = () => {
             href="https://www.linkedin.com/in/nathancwatkins/"
             target="_blank"
             rel="noopener noreferrer">
-            <div className="w-12 h-12 rounded-full hover:bg-slate-900">
+            <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
               <CiLinkedin className="w-full h-full p-2" />
             </div>
           </a>
           <a href="https://x.com/nathancwatkins" target="_blank" rel="noopener noreferrer">
-            <div className="w-12 h-12 rounded-full hover:bg-slate-900">
+            <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
               <FaXTwitter className="w-full h-full p-3" />
             </div>
           </a>

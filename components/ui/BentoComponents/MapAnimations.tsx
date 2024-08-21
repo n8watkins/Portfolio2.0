@@ -48,17 +48,17 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerC
   const getPathsForSize = (size: string): string[] => {
     switch (size) {
       case 'sm':
-        return ['M95,155 Q140,160 130,85', 'M95,155 Q150,190 280,200', 'M95,155 Q180,230 380,120']
+        return ['M95,210 Q160,200 130,120', 'M95,210 Q150,190 280,250', 'M95,210 Q180,230 420,140']
       case 'md':
-        return ['M85,165 Q140,160 120,80', 'M85,165 Q120,220 185,200', 'M85,165 Q180,230 265,120']
+        return ['M80,205 Q160,200 120,120', 'M80,205 Q120,220 185,250', 'M80,205 Q180,230 300,140']
       case 'lg':
-        return ['M88,168 Q140,160 120,100', 'M88,168 Q150,190 210,220', 'M88,168 Q180,230 290,150']
+        return ['M88,210 Q160,160 120,120', 'M88,210 Q150,190 220,250', 'M88,210 Q180,230 350,150']
       case 'xl':
-        return ['M93,50 Q120,30 200,20', 'M93,50  Q200,70 250,100', 'M93,50 Q200,100 400,20']
+        return ['M93,170 Q140,120 130,70', 'M93,170  Q200,175 270,220', 'M93,170 Q185,160 400,100']
       case '2xl':
-        return ['M93,50 Q120,30 200,20', 'M93,50  Q200,70 250,100', 'M93,50 Q200,100 400,20']
+        return ['M93,170 Q140,120 130,70', 'M93,170  Q200,175 270,220', 'M93,170 Q185,160 400,100']
       default:
-        return ['M93,160 Q140,160 120,100', 'M93,160 Q150,190 280,200', 'M93,160 Q180,230 380,120']
+        return ['M93,210 Q160,160 140,120', 'M93,210 Q150,190 250,250', 'M93,210 Q180,230 370,140']
     }
   }
 
@@ -112,7 +112,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerC
 
   return (
     <div
-      className={`absolute -top-[15.5rem] -left-8 z-30 flex items-center justify-center w-[30rem] h-[40rem]`}>
+      className={`absolute -top-[15.5rem] -left-8 z-30 flex items-center justify-center w-[30rem] h-[40rem] animate-fade duration-500`}>
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <defs>
           <marker

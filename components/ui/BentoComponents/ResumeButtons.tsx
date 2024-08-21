@@ -17,20 +17,18 @@ const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonCl
           // lighter value bg-[linear-gradient(110deg,#395bbf,45%,#5b93f5,55%,#3956a8)]
         }
         <button
-          className={`${buttonClass} gap-3 bg-[linear-gradient(1100deg,#000103,45%,#1e2631,55%,#000103)] animate-duration-[4000ms]`}>
-          <span className="text-black dark:text-white font-semibold dark:font-normal   ">View</span>{' '}
-          <FaExternalLinkAlt className="text-black dark:text-white " />
+          className={`${buttonClass} gap-3  bg-[linear-gradient(110deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30  animate-duration-[5000ms]`}>
+          <span className="text-white dark:text-white    ">View</span>{' '}
+          <FaExternalLinkAlt className="h-5 w-5 text-white dark:text-white " />
         </button>
       </a>
       <a
         href="https://drive.google.com/uc?export=download&id=16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s"
         download="Nathan_Watkins_NextJS_Resume">
         <button
-          className={`${buttonClass} gap-3 bg-[linear-gradient(330deg,#000103,45%,#1e2631,55%,#000103)] animate-duration-[4000ms]`}>
-          <span className="text-black dark:text-white font-semibold dark:font-normal   ">
-            Download
-          </span>
-          <IoMdDownload className="text-black dark:text-white" />
+          className={`${buttonClass} gap-2   bg-[linear-gradient(40deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30  animate-duration-[6000ms]`}>
+          <span className="text-white dark:text-white font-normal   ">Download</span>
+          <IoMdDownload className="h-6 w-6 text-white dark:text-white" />
         </button>
       </a>
     </div>
