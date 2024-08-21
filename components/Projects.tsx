@@ -11,7 +11,7 @@ const Projects = () => {
       id="projects"
       className="flex flex-col my-20 items-center justify-center gap-5 w-full   text-slate-200">
       <div className="flex ">
-        <h1 className="text-5xl font-bold py-14 text-center text-slate-800">
+        <h1 className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200">
           {' '}
           A small selection of <div className="text-purple-500 lg:inline">recent projects</div>
         </h1>

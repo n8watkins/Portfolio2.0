@@ -22,7 +22,7 @@ const Experience = () => {
 
   return (
     <div className="py-20 xl:max-w-5xl m-auto text-slate-200 ">
-      <h1 className="heading text-slate-800">
+      <h1 className="heading text-slate-800 dark:text-slate-200">
         My work <span className="text-purple-500"> experience</span>
       </h1>
 
