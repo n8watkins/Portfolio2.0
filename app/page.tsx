@@ -1,14 +1,13 @@
 'use client'
+import Clients from '@/components/Clients'
 import Experience from '@/components/Experience'
 import { FloatingNav } from '@/components/FloatingNav'
 import Footer from '@/components/Footer'
 import Grid from '@/components/Grid'
 import Hero from '@/components/Hero'
 import Projects from '@/components/Projects'
-import { TechStack } from '@/components/TechStack'
-import MapAnimation from '@/components/ui/BentoComponents/MapAnimations'
+import BreakpointDisplay from '@/components/ui/breakpoint'
 import { navItems } from '@/data'
-import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -20,7 +19,9 @@ export default function Home() {
           <Grid />
           <Projects />
           <Experience />
+          <Clients />
           <Footer />
+          {/* <BreakpointDisplay /> */}
         </div>
       </div>
     </main>

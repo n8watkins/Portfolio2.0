@@ -18,7 +18,7 @@ const Hero = () => {
       <AuroraBackground>
         <GridBackground />
         <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
-          <p className="uppercase tracking-widest pb-10 pt-20 md:pt-0 text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
+          <p className="uppercase tracking-widest pb-5 sm:pb-10 pt-52 sm:pt-20 md:pt-10 text-lg md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
             <span className="animate-fade-right animate-delay-[3000ms] ">Code.</span>{' '}
             <span className="animate-fade-right animate-delay-[3500ms]">Create.</span>{' '}
             <span className="animate-fade-right animate-delay-[4000ms] ">Innovate.</span>

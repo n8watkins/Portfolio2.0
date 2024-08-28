@@ -28,7 +28,10 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerC
       const width = window.innerWidth
       let size = 'starting'
 
-      if (width < 640) size = 'xs'
+      if (width <= 320) size = '1sm'
+      else if (width <= 375) size = '1md'
+      else if (width <= 425) size = '1lg'
+      else if (width < 640) size = 'xs'
       else if (width < 768) size = 'sm'
       else if (width < 1024) size = 'md'
       else if (width < 1280) size = 'lg'
@@ -47,6 +50,12 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerC
 
   const getPathsForSize = (size: string): string[] => {
     switch (size) {
+      case '1sm':
+        return ['M80,215 Q140,200 105,120', 'M80,215 Q150,190 190,250', 'M80,215 Q180,230 270,140']
+      case '1md':
+        return ['M90,210 Q140,200 110,120', 'M90,210 Q150,190 210,250', 'M90,210 Q180,230 320,140']
+      case '1lg':
+        return ['M90,210 Q150,180 120,120', 'M90,210 Q150,190 240,250', 'M90,210 Q180,230 360,140']
       case 'sm':
         return ['M95,210 Q160,200 130,120', 'M95,210 Q150,190 280,250', 'M95,210 Q180,230 420,140']
       case 'md':

@@ -24,6 +24,11 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        '1sm': '320px', // mobile small
+        '1md': '375px', // mobile medium
+        '1lg': '425px', // mobile large
+      },
       colors: {
         darkBlue: {
           DEFAULT: '#000319',

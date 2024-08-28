@@ -253,7 +253,7 @@ export const gridItems = [
     description:
       'During COVID, I built a Chrome extension to automate class attendance. Coding to make life easier flipped my learning paradigm.',
     imgContainerClass:
-      ' absolute w-[20rem] h-[20rem] m-5 z-30 top-[16rem] left-12 sm:left-20 md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] lg:top-[16rem] lg:left-9  lg:w-[20rem] lg:h-[20rem] xl:top-2  xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] 2xl:left-[43rem] group overflow-hidden rounded-3xl group-hover:scale-105 transition duraton-200',
+      ' absolute w-[13rem] h-[13rem] top-[20rem] left-12 1sm:w-[17rem] 1sm:h-[17rem] 1sm:top-[19rem] 1sm:left-1 1md:w-[20rem] 1md:h-[20rem] 1md:top-[17rem] 1md:left-2  1lg:w-[20rem] 1lg:h-[20rem] 1lg:top-[17rem] 1lg:left-10 m-5 z-30 top-[16rem] left-12 sm:left-20 md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] lg:top-[16rem] lg:left-9  lg:w-[20rem] lg:h-[20rem] xl:top-2  xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] 2xl:left-[43rem] group overflow-hidden rounded-3xl group-hover:scale-105 transition duraton-200',
     imgClassName: '',
     duration: ' rounded-3xl  z-10  ',
     lightImg: '/lightlaptop.jpeg',
@@ -281,7 +281,7 @@ export const gridItems = [
     textContainerClassName:
       'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621] dark:to-[#020621]/0 text-slate-200',
     titleClassName:
-      'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  pl-10 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
+      'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
     textOrder: 'group-hover:translate-x-2 duration-200',
     lightImg: '/darkGlobe.jpeg',
     darkImg: `/darkGlobe.jpeg`,
@@ -298,7 +298,7 @@ export const gridItems = [
     imgClassName: '',
     textContainerClassName:
       'absolute  bottom-0 pt-16 h-40 w-full bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white  ',
-    textOrder: 'flex flex-col-reverse pl-10 group-hover:translate-x-2 duration-200',
+    textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
     titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center  select-none ',
     descriptionClass: 'relative text-base w-[50%]  font-bold nowrap whitespace-nowrap select-none ',
     lightImg: ``,
@@ -313,19 +313,19 @@ export const gridItems = [
     description: '',
     gridItemContainer:
       'col-span-2 row-span-1 md:col-span-2  lg:col-span-2 xl:row-span-2 xl:col-span-2 group  ',
-    imgContainerClass: '',
+    imgContainerClass: '  ',
     imgClassName:
-      'absolute w-full h-full pl-52  rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  ',
+      'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  ',
     lightImg: '/b4.svg',
     textContainerClassName:
-      'flex items-center justify-start pl-10   w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
+      'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
     textOrder:
-      'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
+      'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
     titleClassName:
       'flex transition duration-300  pt-[5rem] z-30 font-sans font-bold   select-none text-slate-200 dark:text-neutral-200  text-2xl lg:text-3xl text-start w-full',
     buttonContainer:
-      'flex items-center  justify-evenly z-50  opacity-0 group-hover:opacity-100  group-hover:translate-y-14  transition  w-full h-full pb-14 ',
-    buttonClass: `inline-flex h-12  py-2 px-6  z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] curser-pointer`,
+      'flex items-center  justify-evenly z-50  opacity-0  group-hover:opacity-100  group-hover:translate-y-14  transition  w-full h-full pb-14 ',
+    buttonClass: `inline-flex h-12  py-2 px-6  z-[5000]  group-hover:pointer-events animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] curser-pointer`,
     darkImg: '',
     spareImg: '',
   },
@@ -358,13 +358,29 @@ export const gridItems = [
     darkImg: `/b5.svg`,
     textContainerClassName:
       'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
-    textOrder: 'flex flex-col-reverse pl-10 group-hover:translate-x-2 duration-200',
+    textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
     titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
     descriptionClass:
       'relative text-sm w-[50%]  font-semibold dark:font-normal nowrap whitespace-nowrap select-none',
 
     buttonContainer: '',
     buttonClass: '',
+  },
+]
+
+export const testimonials = [
+  {
+    quote: `"Nathan is super easy to work with and always delivers . His coding skills really added to the team."`,
+    name: 'Teddy',
+    title: 'Manager Coder School',
+    image: 'testimonials/profile2.jpg',
+  },
+  {
+    quote:
+      '"Nathan totally revamped our website, and it looks amazing now! He made everything so smooth and simple for us."',
+    name: 'Mike',
+    title: 'Manager Arroyo Seco Golf',
+    image: 'testimonials/profile.svg',
   },
 ]
 
