@@ -67,7 +67,7 @@ const Hero = () => {
             </div>
             <div className="w-[20rem] h-[20rem] relative">
               <div className="aspect-square w-full h-full relative">
-                <div className="absolute inset-0 dark:bg-black/20 animate-delay-[3500ms] animate-fade-left rounded-full z-10"></div>
+                <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
                 <Image
                   src="/portrait.jpg"
                   className="rounded-full object-cover"

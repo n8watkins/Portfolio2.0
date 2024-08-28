@@ -3,7 +3,6 @@ import Image from 'next/image'
 import React from 'react'
 import { FiGithub } from 'react-icons/fi'
 import { RxExternalLink } from 'react-icons/rx'
-import { BorderBeam } from './magicui/border-beam'
 
 const Projects = () => {
   return (
@@ -36,6 +35,7 @@ const Projects = () => {
             <div className="relative flex flex-col w-full space-y-2 xl:px-4">
               <div className="text-xl font-sans font-bold ">{project.title}</div>
               <div className="  ">{project.des}</div>
+              <div className="font-semibold">Frontend</div>
               <div className="flex flex-row">
                 <div className="flex flex-row w-full h-20 pt-2  ">
                   {project.iconLists.map((icon, index) => (
@@ -66,7 +66,7 @@ const Projects = () => {
                           <RxExternalLink className=" w-full h-full text-white dark:text-white " />
                         </div>
                         <span className="text-sm whitespace-nowrap peer-hover:decoration-2 hover:decoration-2 underline-offset-2 underline  pt-3 ">
-                          Live Site
+                          Live
                         </span>
                       </a>
                     </div>

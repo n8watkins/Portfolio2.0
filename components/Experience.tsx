@@ -6,19 +6,62 @@ import { workExperience } from '@/data'
 import { Button } from './ui/MovingBorders'
 import { cn } from '@/lib/utils'
 
+const ExperienceLoading = ({ currentTheme }: { currentTheme: string | undefined }) => {
+  return (
+    <div className="py-20 xl:max-w-5xl m-auto text-slate-200">
+      <h1 className="heading text-slate-800 dark:text-slate-200">
+        My work <span className="text-purple-500"> experience</span>
+      </h1>
+
+      <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
+        {workExperience.map((card) => (
+          <div
+            key={card.id}
+            className={cn(
+              'flex-1 border-neutral-200 dark:border-slate-800 rounded-[1.75rem] overflow-hidden dark:bg-[#020621] bg-[#3B82F6]'
+            )}>
+            <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
+              <div className="flex flex-row">
+                <img src={card.thumbnail} alt={card.title} className="z-20 lg:w-32 md:w-20 w-16" />
+                <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold">
+                  {card.title}
+                </h1>
+              </div>
+              <p
+                className={cn(
+                  'text-start mt-3 text-base',
+                  currentTheme === 'dark' ? 'text-white-100' : 'text-white'
+                )}>
+                {card.desc}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const Experience = () => {
   const { theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setMounted(true)
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 1000) // Adjust this time as needed
+
+    return () => clearTimeout(timer)
   }, [])
 
-  if (!mounted) {
-    return null
-  }
-
   const currentTheme = theme === 'system' ? resolvedTheme : theme
+
+  if (!mounted || isLoading) {
+    return <ExperienceLoading currentTheme={currentTheme} />
+  }
 
   return (
     <div className="py-20 xl:max-w-5xl m-auto text-slate-200 ">
@@ -44,13 +87,9 @@ const Experience = () => {
               'flex-1 border-neutral-200 dark:border-slate-800',
               currentTheme === 'dark' ? 'text-white' : 'text-black'
             )}>
-            <div className="flex  flex-col  p-3 py-6 md:p-5 lg:p-10 gap-2">
+            <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
               <div className="flex flex-row ">
-                <img
-                  src={card.thumbnail}
-                  alt={card.thumbnail}
-                  className="z-20 lg:w-32 md:w-20 w-16 "
-                />
+                <img src={card.thumbnail} alt={card.title} className="z-20 lg:w-32 md:w-20 w-16 " />
                 <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold">
                   {card.title}
                 </h1>

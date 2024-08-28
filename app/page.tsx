@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 import Grid from '@/components/Grid'
 import Hero from '@/components/Hero'
 import Projects from '@/components/Projects'
-import BreakpointDisplay from '@/components/ui/breakpoint'
+import BreakpointDisplay from '@/lib/breakpoint'
 import { navItems } from '@/data'
 
 export default function Home() {
