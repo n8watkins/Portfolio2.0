@@ -10,7 +10,7 @@ export function ModeToggle() {
   const { setTheme } = useTheme()
 
   return (
-    <div>
+    <div className="p-0 -ml-3 mr-2">
       <Button
         variant="ghost"
         className=" cursor-pointer  dark:text-white text-black  focus:!border-none focus:!ring-orange-500 hover:bg-transparent"

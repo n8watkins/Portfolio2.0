@@ -18,13 +18,13 @@ const Hero = () => {
       <AuroraBackground>
         <GridBackground />
         <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
-          <p className="uppercase tracking-widest pb-5 sm:pb-10 pt-52 sm:pt-20 md:pt-10 text-lg md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
+          <p className="uppercase tracking-widest pb-2 sm:pb-10 1sm:pt-40  sm:pt-20 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
             <span className="animate-fade-right animate-delay-[3000ms] ">Code.</span>{' '}
             <span className="animate-fade-right animate-delay-[3500ms]">Create.</span>{' '}
             <span className="animate-fade-right animate-delay-[4000ms] ">Innovate.</span>
           </p>
-          <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-5  ">
-            <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-3 ">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5  ">
+            <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3  ">
               <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold animate-fade-right animate-delay-[1000ms] ">
                 Hi, I&apos;m <span className="text-purple-500">Nathan</span>
               </h1>

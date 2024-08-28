@@ -30,6 +30,7 @@ import { GrMysql } from 'react-icons/gr'
 export const navItems = [
   { name: 'About', link: 'about' },
   { name: 'Projects', link: 'projects' },
+  { name: 'Clients', link: 'testimonials' },
   { name: 'Contact', link: 'contact' },
 ]
 
@@ -373,14 +374,14 @@ export const testimonials = [
     quote: `"Nathan is super easy to work with and always delivers . His coding skills really added to the team."`,
     name: 'Teddy',
     title: 'Manager Coder School',
-    image: 'testimonials/profile2.jpg',
+    image: '/testimonials/profile2.jpg',
   },
   {
     quote:
       '"Nathan totally revamped our website, and it looks amazing now! He made everything so smooth and simple for us."',
     name: 'Mike',
     title: 'Manager Arroyo Seco Golf',
-    image: 'testimonials/profile.svg',
+    image: '/testimonials/profile.svg',
   },
 ]
 
