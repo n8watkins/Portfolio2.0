@@ -47,7 +47,7 @@ const BreakpointDisplay: React.FC = () => {
   }, [])
 
   return (
-    <div className="fixed top-10 right-10 m-2 p-2 bg-blue-800 text-white dark:bg-white px-5 dark:text-blue-800 text-lg font-mono z-50 rounded shadow-md">
+    <div className=" breakpoint-display fixed top-10 right-10 m-2 p-2 z-[6000] !bg-blue-800 text-white dark:!bg-white px-5 dark:text-blue-800 text-lg rounded shadow-md">
       {breakpoint}
     </div>
   )

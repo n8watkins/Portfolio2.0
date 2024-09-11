@@ -406,7 +406,7 @@ export const projects = [
   },
   {
     id: 3,
-    title: 'Web Dev Solutions - Consulting Portfolio Page',
+    title: 'Web Dev Solutions - Consulting',
     des: 'A professional portfolio website showcasing web development consulting services, highlighting expertise, projects, and client solutions.',
     img: '/projects/netflix.jpg',
     iconLists: ['/next.svg', '/tail.svg', '/ts.svg', '/clerk.svg'],

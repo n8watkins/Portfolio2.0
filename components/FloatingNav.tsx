@@ -58,7 +58,7 @@ export const FloatingNav = ({
   })
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="sync">
       <div className="fixed top-0 w-full h-16 bg-gradient-to-t from-blue-400/0 via-blue-400/90 to-blue-400 dark:from-darkBlue/0 dark:via-darkBlue/20 dark:to-darkBlue z-[5000]" />
       <motion.div
         initial={{ opacity: 1, y: 0 }}

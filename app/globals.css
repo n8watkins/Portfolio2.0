@@ -86,7 +86,14 @@
   .black-gradient {
     background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
   }
+  .breakpoint-display {
+    @apply fixed top-10 right-10 m-2 p-2 z-[6000] text-lg rounded shadow-md !bg-blue-800 text-white dark:bg-white dark:text-blue-800;
+  }
 }
 .flip-horizontal {
   transform: scaleX(-1);
+}
+
+.breakpoint-display {
+  background-color: theme('colors.blue.800') !important;
 }
