@@ -257,9 +257,7 @@ export const gridItems = [
       ' absolute w-[13rem] h-[13rem] top-[20rem] left-12 1sm:w-[17rem] 1sm:h-[17rem] 1sm:top-[19rem] 1sm:left-1 1md:w-[20rem] 1md:h-[20rem] 1md:top-[17rem] 1md:left-2  1lg:w-[20rem] 1lg:h-[20rem] 1lg:top-[17rem] 1lg:left-10 m-5 z-30 top-[16rem] left-12 sm:left-20 md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] lg:top-[16rem] lg:left-9  lg:w-[20rem] lg:h-[20rem] xl:top-2  xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] 2xl:left-[43rem] group overflow-hidden rounded-3xl group-hover:scale-105 transition duraton-200',
     imgClassName: '',
     duration: ' rounded-3xl  z-10  ',
-    lightImg: '/lightlaptop.jpeg',
-    darkImg: '/darklaptop.jpeg',
-    spareImg: '/grid.svg',
+    img: '/bento/laptop.jpeg',
     textContainerClassName:
       ' absolute top-0 left-0  h-full w-full  z-50 text-slate-200 dark:text-white  ',
     textOrder: 'z-50 group-hover:translate-x-2 transition duration-200',
@@ -284,9 +282,7 @@ export const gridItems = [
     titleClassName:
       'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
     textOrder: 'group-hover:translate-x-2 duration-200',
-    lightImg: '/darkGlobe.jpeg',
-    darkImg: `/darkGlobe.jpeg`,
-    spareImg: '/b4.svg',
+    img: '/bento/globe.jpeg',
     buttonContainer: '',
     buttonClass: '',
   },
@@ -302,9 +298,7 @@ export const gridItems = [
     textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
     titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center  select-none ',
     descriptionClass: 'relative text-base w-[50%]  font-bold nowrap whitespace-nowrap select-none ',
-    lightImg: ``,
-    darkImg: ``,
-    spareImg: '',
+    img: ``,
     buttonContainer: '',
     buttonClass: '',
   },
@@ -317,7 +311,7 @@ export const gridItems = [
     imgContainerClass: '  ',
     imgClassName:
       'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  ',
-    lightImg: '/b4.svg',
+    img: '/bento/resume.svg',
     textContainerClassName:
       'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
     textOrder:
@@ -327,8 +321,6 @@ export const gridItems = [
     buttonContainer:
       'flex items-center  justify-evenly z-50  opacity-0  group-hover:opacity-100  group-hover:translate-y-14  transition  w-full h-full pb-14 ',
     buttonClass: `inline-flex h-12  py-2 px-6  z-[5000]  group-hover:pointer-events animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] curser-pointer`,
-    darkImg: '',
-    spareImg: '',
   },
 
   //Have a project? Let's Connect
@@ -341,9 +333,7 @@ export const gridItems = [
     textContainerClassName: '',
     titleClassName: ' pt-16 h-40  rounded-b-3xl select-none',
     textOrder: '',
-    lightImg: '',
-    spareImg: '/',
-    darkImg: `/`,
+    img: '',
     buttonContainer: 'flex items-center  justify-evenly z-50     w-full h-full pt-10 ',
     buttonClass: `inline-flex h-12  py-2 px-6  z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms]`,
   },
@@ -354,16 +344,13 @@ export const gridItems = [
     gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-4',
     imgContainerClass: 'absolute top-10  w-full h-full ',
     imgClassName: 'absolute pl-40 ',
-    lightImg: '/b5.svg',
-    spareImg: '/grid.svg',
-    darkImg: `/b5.svg`,
+    img: '/bento/code.svg',
     textContainerClassName:
       'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
     textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
     titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
     descriptionClass:
       'relative text-sm w-[50%]  font-semibold dark:font-normal nowrap whitespace-nowrap select-none',
-
     buttonContainer: '',
     buttonClass: '',
   },
@@ -385,7 +372,7 @@ export const testimonials = [
   },
 ]
 
-export const projects = [
+export const old = [
   {
     id: 1,
     title: 'Net-Trailer - Netflix Clone',
@@ -421,6 +408,97 @@ export const projects = [
     iconLists: ['/next.svg', '/tail.svg', '/ts.svg', '/gsap.svg'],
     github: 'https://github.com/natkins23/Quizmatic',
     liveSite: ' https://net-trailers.vercel.app/',
+  },
+]
+
+export const projectIconSkeleton = [
+  { name: 'React', icon: '/projectIcons/re.svg' },
+  { name: 'Next.js', icon: '/projectIcons/next.svg' },
+  { name: 'TypeScript', icon: '/projectIcons/ts.svg' },
+  { name: 'Tailwind CSS', icon: '/projectIcons/tail.svg' },
+]
+
+export const projects = [
+  {
+    id: 1,
+    title: 'Net-Trailer - Netflix Clone',
+    des: 'A Netflix-inspired web application that showcases movie trailers and information, providing a similar user experience to the popular streaming platform.',
+    img: '/projects/netflix.jpg',
+    technologies: {
+      'Front-end': [
+        { name: 'React', icon: '/projectIcons/re.svg' },
+        { name: 'Next.js', icon: '/projectIcons/next.svg' },
+        { name: 'TypeScript', icon: '/projectIcons/ts.svg' },
+        { name: 'Tailwind CSS', icon: '/projectIcons/tail.svg' },
+        { name: 'Clerk', icon: '/projectIcons/clerk.svg' },
+        { name: 'Stream', icon: '/projectIcons/stream.svg' },
+        { name: 'Three.js', icon: '/projectIcons/three.svg' },
+      ],
+      'Back-end': [
+        { name: 'GitHub', icon: '/projectIcons/github.svg' },
+        { name: 'Hosting', icon: '/projectIcons/host.svg' },
+        { name: 'Instagram API', icon: '/projectIcons/insta.svg' },
+        { name: 'WhatsApp API', icon: '/projectIcons/wha.svg' },
+        { name: 'Docker', icon: '/projectIcons/dock.svg' },
+        { name: 'Cloud Services', icon: '/projectIcons/cloud.svg' },
+        { name: 'App Store', icon: '/projectIcons/app.svg' },
+      ],
+    },
+    github: 'https://github.com/natkins23/net_trailer',
+    liveSite: 'https://net-trailers.vercel.app/',
+  },
+  {
+    id: 2,
+    title: 'Quizmatic - AI Quiz Generation',
+    des: 'An innovative application that leverages AI to automatically generate quizzes on various topics, enhancing learning and assessment experiences.',
+    img: '/projects/quizmatic.png',
+    technologies: {
+      'Front-end': [
+        '/projectIcons/re.svg',
+        '/projectIcons/next.svg',
+        '/projectIcons/ts.svg',
+        '/projectIcons/tail.svg',
+        '/projectIcons/fm.svg',
+      ],
+      'Back-end': ['/projectIcons/node.svg', '/projectIcons/c.svg'],
+    },
+    github: 'https://github.com/natkins23/Quizmatic',
+    liveSite: 'https://quizmatic.vercel.app/',
+  },
+  {
+    id: 3,
+    title: 'Web Dev Solutions - Consulting',
+    des: 'A professional portfolio website showcasing web development consulting services, highlighting expertise, projects, and client solutions.',
+    img: '/projects/webdev.jpg',
+    technologies: {
+      'Front-end': [
+        '/projectIcons/re.svg',
+        '/projectIcons/next.svg',
+        '/projectIcons/ts.svg',
+        '/projectIcons/tail.svg',
+      ],
+      'Back-end': ['/projectIcons/firebase.png'],
+    },
+    github: 'https://github.com/natkins23/web-dev-solutions',
+    liveSite: 'https://webdevsolutions.vercel.app/',
+  },
+  {
+    id: 4,
+    title: 'STORE - Ecommerce App',
+    des: 'A fully-functional ecommerce application featuring product listings, shopping cart functionality, and secure checkout process for online retail.',
+    img: '/projects/store.jpg',
+    technologies: {
+      'Front-end': [
+        '/projectIcons/re.svg',
+        '/projectIcons/next.svg',
+        '/projectIcons/ts.svg',
+        '/projectIcons/tail.svg',
+        '/projectIcons/gsap.svg',
+      ],
+      'Back-end': ['/projectIcons/node.svg', '/projectIcons/c.svg', '/projectIcons/postgresql.svg'],
+    },
+    github: 'https://github.com/natkins23/ecommerce-store',
+    liveSite: 'https://store-ecommerce.vercel.app/',
   },
 ]
 

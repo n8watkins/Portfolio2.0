@@ -17,7 +17,6 @@ export const BentoGrid = ({
   children?: React.ReactNode
 }) => {
   return (
-    //2xl:bg-yellow-500 xl:bg-purple-600 lg:bg-green-500 md:bg-red-500 sm:bg-orange-500 bg-teal-500
     <div
       className={cn(
         'grid  grid-cols-2 grid-rows-11  auto-rows-[5rem]  md:auto-rows-[7rem] lg:auto-rows-[8rem] sm:grid-rows-20 md:grid-cols-4 md:grid-rows-7 xl:auto-rows-[5rem] lg:grid-rows-8 gap-5 md:gap-7 lg:gap-8   max-w-md sm:max-w-lg md:max-w-3xl lg:max-w-4xl xl:max-w-5xl lg:m-auto mx-auto pt-40 lg:pt-0',
@@ -32,13 +31,11 @@ export const BentoGridItem = ({
   title,
   description,
   id,
-  lightImg,
-  darkImg,
+  img,
   imgClassName,
   titleClassName,
   textContainerClassName,
   imgContainerClass,
-  spareImg,
   descriptionClass,
   textOrder,
   buttonClass,
@@ -48,13 +45,11 @@ export const BentoGridItem = ({
   title?: string | React.ReactNode
   description?: string | React.ReactNode
   id?: number
-  lightImg: string
-  darkImg: string
+  img: string
   titleClassName: string
   imgClassName: string
   textContainerClassName?: string
   imgContainerClass?: string
-  spareImg: string
   descriptionClass?: string
   textOrder?: string
   buttonClass?: string
@@ -79,18 +74,18 @@ export const BentoGridItem = ({
           <div className="">
             <GridPattern className="z-20" />
             <div className={`  z-30 ${imgContainerClass} border-none`}>
-              <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
+              <Image src={`${img}`} fill className={` ${imgClassName} `} alt={img} />
             </div>
           </div>
         )) ||
           ((id === 4 || id == 2) && (
             <div className={`  ${imgContainerClass} `}>
-              <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
+              <Image src={`${img}`} fill className={` ${imgClassName} `} alt={img} />
             </div>
           )) ||
           (id == 6 && (
             <div className={`  ${imgContainerClass} `}>
-              <Image src={lightImg} fill className={` ${imgClassName} `} alt={lightImg} />
+              <Image src={`${img}`} fill className={` ${imgClassName} `} alt={img} />
             </div>
           ))
       }

@@ -16,13 +16,11 @@ const Grid = () => {
               gridItemContainer,
               title,
               description,
-              lightImg,
-              darkImg,
+              img,
               imgClassName,
               titleClassName,
               textContainerClassName,
               imgContainerClass,
-              spareImg,
               descriptionClass,
               textOrder,
               buttonClass,
@@ -37,13 +35,11 @@ const Grid = () => {
                 gridItemContainer={gridItemContainer}
                 title={title}
                 description={description}
-                lightImg={lightImg}
-                darkImg={darkImg}
+                img={img}
                 imgClassName={imgClassName}
                 titleClassName={titleClassName}
                 textContainerClassName={textContainerClassName}
                 imgContainerClass={imgContainerClass}
-                spareImg={spareImg}
                 descriptionClass={descriptionClass}
                 textOrder={textOrder}
                 buttonClass={buttonClass}
