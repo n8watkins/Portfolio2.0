@@ -71,10 +71,16 @@ export const BentoGridItem = ({
       {
         //backgrounds
         (id === 1 && (
-          <div className="">
-            <GridPattern className="z-20" />
-            <div className={`  z-30 ${imgContainerClass} border-none`}>
-              <Image src={`${img}`} fill className={` ${imgClassName} `} alt={img} />
+          <div className="relative w-full h-full overflow-hidden">
+            <GridPattern className="absolute inset-0 z-10" />
+            <div className={`relative z-30 ${imgContainerClass}`}>
+              <Image
+                src={img}
+                layout="fill"
+                objectFit="cover"
+                className={`rounded-3xl ${imgClassName}`}
+                alt="Bento grid image"
+              />
             </div>
           </div>
         )) ||
@@ -99,9 +105,10 @@ export const BentoGridItem = ({
             <MapDetails />
           </div>
         )}
+        
         <div className={` ${textOrder}  `}>
           <div className={` ${titleClassName} `}>{title}</div>
-          <div className={`${descriptionClass}`}>{description}</div>
+          <div className={` ${descriptionClass}`}>{description}</div>
         </div>
         {id === 4 && <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />}
         {id === 6 && (

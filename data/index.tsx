@@ -23,9 +23,105 @@ import {
   SiPostgresql,
   SiClerk,
   SiNextdotjs,
+  SiAwsamplify,
 } from 'react-icons/si'
 import { AiOutlineApi } from 'react-icons/ai' // For APIs
 import { GrMysql } from 'react-icons/gr'
+
+export const coloredSquares = [
+  [3, 4],
+  [7, 1],
+  [2, 3],
+  [5, 6],
+  [4, 5],
+  [1, 7],
+  [6, 2],
+  [8, 3],
+  [9, 5],
+  [3, 2],
+  [4, 8],
+  [5, 9],
+  [7, 3],
+  [2, 8],
+  [6, 4],
+  [8, 6],
+  [3, 7],
+  [9, 1],
+  [1, 5],
+  [4, 2],
+  [10, 2],
+  [11, 4],
+  [12, 6],
+  [13, 1],
+  [14, 3],
+  [15, 5],
+  [1, 8],
+  [2, 9],
+  [3, 10],
+  [4, 11],
+  [5, 12],
+  [6, 13],
+  [7, 14],
+  [8, 15],
+  [9, 7],
+  [10, 8],
+  [11, 9],
+  [12, 10],
+  [13, 11],
+  [14, 12],
+  [15, 13],
+  [1, 3],
+  [2, 5],
+  [3, 7],
+  [4, 9],
+  [5, 11],
+  [6, 13],
+  [7, 15],
+  [8, 2],
+  [9, 4],
+  [10, 6],
+  [11, 8],
+  [12, 10],
+  [13, 12],
+  [14, 14],
+  [15, 1],
+  [14, 3],
+  [13, 5],
+  [12, 7],
+  [11, 9],
+  [10, 11],
+  [9, 13],
+  [1, 9],
+  [2, 10],
+  [3, 11],
+  [4, 12],
+  [5, 13],
+  [6, 14],
+  [7, 15],
+  [8, 1],
+  [9, 2],
+  [10, 3],
+  [11, 4],
+  [12, 5],
+  [13, 6],
+  [14, 7],
+  [15, 8],
+  [1, 6],
+  [2, 7],
+  [3, 8],
+  [4, 10],
+  [5, 14],
+  [6, 15],
+  [7, 2],
+  [8, 4],
+  [9, 6],
+  [10, 9],
+  [11, 12],
+  [12, 14],
+  [13, 3],
+  [14, 5],
+  [15, 7],
+]
 
 export const navItems = [
   { name: 'About', link: 'about' },
@@ -102,8 +198,8 @@ export const tech_libraries = [
     category: 'Version Control',
   },
   {
-    name: 'Amplify',
-    icon: <FaAws className="w-7 h-7" />,
+    name: 'AWS Amplify',
+    icon: <SiAwsamplify className="w-7 h-7" />,
     description: 'Set of tools for building scalable mobile and web apps.',
     category: 'Development Platform',
   },
@@ -249,26 +345,53 @@ export const gridItems = [
   {
     id: 1,
     gridItemContainer:
-      'col-span-2 row-span-4 h-[40rem]  md:row-span-2 md:col-span-4 lg:col-span-2 lg:row-span-4 xl:col-span-4 md:h-[20rem] lg:h-[40rem]  xl:h-auto ',
+      'col-span-2 row-span-4 h-[40rem]  md:row-span-2 md:col-span-4 lg:col-span-2 lg:row-span-4 xl:col-span-4 md:h-[20rem] lg:h-[40rem] xl:h-[20rem]  xl:w-[100%] ',
     title: 'My Start',
     description:
       'During COVID, I built a Chrome extension to automate class attendance. Coding to make life easier flipped my learning paradigm.',
     imgContainerClass:
-      ' absolute w-[13rem] h-[13rem] top-[20rem] left-12 1sm:w-[17rem] 1sm:h-[17rem] 1sm:top-[19rem] 1sm:left-1 1md:w-[20rem] 1md:h-[20rem] 1md:top-[17rem] 1md:left-2  1lg:w-[20rem] 1lg:h-[20rem] 1lg:top-[17rem] 1lg:left-10 m-5 z-30 top-[16rem] left-12 sm:left-20 md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] lg:top-[16rem] lg:left-9  lg:w-[20rem] lg:h-[20rem] xl:top-2  xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] 2xl:left-[43rem] group overflow-hidden rounded-3xl group-hover:scale-105 transition duraton-200',
-    imgClassName: '',
-    duration: ' rounded-3xl  z-10  ',
+      'absolute ' +
+      'w-[80%] h-[50%]  ' + // Base size
+      'top-[18rem] ' + // Base position
+      // 'sm:w-[40%] sm:h-[60%] ' +
+      'md:w-[30%] md:h-[70%] md:left-60 md:top-1/2 md:-translate-y-1/2 ' + // Adjust for medium screens
+      'lg:w-[80%] lg:h-[50%] lg:left-0 lg:top-[18rem] lg:translate-y-0 ' + // Adjust for large screens
+      'xl:w-[30%] xl:h-[80%] xl:left-80 xl:top-1/2 xl:-translate-y-1/2 ' + // Adjust for extra large screens
+      'z-30 rounded-3xl overflow-visible mx-auto aspect-ratio ' +
+      'transition-all duration-300 ease-in-out ' +
+      'shadow-lg',
+    imgClassName:
+      'flex aspect-ratio rounded-3xl item-center justify-center group-hover:scale-105 transition duration-200',
+    duration: 'rounded-3xl z-10',
     img: '/bento/laptop.jpeg',
     textContainerClassName:
-      ' absolute top-0 left-0  h-full w-full  z-50 text-slate-200 dark:text-white  ',
-    textOrder: 'z-50 group-hover:translate-x-2 transition duration-200',
+      'absolute inset-0 flex flex-col justify-center ' +
+      'p-6 md:p-8 ' +
+      'z-20 text-slate-200 ' +
+      'w-full md:w-2/3 lg:w-1/2', // Adjust text width to make room for image
+    textOrder: ' ',
     titleClassName:
-      'relative z-50  font-sans font-bold text-2xl lg:text-4xl flex  items-center pt-10 ml-10 w-full h-[5rem] select-none ',
+      'absolute top-4 font-sans  transition duration-200 group-hover:translate-x-2 font-bold ' +
+      'text-2xl sm:text-3xl md:text-3xl  lg:w-[22rem] lg:text-4xl ' +
+      'mb-4 ' +
+      'select-none',
     descriptionClass:
-      'text-lg  z-50  text-slate-200  mx-10 pt-4  w-[80%] md:w-[50%] lg:w-[80%] xl:w-[60%]  select-none ',
+      'transition duration-200  group-hover:translate-x-2       absolute top-14 md:top-[4rem] lg:top-[5rem] text-base font-semibold sm:text-lg md:w-[24rem] md:text-lg lg:w-[24rem] xl:w-[35rem] ' +
+      'text-slate-300  ' +
+      'select-none',
     buttonContainer: '',
     buttonClass: '',
   },
-  // completed
+  // '1sm:w-[17rem] 1sm:h-[17rem] 1sm:top-[19rem] 1sm:left-[1.8rem] ' +
+  // '1md:w-[20rem] 1md:h-[20rem] 1md:top-[17rem] 1md:m-auto ' +
+  // '1lg:w-[20rem] 1lg:h-[20rem] 1lg:top-[17rem] 1lg:left-10 ' +
+  // 'top-[16rem] left-12 ' +
+  // 'sm:left-20 ' +
+  // 'md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] ' +
+  // 'lg:top-[16rem] lg:left-9 lg:w-[20rem] lg:h-[20rem] ' +
+  // 'xl:top-2 xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] ' +
+  // '2xl:left-[43rem] ' +
+
   {
     id: 2,
     title: 'Ready to reloate',
@@ -418,90 +541,6 @@ export const projectIconSkeleton = [
   { name: 'Tailwind CSS', icon: '/projectIcons/tail.svg' },
 ]
 
-export const projects = [
-  {
-    id: 1,
-    title: 'Net-Trailer - Netflix Clone',
-    des: 'A Netflix-inspired web application that showcases movie trailers and information, providing a similar user experience to the popular streaming platform.',
-    img: '/projects/netflix.jpg',
-    technologies: {
-      'Front-end': [
-        { name: 'React', icon: '/projectIcons/re.svg' },
-        { name: 'Next.js', icon: '/projectIcons/next.svg' },
-        { name: 'TypeScript', icon: '/projectIcons/ts.svg' },
-        { name: 'Tailwind CSS', icon: '/projectIcons/tail.svg' },
-        { name: 'Clerk', icon: '/projectIcons/clerk.svg' },
-        { name: 'Stream', icon: '/projectIcons/stream.svg' },
-        { name: 'Three.js', icon: '/projectIcons/three.svg' },
-      ],
-      'Back-end': [
-        { name: 'GitHub', icon: '/projectIcons/github.svg' },
-        { name: 'Hosting', icon: '/projectIcons/host.svg' },
-        { name: 'Instagram API', icon: '/projectIcons/insta.svg' },
-        { name: 'WhatsApp API', icon: '/projectIcons/wha.svg' },
-        { name: 'Docker', icon: '/projectIcons/dock.svg' },
-        { name: 'Cloud Services', icon: '/projectIcons/cloud.svg' },
-        { name: 'App Store', icon: '/projectIcons/app.svg' },
-      ],
-    },
-    github: 'https://github.com/natkins23/net_trailer',
-    liveSite: 'https://net-trailers.vercel.app/',
-  },
-  {
-    id: 2,
-    title: 'Quizmatic - AI Quiz Generation',
-    des: 'An innovative application that leverages AI to automatically generate quizzes on various topics, enhancing learning and assessment experiences.',
-    img: '/projects/quizmatic.png',
-    technologies: {
-      'Front-end': [
-        '/projectIcons/re.svg',
-        '/projectIcons/next.svg',
-        '/projectIcons/ts.svg',
-        '/projectIcons/tail.svg',
-        '/projectIcons/fm.svg',
-      ],
-      'Back-end': ['/projectIcons/node.svg', '/projectIcons/c.svg'],
-    },
-    github: 'https://github.com/natkins23/Quizmatic',
-    liveSite: 'https://quizmatic.vercel.app/',
-  },
-  {
-    id: 3,
-    title: 'Web Dev Solutions - Consulting',
-    des: 'A professional portfolio website showcasing web development consulting services, highlighting expertise, projects, and client solutions.',
-    img: '/projects/webdev.jpg',
-    technologies: {
-      'Front-end': [
-        '/projectIcons/re.svg',
-        '/projectIcons/next.svg',
-        '/projectIcons/ts.svg',
-        '/projectIcons/tail.svg',
-      ],
-      'Back-end': ['/projectIcons/firebase.png'],
-    },
-    github: 'https://github.com/natkins23/web-dev-solutions',
-    liveSite: 'https://webdevsolutions.vercel.app/',
-  },
-  {
-    id: 4,
-    title: 'STORE - Ecommerce App',
-    des: 'A fully-functional ecommerce application featuring product listings, shopping cart functionality, and secure checkout process for online retail.',
-    img: '/projects/store.jpg',
-    technologies: {
-      'Front-end': [
-        '/projectIcons/re.svg',
-        '/projectIcons/next.svg',
-        '/projectIcons/ts.svg',
-        '/projectIcons/tail.svg',
-        '/projectIcons/gsap.svg',
-      ],
-      'Back-end': ['/projectIcons/node.svg', '/projectIcons/c.svg', '/projectIcons/postgresql.svg'],
-    },
-    github: 'https://github.com/natkins23/ecommerce-store',
-    liveSite: 'https://store-ecommerce.vercel.app/',
-  },
-]
-
 export const workExperience = [
   {
     id: 1,
@@ -533,97 +572,171 @@ export const workExperience = [
   },
 ]
 
-export const coloredSquares = [
-  [3, 4],
-  [7, 1],
-  [2, 3],
-  [5, 6],
-  [4, 5],
-  [1, 7],
-  [6, 2],
-  [8, 3],
-  [9, 5],
-  [3, 2],
-  [4, 8],
-  [5, 9],
-  [7, 3],
-  [2, 8],
-  [6, 4],
-  [8, 6],
-  [3, 7],
-  [9, 1],
-  [1, 5],
-  [4, 2],
-  [10, 2],
-  [11, 4],
-  [12, 6],
-  [13, 1],
-  [14, 3],
-  [15, 5],
-  [1, 8],
-  [2, 9],
-  [3, 10],
-  [4, 11],
-  [5, 12],
-  [6, 13],
-  [7, 14],
-  [8, 15],
-  [9, 7],
-  [10, 8],
-  [11, 9],
-  [12, 10],
-  [13, 11],
-  [14, 12],
-  [15, 13],
-  [1, 3],
-  [2, 5],
-  [3, 7],
-  [4, 9],
-  [5, 11],
-  [6, 13],
-  [7, 15],
-  [8, 2],
-  [9, 4],
-  [10, 6],
-  [11, 8],
-  [12, 10],
-  [13, 12],
-  [14, 14],
-  [15, 1],
-  [14, 3],
-  [13, 5],
-  [12, 7],
-  [11, 9],
-  [10, 11],
-  [9, 13],
-  [1, 9],
-  [2, 10],
-  [3, 11],
-  [4, 12],
-  [5, 13],
-  [6, 14],
-  [7, 15],
-  [8, 1],
-  [9, 2],
-  [10, 3],
-  [11, 4],
-  [12, 5],
-  [13, 6],
-  [14, 7],
-  [15, 8],
-  [1, 6],
-  [2, 7],
-  [3, 8],
-  [4, 10],
-  [5, 14],
-  [6, 15],
-  [7, 2],
-  [8, 4],
-  [9, 6],
-  [10, 9],
-  [11, 12],
-  [12, 14],
-  [13, 3],
-  [14, 5],
-  [15, 7],
+export const projects = [
+  {
+    id: 1,
+    title: 'Net-Trailer',
+    subTitle: 'Netflix Clone',
+    des: 'A Web App showcasing movie info and trailers, providing a user experience to the popular streaming platform including Likeing, Add to Watchlists, and payment processing.',
+    img: '/projects/netflix.jpg',
+    technologies: {
+      Frontend: {
+        descriptionParts: [
+          {
+            text: 'A responsive design with modern UI components',
+            icons: [{ icon: 're.svg' }, { icon: 'shadcn.png' }, { icon: 'tail.svg' }],
+          },
+          {
+            text: 'Leveraging Next.js for SSR, SSG, and efficient routing',
+            icons: [{ icon: 'next.svg' }],
+          },
+          {
+            text: 'Enhancing reliability with type safety',
+            icons: [{ icon: 'ts.svg' }],
+          },
+        ],
+      },
+      Backend: {
+        descriptionParts: [
+          {
+            text: 'Integrated payment gateways for secure transactions',
+            icons: [{ icon: 'paypal.png' }, { icon: 'stripe.png' }],
+          },
+          {
+            text: 'Implemented secure authentication and authorization',
+            icons: [{ icon: 'nextAuth.png' }],
+          },
+        ],
+      },
+      Infrastructure: {
+        descriptionParts: [
+          {
+            text: 'Deployed with modern hosting and version control',
+            icons: [{ icon: 'vercel.png' }, { icon: 'github.png' }],
+          },
+          {
+            text: 'Utilized image hosting for optimized content delivery',
+            icons: [{ icon: 'cloud.svg' }],
+          },
+          {
+            text: 'Leveraged Firebase for real-time database and storage',
+            icons: [{ icon: 'firebase.png' }],
+          },
+        ],
+      },
+    },
+    github: 'https://github.com/natkins23/net_trailer',
+    liveSite: 'https://net-trailers.vercel.app/',
+  },
+  {
+    id: 2,
+    title: 'Quizmatic',
+    subTitle: 'AI Quiz Generation',
+    des: `An AI application that leverages OpenAI\'s ChatGPT to generate tailored quizzes on various topics, enhancing the learning and assessment experience.`,
+    img: '/projects/quizmatic.png',
+    technologies: {
+      Frontend: {
+        descriptionParts: [
+          {
+            text: 'A responsive design with modern UI components',
+            icons: [{ icon: 're.svg' }, { icon: 'shadcn.png' }, { icon: 'tail.svg' }],
+          },
+          {
+            text: 'Leveraging Next.js for SSR, SSG, and efficient routing',
+            icons: [{ icon: 'next.svg' }],
+          },
+          {
+            text: 'Enhancing reliability with type safety',
+            icons: [{ icon: 'ts.svg' }],
+          },
+        ],
+      },
+      Backend: {
+        descriptionParts: [
+          {
+            text: 'Server-side validation and type checking',
+            icons: [{ icon: 'zod.png' }],
+          },
+          {
+            text: 'ORM managed database with type-saftey schema validation',
+            icons: [{ icon: 'prisma.png' }, { icon: 'postgresql.png' }],
+          },
+          {
+            text: 'Integrated ChatGPT for user tailored quiz generation ',
+            icons: [{ icon: 'gpt.png' }],
+          },
+        ],
+      },
+      Infrastructure: {
+        descriptionParts: [
+          {
+            text: 'Deployed with modern hosting and version control',
+            icons: [{ icon: 'vercel.png' }, { icon: 'github.png' }],
+          },
+          {
+            text: 'Utilized Supabase for real-time database functionality, authentication, and serverless APIs',
+            icons: [{ icon: 'supabase.png' }, { icon: 'gpt.png' }],
+          },
+        ],
+      },
+    },
+    github: 'https://github.com/natkins23/Quizmatic',
+    liveSite: 'https://quizmatic.vercel.app/',
+  },
 ]
+
+export const techNameMapping = {
+  //FRONTEND
+  //----->Frameworks
+  're.svg': 'React',
+  'next.svg': 'Next.js',
+  'ts.svg': 'TypeScript',
+  //----->Styling & UI Libraries
+  'tail.svg': 'Tailwind CSS',
+  'shadcn.png': 'ShadCN UI',
+  //----->Animation & Interaction
+  'three.svg': 'Three.js',
+  'gsap.svg': 'GSAP',
+  'fm.svg': 'Framer Motion',
+
+  // BACKEND
+  //----->Runtime & Logic
+  'node.png': 'Node.js',
+  'prisma.png': 'Prisma',
+  'jest.png': 'Jest',
+  //----->API
+  'graphql.png': 'GraphQL',
+  'apollo.png': 'Apollo',
+  'paypal.png': 'Paypal API',
+  'stripe.png': 'Stripe API',
+  'wha.svg': 'WhatsApp API',
+  'insta.svg': 'Instagram API',
+  'gpt.png': 'ChatGPT API',
+  //----->Auth
+  'clerk.svg': 'Clerk',
+  'nextAuth.png': 'NextAuth',
+  'zod.png': 'Zod',
+
+  // Infrastructure
+  //----->Media & Storage
+  'cloud.svg': 'Cloudinary',
+  //----->databases
+  'firebase.png': 'Firebase',
+  'aws.png': 'AWS',
+  'google.png': 'Google Cloud Platform',
+  'mongo.png': 'MongoDB',
+  'supabase.png': 'Supabase',
+  'postgresql.png': 'PostgreSQL',
+  'mysql.png': 'MySQL',
+  //----->hosting
+  'github.png': 'GitHub',
+  'awsAmplify.png': 'Amplify',
+  'vercel.png': 'Vercel',
+  'netlify.png': 'Netlify',
+  'heroku.png': 'Heroku',
+  'host.svg': 'Hostinger',
+  'digitalocean.png': 'DigitalOcean',
+  //----->Containerization & Orchestration
+  'dock.svg': 'Docker',
+  'kubernetes.png': 'Kubernetes',
+}

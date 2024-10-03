@@ -1,20 +1,33 @@
-export interface Technology {
-  name: string
+export interface TechIcon {
   icon: string
 }
 
-export type TechnologyItem = Technology | string
+export interface DescriptionPart {
+  text: string
+  icons: TechIcon[]
+}
 
-export interface TechnologiesType {
-  [key: string]: TechnologyItem[]
+export interface TechnologyCategory {
+  descriptionParts: DescriptionPart[]
+}
+
+export interface Technologies {
+  Frontend: TechnologyCategory
+  Backend: TechnologyCategory
+  Infrastructure: TechnologyCategory
 }
 
 export interface Project {
   id: number
   title: string
+  subTitle: string
   des: string
   img: string
-  technologies: TechnologiesType
+  technologies: Technologies
   github: string
   liveSite: string
+}
+
+export type TechNameMappingInterface = {
+  [key: string]: string
 }

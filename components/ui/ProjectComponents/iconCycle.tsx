@@ -1,236 +1,280 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useEffect, useRef, useLayoutEffect } from 'react'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { TechnologiesType, TechnologyItem } from '@/lib/types'
-import { projectIconSkeleton } from '@/data'
+import { techNameMapping } from '@/data'
+import { Technologies, TechNameMappingInterface } from '@/lib/types'
 
 interface IconCycleProps {
-  technologies: TechnologiesType
-  isIconsLoading: boolean
-  autoCycleInterval?: number // in milliseconds
+  technologies: Technologies
 }
 
-const MAX_ICONS_PER_VIEW = 4
-const ANIMATION_DURATION = 500 // ms
+const HOVER_INTERVAL = 3000 // 3 seconds per icon
 
-const IconGenerationSkeleton: React.FC = () => {
-  return (
-    <div className="flex flex-col items-start ">
-      <div className="flex items-center space-x-4 mb-4">
-        <div className="px-3 py-1 text-sm bg-white text-blue-500 rounded-full">Front-end</div>
-        <div className=" px-3 py-1 text-sm bg-blue-500 text-white rounded-full">Back-end</div>
-      </div>
-      <div className="flex items-center space-x-4">
-        <ChevronLeft size={20} />
-        <div className="flex h-12 items-center overflow-hidden">
-          {projectIconSkeleton.map((_, index) => (
-            <div
-              key={index}
-              className={`relative w-12 h-12 rounded-full border-2 bg-darkBlue ${
-                index !== 0 ? '-ml-3' : ''
-              }`}>
-              <Image src={_.icon} alt={_.name} className="p-3" fill />
-            </div>
-          ))}
-        </div>
-        <ChevronRight size={20} />
-      </div>
-    </div>
-  )
-}
+const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
+  const categories = Object.keys(technologies) as (keyof Technologies)[]
+  const [currentCategory, setCurrentCategory] = useState<keyof Technologies>(categories[0])
+  const [hoveredIcons, setHoveredIcons] = useState<string[]>([])
+  const [cycledIconIndex, setCycledIconIndex] = useState(0)
+  const [highlightedDescriptionIndex, setHighlightedDescriptionIndex] = useState<number>(0)
+  const [isFirstRender, setIsFirstRender] = useState(true)
 
-const IconCycle: React.FC<IconCycleProps> = ({
-  technologies,
-  isIconsLoading,
-  autoCycleInterval = 3000,
-}) => {
-  const categories = Object.keys(technologies)
-  const [currentCategory, setCurrentCategory] = useState<string>(categories[0])
-  const [currentSetIndex, setCurrentSetIndex] = useState<number>(0)
-  const [direction, setDirection] = useState<number>(1)
-  const [isAnimating, setIsAnimating] = useState<boolean>(false)
-  const [isHovering, setIsHovering] = useState<boolean>(false)
-  const autoCycleTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const isManualHoverRef = useRef(false)
+  const allIconsRef = useRef<
+    { icon: string; category: keyof Technologies; descriptionIndex: number }[]
+  >([])
+  const currentCategoryRef = useRef(currentCategory)
 
-  useEffect(() => {
-    if (categories.length > 0) {
-      setCurrentCategory(categories[0])
-      setCurrentSetIndex(0)
+  useLayoutEffect(() => {
+    allIconsRef.current = categories.flatMap((category) =>
+      technologies[category].descriptionParts.flatMap((part, descriptionIndex) =>
+        part.icons.map((tech) => ({ icon: tech.icon, category, descriptionIndex }))
+      )
+    )
+  }, [technologies, categories])
+
+  useLayoutEffect(() => {
+    currentCategoryRef.current = currentCategory
+  }, [currentCategory])
+
+  const handleCategoryClick = useCallback((category: keyof Technologies) => {
+    setCurrentCategory(category)
+    // Find the first icon of the selected category
+    const firstIconOfCategory = allIconsRef.current.find((icon) => icon.category === category)
+    if (firstIconOfCategory) {
+      setCycledIconIndex(allIconsRef.current.indexOf(firstIconOfCategory))
+      setHighlightedDescriptionIndex(firstIconOfCategory.descriptionIndex)
+    } else {
+      setCycledIconIndex(0)
+      setHighlightedDescriptionIndex(0)
     }
-  }, [technologies])
+    setHoveredIcons([])
+    resetCycling()
+  }, [])
 
-  const getCurrentTechs = useCallback((): TechnologyItem[] => {
-    if (!technologies[currentCategory]) {
-      console.error(`Category ${currentCategory} not found in technologies`)
-      return []
+  const getTechName = useCallback((iconName: string): string => {
+    return (techNameMapping as TechNameMappingInterface)[iconName] || iconName
+  }, [])
+
+  const resetCycling = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
     }
-    const techs = technologies[currentCategory]
-    const startIndex = currentSetIndex * MAX_ICONS_PER_VIEW
-    return techs.slice(startIndex, startIndex + MAX_ICONS_PER_VIEW)
-  }, [technologies, currentCategory, currentSetIndex])
-
-  const getTotalSets = useCallback(
-    (category: string): number => {
-      const techs = technologies[category]
-      return Math.ceil(techs.length / MAX_ICONS_PER_VIEW)
-    },
-    [technologies]
-  )
-
-  const handleNavigate = useCallback(
-    (newDirection: number) => {
-      if (isAnimating) return
-      setDirection(newDirection)
-      setCurrentSetIndex((prevIndex) => {
-        const currentTotalSets = getTotalSets(currentCategory)
-        let newIndex = prevIndex + newDirection
-
-        if (newIndex >= currentTotalSets || newIndex < 0) {
-          // Switch to the next/previous category
-          const currentCategoryIndex = categories.indexOf(currentCategory)
-          let newCategoryIndex =
-            (currentCategoryIndex + newDirection + categories.length) % categories.length
-          const newCategory = categories[newCategoryIndex]
-          setCurrentCategory(newCategory)
-
-          // Set the index based on the direction
-          newIndex = newDirection > 0 ? 0 : getTotalSets(newCategory) - 1
-        }
-
-        return newIndex
-      })
-      setIsAnimating(true)
-      setTimeout(() => setIsAnimating(false), ANIMATION_DURATION)
-    },
-    [isAnimating, currentCategory, categories, getTotalSets]
-  )
-
-  const handleCategoryJump = useCallback(
-    (category: string) => {
-      if (isAnimating || category === currentCategory) return
-      setDirection(categories.indexOf(category) > categories.indexOf(currentCategory) ? 1 : -1)
-      setCurrentCategory(category)
-      setCurrentSetIndex(0)
-      setIsAnimating(true)
-      setTimeout(() => setIsAnimating(false), ANIMATION_DURATION)
-    },
-    [isAnimating, currentCategory, categories]
-  )
+    if (!isManualHoverRef.current) {
+      startAutoCycle()
+    }
+  }
 
   const startAutoCycle = useCallback(() => {
-    if (autoCycleTimeoutRef.current) {
-      clearTimeout(autoCycleTimeoutRef.current)
-    }
-    autoCycleTimeoutRef.current = setTimeout(() => {
-      if (!isHovering) {
-        handleNavigate(1)
+    if (intervalRef.current) clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(() => {
+      if (!isManualHoverRef.current) {
+        setCycledIconIndex((prevIndex) => {
+          const nextIndex = (prevIndex + 1) % allIconsRef.current.length
+          const nextIcon = allIconsRef.current[nextIndex]
+
+          if (nextIcon.category !== currentCategoryRef.current) {
+            setCurrentCategory(nextIcon.category)
+            setHighlightedDescriptionIndex(0)
+          } else {
+            setHighlightedDescriptionIndex(nextIcon.descriptionIndex)
+          }
+
+          return nextIndex
+        })
       }
-      startAutoCycle()
-    }, autoCycleInterval)
-  }, [handleNavigate, isHovering, autoCycleInterval])
+    }, HOVER_INTERVAL)
+  }, [setCurrentCategory])
 
   useEffect(() => {
-    startAutoCycle()
+    if (isFirstRender) {
+      setCycledIconIndex(0)
+      setHighlightedDescriptionIndex(0)
+      setIsFirstRender(false)
+    } else {
+      startAutoCycle()
+    }
     return () => {
-      if (autoCycleTimeoutRef.current) {
-        clearTimeout(autoCycleTimeoutRef.current)
+      if (intervalRef.current) clearInterval(intervalRef.current)
+    }
+  }, [isFirstRender, startAutoCycle])
+
+  const handleIconHover = useCallback((icon: string, descriptionIndex: number) => {
+    const newIndex = allIconsRef.current.findIndex(
+      (tech) => tech.icon === icon && tech.category === currentCategoryRef.current
+    )
+    if (newIndex !== -1) {
+      setCycledIconIndex(newIndex)
+      setHighlightedDescriptionIndex(descriptionIndex)
+      setHoveredIcons([icon])
+      isManualHoverRef.current = true
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
       }
     }
+  }, [])
+
+  const handleIconHoverEnd = useCallback(() => {
+    isManualHoverRef.current = false
+    setHoveredIcons([])
+    startAutoCycle()
   }, [startAutoCycle])
 
-  const getTechName = (tech: TechnologyItem): string => {
-    if (typeof tech === 'string') {
-      return tech.split('/').pop()?.split('.')[0] || 'Unknown'
-    }
-    return tech.name
-  }
+  const handleDescriptionHover = useCallback(
+    (index: number) => {
+      setHighlightedDescriptionIndex(index)
+      const descriptionIcons = technologies[currentCategory].descriptionParts[index].icons
+      const firstIconForDescription = descriptionIcons[0].icon
+      const icons = descriptionIcons.map((tech) => tech.icon)
 
-  const getTechIcon = (tech: TechnologyItem): string => {
-    if (typeof tech === 'string') {
-      return tech
+      const newIndex = allIconsRef.current.findIndex(
+        (tech) => tech.icon === firstIconForDescription && tech.category === currentCategory
+      )
+
+      if (newIndex !== -1) {
+        setCycledIconIndex(newIndex)
+      }
+
+      setHoveredIcons(icons)
+      isManualHoverRef.current = true
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    },
+    [technologies, currentCategory]
+  )
+
+  const handleDescriptionHoverEnd = useCallback(() => {
+    isManualHoverRef.current = false
+    setHoveredIcons([])
+    startAutoCycle()
+  }, [startAutoCycle])
+
+  const formatIconNames = useCallback(
+    (icons: string[]): string => {
+      if (icons.length === 0) return ''
+      if (icons.length === 1) return getTechName(icons[0])
+      if (icons.length === 2) return `${getTechName(icons[0])} and ${getTechName(icons[1])}`
+      return (
+        icons.slice(0, -1).map(getTechName).join(', ') +
+        ', and ' +
+        getTechName(icons[icons.length - 1])
+      )
+    },
+    [getTechName]
+  )
+
+  const currentIcon = allIconsRef.current[cycledIconIndex]
+
+  const getCurrentIcons = useCallback(() => {
+    if (hoveredIcons.length > 0) {
+      return hoveredIcons
     }
-    return tech.icon
-  }
+    if (currentIcon) {
+      return [currentIcon.icon]
+    }
+    return []
+  }, [hoveredIcons, currentIcon])
 
   return (
-    <div className="flex flex-col items-start">
-      {isIconsLoading ? (
-        <IconGenerationSkeleton />
-      ) : (
-        <>
-          <div className="flex items-center space-x-4 mb-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => handleCategoryJump(category)}
-                className={`px-3 py-1 text-sm rounded-full ${
-                  currentCategory === category
-                    ? 'bg-white text-blue-500'
-                    : 'bg-blue-500 text-white hover:bg-blue-600'
-                } transition-colors`}>
-                {category}
-              </button>
+    <div className="flex flex-col items-center py-5 space-y-3 w-full">
+      {/* Category buttons */}
+      <div className="flex justify-center space-x-4 mb-4 w-full">
+        {categories.map((category) => (
+          <motion.button
+            key={category}
+            onClick={() => handleCategoryClick(category)}
+            className={`px-4 py-2 text-md rounded-full transition-all ${
+              category === currentCategory
+                ? 'bg-gray-300 text-blue-500 shadow-md w-fit'
+                : 'bg-transparent text-white hover:bg-blue-300'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            animate={{ scale: category === currentCategory ? 1.1 : 1 }}>
+            {category}
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Description texts with bottom-to-top fade animation */}
+      <div className="relative overflow-visible w-full h-32 flex items-center">
+        {' '}
+        {/* Adjust height as needed */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentCategory}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="absolute w-full">
+            {technologies[currentCategory].descriptionParts.map((part, index) => (
+              <motion.p
+                key={index}
+                className={`flex items-start text-base cursor-pointer rounded-xl px-2 py-1 mb-2 ${
+                  index === highlightedDescriptionIndex ? 'bg-slate-800 w-fit' : ''
+                }`}
+                onMouseEnter={() => handleDescriptionHover(index)}
+                onMouseLeave={handleDescriptionHoverEnd}
+                animate={{
+                  x: index === highlightedDescriptionIndex ? 20 : 0,
+                  scale: index === highlightedDescriptionIndex ? 1.05 : 1,
+                  opacity: index === highlightedDescriptionIndex ? 1 : 0.8,
+                }}
+                transition={{ duration: 0.2 }}>
+                <span className="mr-2">•</span>
+                <span>{part.text}</span>
+              </motion.p>
             ))}
-          </div>
-          <div
-            className="flex items-center space-x-4"
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}>
-            <button
-              onClick={() => handleNavigate(-1)}
-              className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
-              disabled={isAnimating}
-              aria-label="Previous technologies">
-              <ChevronLeft size={20} />
-            </button>
-            <div className="relative w-48 h-12 overflow-hidden">
-              <AnimatePresence custom={direction} mode="wait" initial={false}>
-                <motion.div
-                  key={`${currentCategory}-${currentSetIndex}`}
-                  custom={direction}
-                  variants={{
-                    enter: (direction: number) => ({ x: direction > 0 ? '100%' : '-100%' }),
-                    center: { x: 0 },
-                    exit: (direction: number) => ({ x: direction > 0 ? '-100%' : '100%' }),
-                  }}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{
-                    x: { type: 'tween', duration: ANIMATION_DURATION / 1000 },
-                  }}
-                  className="flex absolute left-0 top-0">
-                  {getCurrentTechs().map((tech, index) => {
-                    const techName = getTechName(tech)
-                    const techIcon = getTechIcon(tech)
-                    return (
-                      <div
-                        key={`${currentCategory}-${techName}-${index}`}
-                        className={`relative w-12 h-12 rounded-full border-2 bg-gradient-to-l from-slate-900 to-darkBlue ${
-                          index !== 0 ? '-ml-3' : ''
-                        } transition-all duration-300 hover:z-10 hover:scale-110`}>
-                        <Image src={techIcon} alt={techName} className="p-3" fill />
-                        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs whitespace-nowrap">
-                          {techName}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-            <button
-              onClick={() => handleNavigate(1)}
-              className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
-              disabled={isAnimating}
-              aria-label="Next technologies">
-              <ChevronRight size={20} />
-            </button>
-          </div>
-        </>
-      )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Icon names */}
+      <div className="h-8 overflow-visible">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={getCurrentIcons().join(',')}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.2 }}
+            className="text-center text-lg font-semibold w-full">
+            {formatIconNames(getCurrentIcons())}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Icons */}
+      <div className="flex flex-wrap justify-center gap-4 w-full">
+        {allIconsRef.current
+          .filter((tech) => tech.category === currentCategory)
+          .map((tech) => (
+            <motion.div
+              key={`${currentCategory}-${tech.icon}`}
+              className="relative w-12 h-12 flex items-center justify-center"
+              onMouseEnter={() => handleIconHover(tech.icon, tech.descriptionIndex)}
+              onMouseLeave={handleIconHoverEnd}
+              animate={{
+                scale: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 1.2 : 1,
+                y: hoveredIcons.includes(tech.icon) || tech === currentIcon ? -5 : 0,
+                zIndex: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 10 : 1,
+              }}
+              transition={{ duration: 0.2 }}>
+              <div className="w-12 h-12 rounded-full border-2 p-2 bg-gradient-to-l from-slate-900 to-darkBlue overflow-hidden flex items-center justify-center">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={`/projectIcons/${tech.icon}`}
+                    alt={getTechName(tech.icon)}
+                    fill
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+      </div>
     </div>
   )
 }

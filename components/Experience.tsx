@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
+import Image from 'next/image'
 import { workExperience } from '@/data'
 import { Button } from './ui/MovingBorders'
 import { cn } from '@/lib/utils'
@@ -13,24 +14,30 @@ const ExperienceLoading = ({ currentTheme }: { currentTheme: string | undefined 
         My work <span className="text-purple-500"> experience</span>
       </h1>
 
-      <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
+      <div className="w-full mt-12 grid lg:grid-cols-2 grid-cols-1 gap-10">
         {workExperience.map((card) => (
           <div
             key={card.id}
             className={cn(
-              'flex-1 border-neutral-200 dark:border-slate-800 rounded-[1.75rem] overflow-hidden dark:bg-[#020621] bg-[#3B82F6]'
+              'flex-1 dark:border-slate-800 rounded-[1.75rem] overflow-hidden dark:bg-[#020621] bg-[#3B82F6] border border-white ring-1 ring-blue-500'
             )}>
             <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
               <div className="flex flex-row">
-                <img src={card.thumbnail} alt={card.title} className="z-20 lg:w-32 md:w-20 w-16" />
-                <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold">
+                <Image
+                  src={card.thumbnail}
+                  alt={card.title}
+                  width={128}
+                  height={128}
+                  className="z-20 lg:w-32 md:w-20 w-16"
+                />
+                <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold text-black dark:text-white ">
                   {card.title}
                 </h1>
               </div>
               <p
                 className={cn(
                   'text-start mt-3 text-base',
-                  currentTheme === 'dark' ? 'text-white-100' : 'text-white'
+                  currentTheme === 'dark' ? 'text-white' : 'text-white'
                 )}>
                 {card.desc}
               </p>
@@ -69,7 +76,7 @@ const Experience = () => {
         My work <span className="text-purple-500"> experience</span>
       </h1>
 
-      <div className="w-full mt-12 grid lg:grid-cols-4 grid-cols-1 gap-10">
+      <div className="w-full mt-12 grid grid-cols-1 lg:grid-cols-4 gap-10">
         {workExperience.map((card) => (
           <Button
             key={card.id}
@@ -89,7 +96,13 @@ const Experience = () => {
             )}>
             <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
               <div className="flex flex-row ">
-                <img src={card.thumbnail} alt={card.title} className="z-20 lg:w-32 md:w-20 w-16 " />
+                <Image
+                  src={card.thumbnail}
+                  alt={card.title}
+                  width={128}
+                  height={128}
+                  className="z-20 lg:w-32 md:w-20 w-16"
+                />
                 <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold">
                   {card.title}
                 </h1>
