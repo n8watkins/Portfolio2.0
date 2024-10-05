@@ -151,6 +151,10 @@ const Projects: React.FC = () => {
     }))
   }
 
+  const handleIconClick = (project: Project) => {
+    setSelectedProject(project)
+  }
+
   return (
     <div
       id="projects"
@@ -218,6 +222,7 @@ const Projects: React.FC = () => {
                 initialCategory={iconCycleStates[project.id]?.currentCategory}
                 initialIconIndex={iconCycleStates[project.id]?.cycledIconIndex}
                 onStateChange={(newState) => handleIconCycleStateChange(project.id, newState)}
+                onIconClick={() => handleIconClick(project)}
               />
             </div>
           </div>
