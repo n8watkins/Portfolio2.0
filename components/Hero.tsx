@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import { AuroraBackground } from './ui/aurora-background'
 import Image from 'next/image'
 import GridBackground from './ui/GridBackground'
 import { FiGithub } from 'react-icons/fi'

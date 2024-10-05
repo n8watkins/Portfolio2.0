@@ -1,24 +1,49 @@
 import React, { useState, useCallback, useEffect, useRef, useLayoutEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { techNameMapping } from '@/data'
 import { Technologies, TechNameMappingInterface } from '@/lib/types'
 
 interface IconCycleProps {
   technologies: Technologies
+  orientation?: 'h' | 'v'
+  iconClass?: string
+  view?: 'simple' | 'detailed'
+  initialCategory?: keyof Technologies
+  initialIconIndex?: number
+  onStateChange?: (state: IconCycleState) => void
+  onIconClick?: () => void
+}
+
+interface IconCycleState {
+  currentCategory: keyof Technologies
+  cycledIconIndex: number
+  highlightedDescriptionIndex: number
 }
 
 const HOVER_INTERVAL = 3000 // 3 seconds per icon
 
-const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
+const IconCycle: React.FC<IconCycleProps> = ({
+  technologies,
+  orientation = 'h',
+  iconClass = '',
+  view = 'detailed',
+  initialCategory,
+  initialIconIndex = 0,
+  onStateChange,
+  onIconClick,
+}) => {
   const categories = Object.keys(technologies) as (keyof Technologies)[]
-  const [currentCategory, setCurrentCategory] = useState<keyof Technologies>(categories[0])
+  const [currentCategory, setCurrentCategory] = useState<keyof Technologies>(
+    initialCategory || categories[0]
+  )
   const [hoveredIcons, setHoveredIcons] = useState<string[]>([])
-  const [cycledIconIndex, setCycledIconIndex] = useState(0)
+  const [cycledIconIndex, setCycledIconIndex] = useState(initialIconIndex)
   const [highlightedDescriptionIndex, setHighlightedDescriptionIndex] = useState<number>(0)
   const [isFirstRender, setIsFirstRender] = useState(true)
-
+  const [hoveredDescriptionIndex, setHoveredDescriptionIndex] = useState<number | null>(null)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const isManualHoverRef = useRef(false)
   const allIconsRef = useRef<
@@ -40,7 +65,6 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
 
   const handleCategoryClick = useCallback((category: keyof Technologies) => {
     setCurrentCategory(category)
-    // Find the first icon of the selected category
     const firstIconOfCategory = allIconsRef.current.find((icon) => icon.category === category)
     if (firstIconOfCategory) {
       setCycledIconIndex(allIconsRef.current.indexOf(firstIconOfCategory))
@@ -66,6 +90,18 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
     }
   }
 
+  const handleNextCategory = useCallback(() => {
+    const currentIndex = categories.indexOf(currentCategory)
+    const nextIndex = (currentIndex + 1) % categories.length
+    handleCategoryClick(categories[nextIndex])
+  }, [categories, currentCategory, handleCategoryClick])
+
+  const handlePreviousCategory = useCallback(() => {
+    const currentIndex = categories.indexOf(currentCategory)
+    const previousIndex = (currentIndex - 1 + categories.length) % categories.length
+    handleCategoryClick(categories[previousIndex])
+  }, [categories, currentCategory, handleCategoryClick])
+
   const startAutoCycle = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
     intervalRef.current = setInterval(() => {
@@ -89,7 +125,7 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
 
   useEffect(() => {
     if (isFirstRender) {
-      setCycledIconIndex(0)
+      setCycledIconIndex(initialIconIndex)
       setHighlightedDescriptionIndex(0)
       setIsFirstRender(false)
     } else {
@@ -98,7 +134,17 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [isFirstRender, startAutoCycle])
+  }, [isFirstRender, startAutoCycle, initialIconIndex])
+
+  useEffect(() => {
+    if (onStateChange) {
+      onStateChange({
+        currentCategory,
+        cycledIconIndex,
+        highlightedDescriptionIndex,
+      })
+    }
+  }, [currentCategory, cycledIconIndex, highlightedDescriptionIndex, onStateChange])
 
   const handleIconHover = useCallback((icon: string, descriptionIndex: number) => {
     const newIndex = allIconsRef.current.findIndex(
@@ -121,33 +167,43 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
     startAutoCycle()
   }, [startAutoCycle])
 
+  const handleIconClick = useCallback(
+    (icon: string, descriptionIndex: number) => {
+      handleIconHover(icon, descriptionIndex)
+      if (onIconClick) {
+        onIconClick()
+      }
+    },
+    [handleIconHover, onIconClick]
+  )
+
   const handleDescriptionHover = useCallback(
     (index: number) => {
       setHighlightedDescriptionIndex(index)
+      setHoveredDescriptionIndex(index)
       const descriptionIcons = technologies[currentCategory].descriptionParts[index].icons
-      const firstIconForDescription = descriptionIcons[0].icon
       const icons = descriptionIcons.map((tech) => tech.icon)
-
-      const newIndex = allIconsRef.current.findIndex(
-        (tech) => tech.icon === firstIconForDescription && tech.category === currentCategory
-      )
-
-      if (newIndex !== -1) {
-        setCycledIconIndex(newIndex)
-      }
 
       setHoveredIcons(icons)
       isManualHoverRef.current = true
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
+
+      const firstIconIndex = allIconsRef.current.findIndex(
+        (tech) => tech.icon === icons[0] && tech.category === currentCategory
+      )
+      if (firstIconIndex !== -1) {
+        setCycledIconIndex(firstIconIndex)
+      }
     },
-    [technologies, currentCategory]
+    [technologies, currentCategory, setCycledIconIndex]
   )
 
   const handleDescriptionHoverEnd = useCallback(() => {
     isManualHoverRef.current = false
     setHoveredIcons([])
+    setHoveredDescriptionIndex(null)
     startAutoCycle()
   }, [startAutoCycle])
 
@@ -177,15 +233,125 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
     return []
   }, [hoveredIcons, currentIcon])
 
-  return (
-    <div className="flex flex-col items-center py-5 space-y-3 w-full">
-      {/* Category buttons */}
-      <div className="flex justify-center space-x-4 mb-4 w-full">
+  const renderTitle = () => {
+    const currentIcons = getCurrentIcons()
+    const titleText = formatIconNames(currentIcons)
+
+    return (
+      <div className="flex flex-col items-center justify-center mb-4">
+        <div className="flex items-center">
+          <ChevronLeft
+            className="cursor-pointer text-gray-400 hover:text-white transition-colors"
+            onClick={handlePreviousCategory}
+          />
+          <div className="text-center mx-4">
+            <h3 className="font-bold text-xl mb-2">{currentCategory}</h3>
+          </div>
+          <ChevronRight
+            className="cursor-pointer text-gray-400 hover:text-white transition-colors"
+            onClick={handleNextCategory}
+          />
+        </div>
+        <p className="text-base">{titleText}</p>
+      </div>
+    )
+  }
+
+  const renderTechName = () => {
+    let techNames: string[] = []
+    if (hoveredDescriptionIndex !== null) {
+      techNames = technologies[currentCategory].descriptionParts[hoveredDescriptionIndex].icons.map(
+        (tech) => getTechName(tech.icon)
+      )
+    } else {
+      const currentIcons = getCurrentIcons()
+      techNames = currentIcons.map(getTechName)
+    }
+
+    const formattedNames = techNames.join(', ')
+
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={formattedNames}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="text-lg font-bold text-center mt-4">
+          {formattedNames}
+        </motion.div>
+      </AnimatePresence>
+    )
+  }
+
+  const renderIcons = () => (
+    <div className={`flex ${orientation === 'v' ? 'flex-col' : 'flex-row'} items-start gap-3`}>
+      {allIconsRef.current
+        .filter((tech) => tech.category === currentCategory)
+        .map((tech) => (
+          <motion.div
+            key={`${currentCategory}-${tech.icon}`}
+            className="relative flex flex-col items-center"
+            onMouseEnter={() => handleIconHover(tech.icon, tech.descriptionIndex)}
+            onMouseLeave={handleIconHoverEnd}
+            onClick={() => handleIconClick(tech.icon, tech.descriptionIndex)}
+            animate={{
+              scale: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 1.2 : 1,
+              [orientation === 'v' ? 'x' : 'y']:
+                hoveredIcons.includes(tech.icon) || tech === currentIcon ? -5 : 0,
+              zIndex: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 10 : 1,
+            }}
+            transition={{ duration: 0.2 }}>
+            <div
+              className={`w-10 h-10 rounded-full border-2 p-2 bg-slate-800 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
+                hoveredIcons.includes(tech.icon) || tech === currentIcon
+                  ? 'border-blue-500'
+                  : 'border-transparent'
+              }`}>
+              <div className="relative w-full h-full">
+                <Image
+                  src={`/projectIcons/${tech.icon}`}
+                  alt={getTechName(tech.icon)}
+                  fill
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        ))}
+    </div>
+  )
+
+  const renderSimpleView = () => (
+    <>
+      <div className="flex flex-col items-center justify-center mb-4">
+        <div className="flex items-center">
+          <ChevronLeft
+            className="cursor-pointer text-gray-400 hover:text-white transition-colors"
+            onClick={handlePreviousCategory}
+          />
+          <div className="text-center mx-4">
+            <h3 className="font-bold text-xl mb-2">{currentCategory}</h3>
+          </div>
+          <ChevronRight
+            className="cursor-pointer text-gray-400 hover:text-white transition-colors"
+            onClick={handleNextCategory}
+          />
+        </div>
+      </div>
+      {renderIcons()}
+      {renderTechName()}
+    </>
+  )
+
+  const renderDetailedView = () => (
+    <>
+      <div className="flex flex-row justify-start bg-blue-400 py-2 px-3 w-fit h-fit rounded-full gap-4  overflow-visible">
         {categories.map((category) => (
           <motion.button
             key={category}
             onClick={() => handleCategoryClick(category)}
-            className={`px-4 py-2 text-md rounded-full transition-all ${
+            className={`px-2 py-1 text-sm rounded-full transition-all ${
               category === currentCategory
                 ? 'bg-gray-300 text-blue-500 shadow-md w-fit'
                 : 'bg-transparent text-white hover:bg-blue-300'
@@ -196,85 +362,46 @@ const IconCycle: React.FC<IconCycleProps> = ({ technologies }) => {
           </motion.button>
         ))}
       </div>
-
-      {/* Description texts with bottom-to-top fade animation */}
-      <div className="relative overflow-visible w-full h-32 flex items-center">
-        {' '}
-        {/* Adjust height as needed */}
+      <div className="relative flex flex-col w-full h-40 justify-center items-start mb-4">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="absolute w-full">
-            {technologies[currentCategory].descriptionParts.map((part, index) => (
-              <motion.p
-                key={index}
-                className={`flex items-start text-base cursor-pointer rounded-xl px-2 py-1 mb-2 ${
-                  index === highlightedDescriptionIndex ? 'bg-slate-800 w-fit' : ''
-                }`}
-                onMouseEnter={() => handleDescriptionHover(index)}
-                onMouseLeave={handleDescriptionHoverEnd}
-                animate={{
-                  x: index === highlightedDescriptionIndex ? 20 : 0,
-                  scale: index === highlightedDescriptionIndex ? 1.05 : 1,
-                  opacity: index === highlightedDescriptionIndex ? 1 : 0.8,
-                }}
-                transition={{ duration: 0.2 }}>
-                <span className="mr-2">•</span>
-                <span>{part.text}</span>
-              </motion.p>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Icon names */}
-      <div className="h-8 overflow-visible">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={getCurrentIcons().join(',')}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.2 }}
-            className="text-center text-lg font-semibold w-full">
-            {formatIconNames(getCurrentIcons())}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Icons */}
-      <div className="flex flex-wrap justify-center gap-4 w-full">
-        {allIconsRef.current
-          .filter((tech) => tech.category === currentCategory)
-          .map((tech) => (
+          <div className="w-full">
             <motion.div
-              key={`${currentCategory}-${tech.icon}`}
-              className="relative w-12 h-12 flex items-center justify-center"
-              onMouseEnter={() => handleIconHover(tech.icon, tech.descriptionIndex)}
-              onMouseLeave={handleIconHoverEnd}
-              animate={{
-                scale: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 1.2 : 1,
-                y: hoveredIcons.includes(tech.icon) || tech === currentIcon ? -5 : 0,
-                zIndex: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 10 : 1,
-              }}
-              transition={{ duration: 0.2 }}>
-              <div className="w-12 h-12 rounded-full border-2 p-2 bg-gradient-to-l from-slate-900 to-darkBlue overflow-hidden flex items-center justify-center">
-                <div className="relative w-full h-full">
-                  <Image
-                    src={`/projectIcons/${tech.icon}`}
-                    alt={getTechName(tech.icon)}
-                    fill
-                    style={{ objectFit: 'contain' }}
-                  />
-                </div>
-              </div>
+              key={currentCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="w-auto ">
+              {technologies[currentCategory].descriptionParts.map((part, index) => (
+                <motion.p
+                  key={index}
+                  className={`flex items-start text-sm w-[80%] cursor-pointer rounded-xl pl-2 py-1 ${
+                    index === highlightedDescriptionIndex ? 'bg-slate-700' : ''
+                  }`}
+                  onMouseEnter={() => handleDescriptionHover(index)}
+                  onMouseLeave={handleDescriptionHoverEnd}
+                  animate={{
+                    x: index === highlightedDescriptionIndex ? 20 : 0,
+                    scale: index === highlightedDescriptionIndex ? 1.05 : 1,
+                    opacity: index === highlightedDescriptionIndex ? 1 : 0.8,
+                  }}
+                  transition={{ duration: 0.2 }}>
+                  <span className="mr-2">•</span>
+                  <span>{part.text}</span>
+                </motion.p>
+              ))}
             </motion.div>
-          ))}
+          </div>
+        </AnimatePresence>
       </div>
+      {renderIcons()}
+      {renderTechName()}
+    </>
+  )
+
+  return (
+    <div className={`flex flex-col items-center justify-center mt-2 space-y-3 w-full ${iconClass}`}>
+      {view === 'simple' ? renderSimpleView() : renderDetailedView()}
     </div>
   )
 }

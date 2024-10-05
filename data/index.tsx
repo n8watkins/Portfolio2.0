@@ -356,7 +356,7 @@ export const gridItems = [
       // 'sm:w-[40%] sm:h-[60%] ' +
       'md:w-[30%] md:h-[70%] md:left-60 md:top-1/2 md:-translate-y-1/2 ' + // Adjust for medium screens
       'lg:w-[80%] lg:h-[50%] lg:left-0 lg:top-[18rem] lg:translate-y-0 ' + // Adjust for large screens
-      'xl:w-[30%] xl:h-[80%] xl:left-80 xl:top-1/2 xl:-translate-y-1/2 ' + // Adjust for extra large screens
+      'xl:w-[27%] xl:h-[80%] xl:left-80 xl:top-1/2 xl:-translate-y-1/2 ' + // Adjust for extra large screens
       'z-30 rounded-3xl overflow-visible mx-auto aspect-ratio ' +
       'transition-all duration-300 ease-in-out ' +
       'shadow-lg',
@@ -376,7 +376,7 @@ export const gridItems = [
       'mb-4 ' +
       'select-none',
     descriptionClass:
-      'transition duration-200  group-hover:translate-x-2       absolute top-14 md:top-[4rem] lg:top-[5rem] text-base font-semibold sm:text-lg md:w-[24rem] md:text-lg lg:w-[24rem] xl:w-[35rem] ' +
+      'transition duration-200  group-hover:translate-x-2 absolute top-14 md:top-[4rem] lg:top-[4.5rem] text-base font-semibold sm:text-lg md:w-[24rem] md:text-lg lg:w-[24rem] xl:w-[35rem] ' +
       'text-slate-300  ' +
       'select-none',
     buttonContainer: '',
@@ -492,45 +492,6 @@ export const testimonials = [
     name: 'Mike',
     title: 'Manager Arroyo Seco Golf',
     image: '/testimonials/profile.svg',
-  },
-]
-
-export const old = [
-  {
-    id: 1,
-    title: 'Net-Trailer - Netflix Clone',
-    des: 'A Netflix-inspired web application that showcases movie trailers and information, providing a similar user experience to the popular streaming platform.',
-    img: '/projects/netflix.jpg',
-    iconLists: ['/next.svg', '/tail.svg', '/ts.svg'],
-    github: 'https://github.com/natkins23/net_trailer',
-    liveSite: ' https://net-trailers.vercel.app/',
-  },
-  {
-    id: 2,
-    title: 'Quizmatic - AI Quiz Generation',
-    des: 'An innovative application that leverages AI to automatically generate quizzes on various topics, enhancing learning and assessment experiences.',
-    img: '/projects/quizmatic.png',
-    iconLists: ['/next.svg', '/tail.svg', '/ts.svg'],
-    github: 'https://github.com/natkins23/Quizmatic',
-    liveSite: ' https://net-trailers.vercel.app/',
-  },
-  {
-    id: 3,
-    title: 'Web Dev Solutions - Consulting',
-    des: 'A professional portfolio website showcasing web development consulting services, highlighting expertise, projects, and client solutions.',
-    img: '/projects/netflix.jpg',
-    iconLists: ['/next.svg', '/tail.svg', '/ts.svg', '/clerk.svg'],
-    github: 'https://github.com/natkins23/Quizmatic',
-    liveSite: ' https://net-trailers.vercel.app/',
-  },
-  {
-    id: 4,
-    title: 'STORE - Ecommerce App',
-    des: 'A fully-functional ecommerce application featuring product listings, shopping cart functionality, and secure checkout process for online retail.',
-    img: '/projects/netflix.jpg',
-    iconLists: ['/next.svg', '/tail.svg', '/ts.svg', '/gsap.svg'],
-    github: 'https://github.com/natkins23/Quizmatic',
-    liveSite: ' https://net-trailers.vercel.app/',
   },
 ]
 
@@ -675,7 +636,7 @@ export const projects = [
           },
           {
             text: 'Utilized Supabase for real-time database functionality, authentication, and serverless APIs',
-            icons: [{ icon: 'supabase.png' }, { icon: 'gpt.png' }],
+            icons: [{ icon: 'supabase.png' }],
           },
         ],
       },
