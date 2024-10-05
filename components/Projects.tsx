@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { FiGithub } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import IconCycle from '@/components/ui/ProjectComponents/IconCycle'
+import IconCycle from '@/components/ui/ProjectComponents/iconCycle'
 import { projects } from '@/data'
 import { Project, Technologies } from '@/lib/types'
 import { FaEye } from 'react-icons/fa6'
