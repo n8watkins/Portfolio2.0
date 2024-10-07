@@ -217,7 +217,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
       if (icons.length === 2) return `${getTechName(icons[0])} and ${getTechName(icons[1])}`
       return (
         icons.slice(0, -1).map(getTechName).join(', ') +
-        ', and ' +
+        ', & ' +
         getTechName(icons[icons.length - 1])
       )
     },
@@ -237,10 +237,8 @@ const IconCycle: React.FC<IconCycleProps> = ({
   }, [hoveredIcons, currentIcon])
 
   const renderTitle = () => {
-    const currentIcons = getCurrentIcons()
-
     return (
-      <div className="flex items-center justify-center mb-1 ">
+      <div className="mt-9 1sm:mt-6 1lg:mt-1 md:mt-6 lg:mt-4 flex items-center justify-center mb-1 ">
         <div className="w-12 h-12 flex items-center justify-center">
           <ChevronLeft
             className="cursor-pointer text-white hover:text-purple-400 transition-colors"
@@ -273,16 +271,16 @@ const IconCycle: React.FC<IconCycleProps> = ({
       techNames = currentIcons.map(getTechName)
     }
 
-    const formattedNames = techNames.join(', ')
+    const formattedNames = formatIconNames(techNames)
 
     return (
       <AnimatePresence mode="wait">
         <motion.div
           key={formattedNames}
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="text-lg font-bold text-center mt-4">
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          className="text-lg 1lg:text-xl font-bold text-center mt-4">
           {formattedNames}
         </motion.div>
       </AnimatePresence>
@@ -354,7 +352,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
             }}
             transition={{ duration: 0.2 }}>
             <div
-              className={`w-12 h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer mt-1 ${
+              className={`w-12 h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
                 hoveredIcons.includes(tech.icon) || tech === currentIcon
                   ? 'border-slate-200 border-2 dark:border-slate-200'
                   : 'border-transparent border-slate-400 border dark:border-slate-400'
@@ -392,36 +390,39 @@ const IconCycle: React.FC<IconCycleProps> = ({
   const renderDetailedView = () => (
     <>
       <div className="flex flex-row justify-center items-center w-full ">
-        <div className="flex w-fit justify-center items-center bg-slate-600 dark:bg-blue-800 h-fit rounded-full gap-4 py-2 px-3 overflow-visible -translate-y-4  ">
-          {categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => handleCategoryClick(category)}
-              className={`px-2 py-1 text-base rounded-full transition-all ${
-                category === currentCategory
-                  ? 'bg-gray-300 text-blue-500 dark:text-blue-700 font-semibold shadow-md w-fit'
-                  : ' text-white hover:bg-slate-500'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              animate={{ scale: category === currentCategory ? 1.1 : 1 }}>
-              {category}
-            </motion.button>
-          ))}
+        <div className="flex w-fit  justify-center items-center bg-slate-600 dark:bg-blue-800 h-fit rounded-full gap-4 py-2 px-3 overflow-visible -translate-y-4  ">
+          {
+            //categories - Front Back Cloud
+            categories.map((category) => (
+              <motion.button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-2 py-1 text-sm 1md:text-base  rounded-full transition-all ${
+                  category === currentCategory
+                    ? 'bg-gray-300 text-blue-500 dark:text-blue-700 font-semibold shadow-md w-fit'
+                    : ' text-white hover:bg-slate-500'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                animate={{ scale: category === currentCategory ? 1.1 : 1 }}>
+                {category}
+              </motion.button>
+            ))
+          }
         </div>
       </div>
-      <div className="relative flex flex-col  w-full h-40 justify-center items-start overflow-hidden -translate-y-9">
+      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-6 ">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.5 }}
-            className="w-full px-4 ">
+            className="w-full px-4 mr-2  ">
             {technologies[currentCategory].descriptionParts.map((part, index) => (
               <motion.div
                 key={index}
-                className={`flex items-start text-sm w-fit cursor-pointer rounded-xl px-2 py-1  ${
+                className={`flex items-center justify-center  sm:items-start text-sm 1md:text-sm 1lg:text-base w-fit cursor-pointer rounded-xl px-1 1md:px-2 py-1   ${
                   index === highlightedDescriptionIndex ? 'dark:bg-blue-800 bg-slate-600' : ''
                 }`}
                 onMouseEnter={() => handleDescriptionHover(index)}
@@ -433,15 +434,15 @@ const IconCycle: React.FC<IconCycleProps> = ({
                 }}
                 transition={{ duration: 0.2 }}>
                 <span className="mr-2 flex-shrink-0">•</span>
-                <span className="flex-grow overflow-hidden text-ellipsis">{part.text}</span>
+                <span className="flex-grow text-ellipsis">{part.text}</span>
               </motion.div>
             ))}
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="-translate-y-9">
+      <div className="-translate-y-2  1lg:-translate-y-1">
         {renderIcons()}
-        {renderTechName()}
+        <div className="-translate-y-3 sm:-translate-y-0">{renderTechName()}</div>
       </div>
     </>
   )

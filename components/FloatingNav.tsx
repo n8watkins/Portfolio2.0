@@ -70,7 +70,7 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          'flex max-w-fit 1sm:gap-0 sm:gap-3 fixed top-5 1sm:top-2 sm:top-10 inset-x-0 mx-auto border dark:border-white/[0.2] rounded-2xl bg-gradient-to-r from-purple-200 to-blue-300 dark:from-gray-900 dark:to-blue-950 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),5px_0px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] pr-2 pl-8 py-2 items-center justify-center space-x-4 z-[5000]',
+          'flex max-w-fit 1sm:gap-0 sm:gap-3 fixed top-5 1sm:top-2 sm:top-5 md:top-10 inset-x-0 mx-auto border dark:border-white/[0.2] rounded-2xl bg-gradient-to-r from-purple-200 to-blue-300 dark:from-gray-900 dark:to-blue-950 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),5px_0px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] pr-2 pl-8 py-2 items-center justify-center space-x-4 z-[5000]',
           className
         )}>
         {navItems.map((navItem, idx) => (

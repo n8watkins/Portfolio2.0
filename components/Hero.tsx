@@ -14,7 +14,7 @@ const Hero = () => {
       id="home">
       <GridBackground />
       <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
-        <p className="uppercase tracking-widest pb-2 sm:pb-10 1sm:pt-40  sm:pt-20 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
+        <p className="uppercase tracking-widest pb-2 1lg:pb-5 md:pb-10 pt-40  sm:pt-40 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
           <span className="animate-fade-right animate-delay-[3000ms] ">Code.</span>{' '}
           <span className="animate-fade-right animate-delay-[3500ms]">Create.</span>{' '}
           <span className="animate-fade-right animate-delay-[4000ms] ">Innovate.</span>
@@ -55,7 +55,7 @@ const Hero = () => {
               <ScrollButton link="about" text="See more" className="" />
             </div>
           </div>
-          <div className="w-[20rem] h-[20rem] relative">
+          <div className="w-[17rem] h-[17rem] 1sm:w-[20rem] 1sm:h-[20rem] relative">
             <div className="aspect-square w-full h-full relative">
               <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
               <Image

@@ -106,7 +106,6 @@
 
 .hover-underline-animation {
   position: relative;
-  display: inline-block;
   text-decoration: none !important; /* Prevent default underline */
 }
 

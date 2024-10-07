@@ -19,7 +19,7 @@ const ExperienceLoading = ({ currentTheme }: { currentTheme: string | undefined 
           <div
             key={card.id}
             className={cn(
-              'flex-1 dark:border-slate-800 rounded-[1.75rem] overflow-hidden dark:bg-[#020621] bg-[#3B82F6] border border-white ring-1 ring-blue-500'
+              'flex-1 rounded-[1.75rem] overflow-hidden dark:bg-[#020621]  bg-[#3B82F6] border border-neutral-200 dark:border-slate-800  '
             )}>
             <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
               <div className="flex flex-row">

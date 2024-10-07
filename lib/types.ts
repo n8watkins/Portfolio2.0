@@ -14,7 +14,7 @@ export interface TechnologyCategory {
 export interface Technologies {
   Frontend: TechnologyCategory
   Backend: TechnologyCategory
-  Infrastructure: TechnologyCategory
+  Cloud: TechnologyCategory
 }
 
 export interface Project {

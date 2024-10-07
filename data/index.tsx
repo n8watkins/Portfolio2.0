@@ -544,7 +544,7 @@ export const projects = [
     id: 1,
     title: 'Net-Trailer',
     subTitle: 'Netflix Clone',
-    des: 'Find and watch Movie and TV trailers, providing a similar user experience to the popular streaming platform',
+    des: 'Find and watch Movie and TV trailers, providing a similar experience to the popular streaming platform',
     images: [
       '/projects/netflix.jpg',
       '/projects/netflix1.png',
@@ -580,7 +580,7 @@ export const projects = [
           },
         ],
       },
-      Infrastructure: {
+      Cloud: {
         descriptionParts: [
           {
             text: 'Deployed with modern hosting and version control',
@@ -644,7 +644,7 @@ export const projects = [
           },
         ],
       },
-      Infrastructure: {
+      Cloud: {
         descriptionParts: [
           {
             text: 'Deployed with modern hosting and version control',
