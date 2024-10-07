@@ -24,10 +24,14 @@ const config = {
       },
     },
     extend: {
+      background: {
+        light: 'hsl(196, 98%, 67%)',
+        dark: '#000319',
+      },
       screens: {
-        '1sm': '320px', // mobile small
-        '1md': '375px', // mobile medium
-        '1lg': '425px', // mobile large
+        '1sm': '320px',
+        '1md': '375px',
+        '1lg': '425px',
       },
       colors: {
         darkBlue: {
@@ -88,6 +92,7 @@ const config = {
         marquee: 'marquee var(--duration) linear infinite',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+        shine: 'shine var(--duration) infinite linear',
       },
       keyframes: {
         'border-beam': {
@@ -96,20 +101,36 @@ const config = {
           },
         },
         marquee: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+          from: {
+            transform: 'translateX(0)',
+          },
+          to: {
+            transform: 'translateX(calc(-100% - var(--gap)))',
+          },
         },
         'marquee-vertical': {
-          from: { transform: 'translateY(0)' },
-          to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+          from: {
+            transform: 'translateY(0)',
+          },
+          to: {
+            transform: 'translateY(calc(-100% - var(--gap)))',
+          },
         },
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
         },
         spotlight: {
           '0%': {
@@ -173,6 +194,17 @@ const config = {
         scroll: {
           to: {
             transform: 'translate(calc(-50% - 0.5rem))',
+          },
+        },
+        shine: {
+          '0%': {
+            'background-position': '0% 0%',
+          },
+          '50%': {
+            'background-position': '100% 100%',
+          },
+          to: {
+            'background-position': '0% 0%',
           },
         },
       },

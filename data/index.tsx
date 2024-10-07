@@ -462,7 +462,7 @@ export const gridItems = [
   },
   {
     id: 6,
-    title: 'Currently building a GPT Powered Quiz Application ',
+    title: "Currently building an AI-driven lead generation tool powered by OpenAI's Realtime API",
     description: 'The Inside Scoop ',
     gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-4',
     imgContainerClass: 'absolute top-10  w-full h-full ',
@@ -483,15 +483,21 @@ export const testimonials = [
   {
     quote: `"Nathan is super easy to work with and always delivers . His coding skills really added to the team."`,
     name: 'Teddy',
-    title: 'Manager Coder School',
+    title: 'Manager, Coder School',
     image: '/testimonials/profile2.jpg',
   },
   {
     quote:
       '"Nathan totally revamped our website, and it looks amazing now! He made everything so smooth and simple for us."',
     name: 'Mike',
-    title: 'Manager Arroyo Seco Golf',
+    title: 'Manager, Arroyo Seco Golf',
     image: '/testimonials/profile.svg',
+  },
+  {
+    quote: `"Working with Nathan was a game-changer for us. He delivered a website and brochures that truly represent our brand, and his attention to detail made all the difference. The process was seamless from start to finish, and the results exceeded our expectations."`,
+    name: 'Zorik',
+    title: 'Owner, LifeLine Clincal Lab',
+    image: '/testimonials/zorik.png',
   },
 ]
 
@@ -538,14 +544,19 @@ export const projects = [
     id: 1,
     title: 'Net-Trailer',
     subTitle: 'Netflix Clone',
-    des: 'A Web App showcasing movie info and trailers, providing a user experience to the popular streaming platform including Likeing, Add to Watchlists, and payment processing.',
-    img: '/projects/netflix.jpg',
+    des: 'Find and watch Movie and TV trailers, providing a similar user experience to the popular streaming platform',
+    images: [
+      '/projects/netflix.jpg',
+      '/projects/netflix1.png',
+      '/projects/netflix2.png',
+      '/projects/netflix3.png',
+    ],
     technologies: {
       Frontend: {
         descriptionParts: [
           {
             text: 'A responsive design with modern UI components',
-            icons: [{ icon: 're.svg' }, { icon: 'shadcn.png' }, { icon: 'tail.svg' }],
+            icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
           },
           {
             text: 'Leveraging Next.js for SSR, SSG, and efficient routing',
@@ -593,8 +604,13 @@ export const projects = [
     id: 2,
     title: 'Quizmatic',
     subTitle: 'AI Quiz Generation',
-    des: `An AI application that leverages OpenAI\'s ChatGPT to generate tailored quizzes on various topics, enhancing the learning and assessment experience.`,
-    img: '/projects/quizmatic.png',
+    des: `An AI application that leverages OpenAI\'s ChatGPT to generate tailored quizzes on various topics.`,
+    images: [
+      '/projects/quizmatic.png',
+      '/projects/quizmatic1.png',
+      '/projects/quizmatic2.png',
+      '/projects/quizmatic3.png',
+    ],
     technologies: {
       Frontend: {
         descriptionParts: [

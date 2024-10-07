@@ -49,10 +49,10 @@ export const InfiniteMovingCards = ({
           <div
             key={idx}
             className="w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 
-                       flex-shrink-0 px-5 py-5 md:p-16 md:w-[60vw]
+                       flex-shrink-0 px-5 py-5 md:p-16 md:w-[60vw] 
                        bg-blue-500 dark:bg-[rgb(4,7,29)]">
-            <blockquote>
-              <span className="relative z-20 text-sm md:text-lg leading-[1.6] text-white font-normal">
+            <blockquote className="flex flex-col justify-stretch items-start">
+              <span className="relative z-20 h-20 text-sm md:text-lg leading-[1.6] text-white font-normal">
                 {item.quote}
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center">

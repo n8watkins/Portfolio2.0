@@ -9,6 +9,7 @@ import { Technologies, TechNameMappingInterface } from '@/lib/types'
 interface IconCycleProps {
   technologies: Technologies
   orientation?: 'h' | 'v'
+  iconClass?: string
   view?: 'simple' | 'detailed'
   initialCategory?: keyof Technologies
   initialIconIndex?: number
@@ -28,6 +29,7 @@ const HOVER_INTERVAL = 3000 // 3 seconds per icon
 const IconCycle: React.FC<IconCycleProps> = ({
   technologies,
   orientation = 'h',
+  iconClass = '',
   view = 'detailed',
   initialCategory,
   initialIconIndex = 0,
@@ -53,7 +55,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
   >([])
   const currentCategoryRef = useRef(currentCategory)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     allIconsRef.current = categories.flatMap((category) =>
       technologies[category].descriptionParts.flatMap((part, descriptionIndex) =>
         part.icons.map((tech) => ({ icon: tech.icon, category, descriptionIndex }))
@@ -61,7 +63,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
     )
   }, [technologies, categories])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     currentCategoryRef.current = currentCategory
   }, [currentCategory])
 
@@ -238,33 +240,31 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
   const renderTitle = () => {
     const currentIcons = getCurrentIcons()
+    const titleText = formatIconNames(currentIcons)
 
     return (
-      <div className="flex items-center justify-center mb-1 ">
-        <div className="w-12 h-12 flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center mb-4">
+        <div className="flex justify-center items-center">
           <ChevronLeft
-            className="cursor-pointer text-white hover:text-purple-400 transition-colors"
+            className="cursor-pointer text-white hover:text-purple-300 transition-colors"
             onClick={handlePreviousCategory}
           />
-        </div>
-        <div className="flex justify-center items-center w-40  ">
-          <h3 className="font-bold text-xl ">{currentCategory}</h3>
-        </div>
-        <div className="w-12 h-12 flex items-center justify-center">
+          <div className="text-center mx-4">
+            <h3 className="font-bold text-xl mb-2 w-20">{currentCategory}</h3>
+          </div>
           <ChevronRight
-            className="cursor-pointer text-white hover:text-purple-400 transition-colors"
+            className="cursor-pointer text-white hover:text-purple-300 transition-colors"
             onClick={handleNextCategory}
           />
         </div>
+        <p className="text-base">{titleText}</p>
       </div>
     )
   }
+
   const renderTechName = () => {
     let techNames: string[] = []
-    if (
-      hoveredDescriptionIndex !== null &&
-      technologies[currentCategory]?.descriptionParts[hoveredDescriptionIndex]?.icons
-    ) {
+    if (hoveredDescriptionIndex !== null) {
       techNames = technologies[currentCategory].descriptionParts[hoveredDescriptionIndex].icons.map(
         (tech) => getTechName(tech.icon)
       )
@@ -293,48 +293,36 @@ const IconCycle: React.FC<IconCycleProps> = ({
     const project = projects.find((p) => p.id === projectId)
     if (!project) return null
 
-    const firstTechName = getTechName(
-      project.technologies.Frontend.descriptionParts[0]?.icons[0].icon
-    )
-
     return (
-      <div>
-        <div className="flex flex-wrap gap-4 justify-center items-start h-12 mb-1 ">
-          {project.technologies.Frontend.descriptionParts.flatMap((part, partIndex) =>
-            part.icons.map((tech, techIndex) => {
-              const isFirstIcon = partIndex === 0 && techIndex === 0
-              return (
-                <motion.div key={tech.icon} className="relative flex flex-col items-center">
-                  <div
-                    className={` rounded-full  p-2 bg-slate-800 dark:bg-slate-900  overflow-visible flex flex-col items-center justify-center cursor-pointer ${
-                      isFirstIcon
-                        ? 'border-slate-200 dark:border-slate-200  border-2 w-[3.70rem] h-[3.70rem]  -translate-y-3'
-                        : 'w-12 h-12 border-transparent border border-slate-400 dark:border-slate-400'
-                    }`}>
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={`/projectIcons/${tech.icon}`}
-                        alt={getTechName(tech.icon)}
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })
-          )}
-        </div>
-        <div className="flex items-center justify-center text-lg font-bold pt-2">
-          {firstTechName}
-        </div>
+      <div className="flex flex-wrap gap-4 justify-center items-center mt-4">
+        {project.technologies.Frontend.descriptionParts.flatMap((part) =>
+          part.icons.map((tech) => (
+            <motion.div
+              key={tech.icon}
+              className="relative flex flex-col items-center"
+              whileHover={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.2 }}>
+              <div className="w-12 h-12 rounded-full border p-2 bg-slate-800 overflow-hidden flex items-center justify-center cursor-pointer border-slate-200">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={`/projectIcons/${tech.icon}`}
+                    alt={tech.icon}
+                    fill
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))
+        )}
       </div>
     )
   }
 
   const renderIcons = () => (
     <div
-      className={`flex  h-12  ${
+      className={`flex ${
         orientation === 'v' ? 'flex-col' : 'flex-row'
       } items-center justify-center gap-3 `}>
       {allIconsRef.current
@@ -354,10 +342,10 @@ const IconCycle: React.FC<IconCycleProps> = ({
             }}
             transition={{ duration: 0.2 }}>
             <div
-              className={`w-12 h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer mt-1 ${
+              className={`w-12 h-12 rounded-full border p-2 bg-slate-800 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
                 hoveredIcons.includes(tech.icon) || tech === currentIcon
-                  ? 'border-slate-200 border-2 dark:border-slate-200'
-                  : 'border-transparent border-slate-400 border dark:border-slate-400'
+                  ? 'border-slate-200'
+                  : 'border-transparent'
               }`}>
               <div className="relative w-full h-full">
                 <Image
@@ -376,7 +364,23 @@ const IconCycle: React.FC<IconCycleProps> = ({
   const renderSimpleView = () => (
     <>
       {/* Always render this section */}
-      {renderTitle()}
+      <div className="flex items-center justify-center mb-2 ">
+        <div className="w-12 h-12 flex items-center justify-center">
+          <ChevronLeft
+            className="cursor-pointer text-white hover:text-purple-400 transition-colors"
+            onClick={handlePreviousCategory}
+          />
+        </div>
+        <div className="flex justify-center items-center w-40  ">
+          <h3 className="font-bold text-xl ">{currentCategory}</h3>
+        </div>
+        <div className="w-12 h-12 flex items-center justify-center">
+          <ChevronRight
+            className="cursor-pointer text-white hover:text-purple-400 transition-colors"
+            onClick={handleNextCategory}
+          />
+        </div>
+      </div>
       {/* Conditionally render this section based on loading state */}
       {loading ? (
         renderFrontendIcons()
@@ -392,15 +396,15 @@ const IconCycle: React.FC<IconCycleProps> = ({
   const renderDetailedView = () => (
     <>
       <div className="flex flex-row justify-center items-center w-full ">
-        <div className="flex w-fit justify-center items-center bg-slate-600 dark:bg-blue-800 h-fit rounded-full gap-4 py-2 px-3 overflow-visible -translate-y-4  ">
+        <div className="flex w-fit justify-center bg-blue-400  h-fit rounded-full gap-4 py-2 px-3 overflow-visible">
           {categories.map((category) => (
             <motion.button
               key={category}
               onClick={() => handleCategoryClick(category)}
-              className={`px-2 py-1 text-base rounded-full transition-all ${
+              className={`px-2 py-1 text-sm rounded-full transition-all ${
                 category === currentCategory
-                  ? 'bg-gray-300 text-blue-500 dark:text-blue-700 font-semibold shadow-md w-fit'
-                  : ' text-white hover:bg-slate-500'
+                  ? 'bg-gray-300 text-blue-500 shadow-md w-fit'
+                  : 'bg-transparent text-white hover:bg-blue-300'
               }`}
               whileHover={{ scale: 1.05 }}
               animate={{ scale: category === currentCategory ? 1.1 : 1 }}>
@@ -409,7 +413,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           ))}
         </div>
       </div>
-      <div className="relative flex flex-col  w-full h-40 justify-center items-start overflow-hidden -translate-y-9">
+      <div className="relative flex flex-col  w-full h-40 justify-center items-start overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentCategory}
@@ -417,12 +421,12 @@ const IconCycle: React.FC<IconCycleProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="w-full px-4 ">
+            className="w-full px-4">
             {technologies[currentCategory].descriptionParts.map((part, index) => (
               <motion.div
                 key={index}
-                className={`flex items-start text-sm w-fit cursor-pointer rounded-xl px-2 py-1  ${
-                  index === highlightedDescriptionIndex ? 'dark:bg-blue-800 bg-slate-600' : ''
+                className={`flex items-start text-sm w-fit cursor-pointer rounded-xl px-2 py-1 ${
+                  index === highlightedDescriptionIndex ? 'bg-slate-700' : ''
                 }`}
                 onMouseEnter={() => handleDescriptionHover(index)}
                 onMouseLeave={handleDescriptionHoverEnd}
@@ -439,10 +443,8 @@ const IconCycle: React.FC<IconCycleProps> = ({
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="-translate-y-9">
-        {renderIcons()}
-        {renderTechName()}
-      </div>
+      {renderIcons()}
+      {renderTechName()}
     </>
   )
 

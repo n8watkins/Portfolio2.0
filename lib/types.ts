@@ -22,7 +22,7 @@ export interface Project {
   title: string
   subTitle: string
   des: string
-  img: string
+  images: string[]
   technologies: Technologies
   github: string
   liveSite: string

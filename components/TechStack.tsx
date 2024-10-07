@@ -44,7 +44,7 @@ const StackContainer = ({
 
 export function TechStack() {
   return (
-    <div className="absolute bottom-20 flex h-[100%] w-full flex-col items-center justify-center overflow-hidden rounded-3xl border-none bg-gradient-to-br from-blue-400 via-blue-500 to-blue-400 border dark:bg-[#020621]">
+    <div className="absolute bottom-20 flex h-[100%] w-full flex-col items-center justify-center overflow-hidden rounded-3xl border-none bg-gradient-to-br from-blue-400 via-blue-500 to-blue-400 border dark:from-[#020621] dark:to-[#020621]">
       <Marquee reverse pauseOnHover className="[--duration:45s]">
         {tech_libraries.map((tech) => (
           <StackContainer

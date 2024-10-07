@@ -10,6 +10,7 @@ interface BorderBeamProps {
   colorTo?: string
   delay?: number
   offset?: number // Now interpreted as rem
+  startPosition?: number // New prop to handle different starting positions
 }
 
 export const BorderBeam = ({
@@ -17,11 +18,12 @@ export const BorderBeam = ({
   size = 12.5, // Default 200px / 16 = 12.5rem
   duration = 15,
   anchor = 90,
-  borderWidth = 0.09375, // Default 1.5px / 16 = 0.09375rem
+  borderWidth = 0.15, // Default 1.5px / 16 = 0.09375rem
   colorFrom = '#ffaa40',
   colorTo = '#9c40ff',
   delay = 0,
   offset = 0, // Default offset is 0rem
+  startPosition = 0, // New prop to adjust starting position (in percentage or time)
 }: BorderBeamProps) => {
   return (
     <div
@@ -33,7 +35,7 @@ export const BorderBeam = ({
           '--border-width': `${borderWidth}rem`,
           '--color-from': colorFrom,
           '--color-to': colorTo,
-          '--delay': `-${delay}s`,
+          '--delay': `-${delay + startPosition}s`, // Updated to include the startPosition
           '--offset': `${offset}rem`,
         } as React.CSSProperties
       }

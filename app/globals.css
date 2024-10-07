@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply custom-scrollbar;
+  }
   :root {
+    --scrollbar-track: theme('colors.blue.400');
+    --scrollbar-thumb: theme('colors.blue.600');
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
@@ -36,6 +41,8 @@
   }
 
   .dark {
+    --scrollbar-thumb: theme('colors.blue.600');
+    --scrollbar-track: theme('colors.darkBlue.DEFAULT');
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -76,6 +83,77 @@
   button {
     @apply active:outline-none;
   }
+}
+
+@layer components {
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.blue.500');
+  }
+}
+
+.hover-underline-animation {
+  position: relative;
+  display: inline-block;
+  text-decoration: none !important; /* Prevent default underline */
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-out;
+}
+
+/* Default thickness if no Tailwind class is specified */
+.hover-underline-animation::after {
+  height: 1px;
+}
+
+.group:hover .hover-underline-animation-trigger::after {
+  transform: scaleX(1);
+}
+
+/* Respect Tailwind's decoration thickness classes */
+.decoration-1.hover-underline-animation::after {
+  height: 1px;
+}
+.decoration-2.hover-underline-animation::after {
+  height: 2px;
+}
+.decoration-3.hover-underline-animation::after {
+  height: 3px;
+}
+.decoration-4.hover-underline-animation::after {
+  height: 4px;
+}
+.decoration-6.hover-underline-animation::after {
+  height: 6px;
+}
+.decoration-8.hover-underline-animation::after {
+  height: 8px;
+}
+
+.hover-underline-animation:hover::after,
+*:hover > .hover-underline-animation::after {
+  transform: scaleX(1);
 }
 
 @layer utilities {
