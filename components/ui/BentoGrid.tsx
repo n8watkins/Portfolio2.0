@@ -105,15 +105,21 @@ export const BentoGridItem = ({
             <MapDetails />
           </div>
         )}
-        
+
         <div className={` ${textOrder}  `}>
           <div className={` ${titleClassName} `}>{title}</div>
           <div className={` ${descriptionClass}`}>{description}</div>
         </div>
         {id === 4 && <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />}
         {id === 6 && (
-          <div className="w-2/5 h-full 1sm:bottom-5 1sm:pl-10  1md:bottom-4 1md:pl-5  1lg:bottom-3 1lg:pl-1  md:bottom-0  lg:top-5  lg:right-3  item-center justify-center flex relative ">
-            <ScrollButton link="projects" className=" lg:h-14 w-40" text="Check it out!" />
+          <div className=" flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
+            <div className="flex  items-center justify-center">
+              <ScrollButton
+                link="projects"
+                className=" lg:h-14  w-fit whitespace-nowrap 1md:w-40"
+                text="Check it out!"
+              />
+            </div>
           </div>
         )}
       </div>

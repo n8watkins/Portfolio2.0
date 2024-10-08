@@ -5,7 +5,14 @@
 @layer base {
   html {
     @apply custom-scrollbar;
+    scrollbar-gutter: stable;
   }
+
+  body {
+    @apply bg-background text-foreground;
+    overflow-y: scroll;
+  }
+
   :root {
     --scrollbar-track: theme('colors.blue.400');
     --scrollbar-thumb: theme('colors.blue.600');

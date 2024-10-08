@@ -86,19 +86,6 @@ interface IconCycleState {
   highlightedDescriptionIndex: number
 }
 
-interface ImageComponentProps {
-  src: string
-  alt: string
-}
-
-const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt }) => {
-  return (
-    <div className="relative w-full h-full">
-      <Image src={src} alt={alt} fill className="rounded-xl object-cover" />
-    </div>
-  )
-}
-
 const ProjectModal: React.FC<{
   project: Project
   isOpen: boolean
@@ -108,27 +95,6 @@ const ProjectModal: React.FC<{
     state: IconCycleState | ((prevState: IconCycleState) => IconCycleState)
   ) => void
 }> = ({ project, isOpen, onClose, iconCycleState, setIconCycleState }) => {
-  useEffect(() => {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-      document.body.style.paddingRight = `${scrollbarWidth}px`
-      // Trigger reflow to apply the padding before scrolling
-      window.requestAnimationFrame(() => {
-        window.scrollBy(0, 1)
-      })
-    } else {
-      document.body.style.overflow = ''
-      document.body.style.paddingRight = ''
-    }
-
-    return () => {
-      document.body.style.overflow = ''
-      document.body.style.paddingRight = ''
-    }
-  }, [isOpen])
-
   if (!isOpen) return null
 
   return (
@@ -136,7 +102,7 @@ const ProjectModal: React.FC<{
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed  inset-0 bg-black bg-opacity-50 z-[5001] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-50 z-[5001] flex items-center justify-center p-4"
       onClick={onClose}>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
@@ -153,37 +119,37 @@ const ProjectModal: React.FC<{
           className="absolute top-2 right-2 p-3 bg-purple-300 rounded-full dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition">
           <IoMdClose />
         </button>
-        <div className=" flex flex-col justify-center w-full mt-6 text-white ">
-          <div className="flex justify-center items-center w-full ">
+        <div className="flex flex-col justify-center w-full mt-6 text-white">
+          <div className="flex justify-center items-center w-full">
             <a
               href={project.liveSite}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-row justify-center items-center w-fit ">
-              <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 ">
-                <h2 className="text-3xl font-bold mb-2 flex justify-center  decoration-3 hover-underline-animation">
+              className="flex flex-row justify-center items-center w-fit">
+              <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1">
+                <h2 className="text-3xl font-bold mb-2 flex justify-center decoration-3 hover-underline-animation">
                   {project.title}
                 </h2>
-                <MdOpenInNew className="flex justify-center items-center w-5 h-5 " />
+                <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
               </span>
             </a>
           </div>
-          <div className="flex flex-row justify-end gap-3 mb-4 ">
-            <span className="flex flex-row space-x-4 justify-center ">
+          <div className="flex flex-row justify-end gap-3 mb-4">
+            <span className="flex flex-row space-x-4 justify-center">
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-row items-center ">
+                className="flex flex-row items-center">
                 <FiGithub className="w-5 h-5 mr-1" />
-                <span className="hidden 1md:inline-block text-sm  underline-offset-2  decoration-3 hover-underline-animation">
+                <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
                   Source
                 </span>
               </a>
             </span>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row gap-6 mx-1 ">
-            <div className="w-full sm:w-1/2 ">
+          <div className="flex flex-col-reverse sm:flex-row gap-6 mx-1">
+            <div className="w-full sm:w-1/2">
               <IconCycle
                 technologies={project.technologies}
                 orientation="h"
@@ -193,8 +159,8 @@ const ProjectModal: React.FC<{
                 onStateChange={setIconCycleState}
               />
             </div>
-            <div className="flex sm:w-1/2  justify-center items-center h-40 sm:h-64 md:h-80 ">
-              <div className="relative w-full h-full ">
+            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80">
+              <div className="relative w-full h-full">
                 <ImageSlider images={project.images} isModalOpen={isOpen} />
               </div>
             </div>

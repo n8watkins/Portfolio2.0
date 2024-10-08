@@ -297,7 +297,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
     return (
       <div>
-        <div className="flex flex-wrap gap-4 justify-center items-start h-12 mb-1 ">
+        <div className="flex flex-wrap gap-4 justify-center items-start h-12 mb-1 select-none">
           {project.technologies.Frontend.descriptionParts.flatMap((part, partIndex) =>
             part.icons.map((tech, techIndex) => {
               const isFirstIcon = partIndex === 0 && techIndex === 0
@@ -400,7 +400,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
                 className={`px-2 py-1 text-sm 1md:text-base  rounded-full transition-all ${
                   category === currentCategory
                     ? 'bg-gray-300 text-blue-500 dark:text-blue-700 font-semibold shadow-md w-fit'
-                    : ' text-white hover:bg-slate-500'
+                    : ' text-white hover:bg-slate-500/80 dark:hover:bg-blue-400/80'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 animate={{ scale: category === currentCategory ? 1.1 : 1 }}>
@@ -410,7 +410,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           }
         </div>
       </div>
-      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-6 ">
+      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-6 2xl:-translate-y-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentCategory}

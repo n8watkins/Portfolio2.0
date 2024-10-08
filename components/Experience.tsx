@@ -30,7 +30,7 @@ const ExperienceLoading = ({ currentTheme }: { currentTheme: string | undefined 
                   height={128}
                   className="z-20 lg:w-32 md:w-20 w-16"
                 />
-                <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold text-black dark:text-white ">
+                <h1 className="flex items-center ml-5 text-start text-3xl  font-bold text-black dark:text-white ">
                   {card.title}
                 </h1>
               </div>
@@ -103,7 +103,7 @@ const Experience = () => {
                   height={128}
                   className="z-20 lg:w-32 md:w-20 w-16"
                 />
-                <h1 className="flex items-center ml-5 text-start text-2xl md:text-2xl font-bold">
+                <h1 className="flex items-center ml-5 text-start text-3xl font-bold">
                   {card.title}
                 </h1>
               </div>
