@@ -21,7 +21,7 @@ export default function Home() {
           <Experience />
           <Clients />
           <Footer />
-          <BreakpointDisplay />
+          {/* <BreakpointDisplay /> */}
         </div>
       </div>
     </main>
