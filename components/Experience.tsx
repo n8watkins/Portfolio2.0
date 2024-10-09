@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 const ExperienceLoading = ({ currentTheme }: { currentTheme: string | undefined }) => {
   return (
-    <div className="py-20 xl:max-w-5xl m-auto text-slate-200">
+    <div className="py-20 xl:max-w-5xl m-auto text-slate-200 select-none ">
       <h1 className="heading text-slate-800 dark:text-slate-200">
         My work <span className="text-purple-500"> experience</span>
       </h1>
@@ -19,7 +19,7 @@ const ExperienceLoading = ({ currentTheme }: { currentTheme: string | undefined 
           <div
             key={card.id}
             className={cn(
-              'flex-1 rounded-[1.75rem] overflow-hidden dark:bg-[#020621]  bg-[#3B82F6] border border-neutral-200 dark:border-slate-800  '
+              'flex-1 rounded-[1.75rem] overflow-hidden dark:bg-[#020621] hover:scale-105 duration-200 bg-[#3B82F6] border border-neutral-200 dark:border-slate-800  '
             )}>
             <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
               <div className="flex flex-row">
@@ -71,7 +71,7 @@ const Experience = () => {
   }
 
   return (
-    <div className="py-20 xl:max-w-5xl m-auto text-slate-200 ">
+    <div className="py-20 xl:max-w-5xl m-auto text-slate-200 select-none ">
       <h1 className="heading text-slate-800 dark:text-slate-200">
         My work <span className="text-purple-500"> experience</span>
       </h1>
@@ -91,10 +91,10 @@ const Experience = () => {
               borderRadius: `calc(1.75rem * 0.96)`,
             }}
             className={cn(
-              'flex-1 border-neutral-200 dark:border-slate-800',
+              'flex-1 border-neutral-200 dark:border-slate-800  cursor-default',
               currentTheme === 'dark' ? 'text-white' : 'text-black'
             )}>
-            <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2">
+            <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2 hover:scale-105 duration-200">
               <div className="flex flex-row ">
                 <Image
                   src={card.thumbnail}

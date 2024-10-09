@@ -42,7 +42,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
 
   return (
     <div
-      className="relative w-full h-full group hover:scale-105 duration-200"
+      className="relative w-full h-full group hover:scale-105 duration-200 select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <AnimatePresence initial={false} custom={currentIndex}>
@@ -53,19 +53,19 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="absolute inset-0">
+          className="absolute inset-0 select-none">
           <Image
             src={images[currentIndex]}
             alt={`Project image ${currentIndex + 1}`}
             fill
-            className="rounded-xl object-cover"
+            className="rounded-xl object-cover select-none"
           />
         </motion.div>
       </AnimatePresence>
       <div
         onClick={prevSlide}
         className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer bg-slate-300/20 dark:bg-slate-300/10 group-hover:bg-slate-300/30 dark:group-hover:bg-slate-500/20 rounded-tl-xl rounded-bl-xl  ">
-        <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300/80 group-hover:bg-blue-200/90 dark:bg-blue-300/60 dark:group-hover:bg-blue-300/80 text-slate-800 p-2 rounded-full duration-200">
+        <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300/80 group-hover:bg-blue-200/90 dark:bg-blue-300/60 dark:group-hover:bg-blue-300/80 text-slate-800 p-2 rounded-full duration-200 select-none">
           <ChevronLeft size={24} />
         </div>
       </div>
@@ -102,7 +102,7 @@ const ProjectModal: React.FC<{
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black bg-opacity-50 z-[5001] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-50 z-[5001] flex items-center justify-center p-4 select-none"
       onClick={onClose}>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
@@ -233,11 +233,11 @@ const Projects: React.FC = () => {
     <div
       id="projects"
       className="flex flex-col my-20 items-center justify-center gap-5 w-full text-slate-200 mb-40 ">
-      <h1 className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200">
+      <h1 className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
         A small selection of <span className="text-purple-500 lg:inline">recent projects</span>
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:gap-14 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:gap-14  ">
         {projects.map((project: Project) => (
           <div
             key={project.id}
@@ -251,35 +251,35 @@ const Projects: React.FC = () => {
                     src={project.images[0]}
                     alt={project.title}
                     fill
-                    className="rounded-xl   object-cover hover:scale-105 duration-200"
+                    className="rounded-xl select-none object-cover hover:scale-105 duration-200"
                   />
                 </div>
               </div>
               <div className="relative flex flex-col w-full mr-2 ">
-                <div className="flex w-full justify-between">
+                <div className="flex w-full justify-between  select-none ">
                   <div className="flex flex-col">
                     <a
                       href={project.liveSite}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-row justify-center items-center mb-1">
-                      <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 ">
-                        <h2 className="text-3xl font-bold mb-2 flex justify-center  decoration-3 hover-underline-animation whitespace-nowrap">
+                      className="flex flex-row justify-center items-center mb-1 select-none cursor-default">
+                      <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
+                        <h2 className="text-3xl font-bold mb-2 flex justify-center  decoration-3 hover-underline-animation whitespace-nowrap select-none ">
                           {project.title}
                         </h2>
                         <MdOpenInNew className="flex justify-center items-center w-5 h-5 " />
                       </span>
                     </a>
-                    <span className="text-base xl:text-md font-sans font-bold pb-2 -mt-3  whitespace-nowrap">
+                    <span className="text-base xl:text-md font-sans font-bold pb-2 -mt-3 select-none whitespace-nowrap">
                       {project.subTitle}
                     </span>
                   </div>
-                  <span className="flex flex-row justify-end items-end gap-2 md:gap-4 pb-2 ">
+                  <span className="flex flex-row justify-end items-end gap-2 md:gap-4 pb-2 select-none">
                     <span
-                      className="flex flex-row items-center cursor-pointer  "
+                      className="flex flex-row items-center cursor-pointer select-none  "
                       onClick={() => handleProjectClick(project)}>
                       <MdOutlineUnfoldMore className="w-5 h-5 mr-1" />
-                      <span className="hidden 1md:inline-block text-sm underline underline-offset-2 whitespace-nowrap  decoration-2 hover-underline-animation hover-underline-animation-trigger">
+                      <span className="hidden 1md:inline-block text-sm underline underline-offset-2 whitespace-nowrap  decoration-2 hover-underline-animation hover-underline-animation-trigger select-none ">
                         Details
                       </span>
                     </span>
@@ -287,16 +287,18 @@ const Projects: React.FC = () => {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-row items-center">
+                      className="flex flex-row items-center select-none ">
                       <FiGithub className="w-5 h-5 mr-1" />
-                      <span className="hidden 1md:inline-block text-sm underline underline-offset-2  decoration-2 hover-underline-animation">
+                      <span className="hidden 1md:inline-block text-sm underline underline-offset-2  decoration-2 hover-underline-animation cursor-default select-none ">
                         Source
                       </span>
                     </a>
                   </span>
                 </div>
                 {/*media query*/}
-                <p className="text:text-white h-10 mt-1  dark:text-slate-300 ">{project.des}</p>
+                <p className="text:text-white h-10 mt-1  dark:text-slate-300 select-none ">
+                  {project.des}
+                </p>
                 <IconCycle
                   technologies={project.technologies}
                   orientation="h"

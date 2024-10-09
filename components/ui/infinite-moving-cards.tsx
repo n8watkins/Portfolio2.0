@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import Marquee from '@/components/magicui/marquee' // Adjust the import path as necessary
+import Marquee from '@/components/magicui/marquee'
 
 export const InfiniteMovingCards = ({
   items,
@@ -21,6 +21,8 @@ export const InfiniteMovingCards = ({
   pauseOnHover?: boolean
   className?: string
 }) => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
   const getSpeedValue = () => {
     switch (speed) {
       case 'fast':
@@ -48,10 +50,13 @@ export const InfiniteMovingCards = ({
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 
-                       flex-shrink-0 px-5 py-5 md:p-16 md:w-[60vw] 
-                       bg-blue-500 dark:bg-[rgb(4,7,29)]">
-            <blockquote className="flex flex-col justify-stretch items-start">
+            className={cn(
+              'w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 flex-shrink-0 px-5 py-5 md:p-16 md:w-[60vw] bg-blue-500 dark:bg-[rgb(4,7,29)] transition-transform duration-300',
+              hoveredIndex === idx ? 'scale-103' : ''
+            )}
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}>
+            <blockquote className="flex flex-col justify-stretch items-start ">
               <span className="relative z-20 h-20 text-sm md:text-lg leading-[1.6] text-white font-normal">
                 {item.quote}
               </span>

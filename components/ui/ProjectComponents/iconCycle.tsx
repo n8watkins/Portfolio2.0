@@ -280,7 +280,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          className="text-lg 1lg:text-xl font-bold text-center mt-4">
+          className="text-lg 1lg:text-xl font-bold text-center mt-4 select-text">
           {formattedNames}
         </motion.div>
       </AnimatePresence>
@@ -372,7 +372,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
   )
 
   const renderSimpleView = () => (
-    <>
+    <div className="select-none">
       {/* Always render this section */}
       {renderTitle()}
       {/* Conditionally render this section based on loading state */}
@@ -384,12 +384,12 @@ const IconCycle: React.FC<IconCycleProps> = ({
           {renderTechName()}
         </>
       )}
-    </>
+    </div>
   )
 
   const renderDetailedView = () => (
     <>
-      <div className="flex flex-row justify-center items-center w-full ">
+      <div className="flex flex-row justify-center items-center w-full select-none ">
         <div className="flex w-fit  justify-center items-center bg-slate-600 dark:bg-blue-800 h-fit rounded-full gap-4 py-2 px-3 overflow-visible -translate-y-4  ">
           {
             //categories - Front Back Cloud
@@ -410,7 +410,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           }
         </div>
       </div>
-      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-6 2xl:-translate-y-4">
+      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-6 2xl:-translate-y-4 select-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentCategory}

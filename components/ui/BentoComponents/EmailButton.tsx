@@ -47,8 +47,8 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
     <div className="">
       <BackgroundGradientAnimation className="h-full pb-32 group pointer-events-none ">
         <div className="z-50 flex justify-center group-hover:scale-105 duration-200  text-2xl pt-5  font-sans font-bold ">
-          <h2 className="text-slate-800 dark:text-white 1sm:text-lg md:text-xl lg:text-2xl xl:text-3xl pt-3    ">
-            Have a Project? Let&apos;s connect!{' '}
+          <h2 className="text-slate-800 dark:text-white text-2xl text-center  lg:text-2xl xl:text-3xl pt-3    ">
+            Have a Project? Let&apos;s Connect!{' '}
           </h2>
         </div>
         <div key={animationKey} className="absolute top-0 left-0 w-full h-full z-50 ">

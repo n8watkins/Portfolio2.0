@@ -32,7 +32,7 @@ const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonCl
   return (
     <div
       className={`${buttonContainer} absolute top-0 right-0 w-full h-full z-50`}
-      onClick={() => setIsVisible(true)}
+      onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}>
       <AnimatePresence>
         {isVisible && (

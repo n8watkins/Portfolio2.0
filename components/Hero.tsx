@@ -10,7 +10,7 @@ import ScrollButton from './ui/BentoComponents/ScrollButton'
 const Hero = () => {
   return (
     <div
-      className="'relative flex flex-col h-[85h] items-center justify-center bg-blue-400 dark:bg-darkBlue  transition-bg"
+      className="'relative flex flex-col h-[85h] items-center justify-center bg-blue-400 dark:bg-darkBlue  transition-bg select-none"
       id="home">
       <GridBackground />
       <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">

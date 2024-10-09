@@ -24,6 +24,9 @@ const config = {
       },
     },
     extend: {
+      scale: {
+        '103': '1.03',
+      },
       background: {
         light: 'hsl(196, 98%, 67%)',
         dark: '#000319',

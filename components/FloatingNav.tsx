@@ -78,7 +78,7 @@ export const FloatingNav = ({
 
   return (
     <AnimatePresence mode="sync">
-      <div className="fixed top-0 w-full h-16 bg-gradient-to-t from-blue-400/0 via-blue-400/90 to-blue-400 dark:from-darkBlue/0 dark:via-darkBlue/20 dark:to-darkBlue z-[5000]" />
+      <div className="fixed top-0 w-full h-16 bg-gradient-to-t from-blue-400/0 via-blue-400/90 to-blue-400 dark:from-darkBlue/0 dark:via-darkBlue/90 dark:to-darkBlue z-[5000] select-none" />
       <motion.div
         initial={{ opacity: 1, y: 0 }}
         animate={{
@@ -89,7 +89,7 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          'flex max-w-fit fixed top-2 inset-x-0 mx-auto border dark:border-white/[0.2] rounded-2xl bg-gradient-to-r from-purple-200 to-blue-300 dark:from-gray-900 dark:to-blue-950 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),5px_0px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] py-0.5 sm:py-1 items-center justify-center z-[5000]',
+          'flex max-w-fit fixed top-2 1lg:top-4  xl:top-6 inset-x-0 mx-auto border dark:border-white/[0.2] rounded-2xl bg-gradient-to-r from-purple-200 to-blue-300 dark:from-gray-900 dark:to-blue-950 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),5px_0px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] py-0.5 sm:py-1 items-center justify-center z-[5000]',
           className
         )}>
         <div ref={navRef} className="flex items-center relative px-1 sm:px-2">
@@ -97,7 +97,7 @@ export const FloatingNav = ({
             <div
               key={`${item.name}-${idx}`}
               className={cn(
-                'relative dark:text-neutral-50 items-center flex space-x-0 font-semibold dark:font-normal text-black dark:hover:text-neutral-300 hover:text-slate-800 cursor-pointer px-2 sm:px-4 py-0.5 sm:py-1 z-10'
+                'relative dark:text-neutral-50 items-center flex space-x-0 font-semibold dark:font-normal text-black dark:hover:text-neutral-300 hover:text-slate-800 cursor-pointer px-2 sm:px-4 py-0.5 sm:py-1 z-10 select-none'
               )}
               onMouseEnter={() => setActiveIndex(idx)}
               onMouseLeave={() => setActiveIndex(null)}>
