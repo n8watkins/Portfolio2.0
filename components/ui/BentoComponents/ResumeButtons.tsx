@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { IoMdDownload } from 'react-icons/io'
 
@@ -8,68 +9,64 @@ interface ResumeButtonsProps {
 }
 
 const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClass }) => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 0 },
+    visible: {
+      opacity: 1,
+      y: 56, // Equivalent to translate-y-14 in Tailwind
+      transition: {
+        duration: 0.3,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  }
+
   return (
     <div
-      className={`${buttonContainer} absolute top-0 right-0 w-full h-full z-50 pointer-events-none group-hover:pointer-events-auto`}>
-      <a
-        target="_blank"
-        href={'https://drive.google.com/file/d/16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s/view?usp=sharing'}>
-        <button
-          className={`${buttonClass} gap-3 bg-[linear-gradient(110deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[5000ms]`}>
-          <span className="text-white dark:text-white">View</span>{' '}
-          <FaExternalLinkAlt className="h-5 w-5 text-white dark:text-white" />
-        </button>
-      </a>
-      <a
-        href="https://drive.google.com/uc?export=download&id=16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s"
-        download="Nathan_Watkins_NextJS_Resume">
-        <button
-          className={`${buttonClass} gap-2 bg-[linear-gradient(40deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[6000ms]`}>
-          <span className="text-white dark:text-white font-normal">Download</span>
-          <IoMdDownload className="h-6 w-6 text-white dark:text-white" />
-        </button>
-      </a>
+      className={`${buttonContainer} absolute top-0 right-0 w-full h-full z-50`}
+      onClick={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            className="flex items-center justify-evenly w-full h-full"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={containerVariants}>
+            <a
+              target="_blank"
+              href={
+                'https://drive.google.com/file/d/16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s/view?usp=sharing'
+              }>
+              <button
+                className={`${buttonClass} gap-3 bg-[linear-gradient(110deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[5000ms]`}>
+                <span className="text-white dark:text-white">View</span>{' '}
+                <FaExternalLinkAlt className="h-5 w-5 text-white dark:text-white" />
+              </button>
+            </a>
+            <a
+              href="https://drive.google.com/uc?export=download&id=16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s"
+              download="Nathan_Watkins_NextJS_Resume">
+              <button
+                className={`${buttonClass} gap-2 bg-[linear-gradient(40deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[6000ms]`}>
+                <span className="text-white dark:text-white font-normal">Download</span>
+                <IoMdDownload className="h-6 w-6 text-white dark:text-white" />
+              </button>
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
 
 export default ResumeButtons
-
-// import React from 'react'
-// import { FaExternalLinkAlt } from 'react-icons/fa'
-// import { IoMdDownload } from 'react-icons/io'
-
-// interface ResumeButtonsProps {
-//   buttonContainer?: string
-//   buttonClass?: string
-// }
-
-// const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClass }) => {
-//   return (
-//     <div className={`${buttonContainer} absolute top-0 right-0 w-full h-full z-50`}>
-//       <a
-//         target="_blank"
-//         href={'https://drive.google.com/file/d/16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s/view?usp=sharing'}>
-//         {
-//           // lighter value bg-[linear-gradient(110deg,#395bbf,45%,#5b93f5,55%,#3956a8)]
-//         }
-//         <button
-//           className={`${buttonClass} gap-3  bg-[linear-gradient(110deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30  animate-duration-[5000ms]`}>
-//           <span className="text-white dark:text-white    ">View</span>{' '}
-//           <FaExternalLinkAlt className="h-5 w-5 text-white dark:text-white " />
-//         </button>
-//       </a>
-//       <a
-//         href="https://drive.google.com/uc?export=download&id=16FFjyX8zjzu-D8XQbqeQK6PFpXCm6t_s"
-//         download="Nathan_Watkins_NextJS_Resume">
-//         <button
-//           className={`${buttonClass} gap-2   bg-[linear-gradient(40deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30  animate-duration-[6000ms]`}>
-//           <span className="text-white dark:text-white font-normal   ">Download</span>
-//           <IoMdDownload className="h-6 w-6 text-white dark:text-white" />
-//         </button>
-//       </a>
-//     </div>
-//   )
-// }
-
-// export default ResumeButtons

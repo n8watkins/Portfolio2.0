@@ -427,23 +427,22 @@ export const gridItems = [
   },
   {
     id: 4,
-    title: 'Check out my resumee!',
+    title: 'Check out my resume!',
     description: '',
     gridItemContainer:
-      'col-span-2 row-span-1 md:col-span-2 lg:col-span-2 xl:row-span-2 xl:col-span-2 group',
-    imgContainerClass: '',
+      'col-span-2 row-span-1 md:col-span-2  lg:col-span-2 xl:row-span-2 xl:col-span-2 group  ',
+    imgContainerClass: '  ',
     imgClassName:
-      'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6',
+      'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  ',
     img: '/bento/resume.svg',
     textContainerClassName:
-      'flex items-center justify-start xs:pl-10 1sm:pl-5 w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0',
+      'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
     textOrder:
-      'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem]',
+      'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
     titleClassName:
-      'flex transition duration-300 pt-[5rem] z-30 font-sans font-bold select-none text-slate-200 dark:text-neutral-200 text-2xl lg:text-3xl text-start w-full',
-    buttonContainer:
-      'flex items-center justify-evenly z-50 opacity-0 group-hover:opacity-100 group-hover:translate-y-32 transition w-full h-full pb-14',
-    buttonClass: `inline-flex h-12 py-2 px-6 z-[5000] group-hover:pointer-events-auto animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer -translate-y-20`,
+      'flex transition duration-300  pt-[5rem] z-30 font-sans font-bold   select-none text-slate-200 dark:text-neutral-200  text-2xl lg:text-3xl text-start w-full',
+    buttonContainer: 'flex items-center justify-evenly z-50 w-full h-full pb-14',
+    buttonClass: `inline-flex h-12 py-2 px-6 z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer`,
 
     /* 
     
