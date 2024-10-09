@@ -427,7 +427,7 @@ export const gridItems = [
   },
   {
     id: 4,
-    title: 'Check out my resumeeeee!',
+    title: 'Check out my resumee!',
     description: '',
     gridItemContainer:
       'col-span-2 row-span-1 md:col-span-2 lg:col-span-2 xl:row-span-2 xl:col-span-2 group',
@@ -442,8 +442,8 @@ export const gridItems = [
     titleClassName:
       'flex transition duration-300 pt-[5rem] z-30 font-sans font-bold select-none text-slate-200 dark:text-neutral-200 text-2xl lg:text-3xl text-start w-full',
     buttonContainer:
-      'flex items-center justify-evenly z-50 opacity-0 group-hover:opacity-100 group-hover:translate-y-14 transition w-full h-full pb-14',
-    buttonClass: `inline-flex h-12 py-2 px-6 z-[5000] group-hover:pointer-events-auto animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer`,
+      'flex items-center justify-evenly z-50 opacity-0 group-hover:opacity-100 group-hover:translate-y-32 transition w-full h-full pb-14',
+    buttonClass: `inline-flex h-12 py-2 px-6 z-[5000] group-hover:pointer-events-auto animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer -translate-y-20`,
 
     /* 
     
