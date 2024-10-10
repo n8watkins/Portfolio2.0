@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef, useLayoutEffect } from 'react'
+import React, { useState, useCallback, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -14,6 +14,7 @@ interface IconCycleProps {
   initialIconIndex?: number
   onStateChange?: (state: IconCycleState) => void
   onIconClick?: () => void
+  onIconStateChange?: (icon: string, descriptionIndex: number) => void
   projectId?: number
 }
 
@@ -28,11 +29,12 @@ const HOVER_INTERVAL = 3000 // 3 seconds per icon
 const IconCycle: React.FC<IconCycleProps> = ({
   technologies,
   orientation = 'h',
-  view = 'detailed',
+  view = 'simple',
   initialCategory,
   initialIconIndex = 0,
   onStateChange,
   onIconClick,
+  onIconStateChange,
   projectId,
 }) => {
   const categories = Object.keys(technologies) as (keyof Technologies)[]
@@ -172,12 +174,26 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
   const handleIconClick = useCallback(
     (icon: string, descriptionIndex: number) => {
-      handleIconHover(icon, descriptionIndex)
-      if (onIconClick) {
-        onIconClick()
-      }
+      setCycledIconIndex((prevIndex) => {
+        const newIndex = allIconsRef.current.findIndex(
+          (tech) => tech.icon === icon && tech.category === currentCategoryRef.current
+        )
+        if (newIndex !== -1) {
+          setTimeout(() => {
+            setHighlightedDescriptionIndex(descriptionIndex)
+            if (onIconStateChange) {
+              onIconStateChange(icon, descriptionIndex)
+            }
+            if (onIconClick) {
+              onIconClick()
+            }
+          }, 0)
+          return newIndex
+        }
+        return prevIndex
+      })
     },
-    [handleIconHover, onIconClick]
+    [onIconClick, onIconStateChange]
   )
 
   const handleDescriptionHover = useCallback(
@@ -345,15 +361,23 @@ const IconCycle: React.FC<IconCycleProps> = ({
             onMouseLeave={handleIconHoverEnd}
             onClick={() => handleIconClick(tech.icon, tech.descriptionIndex)}
             animate={{
-              scale: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 1.2 : 1,
+              scale:
+                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                  ? 1.2
+                  : 1,
               [orientation === 'v' ? 'x' : 'y']:
-                hoveredIcons.includes(tech.icon) || tech === currentIcon ? -5 : 0,
-              zIndex: hoveredIcons.includes(tech.icon) || tech === currentIcon ? 10 : 1,
+                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                  ? -5
+                  : 0,
+              zIndex:
+                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                  ? 10
+                  : 1,
             }}
             transition={{ duration: 0.2 }}>
             <div
               className={`w-12 h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
-                hoveredIcons.includes(tech.icon) || tech === currentIcon
+                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
                   ? 'border-slate-200 border-2 dark:border-slate-200'
                   : 'border-transparent border-slate-400 border dark:border-slate-400'
               }`}>

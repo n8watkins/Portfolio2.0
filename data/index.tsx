@@ -503,20 +503,20 @@ export const gridItems = [
 
 export const testimonials = [
   {
-    quote: `"Nathan is super easy to work with and always delivers . His coding skills really added to the team."`,
+    quote: `"Nathan is super easy to work with and always delivers. Great addition to the team. 🤝"`,
     name: 'Teddy',
     title: 'Manager, Coder School',
     image: '/testimonials/profile2.jpg',
   },
   {
     quote:
-      '"Nathan totally revamped our website, and it looks amazing now! He made everything so smooth and simple for us."',
+      '"Nathan totally revamped our website, and it looks amazing now! 🤩 He made everything so smooth and simple for us."',
     name: 'Mike',
     title: 'Manager, Arroyo Seco Golf',
     image: '/testimonials/profile.svg',
   },
   {
-    quote: `"Working with Nathan was a game-changer for us. He delivered a website and brochures that truly represent our brand, and his attention to detail made all the difference. The process was seamless from start to finish, and the results exceeded our expectations."`,
+    quote: `"Working with Nathan was a game-changer for us. 🚀 Our new website and brochures has made all the difference to our brand. 📈"`,
     name: 'Zorik',
     title: 'Owner, LifeLine Clincal Lab',
     image: '/testimonials/zorik.png',
