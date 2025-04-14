@@ -126,14 +126,15 @@ const ProjectModal: React.FC<{
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-row justify-center items-center w-fit">
-              <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1">
-                <h2 className="text-3xl font-bold mb-2 flex justify-center decoration-3 hover-underline-animation">
+              <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 ">
+                <h2 className="text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
                   {project.title}
                 </h2>
                 <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
               </span>
             </a>
           </div>
+        
           <div className="flex flex-row justify-end gap-3 mb-4">
             <span className="flex flex-row space-x-4 justify-center">
               <a
@@ -146,6 +147,21 @@ const ProjectModal: React.FC<{
                   Source
                 </span>
               </a>
+              <a
+                      href={project.liveSite}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-row justify-start items-center mb-1 select-none cursor-default">
+                      <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
+                        <h2 className="text-3xl font-bold mb-2 flex justify-center  decoration-3 hover-underline-animation whitespace-nowrap select-none ">
+                         
+                        </h2>
+                        <MdOpenInNew className="flex justify-center items-center w-5 h-5 " />
+                        <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
+                  Site
+                </span>
+                      </span>
+                    </a>
             </span>
           </div>
           <div className="flex flex-col-reverse sm:flex-row gap-6 mx-1">
@@ -262,7 +278,7 @@ const Projects: React.FC = () => {
                       href={project.liveSite}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-row justify-center items-center mb-1 select-none cursor-default">
+                      className="flex flex-row justify-start items-center mb-1 select-none cursor-default">
                       <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
                         <h2 className="text-3xl font-bold mb-2 flex justify-center  decoration-3 hover-underline-animation whitespace-nowrap select-none ">
                           {project.title}
@@ -275,15 +291,7 @@ const Projects: React.FC = () => {
                     </span>
                   </div>
                   <span className="flex flex-row justify-end items-end gap-2 md:gap-4 pb-2 select-none">
-                    <span
-                      className="flex flex-row items-center cursor-pointer select-none  "
-                      onClick={() => handleProjectClick(project)}>
-                      <MdOutlineUnfoldMore className="w-5 h-5 mr-1" />
-                      <span className="hidden 1md:inline-block text-sm underline underline-offset-2 whitespace-nowrap  decoration-2 hover-underline-animation hover-underline-animation-trigger select-none ">
-                        Details
-                      </span>
-                    </span>
-                    <a
+                  <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -293,6 +301,15 @@ const Projects: React.FC = () => {
                         Source
                       </span>
                     </a>
+                    <span
+                      className="flex flex-row items-center cursor-pointer select-none  "
+                      onClick={() => handleProjectClick(project)}>
+                      <MdOutlineUnfoldMore className="w-5 h-5 mr-1" />
+                      <span className="hidden 1md:inline-block text-sm underline underline-offset-2 whitespace-nowrap  decoration-2 hover-underline-animation hover-underline-animation-trigger select-none ">
+                        Details
+                      </span>
+                    </span>
+                
                   </span>
                 </div>
                 {/*media query*/}

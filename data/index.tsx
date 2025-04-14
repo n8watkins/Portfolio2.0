@@ -533,8 +533,116 @@ export const workExperience = [
 ]
 
 export const projects = [
+    {
+      id: 1,
+      title: 'Appturnity',
+      subTitle: 'Software Consulting Agency',
+      des: 'App consulting service that helps clients validate and scope new software ideas in a clear, modern layout.',
+      images: [
+        '/projects/Appturnity.png',
+        '/projects/Appturnity1.png',
+        '/projects/Appturnity2.png',
+        '/projects/Appturnity3.png',
+
+      ],
+      technologies: {
+        Frontend: {
+          descriptionParts: [
+            {
+              text: 'Simple, clean UI with component-based design',
+              icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
+            },
+            {
+              text: 'Type-safe architecture for reliable UX',
+              icons: [{ icon: 'ts.svg' }],
+            },
+          ],
+        },
+        Backend: {
+          descriptionParts: [
+            {
+              text: 'Job matching logic powered by ChatGPT embeddings',
+              icons: [{ icon: 'gpt.png' }],
+            },
+           
+          ],
+        },
+        Cloud: {
+          descriptionParts: [
+            {
+              text: 'Development IDE and production deployment with Replit',
+              icons: [{ icon: 'replit.png' }],
+            },
+            {
+              text: 'Version control via GitHub',
+              icons: [{ icon: 'github.png' }],
+            },
+          ],
+        },
+      },
+      github: 'https://github.com/natkins23/appturnity',
+      liveSite: 'https://appturnity.replit.app/',
+    },
+    {
+      id: 2,
+      title: 'CulinaryMuse',
+      subTitle: 'AI Recipe Generator',
+      des: 'Find your next fun dish with our AI Chef, serving you recipies with steps, calories, ingredients, and more.',
+      images: [
+        '/projects/CulinaryMuse.png',
+        '/projects/CulinaryMuse1.png',
+        '/projects/CulinaryMuse2.png',
+        '/projects/CulinaryMuse3.png',
+        '/projects/CulinaryMuse4.png',
+
+      ],
+      technologies: {
+        Frontend: {
+          descriptionParts: [
+            {
+              text: 'User-friendly interface styled with Tailwind CSS',
+              icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
+            },
+            {
+              text: 'Optimized with TypeScript for safer development',
+              icons: [{ icon: 'ts.svg' }],
+            },
+          ],
+        },
+        Backend: {
+          descriptionParts: [
+            {
+              text: 'OpenAI integration for smart recipe generation',
+              icons: [{ icon: 'gpt.png' }],
+            },
+            {
+              text: 'Custom Express server for routing and API endpoints',
+              icons: [{ icon: 'express.svg' }],
+            },
+            {
+              text: 'Server-side validation and type checking',
+              icons: [{ icon: 'zod.png' }],
+            },
+          ],
+        },
+        Cloud: {
+          descriptionParts: [
+            {
+              text: 'Development IDE and production deployment with Replit',
+              icons: [{ icon: 'replit.png' }],
+            },
+            {
+              text: 'Source code managed via GitHub',
+              icons: [{ icon: 'github.png' }],
+            },
+          ],
+        },
+      },
+      github: 'https://github.com/natkins23/ai-chef',
+      liveSite: 'https://ai-chef-master-natkins23.replit.app/',
+    },
   {
-    id: 1,
+    id: 3,
     title: 'Net-Trailer',
     subTitle: 'Netflix Clone',
     des: 'Find and watch Movie and TV trailers, providing a similar experience to the popular streaming platform',
@@ -594,7 +702,7 @@ export const projects = [
     liveSite: 'https://net-trailers.vercel.app/',
   },
   {
-    id: 2,
+    id: 4,
     title: 'Quizmatic',
     subTitle: 'AI Quiz Generation',
     des: `An AI application that leverages OpenAI\'s ChatGPT to generate tailored quizzes on various topics.`,
@@ -653,6 +761,132 @@ export const projects = [
     github: 'https://github.com/natkins23/Quizmatic',
     liveSite: 'https://quizmatic.vercel.app/',
   },
+  {
+    id: 5,
+    title: 'GuardCast',
+    subTitle: 'Real-Time Security Monitoring',
+    des: `A modern landing page for real-time security automation and monitoring.`,
+    images: [
+      '/projects/guardcast.png',
+      '/projects/guardcast1.png',
+      '/projects/guardcast2.png',
+      '/projects/guardcast3.png',
+      '/projects/guardcast4.png',
+      '/projects/guardcast5.png',
+      '/projects/guardcast6.png',
+    ],
+    technologies: {
+      Frontend: {
+        descriptionParts: [
+          {
+            text: 'Responsive and dynamic UI with Tailwind CSS and React',
+            icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
+          },
+        
+          {
+            text: 'Enhanced maintainability and safety with TypeScript',
+            icons: [{ icon: 'ts.svg' }],
+          },
+          {
+            text: 'UI interactivity powered by Framer Motion and React Hooks',
+            icons: [{ icon: 'fm.svg' }],
+          },
+        ],
+      },
+      Backend: {
+        descriptionParts: [
+          {
+            text: 'Custom Express server for routing and API endpoints',
+            icons: [{ icon: 'express.svg' }],
+          },
+          {
+            text: 'Lightning-fast development experience with Vite',
+            icons: [{ icon: 'vite.svg' }],
+          },
+        ],
+      },
+      Cloud: {
+        descriptionParts: [
+          {
+            text: 'Hosting via Firebase for seamless deployment and scaling',
+            icons: [{ icon: 'firebase.png' }],
+          },
+          {
+            text: 'Continuous integration and version control with GitHub',
+            icons: [{ icon: 'github.svg' }],
+          },
+        ],
+      },
+    },
+    github: 'https://github.com/natkins23/GuardCast',
+    liveSite: 'https://guardcast-a4457.web.app/',
+  },
+  {
+    id: 6,
+    title: 'Riverwood Ranch',
+    subTitle: 'Property Management Welcome Page',
+    des: `A platform designed to streamline board duties offering login pin access, document upload, as well as email forwarding.`,
+    images: [
+      '/projects/riverwood.png',
+      // '/projects/riverwood1.png',
+      // '/projects/riverwood2.png',
+      // '/projects/riverwood3.png',
+    ],
+    technologies: {
+      Frontend: {
+        descriptionParts: [
+          {
+            text: 'Responsive UI built with React and Tailwind CSS',
+            icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
+          },
+          {
+            text: 'Fast development and hot module replacement with Vite',
+            icons: [{ icon: 'vite.svg' }],
+          },
+          {
+            text: 'Type-safe development using TypeScript',
+            icons: [{ icon: 'ts.svg' }],
+          },
+        ],
+      },
+      Backend: {
+        descriptionParts: [
+          {
+            text: 'RESTful API developed with Express.js',
+            icons: [{ icon: 'express.svg' }],
+          },
+          {
+            text: 'Data modeling and validation using Zod',
+            icons: [{ icon: 'zod.png' }],
+          },
+          {
+            text: 'Database interactions managed with Drizzle ORM',
+            icons: [{ icon: 'drizzle.png' }],
+          },
+          {
+            text: 'Authentication and real-time data with Firebase',
+            icons: [{ icon: 'firebase.png' }],
+          },
+        ],
+      },
+      Cloud: {
+        descriptionParts: [
+          {
+            text: 'Deployed on Firebase Hosting for scalability and reliability',
+            icons: [{ icon: 'firebase.png' }],
+          },
+          {
+            text: 'Version control and collaboration via GitHub',
+            icons: [{ icon: 'github.svg' }],
+          },
+        ],
+      },
+    },
+    github: 'https://github.com/natkins23/RiverwoodRanch',
+    liveSite: 'https://riverwood-c3409.web.app/',
+  }
+  
+  
 ]
 
 export const techNameMapping = {
@@ -706,7 +940,19 @@ export const techNameMapping = {
   'heroku.png': 'Heroku',
   'host.svg': 'Hostinger',
   'digitalocean.png': 'DigitalOcean',
+  'replit.png': 'Replit',
+  'render.png': 'Render',
+  'railway.png': 'Railway',
+  'drizzle.png': 'Drizzle ORM',
+  'express.svg': 'Express.js',
+  'axios.svg': 'Axios',
+  'sentry.png': 'Sentry',
+  'eslint.png': 'ESLint',
+  'vite.svg': 'Vite',
+  'docker.svg': 'Docker',
+
   //----->Containerization & Orchestration
   'dock.svg': 'Docker',
   'kubernetes.png': 'Kubernetes',
+  'github.svg': 'GitHub',
 }

@@ -58,9 +58,7 @@ export const BentoGridItem = ({
 }) => {
   const { theme } = useTheme()
 
-  {
-    //removed? hover:shadow-xl transition  shadow-input dark:shadow-none
-  }
+  
 
   return (
     <div
