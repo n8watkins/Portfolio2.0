@@ -63,7 +63,7 @@ const Hero = () => {
                 className="rounded-full object-cover"
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="100%"
                 alt="Nathan's portrait"
               />
             </div>

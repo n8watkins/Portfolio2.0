@@ -26,6 +26,8 @@ interface IconCycleState {
 
 const HOVER_INTERVAL = 3000 // 3 seconds per icon
 
+
+
 const IconCycle: React.FC<IconCycleProps> = ({
   technologies,
   orientation = 'h',
@@ -141,15 +143,32 @@ const IconCycle: React.FC<IconCycleProps> = ({
     }
   }, [isFirstRender, startAutoCycle, initialIconIndex])
 
+  const didMountRef = useRef(false);
+  const lastStateRef = useRef<IconCycleState | null>(null);
+
   useEffect(() => {
-    if (onStateChange) {
-      onStateChange({
-        currentCategory,
-        cycledIconIndex,
-        highlightedDescriptionIndex,
-      })
+    const currentState: IconCycleState = {
+      currentCategory,
+      cycledIconIndex,
+      highlightedDescriptionIndex,
+    };
+  
+    const lastState = lastStateRef.current;
+  
+    const hasChanged =
+      !lastState ||
+      lastState.currentCategory !== currentState.currentCategory ||
+      lastState.cycledIconIndex !== currentState.cycledIconIndex ||
+      lastState.highlightedDescriptionIndex !== currentState.highlightedDescriptionIndex;
+  
+    if (hasChanged && didMountRef.current && onStateChange) {
+      onStateChange(currentState);
+      lastStateRef.current = currentState;
+    } else {
+      didMountRef.current = true;
     }
-  }, [currentCategory, cycledIconIndex, highlightedDescriptionIndex, onStateChange])
+  }, [currentCategory, cycledIconIndex, highlightedDescriptionIndex, onStateChange]);
+
 
   const handleIconHover = useCallback((icon: string, descriptionIndex: number) => {
     const newIndex = allIconsRef.current.findIndex(
@@ -330,6 +349,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
                         src={`/projectIcons/${tech.icon}`}
                         alt={getTechName(tech.icon)}
                         fill
+                        sizes='100%'
                         style={{ objectFit: 'contain' }}
                       />
                     </div>

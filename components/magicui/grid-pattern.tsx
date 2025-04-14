@@ -131,20 +131,21 @@ export function GridPattern({
           </radialGradient>
         </defs>
         <svg x={x} y={y} className="overflow-visible">
-          {coloredSquares.map(([x, y], index) => {
-            const animationClass = `animated-square-${(index % 3) + 1}`
-            return (
-              <rect
-                className={animationClass}
-                strokeWidth="0"
-                key={`${x}-${y}-color`}
-                width={width - 1}
-                height={height - 1}
-                x={x * width + 1}
-                y={y * height + 1}
-              />
-            )
-          })}
+        {coloredSquares.map(([x, y], index) => {
+  const animationClass = `animated-square-${(index % 3) + 1}`
+  return (
+    <rect
+      className={animationClass}
+      strokeWidth="0"
+      key={`${x}-${y}-color-${index}`}
+      width={width - 1}
+      height={height - 1}
+      x={x * width + 1}
+      y={y * height + 1}
+    />
+  )
+})}
+
         </svg>
         <rect width="100%" height="100%" fill={`url(#${id})`} />
         <rect width="100%" height="100%" fill={`url(#${gradientId})`} />

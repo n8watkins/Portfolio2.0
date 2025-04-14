@@ -74,8 +74,8 @@ export const BentoGridItem = ({
             <div className={`relative z-30 ${imgContainerClass}`}>
               <Image
                 src={img}
-                layout="fill"
-                objectFit="cover"
+                fill
+                sizes='100%'
                 className={`rounded-3xl ${imgClassName}`}
                 alt="Bento grid image"
               />
@@ -83,13 +83,15 @@ export const BentoGridItem = ({
           </div>
         )) ||
           ((id === 4 || id == 2) && (
-            <div className={`  ${imgContainerClass} `}>
-              <Image src={`${img}`} fill className={` ${imgClassName} `} alt={img} />
+            <div className="relative w-full h-full overflow-hidden">
+              <div className={`  ${imgContainerClass} `}>
+              <Image src={`${img}`} fill sizes='100%' className={` ${imgClassName} `} alt={img} />
+              </div>
             </div>
           )) ||
           (id == 6 && (
             <div className={`  ${imgContainerClass} `}>
-              <Image src={`${img}`} fill className={` ${imgClassName} `} alt={img} />
+              <Image src={`${img}`} fill sizes='100%'  className={` ${imgClassName} `} alt={img} />
             </div>
           ))
       }

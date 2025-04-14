@@ -361,7 +361,7 @@ export const gridItems = [
       'transition-all duration-300 ease-in-out ' +
       'shadow-lg',
     imgClassName:
-      'flex aspect-ratio rounded-3xl item-center justify-center group-hover:scale-105 transition duration-200',
+      'flex relative aspect-ratio rounded-3xl item-center justify-center group-hover:scale-105 transition duration-200',
     duration: 'rounded-3xl z-10',
     img: '/bento/laptop.jpeg',
     textContainerClassName:
