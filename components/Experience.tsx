@@ -71,7 +71,7 @@ const Experience = () => {
   }
 
   return (
-    <div className="py-20 xl:max-w-5xl m-auto text-slate-200 select-none ">
+    <div className="py-20 xl:max-w-5xl m-auto text-slate-200 select-none  z-[5000] ">
       <h1 className="heading text-slate-800 dark:text-slate-200">
         My work <span className="text-purple-500"> experience</span>
       </h1>
@@ -94,7 +94,7 @@ const Experience = () => {
               'flex-1 border-neutral-200 dark:border-slate-800  cursor-default',
               currentTheme === 'dark' ? 'text-white' : 'text-black'
             )}>
-            <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2 hover:scale-105 duration-200">
+            <div className="flex flex-col p-3 py-6 md:p-5 lg:p-10 gap-2 hover:scale-105 duration-200 z-20">
               <div className="flex flex-row ">
                 <Image
                   src={card.thumbnail}
