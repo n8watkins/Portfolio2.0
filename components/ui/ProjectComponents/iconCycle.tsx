@@ -69,44 +69,14 @@ const IconCycle: React.FC<IconCycleProps> = ({
     currentCategoryRef.current = currentCategory
   }, [currentCategory])
 
-  const handleCategoryClick = useCallback((category: keyof Technologies) => {
-    setCurrentCategory(category)
-    const firstIconOfCategory = allIconsRef.current.find((icon) => icon.category === category)
-    if (firstIconOfCategory) {
-      setCycledIconIndex(allIconsRef.current.indexOf(firstIconOfCategory))
-      setHighlightedDescriptionIndex(firstIconOfCategory.descriptionIndex)
-    } else {
-      setCycledIconIndex(0)
-      setHighlightedDescriptionIndex(0)
-    }
-    setHoveredIcons([])
-    resetCycling()
-  }, [])
+
+
+
 
   const getTechName = useCallback((iconName: string): string => {
     return (techNameMapping as TechNameMappingInterface)[iconName] || iconName
   }, [])
 
-  const resetCycling = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-    }
-    if (!isManualHoverRef.current) {
-      startAutoCycle()
-    }
-  }
-
-  const handleNextCategory = useCallback(() => {
-    const currentIndex = categories.indexOf(currentCategory)
-    const nextIndex = (currentIndex + 1) % categories.length
-    handleCategoryClick(categories[nextIndex])
-  }, [categories, currentCategory, handleCategoryClick])
-
-  const handlePreviousCategory = useCallback(() => {
-    const currentIndex = categories.indexOf(currentCategory)
-    const previousIndex = (currentIndex - 1 + categories.length) % categories.length
-    handleCategoryClick(categories[previousIndex])
-  }, [categories, currentCategory, handleCategoryClick])
 
   const startAutoCycle = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
@@ -129,6 +99,43 @@ const IconCycle: React.FC<IconCycleProps> = ({
     }, HOVER_INTERVAL)
   }, [setCurrentCategory])
 
+  const resetCycling = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    if (!isManualHoverRef.current) {
+      startAutoCycle();
+    }
+  }, [startAutoCycle]);
+  
+  const handleCategoryClick = useCallback((category: keyof Technologies) => {
+    setCurrentCategory(category)
+    const firstIconOfCategory = allIconsRef.current.find((icon) => icon.category === category)
+    if (firstIconOfCategory) {
+      setCycledIconIndex(allIconsRef.current.indexOf(firstIconOfCategory))
+      setHighlightedDescriptionIndex(firstIconOfCategory.descriptionIndex)
+    } else {
+      setCycledIconIndex(0)
+      setHighlightedDescriptionIndex(0)
+    }
+    setHoveredIcons([])
+    resetCycling()
+  }, [resetCycling])
+
+    
+  const handleNextCategory = useCallback(() => {
+    const currentIndex = categories.indexOf(currentCategory)
+    const nextIndex = (currentIndex + 1) % categories.length
+    handleCategoryClick(categories[nextIndex])
+  }, [categories, currentCategory, handleCategoryClick])
+
+  const handlePreviousCategory = useCallback(() => {
+    const currentIndex = categories.indexOf(currentCategory)
+    const previousIndex = (currentIndex - 1 + categories.length) % categories.length
+    handleCategoryClick(categories[previousIndex])
+  }, [categories, currentCategory, handleCategoryClick])
+
+  
   useEffect(() => {
     if (isFirstRender) {
       setCycledIconIndex(initialIconIndex)

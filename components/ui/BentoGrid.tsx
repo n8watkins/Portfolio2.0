@@ -6,7 +6,12 @@ import MapDetails from './BentoComponents/MapDetails'
 import GridPattern from '../magicui/grid-pattern'
 import { TechStack } from '../TechStack'
 import ResumeButtons from './BentoComponents/ResumeButtons'
-import EmailButton from './BentoComponents/EmailButton'
+import dynamic from 'next/dynamic'
+
+const EmailButton = dynamic(() => import('@/components/ui/BentoComponents/EmailButton'), {
+  ssr: false,
+})
+
 import ScrollButton from './BentoComponents/ScrollButton'
 
 export const BentoGrid = ({

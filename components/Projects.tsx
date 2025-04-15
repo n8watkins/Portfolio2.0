@@ -373,19 +373,19 @@ const Projects: React.FC = () => {
 )
 
   
-  const handleIconCycleStateChange = (
-    projectId: number,
-    newState: IconCycleState | ((prevState: IconCycleState) => IconCycleState)
-  ) => {
-    setIconCycleStates((prevStates) => ({
-      ...prevStates,
-      [projectId]:
-        typeof newState === 'function'
-          ? newState(prevStates[projectId] || getInitialIconCycleState(projectId))
-          : newState,
-    }))
-  }
-  
+const handleIconCycleStateChange = useCallback((
+  projectId: number,
+  newState: IconCycleState | ((prevState: IconCycleState) => IconCycleState)
+) => {
+  setIconCycleStates((prevStates) => ({
+    ...prevStates,
+    [projectId]:
+      typeof newState === 'function'
+        ? newState(prevStates[projectId] || getInitialIconCycleState(projectId))
+        : newState,
+  }));
+}, [getInitialIconCycleState]);
+
   
 
 
@@ -432,7 +432,7 @@ const Projects: React.FC = () => {
   const modalStateChangeHandler = useMemo(() => {
     if (!selectedProject) return () => {};
     return getModalOnStateChange(selectedProject.id);
-  }, [getModalOnStateChange, selectedProject?.id]);
+  }, [getModalOnStateChange, selectedProject]);
 
   const handleIconClick = (project: Project) => {
     setSelectedProject(project)
