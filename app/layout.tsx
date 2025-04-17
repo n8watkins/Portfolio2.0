@@ -7,12 +7,37 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Nathan Watkins Porfolio',
-  description: 'Nathan Watkins Porfolio',
+  title: 'Nathan Watkins Portfolio',
+  description: 'Modern web design and full-stack development by Nathan Watkins.',
+  keywords: ['Web Developer', 'Portfolio', 'Next.js', 'React', 'Nathan Watkins'],
+  robots: 'index, follow',
+  openGraph: {
+    title: 'Nathan Watkins Portfolio',
+    description: 'Modern web design and full-stack development by Nathan Watkins.',
+    url: 'https://nathansportfolio.vercel.app',
+    siteName: 'Nathan Watkins Portfolio',
+    images: [
+      {
+        url: 'https://nathansportfolio.vercel.app/preview.png', // make this image
+        width: 1200,
+        height: 630,
+        alt: 'Nathan Watkins Portfolio Preview',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nathan Watkins Portfolio',
+    description: 'Nathan Watkins Next.js Portfolio Page.',
+    images: ['https://nathansportfolio.vercel.app/preview.png'],
+    creator: '@n8watkins', // your twitter handle
+  },
   icons: {
     icon: '/headerLogo.png',
   },
-}
+  metadataBase: new URL('https://nathansportfolio.vercel.app'),
+};
 
 export default function RootLayout({
   children,
