@@ -21,6 +21,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   
   const nextSlide = useCallback(() => {
@@ -32,10 +34,29 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
   }, [images.length]);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const shouldAutoCycle = (isModalOpen || isImageModalOpen) && !isHovered;
-  
+
     if (!shouldAutoCycle) return;
-  
+
     const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, [isModalOpen, isImageModalOpen, isHovered, nextSlide]);
@@ -70,36 +91,44 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
       <div className="flex flex-col items-center w-full select-none">
   {/* === Image container === */}
   <div
-  className="relative w-full aspect-[16/9] group hover:scale-105 duration-200"
-  onMouseEnter={() => setIsHovered(true)}
-  onMouseLeave={() => setIsHovered(false)}
->
-  {/* Persistent wrapper div with the ref */}
-  <div className="absolute inset-0" >
-    <div className="absolute inset-0">
-      <AnimatePresence initial={false} custom={currentIndex}>
-        <motion.div
-          key={currentIndex}
-          custom={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 select-none cursor-zoom-in"
-          onClick={handleImageClick}
-        >
+    ref={containerRef}
+    className="relative w-full aspect-[16/9] group hover:scale-105 duration-200"
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+  >
+    {/* Persistent wrapper div with the ref */}
+    <div className="absolute inset-0" >
+      {isVisible ? (
+        <div className="absolute inset-0">
+          <AnimatePresence initial={false} custom={currentIndex}>
+            <motion.div
+              key={currentIndex}
+              custom={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 select-none cursor-zoom-in"
+              onClick={handleImageClick}
+            >
           <Image
             src={images[currentIndex]}
             alt={`Project image ${currentIndex + 1}`}
             fill
             className="rounded-xl object-cover select-none"
-            priority={currentIndex === 0}
+            loading="lazy"
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 40vw"
           />
-        </motion.div>
-      </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-xl animate-pulse flex items-center justify-center">
+          <div className="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
+        </div>
+      )}
     </div>
   </div>
 
