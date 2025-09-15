@@ -66,6 +66,7 @@ export const InfiniteMovingCards = ({
                     src={item.image}
                     alt={`Profile picture of ${item.name}`}
                     fill
+                    sizes="56px"
                     style={{ objectFit: 'cover' }}
                     className="rounded-full"
                   />

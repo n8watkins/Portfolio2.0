@@ -484,7 +484,7 @@ export const testimonials = [
     quote: `"Nathan is super easy to work with and always delivers. Great addition to the team. 🤝"`,
     name: 'Teddy',
     title: 'Manager, Coder School',
-    image: '/testimonials/profile2.jpg',
+    image: '/testimonials/profile.svg',
   },
   {
     quote:

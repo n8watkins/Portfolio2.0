@@ -141,7 +141,8 @@ const IconCycle: React.FC<IconCycleProps> = ({
       setCycledIconIndex(initialIconIndex)
       setHighlightedDescriptionIndex(0)
       setIsFirstRender(false)
-      setLoading(false)
+      // Add delay before setting loading to false for smooth transition
+      setTimeout(() => setLoading(false), 800)
     } else {
       startAutoCycle()
     }
@@ -423,18 +424,28 @@ const IconCycle: React.FC<IconCycleProps> = ({
   )
 
   const renderSimpleView = () => (
-    <div className="select-none">
+    <div className="select-none relative">
       {/* Always render this section */}
       {renderTitle()}
-      {/* Conditionally render this section based on loading state */}
-      {loading ? (
-        renderFrontendIcons()
-      ) : (
-        <>
-          {renderIcons()}
-          {renderTechName()}
-        </>
-      )}
+
+      {/* Loading skeleton with fade out */}
+      <div
+        className={`transition-opacity duration-500 ease-out ${
+          loading ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {renderFrontendIcons()}
+      </div>
+
+      {/* Main content with fade in */}
+      <div
+        className={`transition-opacity duration-500 ease-in ${
+          !loading ? 'opacity-100' : 'opacity-0 absolute inset-0'
+        }`}
+      >
+        {renderIcons()}
+        {renderTechName()}
+      </div>
     </div>
   )
 

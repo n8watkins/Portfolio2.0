@@ -32,13 +32,18 @@ export function GridPattern({
 }: GridPatternProps) {
   const [mounted, setMounted] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [showContent, setShowContent] = useState(false)
   const { resolvedTheme } = useTheme()
   const id = useId()
   const gradientId = useId()
 
   useEffect(() => {
     setMounted(true)
-    const timer = setTimeout(() => setIsLoading(false), 500)
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+      // Small delay before showing content to ensure smooth transition
+      setTimeout(() => setShowContent(true), 100)
+    }, 1500)
     return () => clearTimeout(timer)
   }, [])
 
@@ -65,10 +70,23 @@ export function GridPattern({
 
   if (!mounted) return <Placeholder />
 
-  if (isLoading) return <Placeholder />
-
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn('w-full relative', className)}>
+      {/* Loading skeleton with fade out */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+          isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <Placeholder />
+      </div>
+
+      {/* Main content with fade in */}
+      <div
+        className={`transition-opacity duration-1000 ease-in ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
       <style jsx>{`
         @keyframes fade1 {
           0%,
@@ -150,6 +168,7 @@ export function GridPattern({
         <rect width="100%" height="100%" fill={`url(#${id})`} />
         <rect width="100%" height="100%" fill={`url(#${gradientId})`} />
       </svg>
+      </div>
     </div>
   )
 }
