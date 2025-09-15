@@ -14,9 +14,9 @@
   }
 
   /* Move Sentry feedback button to bottom-left */
-  .widget__trigger {
-    left: 24px !important;
-    right: auto !important;
+  #sentry-feedback {
+    --inset: auto auto 0 0;
+    --page-margin: 24px;
   }
 
   :root {
