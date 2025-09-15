@@ -210,16 +210,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
     </button>
 
     {/* Image container */}
-    <div className="relative flex-1">
+    <div className="relative flex-1 min-h-0 aspect-video">
       <Image
       src={images[currentIndex]}
       alt="Expanded view"
       fill
-          className="object-contain select-none rounded-xl"
-      priority={false}
+          className="object-cover select-none rounded-xl"
+      priority={true}
       placeholder="blur"
       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-      sizes="(max-width: 768px) 90vw, 72vw"
+      sizes="(max-width: 640px) 95vw, (max-width: 1024px) 90vw, 80vw"
     />
       </div>
 
