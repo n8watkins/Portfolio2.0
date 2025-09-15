@@ -61,12 +61,12 @@ export const InfiniteMovingCards = ({
                 {item.quote}
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center">
-                <div className="me-3 w-14 h-14 relative">
+                <div className="me-3 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 relative">
                   <Image
                     src={item.image}
                     alt={`Profile picture of ${item.name}`}
                     fill
-                    sizes="56px"
+                    sizes="(max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
                     style={{ objectFit: 'cover' }}
                     className="rounded-full"
                   />

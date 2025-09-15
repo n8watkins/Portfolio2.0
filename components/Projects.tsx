@@ -105,22 +105,22 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
 
 
     {/* Arrows */}
-    <div onClick={prevSlide} className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tl-xl rounded-bl-xl">
+    <button onClick={prevSlide} className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tl-xl rounded-bl-xl" aria-label="Previous image">
       <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
-        <ChevronLeft size={24} />
+        <ChevronLeft size={24} aria-hidden="true" />
       </div>
-    </div>
-    <div onClick={nextSlide} className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tr-xl rounded-br-xl">
+    </button>
+    <button onClick={nextSlide} className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tr-xl rounded-br-xl" aria-label="Next image">
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
-        <ChevronRight size={24} />
+        <ChevronRight size={24} aria-hidden="true" />
       </div>
-    </div>
+    </button>
 
     {/* Expand icon */}
     <div className="absolute bottom-2 right-2 z-10">
-      <button onClick={handleImageClick} className="flex items-center gap-1 text-white bg-black/60 px-2 py-1 rounded hover:bg-black/80">
+      <button onClick={handleImageClick} className="flex items-center gap-1 text-white bg-black/60 px-2 py-1 rounded hover:bg-black/80" aria-label="Expand image to fullscreen">
         <span className="text-sm">Expand</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 9.75V4.5h5.25M14.25 19.5h5.25v-5.25M19.5 4.5l-6 6M4.5 19.5l6-6" />
         </svg>
       </button>
@@ -171,8 +171,9 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
     <button
       onClick={handleCloseModal}
       className="absolute top-2 right-2 bg-white/30 hover:bg-white/60 h-20 w-20  hover:text-black rounded-full flex items-center justify-center traisiton-all duration-200"
+      aria-label="Close image viewer"
     >
-      <IoMdClose size={30} />
+      <IoMdClose size={30} aria-hidden="true" />
     </button>
     <div
       className="absolute left-10 top-1/2 transform -translate-y-1/2 cursor-pointer group rounded-full bg-white/30 hover:bg-white/60 h-20 w-20 flex items-center justify-center traisiton-all duration-200"
@@ -276,8 +277,9 @@ const ProjectModal: React.FC<{
 
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 p-3 bg-purple-300 rounded-full dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-          <IoMdClose />
+          className="absolute top-2 right-2 p-3 bg-purple-300 rounded-full dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+          aria-label="Close project details">
+          <IoMdClose aria-hidden="true" />
         </button>
         <div className="flex flex-col justify-center w-full mt-6 text-white">
           <div className="flex justify-center items-center w-full">
