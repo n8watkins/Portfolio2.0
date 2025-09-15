@@ -9,14 +9,21 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'n8sportfolio.vercel.app',
+        port: '',
+        pathname: '/**',
+      },
     ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400, // 24 hours for better caching
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     domains: [],
-    dangerouslyAllowSVG: false,
+    dangerouslyAllowSVG: true, // Enable SVG support for icons
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: false, // Ensure optimization is enabled
   },
   // Performance optimizations
   compress: true,
@@ -25,13 +32,33 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  // Redirect all non-root paths to home page (except API routes)
+  // Redirect common routes to home page
   async redirects() {
     return [
       {
-        source: '/((?!api)(?!$).*)', // Exclude /api/* paths and root path from redirect
+        source: '/about',
         destination: '/',
-        permanent: false, // Use 302 redirect instead of 301 for flexibility
+        permanent: false,
+      },
+      {
+        source: '/contact',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/projects',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/blog/:path*',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/portfolio/:path*',
+        destination: '/',
+        permanent: false,
       },
     ]
   },
