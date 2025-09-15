@@ -28,28 +28,37 @@ const Hero = () => {
               A Next.js Developer
             </p>
             <div className="flex items-center justify-center md:justify-start w-full">
-              <div className="relative md:top-0 md:-left-2 z-50">
+              <nav aria-label="Social media links" className="relative md:top-0 md:-left-2 z-50">
                 <div className="flex items-center justify-center pb-2 gap-3">
-                  <a href="https://github.com/natkins23" target="_blank" rel="noopener noreferrer">
-                    <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
-                      <FiGithub className="w-full h-full p-3" />
-                    </div>
+                  <a
+                    href="https://github.com/natkins23"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Nathan's GitHub profile"
+                    className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
+                  >
+                    <FiGithub className="w-full h-full p-3" aria-hidden="true" />
                   </a>
                   <a
                     href="https://www.linkedin.com/in/nathancwatkins/"
                     target="_blank"
-                    rel="noopener noreferrer">
-                    <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900">
-                      <CiLinkedin className="w-full h-full p-2" />
-                    </div>
+                    rel="noopener noreferrer"
+                    aria-label="View Nathan's LinkedIn profile"
+                    className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
+                  >
+                    <CiLinkedin className="w-full h-full p-2" aria-hidden="true" />
                   </a>
-                  <a href="https://x.com/nathancwatkins" target="_blank" rel="noopener noreferrer">
-                    <div className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 ">
-                      <FaXTwitter className="w-full h-full p-3" />
-                    </div>
+                  <a
+                    href="https://x.com/nathancwatkins"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Nathan's X (Twitter) profile"
+                    className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
+                  >
+                    <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
                   </a>
                 </div>
-              </div>
+              </nav>
             </div>
             <div className="flex w-full items-center md:justify-start justify-center ">
               <ScrollButton link="about" text="See more" className="" />
@@ -63,8 +72,8 @@ const Hero = () => {
                 className="rounded-full object-cover"
                 fill
                 priority
-                sizes="100%"
-                alt="Nathan's portrait"
+                sizes="(max-width: 768px) 17rem, 20rem"
+                alt="Professional headshot of Nathan Watkins, a Next.js developer"
               />
             </div>
           </div>
