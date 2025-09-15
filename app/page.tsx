@@ -30,7 +30,6 @@ export default function Home() {
             <Clients />
           </section>
           <Footer />
-          {/* <BreakpointDisplay /> */}
         </div>
         <ScrollToTop />
       </div>
