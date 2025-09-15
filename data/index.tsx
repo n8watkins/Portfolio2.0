@@ -745,7 +745,7 @@ export const projects = [
           },
           {
             text: 'ORM managed database with type-saftey schema validation',
-            icons: [{ icon: 'prisma.png' }, { icon: 'postgresql.png' }],
+            icons: [{ icon: 'prisma.png' }, { icon: 'PostgreSQL.png' }],
           },
           {
             text: 'Integrated ChatGPT for user tailored quiz generation ',
@@ -814,7 +814,7 @@ export const techNameMapping = {
   'google.png': 'Google Cloud Platform',
   'mongo.png': 'MongoDB',
   'supabase.png': 'Supabase',
-  'postgresql.png': 'PostgreSQL',
+  'PostgreSQL.png': 'PostgreSQL',
   'mysql.png': 'MySQL',
   //----->hosting
   'github.png': 'GitHub',
