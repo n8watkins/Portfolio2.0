@@ -89,87 +89,85 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
     <>
       {/* === Details Page View === */}
       <div className="flex flex-col items-center w-full select-none">
-  {/* === Image container === */}
-  <div
-    ref={containerRef}
-    className="relative w-full aspect-[16/9] group hover:scale-105 duration-200"
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}
-  >
-    {/* Persistent wrapper div with the ref */}
-    <div className="absolute inset-0" >
-      {isVisible ? (
-        <div className="absolute inset-0">
-          <AnimatePresence initial={false} custom={currentIndex}>
-            <motion.div
-              key={currentIndex}
-              custom={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 select-none cursor-zoom-in"
-              onClick={handleImageClick}
-            >
-          <Image
-            src={images[currentIndex]}
-            alt={`Project image ${currentIndex + 1}`}
-            fill
-            className="rounded-xl object-cover select-none"
-            loading="lazy"
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 40vw"
-          />
-            </motion.div>
-          </AnimatePresence>
+        {/* === Image container === */}
+        <div
+          ref={containerRef}
+          className="relative w-full aspect-[16/9] group hover:scale-105 duration-200"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Persistent wrapper div with the ref */}
+          <div className="absolute inset-0" >
+            {isVisible ? (
+              <div className="absolute inset-0">
+                <AnimatePresence initial={false} custom={currentIndex}>
+                  <motion.div
+                    key={currentIndex}
+                    custom={currentIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0 select-none cursor-zoom-in"
+                    onClick={handleImageClick}
+                  >
+                    <Image
+                      src={images[currentIndex]}
+                      alt={`Project image ${currentIndex + 1}`}
+                      fill
+                      className="rounded-xl object-cover select-none"
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QFLQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                      sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 40vw"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-xl animate-pulse flex items-center justify-center">
+                <div className="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
+              </div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-xl animate-pulse flex items-center justify-center">
-          <div className="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
+
+          {/* Arrows */}
+          <button onClick={prevSlide} className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tl-xl rounded-bl-xl" aria-label="Previous image">
+            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
+              <ChevronLeft size={24} aria-hidden="true" />
+            </div>
+          </button>
+          <button onClick={nextSlide} className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tr-xl rounded-br-xl" aria-label="Next image">
+            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
+              <ChevronRight size={24} aria-hidden="true" />
+            </div>
+          </button>
+
+          {/* Expand icon */}
+          <div className="absolute bottom-2 right-2 z-10">
+            <button onClick={handleImageClick} className="flex items-center gap-1 text-white bg-black/60 px-2 py-1 rounded hover:bg-black/80" aria-label="Expand image to fullscreen">
+              <span className="text-sm">Expand</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 9.75V4.5h5.25M14.25 19.5h5.25v-5.25M19.5 4.5l-6 6M4.5 19.5l6-6" />
+              </svg>
+            </button>
+          </div>
         </div>
-      )}
-    </div>
-  </div>
 
+        {/* === Fixed-position indicators BELOW image === */}
+        <div className="mt-4 flex justify-center gap-2">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                index === currentIndex ? 'bg-blue-500' : 'bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
 
-    {/* Arrows */}
-    <button onClick={prevSlide} className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tl-xl rounded-bl-xl" aria-label="Previous image">
-      <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
-        <ChevronLeft size={24} aria-hidden="true" />
-      </div>
-    </button>
-    <button onClick={nextSlide} className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tr-xl rounded-br-xl" aria-label="Next image">
-      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
-        <ChevronRight size={24} aria-hidden="true" />
-      </div>
-    </button>
-
-    {/* Expand icon */}
-    <div className="absolute bottom-2 right-2 z-10">
-      <button onClick={handleImageClick} className="flex items-center gap-1 text-white bg-black/60 px-2 py-1 rounded hover:bg-black/80" aria-label="Expand image to fullscreen">
-        <span className="text-sm">Expand</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4" aria-hidden="true">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 9.75V4.5h5.25M14.25 19.5h5.25v-5.25M19.5 4.5l-6 6M4.5 19.5l6-6" />
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  {/* === Fixed-position indicators BELOW image === */}
-  <div className="mt-4 flex justify-center gap-2">
-    {images.map((_, index) => (
-      <div
-        key={index}
-        onClick={() => setCurrentIndex(index)}
-        className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-          index === currentIndex ? 'bg-blue-500' : 'bg-white/60'
-        }`}
-      />
-    ))}
-  </div>
-</div>
-  
         {/* === End of Details Page View === */}
 
       {/* === Image Gallery Modal === */}
