@@ -8,7 +8,14 @@ async function checkDependencies() {
   return deps
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  // Optional: Simple token-based protection
+  const authHeader = request.headers.get('authorization')
+  const expectedToken = process.env.HEALTH_CHECK_SECRET
+
+  if (expectedToken && authHeader !== `Bearer ${expectedToken}`) {
+    return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   try {
     const dependencies = await checkDependencies()
     const healthData = {
