@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://nathansportfolio.vercel.app/sitemap.xml
+
+# Disallow admin or private areas (none for portfolio)
+# Disallow: /admin

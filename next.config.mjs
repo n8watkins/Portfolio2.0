@@ -25,6 +25,16 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
+  // Redirect all non-root paths to home page
+  async redirects() {
+    return [
+      {
+        source: '/:path+',
+        destination: '/',
+        permanent: false, // Use 302 redirect instead of 301 for flexibility
+      },
+    ]
+  },
 }
 
 export default withSentryConfig(nextConfig, {
