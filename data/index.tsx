@@ -394,7 +394,7 @@ export const gridItems = [
 
   {
     id: 2,
-    title: 'Ready to reloate',
+    title: 'Ready to relocate',
     description: '',
     gridItemContainer:
       'col-span-2 row-span-3 sm:row-span-3   md:col-span-2 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-6 ',

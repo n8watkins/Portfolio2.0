@@ -1,4 +1,5 @@
 import { FaLocationArrow, FaXTwitter } from 'react-icons/fa6'
+import Image from 'next/image'
 
 import MagicButton from './ui/MagicButton'
 import { FiGithub } from 'react-icons/fi'
@@ -9,10 +10,12 @@ const Footer = () => {
     <footer className="xl:max-w-5xl  pt-0 pb-24 " id="contact">
       {/* background grid */}
       <div className="w-full absolute left-0 1sm:-translate-y-52 -bottom-72 min-h-96 pointer-events-none">
-         <img
+         <Image
            src="/footer-grid.svg"
            alt="grid"
            className="w-full h-full opacity-50 z-10 pointer-events-none"
+           fill
+           sizes="100vw"
         />
         </div>
 
