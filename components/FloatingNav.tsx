@@ -23,7 +23,10 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(true)
   const [atBottom, setAtBottom] = useState(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const [recentlyClicked, setRecentlyClicked] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const recentlyClickedRef = useRef(false)
 
   const checkIfBottom = () => {
     const windowHeight = window.innerHeight
@@ -33,9 +36,26 @@ export const FloatingNav = ({
     setAtBottom(atBottom)
   }
 
+  const handleNavClick = () => {
+    setRecentlyClicked(true)
+    recentlyClickedRef.current = true
+    setVisible(true)
+
+    // Clear any existing timeout
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current)
+    }
+
+    // Keep navbar visible for 1 second after clicking
+    clickTimeoutRef.current = setTimeout(() => {
+      setRecentlyClicked(false)
+      recentlyClickedRef.current = false
+    }, 1000)
+  }
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50 && !atBottom) {
+      if (window.scrollY > 50 && !atBottom && !recentlyClickedRef.current) {
         setVisible(false)
       } else {
         setVisible(true)
@@ -51,13 +71,22 @@ export const FloatingNav = ({
     }
   }, [atBottom])
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current)
+      }
+    }
+  }, [])
+
   useMotionValueEvent(scrollYProgress, 'change', (current) => {
     if (typeof current === 'number') {
       let direction = current - scrollYProgress.getPrevious()!
 
       if (direction < 0 || atBottom) {
         setVisible(true)
-      } else if (window.scrollY > 50 && !atBottom) {
+      } else if (window.scrollY > 50 && !atBottom && !recentlyClickedRef.current) {
         setVisible(false)
       }
     }
@@ -118,6 +147,8 @@ export const FloatingNav = ({
         spy={true}
         smooth={true}
         offset={0}
+        duration={300}
+        onClick={handleNavClick}
         className="flex items-center"
         aria-label={`Navigate to ${item.name} section`}
       >

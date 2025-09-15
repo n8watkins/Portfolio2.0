@@ -173,7 +173,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
       {/* === Image Gallery Modal === */}
       <AnimatePresence>
         {isImageModalOpen && (
-          <div className="fixed inset-0 z-[6000] flex flex-col items-center justify-center bg-black/30" onClick={handleCloseModal}>
+          <div className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black/30" onClick={handleCloseModal}>
             <div className="flex flex-col items-center">
             <motion.div
   initial={{ opacity: 0, scale: 0.9 }}
@@ -307,7 +307,7 @@ const ProjectModal: React.FC<{
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black bg-opacity-50 z-[5001] flex items-center justify-center p-4 select-none"
+      className="fixed inset-0 bg-black bg-opacity-50 z-[10001] flex items-center justify-center p-4 select-none"
       onClick={onClose}>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
