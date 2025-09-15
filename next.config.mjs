@@ -29,7 +29,7 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/((?!api).*)', // Exclude /api/* paths from redirect
+        source: '/((?!api)(?!$).*)', // Exclude /api/* paths and root path from redirect
         destination: '/',
         permanent: false, // Use 302 redirect instead of 301 for flexibility
       },
