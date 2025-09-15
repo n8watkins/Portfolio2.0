@@ -539,10 +539,10 @@ export const projects = [
       subTitle: 'Software Consulting Agency',
       des: 'App consulting service that helps clients validate and scope new software ideas in a clear, modern layout.',
       images: [
-        '/projects/Appturnity.png',
-        '/projects/Appturnity1.png',
-        '/projects/Appturnity2.png',
-        '/projects/Appturnity3.png',
+        '/projects/Appturnity.webp',
+        '/projects/Appturnity1.webp',
+        '/projects/Appturnity2.webp',
+        '/projects/Appturnity3.webp',
 
       ],
       technologies: {
@@ -589,12 +589,12 @@ export const projects = [
       subTitle: 'Property Management Welcome Page',
       des: `A platform designed to streamline board duties offering login pin access, document upload, as well as email forwarding.`,
       images: [
-        '/projects/riverwood.png',
-        '/projects/riverwood1.png',
-        '/projects/riverwood2.png',
-        '/projects/riverwood3.png',
-        '/projects/riverwood4.png',
-        '/projects/riverwood5.png',
+        '/projects/riverwood.webp',
+        '/projects/riverwood1.webp',
+        '/projects/riverwood2.webp',
+        '/projects/riverwood3.webp',
+        '/projects/riverwood4.webp',
+        '/projects/riverwood5.webp',
       ],
       technologies: {
         Frontend: {
@@ -655,10 +655,10 @@ export const projects = [
     subTitle: 'Netflix Clone',
     des: 'Find and watch Movie and TV trailers, providing a similar experience to the popular streaming platform',
     images: [
-      '/projects/netflix.jpg',
-      '/projects/netflix1.png',
-      '/projects/netflix2.png',
-      '/projects/netflix3.png',
+      '/projects/netflix.webp',
+      '/projects/netflix1.webp',
+      '/projects/netflix2.webp',
+      '/projects/netflix3.webp',
     ],
     technologies: {
       Frontend: {
@@ -715,10 +715,10 @@ export const projects = [
     subTitle: 'AI Quiz Generation',
     des: `An AI application that leverages OpenAI\'s ChatGPT to generate tailored quizzes on various topics.`,
     images: [
-      '/projects/quizmatic.png',
-      '/projects/quizmatic1.png',
-      '/projects/quizmatic2.png',
-      '/projects/quizmatic3.png',
+      '/projects/quizmatic.webp',
+      '/projects/quizmatic1.webp',
+      '/projects/quizmatic2.webp',
+      '/projects/quizmatic3.webp',
     ],
     technologies: {
       Frontend: {

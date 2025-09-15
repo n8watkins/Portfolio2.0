@@ -92,7 +92,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
         {/* === Image container === */}
         <div
           ref={containerRef}
-          className="relative w-full aspect-[16/9] group hover:scale-105 duration-200"
+          className="relative w-full aspect-[16/9] group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -130,19 +130,18 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
               </div>
             )}
           </div>
-        </div>
 
-          {/* Arrows */}
-          <button onClick={prevSlide} className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tl-xl rounded-bl-xl" aria-label="Previous image">
-            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
+          {/* Arrows - positioned to overlay only on the screenshot */}
+          <div className="absolute left-0 top-0 bottom-0 w-1/6 rounded-tl-xl rounded-bl-xl">
+            <button onClick={prevSlide} className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-500 p-3 rounded-full hover:bg-blue-400 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer" aria-label="Previous image">
               <ChevronLeft size={24} aria-hidden="true" />
-            </div>
-          </button>
-          <button onClick={nextSlide} className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tr-xl rounded-br-xl" aria-label="Next image">
-            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
+            </button>
+          </div>
+          <div className="absolute right-0 top-0 bottom-0 w-1/6 rounded-tr-xl rounded-br-xl">
+            <button onClick={nextSlide} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 p-3 rounded-full hover:bg-blue-400 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer" aria-label="Next image">
               <ChevronRight size={24} aria-hidden="true" />
-            </div>
-          </button>
+            </button>
+          </div>
 
           {/* Expand icon */}
           <div className="absolute bottom-2 right-2 z-10">
@@ -153,6 +152,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
               </svg>
             </button>
           </div>
+        </div>
         </div>
 
         {/* === Fixed-position indicators BELOW image === */}
@@ -181,36 +181,38 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
   exit={{ opacity: 0, scale: 0.9 }}
   transition={{ duration: 0.4, ease: 'easeInOut' }}
   onClick={(e) => e.stopPropagation()}
-  className="relative bg-[#06153b] rounded-2xl overflow-hidden w-[72vw] h-[72vh] flex flex-col justify-between"
+  className="relative bg-[#06153b] rounded-2xl w-[90vw] sm:w-[75vw] md:w-[65vw] lg:w-[60vw] xl:w-[65vw] h-[80vh] sm:h-[75vh] md:h-[65vh] lg:h-[60vh] xl:h-[65vh] flex flex-col"
 >
+  <BorderBeam className="beam-1" startPosition={0} />
+  <BorderBeam className="beam-2" startPosition={10} />
+  <BorderBeam className="beam-2" startPosition={20} />
+
   {/* Close button - positioned relative to modal */}
   <button
     onClick={handleCloseModal}
-    className="absolute top-2 right-2 bg-white/30 hover:bg-white/60 h-20 w-20 hover:text-black rounded-full flex items-center justify-center transition-all duration-200 z-10"
+    className="absolute top-4 right-4 bg-white/30 hover:bg-white/60 p-3 hover:text-black rounded-full flex items-center justify-center transition-all duration-200 z-10"
     aria-label="Close image viewer"
   >
-    <IoMdClose size={30} aria-hidden="true" />
+    <IoMdClose size={24} aria-hidden="true" />
   </button>
 
   {/* Container with external chevrons and image */}
-  <div className="flex items-center flex-grow px-6">
+  <div className="flex items-center justify-center px-8 pt-12 pb-4">
     {/* Left chevron - external to image */}
     <button
       onClick={(e) => {
         e.stopPropagation();
         prevSlide();
       }}
-      className="flex-shrink-0 p-3 cursor-pointer group bg-black/40 hover:bg-black/60 rounded-full focus:outline-none focus:bg-black/60 mr-6"
+      className="flex-shrink-0 cursor-pointer mr-6 bg-blue-500 p-3 rounded-full hover:bg-blue-400 hover:scale-105 active:scale-95 transition-all duration-200"
       aria-label="Previous image"
       disabled={images.length <= 1}
     >
-      <div className="bg-blue-300 p-3 rounded-full group-hover:bg-blue-400 group-focus:bg-blue-500">
-        <ChevronLeft size={32} aria-hidden="true" />
-      </div>
+      <ChevronLeft size={32} aria-hidden="true" />
     </button>
 
     {/* Image container */}
-    <div className="relative flex-1 min-h-0 aspect-video">
+    <div className="relative w-full max-h-[65vh] xl:max-h-[55vh] aspect-video">
       <Image
       src={images[currentIndex]}
       alt="Expanded view"
@@ -218,7 +220,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
           className="object-cover select-none rounded-xl"
       priority={true}
       placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QFLQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
       sizes="(max-width: 640px) 95vw, (max-width: 1024px) 90vw, 80vw"
     />
       </div>
@@ -229,18 +231,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
           e.stopPropagation();
           nextSlide();
         }}
-        className="flex-shrink-0 p-3 cursor-pointer group bg-black/40 hover:bg-black/60 rounded-full focus:outline-none focus:bg-black/60 ml-6"
+        className="flex-shrink-0 cursor-pointer ml-6 bg-blue-500 p-3 rounded-full hover:bg-blue-400 hover:scale-105 active:scale-95 transition-all duration-200"
         aria-label="Next image"
         disabled={images.length <= 1}
       >
-        <div className="bg-blue-300 p-3 rounded-full group-hover:bg-blue-400 group-focus:bg-blue-500">
-          <ChevronRight size={32} aria-hidden="true" />
-        </div>
+        <ChevronRight size={32} aria-hidden="true" />
       </button>
     </div>
 
-  {/* Bottom: indicators (now inside modal, not overlapping background) */}
-  <div className="flex justify-center items-center p-4">
+  {/* Bottom: pagination dots - centered between screenshot and container bottom */}
+  <div className="flex justify-center items-center py-1">
     <div className="flex gap-5 transition-all duration-300">
       {images.map((_, index) => (
         <div
@@ -249,8 +249,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
             e.stopPropagation();
             setCurrentIndex(index);
           }}
-          className={`h-2 w-10 rounded-full cursor-pointer ${
-            index === currentIndex ? 'bg-blue-500' : 'bg-white/60'
+          className={`h-2 w-10 rounded-full cursor-pointer transition-colors duration-200 ${
+            index === currentIndex ? 'bg-blue-500' : 'bg-white/80'
           }`}
         />
       ))}

@@ -323,7 +323,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          className="text-lg 1lg:text-xl font-bold text-center mt-4 select-text">
+          className="text-lg 1lg:text-xl font-bold text-center pt-3 select-text">
           {formattedNames}
         </motion.div>
       </AnimatePresence>
@@ -340,16 +340,21 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
     return (
       <div>
-        <div className="flex flex-wrap gap-4 justify-center items-start h-12 mb-1 select-none">
+        <div className="flex flex-wrap gap-3 justify-center items-start h-12 mb-1 pt-2 select-none">
           {project.technologies.Frontend.descriptionParts.flatMap((part, partIndex) =>
             part.icons.map((tech, techIndex) => {
               const isFirstIcon = partIndex === 0 && techIndex === 0
               return (
-                <motion.div key={tech.icon} className="relative flex flex-col items-center">
+                <div
+                  key={tech.icon}
+                  className={`relative flex flex-col items-center ${
+                    isFirstIcon ? 'scale-[1.2] -translate-y-[5px] z-10' : ''
+                  }`}
+                >
                   <div
                     className={` rounded-full  p-2 bg-slate-800 dark:bg-slate-900  overflow-visible flex flex-col items-center justify-center cursor-pointer ${
                       isFirstIcon
-                        ? 'border-slate-200 dark:border-slate-200  border-2 w-[3.70rem] h-[3.70rem]  -translate-y-3'
+                        ? 'border-slate-200 dark:border-slate-200  border-2 w-12 h-12'
                         : 'w-12 h-12 border-transparent border border-slate-400 dark:border-slate-400'
                     }`}>
                     <div className="relative w-full h-full">
@@ -362,12 +367,12 @@ const IconCycle: React.FC<IconCycleProps> = ({
                       />
                     </div>
                   </div>
-                </motion.div>
+                </div>
               )
             })
           )}
         </div>
-        <div className="flex items-center justify-center text-lg font-bold pt-2">
+        <div className="flex items-center justify-center text-lg 1lg:text-xl font-bold pt-3">
           {firstTechName}
         </div>
       </div>
@@ -376,9 +381,9 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
   const renderIcons = () => (
     <div
-      className={`flex  h-12  ${
+      className={`flex flex-wrap h-12 mb-1 pt-2 ${
         orientation === 'v' ? 'flex-col' : 'flex-row'
-      } items-center justify-center gap-3 `}>
+      } items-start justify-center gap-3 `}>
       {allIconsRef.current
         .filter((tech) => tech.category === currentCategory)
         .map((tech) => (
@@ -428,23 +433,24 @@ const IconCycle: React.FC<IconCycleProps> = ({
       {/* Always render this section */}
       {renderTitle()}
 
-      {/* Loading skeleton with fade out */}
-      <div
-        className={`transition-opacity duration-500 ease-out ${
-          loading ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        {renderFrontendIcons()}
-      </div>
+      {/* Content container with both skeleton and interactive versions */}
+      <div className="relative">
+        {/* Loading skeleton - disappears instantly */}
+        <div
+          className={`${!loading ? 'hidden' : ''}`}
+        >
+          {renderFrontendIcons()}
+        </div>
 
-      {/* Main content with fade in */}
-      <div
-        className={`transition-opacity duration-500 ease-in ${
-          !loading ? 'opacity-100' : 'opacity-0 absolute inset-0'
-        }`}
-      >
-        {renderIcons()}
-        {renderTechName()}
+        {/* Main content - instant show */}
+        <div
+          className={`${
+            !loading ? 'opacity-100' : 'opacity-0'
+          } ${loading ? 'absolute inset-0' : ''}`}
+        >
+          {renderIcons()}
+          {renderTechName()}
+        </div>
       </div>
     </div>
   )
