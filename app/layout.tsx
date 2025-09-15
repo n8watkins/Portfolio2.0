@@ -4,7 +4,12 @@ import './globals.css'
 import { ThemeProvider } from './provider'
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  weight: ['400', '500', '600', '700']
+})
 
 export const metadata: Metadata = {
   title: 'Nathan Watkins Portfolio',
@@ -50,8 +55,6 @@ export default function RootLayout({
         <meta name="google-site-verification" content="UaCoLg9YeNobXjRaOb59YzQxzc8RDb1yiOZEKdmNECU" />
 
         {/* DNS prefetching for external domains */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
         {/* Project external links */}
@@ -59,26 +62,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//web.app" />
         <link rel="dns-prefetch" href="//vercel.app" />
         <link rel="dns-prefetch" href="//firebase.google.com" />
-
-        {/* Preconnect for critical resources */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
-        {/* Critical CSS preload for fonts */}
-        <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          media="print"
-          onLoad={(e) => {
-            const link = e.target as HTMLLinkElement;
-            link.media = 'all';
-          }}
-        />
 
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
