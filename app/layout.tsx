@@ -5,6 +5,7 @@ import { ThemeProvider } from './provider'
 import Script from 'next/script'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { WebVitals } from './web-vitals'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   subsets: ['latin'],
@@ -90,6 +91,7 @@ export default function RootLayout({
             {children}
           </ErrorBoundary>
           <WebVitals />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
