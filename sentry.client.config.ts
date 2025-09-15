@@ -28,6 +28,21 @@ Sentry.init({
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
       colorScheme: 'light',
+      buttonLabel: 'Report a bug',
+      submitButtonLabel: 'Send Bug Report',
+      formTitle: 'Bug Report',
+      // Position the button on the bottom-left
+      themeLight: {
+        submitButtonBackground: '#8b5cf6',
+        submitButtonBackgroundHover: '#7c3aed',
+      },
+      themeDark: {
+        submitButtonBackground: '#8b5cf6',
+        submitButtonBackgroundHover: '#7c3aed',
+      },
+      // Custom CSS to position button on left
+      triggerLabel: 'Report a bug',
+      triggerAriaLabel: 'Report a bug to our team',
     }),
   ],
 })

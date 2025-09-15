@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import Grid from '@/components/Grid'
 import Hero from '@/components/Hero'
 import Projects from '@/components/Projects'
+import ScrollToTop from '@/components/ui/ScrollToTop'
 import BreakpointDisplay from '@/lib/breakpoint'
 import { navItems } from '@/data'
 
@@ -31,6 +32,7 @@ export default function Home() {
           <Footer />
           {/* <BreakpointDisplay /> */}
         </div>
+        <ScrollToTop />
       </div>
     </main>
   )

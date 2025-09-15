@@ -13,6 +13,12 @@
     overflow-y: scroll;
   }
 
+  /* Move Sentry feedback button to bottom-left */
+  .widget__trigger {
+    left: 24px !important;
+    right: auto !important;
+  }
+
   :root {
     --scrollbar-track: theme('colors.blue.400');
     --scrollbar-thumb: theme('colors.blue.600');
