@@ -10,6 +10,7 @@ import { MdOpenInNew, MdOutlineUnfoldMore } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { BorderBeam } from './magicui/border-beam'
+import { trackProjectEvent, trackModalEvent } from '@/lib/analytics'
 
 interface ImageSliderProps {
   images: string[];
@@ -303,13 +304,26 @@ const ProjectModal: React.FC<{
 }> = ({ project, isOpen, onClose, iconCycleState, setIconCycleState }) => {
   if (!isOpen) return null
 
+  const handleModalClose = () => {
+    trackModalEvent('close', 'project_details', { project_name: project.title })
+    onClose()
+  }
+
+  const handleGitHubClick = () => {
+    trackProjectEvent('github_click', project.title, { url: project.github })
+  }
+
+  const handleLiveSiteClick = () => {
+    trackProjectEvent('live_site_click', project.title, { url: project.liveSite })
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black bg-opacity-50 z-[10001] flex items-center justify-center p-4 select-none"
-      onClick={onClose}>
+      onClick={handleModalClose}>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -321,7 +335,7 @@ const ProjectModal: React.FC<{
         <BorderBeam className="beam-2" startPosition={20} />
 
         <button
-          onClick={onClose}
+          onClick={handleModalClose}
           className="absolute top-2 right-2 p-3 bg-purple-300 rounded-full dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition"
           aria-label="Close project details">
           <IoMdClose aria-hidden="true" />
@@ -332,6 +346,7 @@ const ProjectModal: React.FC<{
               href={project.liveSite}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleLiveSiteClick}
               className="flex flex-row justify-center items-center w-fit">
               <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 ">
                 <h2 className="text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
@@ -348,6 +363,7 @@ const ProjectModal: React.FC<{
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleGitHubClick}
                 className="flex flex-row items-center">
                 <FiGithub className="w-5 h-5 mr-1" />
                 <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
@@ -465,6 +481,8 @@ const handleIconCycleStateChange = useCallback((
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project)
+    trackProjectEvent('view', project.title)
+    trackModalEvent('open', 'project_details', { project_name: project.title })
   }
 
   const onStateChangeMap = useMemo(() => {
@@ -491,6 +509,8 @@ const handleIconCycleStateChange = useCallback((
 
   const handleIconClick = (project: Project) => {
     setSelectedProject(project)
+    trackProjectEvent('icon_click', project.title)
+    trackModalEvent('open', 'project_details', { project_name: project.title, trigger: 'icon' })
   }
 
   return (
@@ -532,6 +552,7 @@ const onStateChange = onStateChangeMap[project.id];
                 href={project.liveSite}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackProjectEvent('live_site_click', project.title, { source: 'grid' })}
                 className="flex flex-row justify-start items-center mb-1 select-none cursor-default"
               >
                 <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
@@ -550,6 +571,7 @@ const onStateChange = onStateChangeMap[project.id];
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackProjectEvent('github_click', project.title, { source: 'grid' })}
                 className="flex flex-row items-center select-none"
               >
                 <FiGithub className="w-5 h-5 mr-1" />

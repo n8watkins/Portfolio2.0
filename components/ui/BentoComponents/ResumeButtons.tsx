@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { IoMdDownload } from 'react-icons/io'
+import { trackResumeEvent } from '@/lib/analytics'
 
 interface ResumeButtonsProps {
   buttonContainer?: string
@@ -46,7 +47,8 @@ const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonCl
               target="_blank"
               href={
                 'https://drive.google.com/file/d/1B_I_aQ3Kb7PTTdYtXD0DX_ubRBHVjuBG/view?usp=sharing'
-              }>
+              }
+              onClick={() => trackResumeEvent('view')}>
               <button
                 className={`${buttonClass} gap-3 bg-[linear-gradient(110deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[5000ms]`}>
                 <span className="text-white dark:text-white">View</span>{' '}
@@ -55,7 +57,8 @@ const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonCl
             </a>
             <a
               href="https://drive.google.com/uc?export=download&id=1B_I_aQ3Kb7PTTdYtXD0DX_ubRBHVjuBG"
-              download="Nathan_Watkins_NextJS_Resume">
+              download="Nathan_Watkins_NextJS_Resume"
+              onClick={() => trackResumeEvent('download')}>
               <button
                 className={`${buttonClass} gap-2 bg-[linear-gradient(40deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[6000ms]`}>
                 <span className="text-white dark:text-white font-normal">Download</span>

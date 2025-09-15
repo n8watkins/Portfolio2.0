@@ -45,6 +45,8 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://nathansportfolio.vercel.app'),
 };
 
+export { reportWebVitals } from '@/lib/performance'
+
 export default function RootLayout({
   children,
 }: Readonly<{

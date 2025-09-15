@@ -6,6 +6,7 @@ import { FiGithub } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
 import ScrollButton from './ui/BentoComponents/ScrollButton'
+import { trackSocialClick } from '@/lib/analytics'
 
 const Hero = () => {
   return (
@@ -34,6 +35,7 @@ const Hero = () => {
                     href="https://github.com/natkins23"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackSocialClick('github', 'https://github.com/natkins23')}
                     aria-label="View Nathan's GitHub profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >
@@ -43,6 +45,7 @@ const Hero = () => {
                     href="https://www.linkedin.com/in/nathancwatkins/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackSocialClick('linkedin', 'https://www.linkedin.com/in/nathancwatkins/')}
                     aria-label="View Nathan's LinkedIn profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >
@@ -52,6 +55,7 @@ const Hero = () => {
                     href="https://x.com/nathancwatkins"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackSocialClick('twitter', 'https://x.com/nathancwatkins')}
                     aria-label="View Nathan's X (Twitter) profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >
