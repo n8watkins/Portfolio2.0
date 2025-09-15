@@ -491,7 +491,7 @@ export const testimonials = [
       '"Nathan totally revamped our website, and it looks amazing now! 🤩 He made everything so smooth and simple for us."',
     name: 'Mike',
     title: 'Manager, Arroyo Seco Golf',
-    image: '/testimonials/profile.svg',
+    image: '/testimonials/mike-profile.svg',
   },
   {
     quote: `"Working with Nathan was a game-changer for us. 🚀 Our new website and brochures has made all the difference to our brand. 📈"`,
