@@ -10,19 +10,26 @@ import { MdOpenInNew, MdOutlineUnfoldMore } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { BorderBeam } from './magicui/border-beam'
+import { usePageLoadComplete } from '@/lib/hooks'
+import { ProjectImagePreloader } from '@/lib/imagePreloader'
 
 interface ImageSliderProps {
   images: string[];
   isModalOpen: boolean;
+  preloader?: ProjectImagePreloader;
 }
 
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
+const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen, preloader }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const pageLoadComplete = usePageLoadComplete();
 
   
   const nextSlide = useCallback(() => {
@@ -33,6 +40,31 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   }, [images.length]);
 
+  const minSwipeDistance = 50;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -41,13 +73,14 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
       { threshold: 0.1 }
     );
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    const currentContainer = containerRef.current;
+    if (currentContainer) {
+      observer.observe(currentContainer);
     }
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (currentContainer) {
+        observer.unobserve(currentContainer);
       }
     };
   }, []);
@@ -60,6 +93,14 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
     const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, [isModalOpen, isImageModalOpen, isHovered, nextSlide]);
+
+  const shouldLoadImage = isVisible && (pageLoadComplete || isModalOpen || isImageModalOpen);
+
+  useEffect(() => {
+    if (shouldLoadImage && !imageLoaded) {
+      setImageLoaded(true);
+    }
+  }, [shouldLoadImage, imageLoaded]);
   
 
   const handleImageClick = () => {
@@ -92,13 +133,19 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
         {/* === Image container === */}
         <div
           ref={containerRef}
-          className="relative w-full aspect-[16/9] group hover:scale-105 duration-200"
+          className="relative w-full aspect-[16/9] group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          role="region"
+          aria-label={`Image ${currentIndex + 1} of ${images.length}`}
+          aria-live="polite"
         >
           {/* Persistent wrapper div with the ref */}
           <div className="absolute inset-0" >
-            {isVisible ? (
+            {shouldLoadImage ? (
               <div className="absolute inset-0">
                 <AnimatePresence initial={false} custom={currentIndex}>
                   <motion.div
@@ -116,7 +163,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
                       alt={`Project image ${currentIndex + 1}`}
                       fill
                       className="rounded-xl object-cover select-none"
-                      loading="lazy"
+                      loading={pageLoadComplete ? "eager" : "lazy"}
+                      quality={85}
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QFLQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                       sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 40vw"
@@ -125,28 +173,41 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
                 </AnimatePresence>
               </div>
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-xl animate-pulse flex items-center justify-center">
-                <div className="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 border-3 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+                  <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Loading project images...</div>
+                </div>
               </div>
             )}
+
+            {/* Arrows - inside image container as overlays */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-0 top-0 h-full w-1/6 cursor-pointer group bg-black/40 hover:bg-black/60 rounded-tl-xl rounded-bl-xl focus:outline-none focus:bg-black/60 flex items-center justify-center z-10"
+              aria-label={`Previous image (${currentIndex === 0 ? images.length : currentIndex} of ${images.length})`}
+              disabled={images.length <= 1}
+            >
+              <div className="bg-blue-300 p-2 rounded-full group-hover:bg-blue-400 group-focus:bg-blue-500">
+                <ChevronLeft size={24} aria-hidden="true" />
+              </div>
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-0 top-0 h-full w-1/6 cursor-pointer group bg-black/40 hover:bg-black/60 rounded-tr-xl rounded-br-xl focus:outline-none focus:bg-black/60 flex items-center justify-center z-10"
+              aria-label={`Next image (${currentIndex + 2 > images.length ? 1 : currentIndex + 2} of ${images.length})`}
+              disabled={images.length <= 1}
+            >
+              <div className="bg-blue-300 p-2 rounded-full group-hover:bg-blue-400 group-focus:bg-blue-500">
+                <ChevronRight size={24} aria-hidden="true" />
+              </div>
+            </button>
           </div>
         </div>
 
-          {/* Arrows */}
-          <button onClick={prevSlide} className="absolute left-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tl-xl rounded-bl-xl" aria-label="Previous image">
-            <div className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
-              <ChevronLeft size={24} aria-hidden="true" />
-            </div>
-          </button>
-          <button onClick={nextSlide} className="absolute right-0 top-0 bottom-0 w-1/6 cursor-pointer group group-hover:bg-black/60 rounded-tr-xl rounded-br-xl" aria-label="Next image">
-            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-300 p-2 rounded-full group-hover:bg-blue-400">
-              <ChevronRight size={24} aria-hidden="true" />
-            </div>
-          </button>
-
           {/* Expand icon */}
           <div className="absolute bottom-2 right-2 z-10">
-            <button onClick={handleImageClick} className="flex items-center gap-1 text-white bg-black/60 px-2 py-1 rounded hover:bg-black/80" aria-label="Expand image to fullscreen">
+            <button onClick={handleImageClick} className="flex items-center gap-1 text-white bg-black/60 px-2 py-1 rounded hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Expand image to fullscreen">
               <span className="text-sm">Expand</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 9.75V4.5h5.25M14.25 19.5h5.25v-5.25M19.5 4.5l-6 6M4.5 19.5l6-6" />
@@ -169,91 +230,28 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
         </div>
 
         {/* === End of Details Page View === */}
+      </div>
 
       {/* === Image Gallery Modal === */}
       <AnimatePresence>
         {isImageModalOpen && (
           <div className="fixed inset-0 z-[6000] flex flex-col items-center justify-center bg-black/30" onClick={handleCloseModal}>
             <div className="flex flex-col items-center">
-            <motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.9 }}
-  transition={{ duration: 0.4, ease: 'easeInOut' }}
-  onClick={(e) => e.stopPropagation()}
-  className="relative bg-[#06153b] rounded-2xl overflow-hidden w-[72vw] h-[72vh] flex flex-col justify-between"
->
-  {/* Top: image container with arrows & close */}
-  <div className="relative flex-grow">
-    <Image
-      src={images[currentIndex]}
-      alt="Expanded view"
-      fill
-      className="object-contain select-none"
-      priority={false}
-      placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-      sizes="(max-width: 768px) 90vw, 72vw"
-    />
-    <button
-      onClick={handleCloseModal}
-      className="absolute top-2 right-2 bg-white/30 hover:bg-white/60 h-20 w-20  hover:text-black rounded-full flex items-center justify-center traisiton-all duration-200"
-      aria-label="Close image viewer"
-    >
-      <IoMdClose size={30} aria-hidden="true" />
-    </button>
-    <div
-      className="absolute left-10 top-1/2 transform -translate-y-1/2 cursor-pointer group rounded-full bg-white/30 hover:bg-white/60 h-20 w-20 flex items-center justify-center traisiton-all duration-200"
-      onClick={(e) => {
-        e.stopPropagation();
-        prevSlide();
-      }}
-    >
-      <ChevronLeft size={30} className="text-white group-hover:text-blue-600 transition" />
-    </div>
-    <div
-      className="absolute right-10 top-1/2 transform -translate-y-1/2 cursor-pointer group rounded-full bg-white/30 hover:bg-white/60 h-20 w-20 flex items-center justify-center traisiton-all duration-200"
-      onClick={(e) => {
-        e.stopPropagation();
-        nextSlide();
-      }}
-    >
-      <ChevronRight size={30} className="text-blue-300 group-hover:text-blue-600 transition" />
-    </div>
-  </div>
-
-  {/* Bottom: indicators (now inside modal, not overlapping background) */}
-  <div className="flex justify-center items-center p-4">
-    <div className="flex gap-5 transition-all duration-300">
-      {images.map((_, index) => (
-        <div
-          key={index}
-          onClick={(e) => {
-            e.stopPropagation();
-            setCurrentIndex(index);
-          }}
-          className={`h-2 w-10 rounded-full cursor-pointer ${
-            index === currentIndex ? 'bg-blue-500' : 'bg-white/60'
-          }`}
-        />
-      ))}
-    </div>
-  </div>
-
-</motion.div>
-  {/* Keyboard Hint */}
-<div className="hidden sm:flex absolute bottom-32 right-64 text-white/70 text-sm  items-center gap-3 pointer-events-none">
-  <div className="flex items-center gap-1">
-    <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">←</kbd>
-    <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">→</kbd>
-    <span className="ml-1">to navigate</span>
-  </div>
-  <div className="flex items-center gap-1 ml-4">
-    <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">esc</kbd>
-    <span className="ml-1">to close</span>
-  </div>
-</div>
-  {/* End of Keyboard Hint */}
+              {/* Temporarily removed ExpandedImageSlider */}
+              <div>Modal content placeholder</div>
+              {/* Keyboard Hint */}
+              <div className="hidden lg:flex absolute bottom-4 right-4 xl:bottom-32 xl:right-64 text-white/70 text-xs lg:text-sm items-center gap-2 lg:gap-3 pointer-events-none">
+                <div className="flex items-center gap-1">
+                  <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">←</kbd>
+                  <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">→</kbd>
+                  <span className="ml-1">to navigate</span>
+                </div>
+                <div className="flex items-center gap-1 ml-4">
+                  <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">esc</kbd>
+                  <span className="ml-1">to close</span>
+                </div>
+              </div>
+              {/* End of Keyboard Hint */}
             </div>
           </div>
         )}
@@ -282,7 +280,8 @@ const ProjectModal: React.FC<{
   setIconCycleState: (
     state: IconCycleState | ((prevState: IconCycleState) => IconCycleState)
   ) => void
-}> = ({ project, isOpen, onClose, iconCycleState, setIconCycleState }) => {
+  preloader: ProjectImagePreloader
+}> = ({ project, isOpen, onClose, iconCycleState, setIconCycleState, preloader }) => {
   if (!isOpen) return null
 
   return (
@@ -366,7 +365,7 @@ const ProjectModal: React.FC<{
             </div>
             <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80">
               <div className="relative w-full h-full">
-                <ImageSlider images={project.images} isModalOpen={isOpen} />
+                <ImageSlider images={project.images} isModalOpen={isOpen} preloader={preloader} />
               </div>
             </div>
           </div>
@@ -382,6 +381,8 @@ const Projects: React.FC = () => {
   const [hasMouse, setHasMouse] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [iconCycleStates, setIconCycleStates] = useState<Record<number, IconCycleState>>({})
+  const pageLoadComplete = usePageLoadComplete()
+  const preloader = useRef(new ProjectImagePreloader())
 
   const getInitialIconCycleState = useCallback((projectId: number): IconCycleState => {
     const project = projects.find((p) => p.id === projectId)
@@ -445,6 +446,21 @@ const handleIconCycleStateChange = useCallback((
     }
   }, [])
 
+  useEffect(() => {
+    if (pageLoadComplete) {
+      const startPreloading = async () => {
+        try {
+          await preloader.current.preloadVisibleProjects(projects);
+          await preloader.current.preloadAllImages(projects);
+        } catch (error) {
+          console.warn('Image preloading failed:', error);
+        }
+      };
+
+      startPreloading();
+    }
+  }, [pageLoadComplete])
+
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project)
   }
@@ -490,6 +506,7 @@ const onStateChange = onStateChangeMap[project.id];
 
     <div
       key={project.id}
+      data-project-id={project.id}
       className="relative flex flex-col items-start bg-gradient-to-br from-blue-700 via-blue-500 to-blue-700 dark:bg-gradient-to-br dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] justify-center xl:p-6 w-full rounded-xl col-span-1 border border-white/[.2] shadow-md"
     >
       <div className="m-3">
@@ -503,7 +520,7 @@ const onStateChange = onStateChangeMap[project.id];
               alt={project.title}
               fill
               sizes='100%'
-              className="rounded-xl select-none object-cover hover:scale-105 duration-200"
+              className="rounded-xl select-none object-cover"
             />
           </div>
         </div>
@@ -578,7 +595,8 @@ const onStateChange = onStateChangeMap[project.id];
          iconCycleState={
            iconCycleStates[selectedProject.id] || getInitialIconCycleState(selectedProject.id)
          }
-         setIconCycleState={modalStateChangeHandler} 
+         setIconCycleState={modalStateChangeHandler}
+         preloader={preloader.current}
        />
         )}
       </AnimatePresence>
