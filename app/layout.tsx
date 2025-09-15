@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from './provider'
 import Script from 'next/script'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import { WebVitals } from './web-vitals'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -44,8 +45,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://nathansportfolio.vercel.app'),
 };
-
-export { reportWebVitals } from '@/lib/performance'
 
 export default function RootLayout({
   children,
@@ -90,6 +89,7 @@ export default function RootLayout({
           <ErrorBoundary>
             {children}
           </ErrorBoundary>
+          <WebVitals />
         </ThemeProvider>
       </body>
     </html>
