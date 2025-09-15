@@ -1,7 +1,7 @@
 import { FaLocationArrow, FaXTwitter } from 'react-icons/fa6'
 import Image from 'next/image'
-
-import MagicButton from './ui/MagicButton'
+import ContactForm from './ContactForm'
+import { ContactFormErrorBoundary } from './ContactFormErrorBoundary'
 import { FiGithub } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 
@@ -21,20 +21,25 @@ const Footer = () => {
 
 
       <div className="flex flex-col items-center">
-        <h2 className="heading lg:max-w-[45vw]">
-          Ready to bring <span className="block text-purple-500">fresh talent</span> to your team?
-        </h2>
-        <p className="text-white-200 mb-6 mt-14 px-5   text-center">
-          Let&apos;s connect and explore how I can add value to your team.
-        </p>
-        <div className="pb-10">
-          <a
-            href="mailto:nathancwatkins@gmail.com"
-            aria-label="Send email to Nathan Watkins"
-            className="focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-md"
-          >
-            <MagicButton title="Let's get in touch" icon={<FaLocationArrow />} position="right" />
-          </a>
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="heading lg:max-w-[45vw] mb-6">
+            Let&apos;s build something <span className="text-purple-500">amazing together!</span> 🚀
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-5">
+            Got a project in mind? Need a fresh perspective?<br />
+            Or just want to chat about the latest in web development?<br />
+            Drop me a line – I&apos;d love to hear from you! 💬
+          </p>
+        </div>
+
+        {/* Contact Form with Error Boundary */}
+        <div className="w-full max-w-2xl mx-auto mb-16 px-4">
+          <div className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-xl">
+            <ContactFormErrorBoundary>
+              <ContactForm />
+            </ContactFormErrorBoundary>
+          </div>
         </div>
       </div>
       <div className="flex mt-16 md:flex-row flex-col-reverse justify-between items-center md:mx-10">
