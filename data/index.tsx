@@ -504,8 +504,8 @@ export const testimonials = [
 export const workExperience = [
   {
     id: 1,
-    title: 'Frontend Intern',
-    desc: 'Assisted in the development of a web-based platform using React.js, enhancing interactivity.',
+    title: 'Frontend Developer',
+    desc: 'Developed web-based platforms using React.js and modern frontend technologies, enhancing user interactivity.',
     className: 'md:col-span-2',
     thumbnail: '/experience/exp1.svg',
   },
@@ -526,7 +526,7 @@ export const workExperience = [
   {
     id: 4,
     title: 'Freelance Developer',
-    desc: 'Developed custom websites for diverse clients, handling all aspects from initial concept to deployment.',
+    desc: 'Developed custom websites for diverse clients, handling all aspects from concept to deployment.',
     className: 'md:col-span-2',
     thumbnail: '/experience/exp4v2.svg',
   },

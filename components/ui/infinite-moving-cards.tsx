@@ -51,7 +51,7 @@ export const InfiniteMovingCards = ({
           <div
             key={idx}
             className={cn(
-              'w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 flex-shrink-0 px-5 py-5 md:p-16 md:w-[55vw] xl:w-[50vw] 2xl:w-[45vw] bg-blue-500 dark:bg-[rgb(4,7,29)] transition-transform duration-300',
+              'w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 flex-shrink-0 px-5 py-5 md:p-16 md:w-[55vw] xl:w-[48vw] 2xl:w-[43vw] bg-blue-500 dark:bg-[rgb(4,7,29)] transition-transform duration-300',
               hoveredIndex === idx ? 'scale-103' : ''
             )}
             onMouseEnter={() => setHoveredIndex(idx)}

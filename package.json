@@ -51,6 +51,7 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "@types/react-lottie": "^1.2.10",
     "@types/react-scroll": "^1.8.10",
+    "dotenv": "^17.2.2",
     "eslint": "^8",
     "eslint-config-next": "^14.2.32",
     "postcss": "^8",
