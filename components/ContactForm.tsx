@@ -268,7 +268,20 @@ function ContactFormInner({ className }: ContactFormProps) {
           console.log('📝 [FORM] Form submit event triggered');
           console.log('📝 [FORM] Event type:', e.type);
           console.log('📝 [FORM] Event target:', e.target);
+          console.log('📝 [FORM] Form data before submission:', formData);
+          console.log('📝 [FORM] Form errors before submission:', errors);
           console.log('📝 [FORM] Calling handleSubmit...');
+
+          // Check if form is valid
+          const isValid = Object.keys(errors).length === 0;
+          console.log('📝 [FORM] Is form valid?', isValid);
+
+          if (!isValid) {
+            console.error('❌ [FORM] VALIDATION FAILED - Form has errors:', errors);
+            e.preventDefault();
+            return false;
+          }
+
           handleSubmit(onSubmit)(e);
         }}
         className="space-y-4 md:space-y-6"
@@ -425,6 +438,40 @@ function ContactFormInner({ className }: ContactFormProps) {
             </span>
           </button>
         </motion.div>
+
+        {/* DEBUG: Simple test button to bypass form validation */}
+        <div className="text-center mt-4 p-4 border border-red-300 rounded bg-red-50">
+          <p className="text-red-700 text-sm mb-2">🔧 DEBUG: Direct API Test</p>
+          <button
+            type="button"
+            onClick={async () => {
+              console.log('🧪 [DEBUG] Testing direct API call...');
+              try {
+                const response = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name: 'Debug Test',
+                    email: 'debug@test.com',
+                    subject: 'general_inquiry',
+                    message: 'Debug test from frontend button',
+                    recaptcha: 'debug_token',
+                    honeypot: ''
+                  })
+                });
+                const data = await response.json();
+                console.log('🧪 [DEBUG] API Response:', data);
+                alert('Debug test: ' + (response.ok ? 'SUCCESS' : 'FAILED'));
+              } catch (error) {
+                console.error('🧪 [DEBUG] API Error:', error);
+                alert('Debug test FAILED: ' + error);
+              }
+            }}
+            className="bg-red-500 text-white px-4 py-2 rounded text-sm"
+          >
+            🧪 Test API Direct
+          </button>
+        </div>
 
         <p className="text-center text-sm text-slate-600 dark:text-slate-400 pb-8">
           Prefer email? Reach me directly at{' '}
