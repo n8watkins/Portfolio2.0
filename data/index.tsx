@@ -536,7 +536,7 @@ export const projects = [
     {
       id: 1,
       title: 'Appturnity',
-      subTitle: 'Software Consulting Agency',
+      subTitle: 'Software Consulting',
       des: 'App consulting service that helps clients validate and scope new software ideas in a clear, modern layout.',
       images: [
         '/projects/Appturnity.webp',
@@ -580,14 +580,14 @@ export const projects = [
           ],
         },
       },
-      github: 'https://github.com/natkins23/appturnity',
+      github: 'https://github.com/n8watkins/appturnity',
       liveSite: 'https://appturnity.web.app/',
     },
     {
       id: 2,
-      title: 'Riverwood Ranch',
-      subTitle: 'Property Management Welcome Page',
-      des: `A platform designed to streamline board duties offering login pin access, document upload, as well as email forwarding.`,
+      title: 'Welcome Page',
+      subTitle: 'Property Management',
+      des: `A platform designed to streamline board duties with login access, document upload, and email forwarding.`,
       images: [
         '/projects/riverwood.webp',
         '/projects/riverwood1.webp',
@@ -600,7 +600,7 @@ export const projects = [
         Frontend: {
           descriptionParts: [
             {
-              text: 'Responsive UI built with React and Tailwind CSS',
+              text: 'Responsive design with modern UI',
               icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
             },
             {
@@ -624,11 +624,11 @@ export const projects = [
               icons: [{ icon: 'zod.png' }],
             },
             {
-              text: 'Database interactions managed with Drizzle ORM',
+              text: 'Database managed with Drizzle ORM',
               icons: [{ icon: 'drizzle.png' }],
             },
             {
-              text: 'Authentication and real-time data with Firebase',
+              text: 'Authentication and real-time data',
               icons: [{ icon: 'firebase.png' }],
             },
           ],
@@ -636,7 +636,7 @@ export const projects = [
         Cloud: {
           descriptionParts: [
             {
-              text: 'Deployed on Firebase Hosting for scalability and reliability',
+              text: 'Deployed on Firebase Hosting',
               icons: [{ icon: 'firebase.png' }],
             },
             {
@@ -646,7 +646,7 @@ export const projects = [
           ],
         },
       },
-      github: 'https://github.com/natkins23/RiverwoodRanch',
+      github: 'https://github.com/n8watkins/RiverwoodRanch',
       liveSite: 'https://riverwoodranch.web.app/',
     },
   {
@@ -706,7 +706,7 @@ export const projects = [
         ],
       },
     },
-    github: 'https://github.com/natkins23/net_trailer',
+    github: 'https://github.com/n8watkins/net_trailer',
     liveSite: 'https://net-trailers.vercel.app/',
   },
   {
@@ -766,7 +766,7 @@ export const projects = [
         ],
       },
     },
-    github: 'https://github.com/natkins23/Quizmatic',
+    github: 'https://github.com/n8watkins/Quizmatic',
     liveSite: 'https://quizmatic.vercel.app/',
   }
   

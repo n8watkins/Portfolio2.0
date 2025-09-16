@@ -289,7 +289,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           />
         </div>
         <div className="flex justify-center items-center w-40  ">
-          <h3 className="font-bold text-xl ">{currentCategory}</h3>
+          <h3 className="font-bold text-lg md:text-xl">{currentCategory}</h3>
         </div>
         <div className="w-12 h-12 flex items-center justify-center">
           <ChevronRight
@@ -323,7 +323,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          className="text-lg 1lg:text-xl font-bold text-center pt-3 select-text">
+          className="text-base md:text-lg lg:text-xl font-bold text-center pt-3 select-text">
           {formattedNames}
         </motion.div>
       </AnimatePresence>
@@ -372,7 +372,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
             })
           )}
         </div>
-        <div className="flex items-center justify-center text-lg 1lg:text-xl font-bold pt-3">
+        <div className="flex items-center justify-center text-base md:text-lg lg:text-xl font-bold pt-3">
           {firstTechName}
         </div>
       </div>

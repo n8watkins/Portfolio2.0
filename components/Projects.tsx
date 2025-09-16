@@ -530,7 +530,7 @@ const handleIconCycleStateChange = useCallback((
       <motion.div
         variants={staggerContainerSlowVariants}
         {...defaultAnimationConfig}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:gap-14  ">
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-4 xl:gap-5 2xl:gap-6">
       {projects.map((project: Project) => {
 const onStateChange = onStateChangeMap[project.id];
   return (
@@ -538,26 +538,26 @@ const onStateChange = onStateChangeMap[project.id];
     <motion.div
       key={project.id}
       variants={staggerItemVariants}
-      className="relative flex flex-col items-start bg-gradient-to-br from-blue-700 via-blue-500 to-blue-700 dark:bg-gradient-to-br dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] justify-center xl:p-6 w-full rounded-xl col-span-1 border border-white/[.2] shadow-md"
+      className="relative flex flex-col items-start bg-gradient-to-br from-blue-700 via-blue-500 to-blue-700 dark:bg-gradient-to-br dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] justify-center p-3 lg:p-4 xl:p-6 w-full max-w-full min-w-0 rounded-xl col-span-1 border border-white/[.2] shadow-md overflow-hidden"
     >
-      <div className="m-3">
-        <div className="relative w-full pt-[56.25%] rounded-xl mb-4">
+      <div>
+        <div className="relative w-full pt-[56.25%] rounded-xl mb-4 overflow-hidden">
           <div
             onClick={() => handleProjectClick(project)}
-            className="absolute inset-0 rounded-xl cursor-pointer"
+            className="absolute inset-0 rounded-xl cursor-pointer overflow-hidden"
           >
             <Image
               src={project.images[0]}
               alt={project.title}
               fill
-              sizes='100%'
-              className="rounded-xl select-none object-cover hover:scale-105 duration-200"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="rounded-xl select-none object-cover hover:scale-[1.01] duration-200 transform-gpu will-change-transform"
             />
           </div>
         </div>
-        <div className="relative flex flex-col w-full mr-2">
-          <div className="flex w-full justify-between select-none">
-            <div className="flex flex-col">
+        <div className="relative flex flex-col w-full max-w-full overflow-hidden">
+          <div className="flex w-full justify-between items-start gap-2 min-w-0 select-none">
+            <div className="flex flex-col flex-1 min-w-0">
               <a
                 href={project.liveSite}
                 target="_blank"
@@ -566,17 +566,17 @@ const onStateChange = onStateChangeMap[project.id];
                 className="flex flex-row justify-start items-center mb-1 select-none cursor-default"
               >
                 <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
-                  <h2 className="text-3xl font-bold mb-2 flex justify-center decoration-3 hover-underline-animation whitespace-nowrap select-none">
+                  <h2 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl font-bold mb-2 flex justify-center decoration-3 hover-underline-animation truncate select-none">
                     {project.title}
                   </h2>
                   <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
                 </span>
               </a>
-              <span className="text-base xl:text-md font-sans font-bold pb-2 -mt-3 select-none whitespace-nowrap">
+              <span className="text-lg md:text-base lg:text-base xl:text-md font-sans font-bold pb-2 -mt-3 select-none truncate">
                 {project.subTitle}
               </span>
             </div>
-            <span className="flex flex-row justify-end items-end gap-2 md:gap-4 pb-2 select-none">
+            <span className="flex flex-row justify-end items-end gap-1 md:gap-2 lg:gap-4 pb-2 flex-shrink-0 select-none">
               <a
                 href={project.github}
                 target="_blank"
@@ -600,7 +600,7 @@ const onStateChange = onStateChangeMap[project.id];
               </span>
             </span>
           </div>
-          <p className="text:text-white h-10 mt-1 dark:text-slate-300 select-none">
+          <p className="text-sm sm:text-base md:text-base h-10 mt-1 dark:text-slate-300 select-none">
             {project.des}
           </p>
           <IconCycle
