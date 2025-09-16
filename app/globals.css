@@ -6,6 +6,7 @@
   html {
     @apply custom-scrollbar;
     scrollbar-gutter: stable;
+    scroll-padding-top: 80px; /* Offset for fixed navigation */
   }
 
   body {
@@ -13,7 +14,7 @@
     overflow-y: scroll;
   }
 
-  /* Move Sentry feedback button to bottom-left */
+  /* Move Sentry feedback button to bottom-left (original position) */
   #sentry-feedback {
     --inset: auto auto 0 0;
     --page-margin: 24px;
@@ -186,4 +187,9 @@
 
 .breakpoint-display {
   background-color: theme('colors.blue.800') !important;
+}
+
+/* Hide the Google reCAPTCHA badge */
+.grecaptcha-badge {
+  display: none !important;
 }

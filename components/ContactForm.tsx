@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import ReCAPTCHA from 'react-google-recaptcha'
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { motion, AnimatePresence } from 'framer-motion'
+import Lottie from 'react-lottie'
+import confettiData from '../data/confetti.json'
 
 import { ContactInput } from './ui/ContactInput'
 import { ContactSelect } from './ui/ContactSelect'
@@ -19,11 +21,14 @@ interface ContactFormProps {
 
 type SubmissionState = 'idle' | 'submitting' | 'success' | 'error'
 
-export default function ContactForm({ className }: ContactFormProps) {
+// Inner form component that uses reCAPTCHA
+function ContactFormInner({ className }: ContactFormProps) {
   const [submissionState, setSubmissionState] = useState<SubmissionState>('idle')
   const [charCount, setCharCount] = useState(0)
   const [liveRegionMessage, setLiveRegionMessage] = useState('')
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [confettiKey, setConfettiKey] = useState(0)
+  const { executeRecaptcha } = useGoogleReCaptcha()
 
   const {
     register,
@@ -72,17 +77,33 @@ export default function ContactForm({ className }: ContactFormProps) {
   }, [submissionState])
 
   const onSubmit = async (data: ContactFormData) => {
+    if (!executeRecaptcha) {
+      console.error('reCAPTCHA not available')
+      setSubmissionState('error')
+      setLiveRegionMessage('Security verification not available. Please refresh the page.')
+      return
+    }
+
     try {
       setSubmissionState('submitting')
       setLiveRegionMessage('Submitting your message...')
       trackContactEvent('submit_attempt')
+
+      // Execute reCAPTCHA v3
+      const recaptchaToken = await executeRecaptcha('contact_form')
+
+      // Add the token to form data
+      const formDataWithToken = {
+        ...data,
+        recaptcha: recaptchaToken
+      }
 
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formDataWithToken),
       })
 
       if (!response.ok) {
@@ -93,8 +114,12 @@ export default function ContactForm({ className }: ContactFormProps) {
       setSubmissionState('success')
       setLiveRegionMessage('Message sent successfully! I will get back to you within 24 hours.')
       trackContactEvent('submit_success')
+
+      // Trigger confetti animation
+      setShowConfetti(true)
+      setConfettiKey(prev => prev + 1)
+
       reset()
-      recaptchaRef.current?.reset()
       setCharCount(0)
 
     } catch (error) {
@@ -105,12 +130,6 @@ export default function ContactForm({ className }: ContactFormProps) {
     }
   }
 
-  const handleRecaptchaChange = (token: string | null) => {
-    setValue('recaptcha', token || '')
-    if (token) {
-      trackContactEvent('recaptcha_complete')
-    }
-  }
 
   const handleFieldFocus = (fieldName: string) => {
     trackContactEvent('field_focus', fieldName)
@@ -121,26 +140,75 @@ export default function ContactForm({ className }: ContactFormProps) {
     trackContactEvent('view')
   }, [])
 
+  // Lottie options for confetti
+  const confettiOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: confettiData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
+
   if (submissionState === 'success') {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center py-12"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="text-center py-12 relative"
       >
-        <div className="text-6xl mb-4">🎉</div>
-        <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-          Message sent successfully!
-        </h3>
-        <p className="text-slate-600 dark:text-slate-400 mb-6">
-          I&apos;ll get back to you within 24 hours.
-        </p>
-        <button
-          onClick={() => setSubmissionState('idle')}
-          className="text-purple-600 dark:text-purple-400 hover:underline"
+        {/* Confetti Animation */}
+        {showConfetti && (
+          <div key={confettiKey} className="absolute inset-0 pointer-events-none z-10">
+            <Lottie options={confettiOptions} height={300} width={300} />
+          </div>
+        )}
+
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="relative z-20"
         >
-          Send another message →
-        </button>
+          <motion.div
+            className="text-6xl mb-4"
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            🚀
+          </motion.div>
+          <motion.h3
+            className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2"
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.4 }}
+          >
+            Message sent successfully!
+          </motion.h3>
+          <motion.p
+            className="text-slate-600 dark:text-slate-400 mb-6"
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.4 }}
+          >
+            I&apos;ll get back to you within 24 hours.
+          </motion.p>
+          <motion.button
+            onClick={() => {
+              setSubmissionState('idle')
+              setShowConfetti(false)
+            }}
+            className="text-purple-600 dark:text-purple-400 hover:underline transition-colors duration-200"
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.4 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Send another message →
+          </motion.button>
+        </motion.div>
       </motion.div>
     )
   }
@@ -149,6 +217,7 @@ export default function ContactForm({ className }: ContactFormProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       className={className}
     >
       {/* Accessibility: Live region for screen readers */}
@@ -172,79 +241,101 @@ export default function ContactForm({ className }: ContactFormProps) {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:gap-6">
+        <motion.div
+          className="grid grid-cols-1 gap-4 md:gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.2, ease: "easeOut" }}
+          >
+            <ContactInput
+              {...register('name')}
+              id="name"
+              label="Your Name"
+              emoji="👤"
+              placeholder="Your name"
+              error={errors.name?.message}
+              onFocus={() => handleFieldFocus('name')}
+              autoComplete="name"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.25, ease: "easeOut" }}
+          >
+            <ContactInput
+              {...register('email')}
+              id="email"
+              type="email"
+              label="Email Address"
+              emoji="📧"
+              placeholder="your.email@company.com"
+              error={errors.email?.message}
+              onFocus={() => handleFieldFocus('email')}
+              autoComplete="email"
+            />
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
+        >
           <ContactInput
-            {...register('name')}
-            id="name"
-            label="Your Name"
-            emoji="👤"
-            placeholder="Your name"
-            error={errors.name?.message}
-            onFocus={() => handleFieldFocus('name')}
-            autoComplete="name"
+            {...register('company')}
+            id="company"
+            label="Company (Optional)"
+            emoji="🏢"
+            placeholder="Company name"
+            error={errors.company?.message}
+            onFocus={() => handleFieldFocus('company')}
+            autoComplete="organization"
           />
+        </motion.div>
 
-          <ContactInput
-            {...register('email')}
-            id="email"
-            type="email"
-            label="Email Address"
-            emoji="📧"
-            placeholder="your.email@company.com"
-            error={errors.email?.message}
-            onFocus={() => handleFieldFocus('email')}
-            autoComplete="email"
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.35, ease: "easeOut" }}
+        >
+          <ContactSelect
+            {...register('subject')}
+            id="subject"
+            label="What's this about?"
+            emoji="💼"
+            options={subjectOptions}
+            error={errors.subject?.message}
+            onFocus={() => handleFieldFocus('subject')}
           />
-        </div>
+        </motion.div>
 
-        <ContactInput
-          {...register('company')}
-          id="company"
-          label="Company (Optional)"
-          emoji="🏢"
-          placeholder="Company name"
-          error={errors.company?.message}
-          onFocus={() => handleFieldFocus('company')}
-          autoComplete="organization"
-        />
-
-        <ContactSelect
-          {...register('subject')}
-          id="subject"
-          label="What's this about?"
-          emoji="💼"
-          options={subjectOptions}
-          error={errors.subject?.message}
-          onFocus={() => handleFieldFocus('subject')}
-        />
-
-        <ContactTextarea
-          {...register('message')}
-          id="message"
-          label="Tell me more"
-          emoji="💬"
-          placeholder="Tell me about your project or how I can help..."
-          rows={5}
-          maxChars={1000}
-          charCount={charCount}
-          error={errors.message?.message}
-          onFocus={() => handleFieldFocus('message')}
-        />
-
-        <div className="flex justify-center">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-            onChange={handleRecaptchaChange}
-            theme="light"
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.4, ease: "easeOut" }}
+        >
+          <ContactTextarea
+            {...register('message')}
+            id="message"
+            label="Tell me more"
+            emoji="💬"
+            placeholder="Tell me about your project or how I can help..."
+            rows={5}
+            maxChars={1000}
+            charCount={charCount}
+            error={errors.message?.message}
+            onFocus={() => handleFieldFocus('message')}
           />
-          {errors.recaptcha && (
-            <p className="text-sm text-red-600 dark:text-red-400 mt-2 flex items-center gap-1">
-              <span>⚠️</span>
-              {errors.recaptcha.message}
-            </p>
-          )}
-        </div>
+        </motion.div>
+
+        {/* reCAPTCHA v3 runs invisibly - no UI component needed */}
 
         <AnimatePresence>
           {submissionState === 'error' && (
@@ -262,25 +353,52 @@ export default function ContactForm({ className }: ContactFormProps) {
           )}
         </AnimatePresence>
 
-        <div className="text-center px-4">
-          <MagicButton
-            title={isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
-            icon={<></>}
-            position="right"
-            otherClasses={`w-full md:w-auto ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""}`}
-          />
-        </div>
+        <motion.div
+          className="text-center px-4"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.45, ease: "easeOut" }}
+        >
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
+              isSubmitting ? "opacity-75 cursor-not-allowed" : ""
+            }`}
+            whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+            whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+            <motion.span
+              className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2"
+              animate={isSubmitting ? { scale: [1, 1.02, 1] } : {}}
+              transition={{ duration: 1, repeat: isSubmitting ? Infinity : 0 }}
+            >
+              {isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
+            </motion.span>
+          </motion.button>
+        </motion.div>
 
-        <p className="text-center text-sm text-slate-600 dark:text-slate-400">
+        <p className="text-center text-sm text-slate-600 dark:text-slate-400 pb-8">
           Prefer email? Reach me directly at{' '}
           <a
-            href="mailto:nathancwatkins@gmail.com"
+            href="mailto:nathancwatkins23@gmail.com"
             className="text-purple-600 dark:text-purple-400 hover:underline"
           >
-            nathancwatkins@gmail.com ✉️
+            nathancwatkins23@gmail.com
           </a>
         </p>
       </form>
     </motion.div>
+  )
+}
+
+// Main component that wraps the form with reCAPTCHA provider
+export default function ContactForm({ className }: ContactFormProps) {
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}>
+      <ContactFormInner className={className} />
+    </GoogleReCaptchaProvider>
   )
 }

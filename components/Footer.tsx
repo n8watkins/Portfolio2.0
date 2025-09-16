@@ -9,7 +9,7 @@ import { fadeInUpVariants, fadeInVariants, staggerContainerVariants, staggerItem
 
 const Footer = () => {
   return (
-    <footer className="xl:max-w-5xl  pt-0 pb-24 ">
+    <footer className="xl:max-w-5xl  pt-0 pb-12 ">
       {/* background grid */}
       <div className="w-full absolute left-0 1sm:-translate-y-52 -bottom-72 min-h-96 pointer-events-none">
          <Image
@@ -32,10 +32,8 @@ const Footer = () => {
           <h2 className="heading lg:max-w-[45vw] mb-6">
             Let&apos;s build something <span className="text-purple-500">amazing together!</span> 🚀
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-5">
-            Got a project in mind? Need a fresh perspective?<br />
-            Or just want to chat about the latest in web development?<br />
-            Drop me a line – I&apos;d love to hear from you! 💬
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-5 leading-tight text-lg md:text-xl">
+            Got a project in mind? Let&apos;s chat! 💬
           </p>
         </motion.div>
 
@@ -43,18 +41,25 @@ const Footer = () => {
         <motion.div
           variants={fadeInVariants}
           {...defaultAnimationConfig}
-          className="w-full max-w-2xl mx-auto mb-16 px-4">
-          <div className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-xl">
+          className="w-full max-w-2xl mx-auto mb-8 px-4">
+          <div className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10 shadow-xl relative">
             <ContactFormErrorBoundary>
               <ContactForm />
             </ContactFormErrorBoundary>
+            {/* Custom reCAPTCHA v3 badge */}
+            <div className="absolute bottom-4 right-4 opacity-70 hover:opacity-100 transition-opacity">
+              <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                <span>🛡️</span>
+                <span>Protected by reCAPTCHA v3</span>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
       <motion.div
         variants={staggerContainerVariants}
         {...defaultAnimationConfig}
-        className="flex mt-16 md:flex-row flex-col-reverse justify-between items-center md:mx-10">
+        className="flex mt-8 md:flex-row flex-col-reverse justify-between items-center md:mx-10">
         <motion.p
           variants={staggerItemVariants}
           className="md:text-base text-sm md:font-normal font-light">
