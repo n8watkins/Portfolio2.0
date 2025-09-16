@@ -105,7 +105,7 @@ NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
 RECAPTCHA_SECRET_KEY=your_secret_key_here
 RESEND_API_KEY=your_resend_api_key_here  # ⚠️ NEEDS REAL API KEY
 CONTACT_EMAIL_TO=nathancwatkins@gmail.com
-CONTACT_EMAIL_FROM=contact@nathansportfolio.vercel.app
+CONTACT_EMAIL_FROM=contact@yourdomain.com
 ```
 
 ## 📊 Implementation Summary
