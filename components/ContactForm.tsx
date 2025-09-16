@@ -78,7 +78,11 @@ function ContactFormInner({ className }: ContactFormProps) {
 
   const onSubmit = async (data: ContactFormData) => {
     console.log('🚀 Form submission started')
-    if (!executeRecaptcha) {
+
+    // In development mode or when reCAPTCHA is not available, allow submission
+    const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+
+    if (!executeRecaptcha && !isDevelopment) {
       console.error('reCAPTCHA not available')
       setSubmissionState('error')
       setLiveRegionMessage('Security verification not available. Please refresh the page.')
@@ -90,10 +94,16 @@ function ContactFormInner({ className }: ContactFormProps) {
       setLiveRegionMessage('Submitting your message...')
       trackContactEvent('submit_attempt')
 
-      console.log('🔐 Executing reCAPTCHA...')
-      // Execute reCAPTCHA v3
-      const recaptchaToken = await executeRecaptcha('contact_form')
-      console.log('🔐 reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No')
+      let recaptchaToken = 'dev_bypass_token'
+
+      if (executeRecaptcha && !isDevelopment) {
+        console.log('🔐 Executing reCAPTCHA...')
+        // Execute reCAPTCHA v3
+        recaptchaToken = await executeRecaptcha('contact_form')
+        console.log('🔐 reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No')
+      } else if (isDevelopment) {
+        console.log('🔐 Development mode: Using bypass token')
+      }
 
       // Add the token to form data
       const formDataWithToken = {
@@ -240,7 +250,13 @@ function ContactFormInner({ className }: ContactFormProps) {
         {liveRegionMessage}
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+      <form
+        onSubmit={(e) => {
+          console.log('📝 Form submit event triggered');
+          handleSubmit(onSubmit)(e);
+        }}
+        className="space-y-4 md:space-y-6"
+      >
         {/* Security: Honeypot field - hidden from users */}
         <div className="hidden">
           <input
@@ -370,25 +386,19 @@ function ContactFormInner({ className }: ContactFormProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.45, ease: "easeOut" }}
         >
-          <motion.button
+          <button
             type="submit"
             disabled={isSubmitting}
-            className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
+            onClick={(e) => {
+              console.log('🖱️ Simple button clicked!', { isSubmitting, disabled: isSubmitting });
+              // Don't prevent default - let the form handle the submission
+            }}
+            className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 bg-purple-600 hover:bg-purple-700 text-white font-medium ${
               isSubmitting ? "opacity-75 cursor-not-allowed" : ""
             }`}
-            whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-            whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-            transition={{ type: "spring", stiffness: 400, damping: 30 }}
           >
-            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <motion.span
-              className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2"
-              animate={isSubmitting ? { scale: [1, 1.02, 1] } : {}}
-              transition={{ duration: 1, repeat: isSubmitting ? Infinity : 0 }}
-            >
-              {isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
-            </motion.span>
-          </motion.button>
+            {isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
+          </button>
         </motion.div>
 
         <p className="text-center text-sm text-slate-600 dark:text-slate-400 pb-8">
