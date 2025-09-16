@@ -77,6 +77,7 @@ function ContactFormInner({ className }: ContactFormProps) {
   }, [submissionState])
 
   const onSubmit = async (data: ContactFormData) => {
+    console.log('🚀 Form submission started')
     if (!executeRecaptcha) {
       console.error('reCAPTCHA not available')
       setSubmissionState('error')
@@ -89,8 +90,10 @@ function ContactFormInner({ className }: ContactFormProps) {
       setLiveRegionMessage('Submitting your message...')
       trackContactEvent('submit_attempt')
 
+      console.log('🔐 Executing reCAPTCHA...')
       // Execute reCAPTCHA v3
       const recaptchaToken = await executeRecaptcha('contact_form')
+      console.log('🔐 reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No')
 
       // Add the token to form data
       const formDataWithToken = {
@@ -98,6 +101,7 @@ function ContactFormInner({ className }: ContactFormProps) {
         recaptcha: recaptchaToken
       }
 
+      console.log('📤 Sending request to API...')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -108,6 +112,13 @@ function ContactFormInner({ className }: ContactFormProps) {
 
       if (!response.ok) {
         const errorData = await response.json()
+        console.error('Form submission error:', errorData)
+
+        // Handle rate limit errors specifically
+        if (response.status === 429 || errorData.type === 'rate_limit') {
+          setLiveRegionMessage(errorData.error || 'Rate limit exceeded. Please try again later or email me directly.')
+        }
+
         throw new Error(errorData.error || 'Failed to send message')
       }
 

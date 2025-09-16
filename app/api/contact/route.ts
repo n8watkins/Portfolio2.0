@@ -7,6 +7,14 @@ import { subjectOptions } from '@/lib/validations/contact'
 // Security: Rate limiting with cleanup
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 
+// Debug function to clear rate limits (only in development)
+function clearRateLimit(key: string) {
+  if (process.env.NODE_ENV === 'development') {
+    rateLimitMap.delete(key)
+    console.log('🧹 Cleared rate limit for key:', key)
+  }
+}
+
 // Security: Periodic cleanup to prevent memory leaks
 function cleanupRateLimit() {
   const now = Date.now()
@@ -31,26 +39,34 @@ function getRateLimitKey(request: NextRequest): string {
 function checkRateLimit(key: string): boolean {
   const now = Date.now()
   const windowMs = 60 * 60 * 1000 // 1 hour
-  const maxRequests = 3
+  const maxRequests = process.env.NODE_ENV === 'development' ? 50 : 3 // Higher limit for development
+
+  console.log('🔍 Rate limit check:', { key, maxRequests, env: process.env.NODE_ENV })
 
   // Clean up expired entry for this key
   const entry = rateLimitMap.get(key)
   if (entry && now > entry.resetTime) {
     rateLimitMap.delete(key)
+    console.log('🧹 Cleaned up expired rate limit entry for key:', key)
   }
 
   const currentEntry = rateLimitMap.get(key)
 
   if (!currentEntry) {
     rateLimitMap.set(key, { count: 1, resetTime: now + windowMs })
+    console.log('✅ First request for key:', key)
     return true
   }
 
+  console.log('📊 Current entry:', { count: currentEntry.count, maxRequests })
+
   if (currentEntry.count >= maxRequests) {
+    console.log('❌ Rate limit exceeded for key:', key, 'count:', currentEntry.count)
     return false
   }
 
   currentEntry.count++
+  console.log('✅ Request allowed for key:', key, 'new count:', currentEntry.count)
   return true
 }
 
@@ -93,12 +109,15 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('🚀 Contact API called')
   try {
     // Security: Request size limiting
     const MAX_BODY_SIZE = 10 * 1024 // 10KB
     const bodyText = await request.text()
+    console.log('📄 Body size:', bodyText.length, 'bytes')
 
     if (bodyText.length > MAX_BODY_SIZE) {
+      console.log('❌ Request too large')
       return NextResponse.json(
         { error: 'Request too large' },
         { status: 413 }
@@ -107,16 +126,29 @@ export async function POST(request: NextRequest) {
 
     // Security: Rate limiting
     const rateLimitKey = getRateLimitKey(request)
+    console.log('🔑 Rate limit key:', rateLimitKey)
+
+    // Clear rate limit for localhost/development testing
+    if (process.env.NODE_ENV === 'development' && rateLimitKey.includes('localhost')) {
+      clearRateLimit(rateLimitKey)
+    }
+
     if (!checkRateLimit(rateLimitKey)) {
+      console.log('❌ Rate limit exceeded')
       return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
+        {
+          error: 'You\'ve reached the submission limit (3 per hour). Please try again later or email me directly at nathancwatkins23@gmail.com.',
+          type: 'rate_limit'
+        },
         { status: 429 }
       )
     }
 
     // Parse and validate request body
     const body = JSON.parse(bodyText)
+    console.log('📝 Form data received:', { name: body.name, email: body.email, subject: body.subject })
     const validatedData = contactFormSchema.parse(body)
+    console.log('✅ Validation passed')
 
     // Security: Check honeypot field
     if (validatedData.honeypot && validatedData.honeypot.length > 0) {
@@ -128,7 +160,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Security: Verify reCAPTCHA
+    console.log('🔐 Verifying reCAPTCHA...')
     const isRecaptchaValid = await verifyRecaptcha(validatedData.recaptcha)
+    console.log('🔐 reCAPTCHA valid:', isRecaptchaValid)
     if (!isRecaptchaValid) {
       return NextResponse.json(
         { error: 'reCAPTCHA verification failed. Please try again.' },
@@ -140,10 +174,11 @@ export async function POST(request: NextRequest) {
     const subjectLabel = subjectOptions.find(opt => opt.value === validatedData.subject)?.label || validatedData.subject
 
     try {
+      console.log('📧 Sending notification email to:', EMAIL_CONFIG.to)
       // Send notification email to Nathan
       const contactEmailHtml = createContactEmailHtml(validatedData)
 
-      await resend.emails.send({
+      const notificationResult = await resend.emails.send({
         from: EMAIL_CONFIG.from,
         to: EMAIL_CONFIG.to,
         subject: `💼 New Contact Form Submission from ${validatedData.name}`,
@@ -162,11 +197,13 @@ ${validatedData.message}
 Sent from your portfolio contact form at ${new Date().toLocaleString()}
         `.trim(),
       })
+      console.log('✅ Notification email sent:', notificationResult.data?.id)
 
+      console.log('📧 Sending auto-reply to:', validatedData.email)
       // Send auto-reply to sender
       const autoReplyHtml = createAutoReplyHtml(validatedData.name)
 
-      await resend.emails.send({
+      const autoReplyResult = await resend.emails.send({
         from: EMAIL_CONFIG.from,
         to: validatedData.email,
         subject: '🎉 Thanks for reaching out!',
@@ -188,6 +225,7 @@ Nathan Watkins
 Full-Stack Developer
         `.trim(),
       })
+      console.log('✅ Auto-reply email sent:', autoReplyResult.data?.id)
 
     } catch (emailError) {
       console.error('Email sending error:', emailError)
@@ -197,6 +235,7 @@ Full-Stack Developer
       )
     }
 
+    console.log('🎉 Contact form submission successful!')
     return NextResponse.json(
       { message: 'Message sent successfully!' },
       { status: 200 }
