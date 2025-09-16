@@ -85,44 +85,46 @@ function ContactFormInner({ className }: ContactFormProps) {
     }
   }, [submissionState])
 
+  const handleFormSubmit = async () => {
+    console.log('🚀 [FORM] Manual form submission triggered')
+
+    // First, execute reCAPTCHA if needed
+    const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    let recaptchaToken = 'dev_bypass_token'
+
+    if (executeRecaptcha && !isDevelopment) {
+      console.log('🔐 Executing reCAPTCHA before validation...')
+      try {
+        recaptchaToken = await executeRecaptcha('contact_form')
+        console.log('🔐 reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No')
+
+        // Set the reCAPTCHA token in the form
+        setValue('recaptcha', recaptchaToken)
+      } catch (error) {
+        console.error('❌ [FORM] reCAPTCHA execution failed:', error)
+        setSubmissionState('error')
+        setLiveRegionMessage('Security verification failed. Please try again.')
+        return
+      }
+    } else if (isDevelopment) {
+      console.log('🔐 Development mode: Using bypass token')
+      setValue('recaptcha', recaptchaToken)
+    }
+
+    // Now trigger the actual form submission with validation
+    handleSubmit(onSubmit)()
+  }
+
   const onSubmit = async (data: ContactFormData) => {
     console.log('🚀 [FORM] Form submission started with data:', data)
     console.log('🚀 [FORM] Current submission state:', submissionState)
-    console.log('🚀 [FORM] Form errors:', errors)
-
-    // In development mode or when reCAPTCHA is not available, allow submission
-    const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
-    console.log('🚀 [FORM] Development mode:', isDevelopment)
-    console.log('🚀 [FORM] executeRecaptcha available:', !!executeRecaptcha)
-
-    if (!executeRecaptcha && !isDevelopment) {
-      console.error('❌ [FORM] reCAPTCHA not available')
-      setSubmissionState('error')
-      setLiveRegionMessage('Security verification not available. Please refresh the page.')
-      return
-    }
 
     try {
       setSubmissionState('submitting')
       setLiveRegionMessage('Submitting your message...')
       trackContactEvent('submit_attempt')
 
-      let recaptchaToken = 'dev_bypass_token'
-
-      if (executeRecaptcha && !isDevelopment) {
-        console.log('🔐 Executing reCAPTCHA...')
-        // Execute reCAPTCHA v3
-        recaptchaToken = await executeRecaptcha('contact_form')
-        console.log('🔐 reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No')
-      } else if (isDevelopment) {
-        console.log('🔐 Development mode: Using bypass token')
-      }
-
-      // Add the token to form data
-      const formDataWithToken = {
-        ...data,
-        recaptcha: recaptchaToken
-      }
+      // Form data already includes reCAPTCHA token
 
       console.log('📤 Sending request to API...')
       const response = await fetch('/api/contact', {
@@ -130,7 +132,7 @@ function ContactFormInner({ className }: ContactFormProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formDataWithToken),
+        body: JSON.stringify(data),
       })
 
       if (!response.ok) {
@@ -265,24 +267,8 @@ function ContactFormInner({ className }: ContactFormProps) {
 
       <form
         onSubmit={(e) => {
-          console.log('📝 [FORM] Form submit event triggered');
-          console.log('📝 [FORM] Event type:', e.type);
-          console.log('📝 [FORM] Event target:', e.target);
-          console.log('📝 [FORM] Form data before submission:', formData);
-          console.log('📝 [FORM] Form errors before submission:', errors);
-          console.log('📝 [FORM] Calling handleSubmit...');
-
-          // Check if form is valid
-          const isValid = Object.keys(errors).length === 0;
-          console.log('📝 [FORM] Is form valid?', isValid);
-
-          if (!isValid) {
-            console.error('❌ [FORM] VALIDATION FAILED - Form has errors:', errors);
-            e.preventDefault();
-            return false;
-          }
-
-          handleSubmit(onSubmit)(e);
+          e.preventDefault();
+          console.log('📝 [FORM] Form submit event prevented - using manual submission');
         }}
         className="space-y-4 md:space-y-6"
       >
@@ -416,17 +402,14 @@ function ContactFormInner({ className }: ContactFormProps) {
           transition={{ duration: 0.3, delay: 0.45, ease: "easeOut" }}
         >
           <button
-            type="submit"
+            type="button"
             disabled={isSubmitting}
             onClick={(e) => {
               console.log('🖱️ [BTN] Magic button clicked!');
               console.log('🖱️ [BTN] isSubmitting:', isSubmitting);
               console.log('🖱️ [BTN] disabled:', isSubmitting);
-              console.log('🖱️ [BTN] Event target:', e.target);
-              console.log('🖱️ [BTN] Current target:', e.currentTarget);
-              console.log('🖱️ [BTN] Button type:', e.currentTarget.type);
-              console.log('🖱️ [BTN] Form validity:', e.currentTarget.form?.checkValidity());
-              // Don't prevent default - let the form handle the submission
+              e.preventDefault(); // Prevent any default behavior
+              handleFormSubmit(); // Call our custom submit handler
             }}
             className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
               isSubmitting ? "opacity-75 cursor-not-allowed" : ""
