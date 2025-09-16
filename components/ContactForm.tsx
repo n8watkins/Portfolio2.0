@@ -365,9 +365,9 @@ function ContactFormInner({ className }: ContactFormProps) {
             className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
               isSubmitting ? "opacity-75 cursor-not-allowed" : ""
             }`}
-            whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+            whileHover={!isSubmitting ? { scale: 1.02 } : {}}
             whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            transition={{ type: "spring", stiffness: 400, damping: 30 }}
           >
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
             <motion.span
