@@ -52,9 +52,18 @@ function ContactFormInner({ className }: ContactFormProps) {
 
   // Watch message field for character count
   const messageValue = watch('message')
+  const formData = watch() // Watch all form data
+
   useEffect(() => {
     setCharCount(messageValue?.length || 0)
   }, [messageValue])
+
+  // Debug form data changes
+  useEffect(() => {
+    console.log('📊 [FORM] Form data changed:', formData)
+    console.log('📊 [FORM] Form errors:', errors)
+    console.log('📊 [FORM] Is form valid:', Object.keys(errors).length === 0)
+  }, [formData, errors])
 
   // Security: Proper timeout cleanup
   useEffect(() => {
@@ -77,13 +86,17 @@ function ContactFormInner({ className }: ContactFormProps) {
   }, [submissionState])
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log('🚀 Form submission started')
+    console.log('🚀 [FORM] Form submission started with data:', data)
+    console.log('🚀 [FORM] Current submission state:', submissionState)
+    console.log('🚀 [FORM] Form errors:', errors)
 
     // In development mode or when reCAPTCHA is not available, allow submission
     const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+    console.log('🚀 [FORM] Development mode:', isDevelopment)
+    console.log('🚀 [FORM] executeRecaptcha available:', !!executeRecaptcha)
 
     if (!executeRecaptcha && !isDevelopment) {
-      console.error('reCAPTCHA not available')
+      console.error('❌ [FORM] reCAPTCHA not available')
       setSubmissionState('error')
       setLiveRegionMessage('Security verification not available. Please refresh the page.')
       return
@@ -252,7 +265,10 @@ function ContactFormInner({ className }: ContactFormProps) {
 
       <form
         onSubmit={(e) => {
-          console.log('📝 Form submit event triggered');
+          console.log('📝 [FORM] Form submit event triggered');
+          console.log('📝 [FORM] Event type:', e.type);
+          console.log('📝 [FORM] Event target:', e.target);
+          console.log('📝 [FORM] Calling handleSubmit...');
           handleSubmit(onSubmit)(e);
         }}
         className="space-y-4 md:space-y-6"
@@ -390,7 +406,13 @@ function ContactFormInner({ className }: ContactFormProps) {
             type="submit"
             disabled={isSubmitting}
             onClick={(e) => {
-              console.log('🖱️ Magic button clicked!', { isSubmitting, disabled: isSubmitting });
+              console.log('🖱️ [BTN] Magic button clicked!');
+              console.log('🖱️ [BTN] isSubmitting:', isSubmitting);
+              console.log('🖱️ [BTN] disabled:', isSubmitting);
+              console.log('🖱️ [BTN] Event target:', e.target);
+              console.log('🖱️ [BTN] Current target:', e.currentTarget);
+              console.log('🖱️ [BTN] Button type:', e.currentTarget.type);
+              console.log('🖱️ [BTN] Form validity:', e.currentTarget.form?.checkValidity());
               // Don't prevent default - let the form handle the submission
             }}
             className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
@@ -398,7 +420,7 @@ function ContactFormInner({ className }: ContactFormProps) {
             }`}
           >
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2">
+            <span className="inline-flex h-full w-full items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 pointer-events-none">
               {isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
             </span>
           </button>
