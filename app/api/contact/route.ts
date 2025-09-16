@@ -71,9 +71,15 @@ function checkRateLimit(key: string): boolean {
 }
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
+  // Skip reCAPTCHA verification in development mode
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🔐 Development mode: Skipping reCAPTCHA verification')
+    return true
+  }
+
   if (!process.env.RECAPTCHA_SECRET_KEY) {
     console.warn('RECAPTCHA_SECRET_KEY not set, skipping verification')
-    return process.env.NODE_ENV === 'development' // Only allow in dev
+    return false
   }
 
   try {
