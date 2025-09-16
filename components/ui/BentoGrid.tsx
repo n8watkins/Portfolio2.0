@@ -1,11 +1,13 @@
 'use client'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import MapDetails from './BentoComponents/MapDetails'
 import GridPattern from '../magicui/grid-pattern'
 import { TechStack } from '../TechStack'
 import ResumeButtons from './BentoComponents/ResumeButtons'
+import { staggerItemVariants } from '@/lib/animations'
 import dynamic from 'next/dynamic'
 
 const EmailButton = dynamic(() => import('@/components/ui/BentoComponents/EmailButton'), {
@@ -36,6 +38,7 @@ export const BentoGridItem = ({
   title,
   description,
   id,
+  index,
   img,
   imgClassName,
   titleClassName,
@@ -50,6 +53,7 @@ export const BentoGridItem = ({
   title?: string | React.ReactNode
   description?: string | React.ReactNode
   id?: number
+  index?: number
   img: string
   titleClassName: string
   imgClassName: string
@@ -66,7 +70,8 @@ export const BentoGridItem = ({
   
 
   return (
-    <div
+    <motion.div
+      variants={staggerItemVariants}
       className={cn(
         'flex w-full h-full rounded-3xl relative group  dark:border-white/[0.2]  bg-gradient-to-br from-blue-400 via-blue-500 to-blue-400 border dark:from-[#020621] dark:via-darkBlue dark:to-[#020621] overflow-hidden  select-none',
         gridItemContainer
@@ -140,6 +145,6 @@ export const BentoGridItem = ({
             </div>
           ))}
       </div>
-    </div>
+    </motion.div>
   )
 }

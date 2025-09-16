@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState,useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { FiGithub } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
+import { fadeInUpVariants, staggerContainerSlowVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 
 import IconCycle from '@/components/ui/ProjectComponents/iconCycle'
 import { projects } from '@/data'
@@ -411,7 +412,8 @@ const ProjectModal: React.FC<{
 }
 
 const Projects: React.FC = () => {
-  const [isIconsLoading, setIsIconsLoading] = useState(true)
+  // COMMENTED OUT: Icon loading state no longer needed with scroll animations
+  // const [isIconsLoading, setIsIconsLoading] = useState(true)
   const [isLargeDevice, setIsLargeDevice] = useState(false)
   const [hasMouse, setHasMouse] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
@@ -469,13 +471,14 @@ const handleIconCycleStateChange = useCallback((
     checkDeviceAndMouse()
     window.addEventListener('resize', checkDeviceAndMouse)
 
-    const timer = setTimeout(() => {
-      setIsIconsLoading(false)
-    }, 1500)
+    // COMMENTED OUT: Icon loading timer no longer needed
+    // const timer = setTimeout(() => {
+    //   setIsIconsLoading(false)
+    // }, 1500)
 
     return () => {
       window.removeEventListener('resize', checkDeviceAndMouse)
-      clearTimeout(timer)
+      // clearTimeout(timer) // COMMENTED OUT: Timer no longer exists
     }
   }, [])
 
@@ -517,17 +520,24 @@ const handleIconCycleStateChange = useCallback((
     <div
       id="projects"
       className="flex flex-col my-20 items-center justify-center gap-5 w-full text-slate-200 mb-40 ">
-      <h1 className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
+      <motion.h1
+        variants={fadeInUpVariants}
+        {...defaultAnimationConfig}
+        className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
         A small selection of <span className="text-purple-500 lg:inline">recent projects</span>
-      </h1>
+      </motion.h1>
 
-      <div  className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:gap-14  ">
+      <motion.div
+        variants={staggerContainerSlowVariants}
+        {...defaultAnimationConfig}
+        className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:gap-14  ">
       {projects.map((project: Project) => {
 const onStateChange = onStateChangeMap[project.id];
   return (
 
-    <div
+    <motion.div
       key={project.id}
+      variants={staggerItemVariants}
       className="relative flex flex-col items-start bg-gradient-to-br from-blue-700 via-blue-500 to-blue-700 dark:bg-gradient-to-br dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] justify-center xl:p-6 w-full rounded-xl col-span-1 border border-white/[.2] shadow-md"
     >
       <div className="m-3">
@@ -605,10 +615,10 @@ const onStateChange = onStateChangeMap[project.id];
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 })}
-      </div>
+      </motion.div>
       <AnimatePresence>
         {selectedProject && (
          <ProjectModal
