@@ -36,8 +36,8 @@ Update your `.env.local` file:
 RESEND_API_KEY=re_your_actual_key_here
 
 # reCAPTCHA keys are already configured ✅
-NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LdS2corAAAAADlik5m57oRQLKsTOCtYNBxt2QaS
-RECAPTCHA_SECRET_KEY=6LdS2corAAAAAA0nnjXq_CKsg-OIlRoUTkej1dpc
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
+RECAPTCHA_SECRET_KEY=your_secret_key_here
 ```
 
 ## 🧪 Step 3: Test Contact Form (10 minutes)
@@ -101,8 +101,8 @@ RECAPTCHA_SECRET_KEY=6LdS2corAAAAAA0nnjXq_CKsg-OIlRoUTkej1dpc
 ### Environment Configuration ✅ SETUP
 ```env
 # Current .env.local configuration
-NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LdS2corAAAAADlik5m57oRQLKsTOCtYNBxt2QaS
-RECAPTCHA_SECRET_KEY=6LdS2corAAAAAA0nnjXq_CKsg-OIlRoUTkej1dpc
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key_here
+RECAPTCHA_SECRET_KEY=your_secret_key_here
 RESEND_API_KEY=your_resend_api_key_here  # ⚠️ NEEDS REAL API KEY
 CONTACT_EMAIL_TO=nathancwatkins@gmail.com
 CONTACT_EMAIL_FROM=contact@nathansportfolio.vercel.app
