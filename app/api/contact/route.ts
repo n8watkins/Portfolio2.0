@@ -73,7 +73,19 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     })
 
     const data = await response.json()
-    return data.success === true && data.score > 0.5 // reCAPTCHA v3 score check
+
+    // For reCAPTCHA v3, check both success and score
+    // Score ranges from 0.0 (very likely a bot) to 1.0 (very likely a human)
+    const isValid = data.success === true && data.score >= 0.5
+
+    console.log('reCAPTCHA verification:', {
+      success: data.success,
+      score: data.score,
+      action: data.action,
+      isValid
+    })
+
+    return isValid
   } catch (error) {
     console.error('reCAPTCHA verification error:', error)
     return false

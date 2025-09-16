@@ -41,7 +41,7 @@ export const contactFormSchema = z.object({
 
   recaptcha: z
     .string()
-    .min(1, 'Please complete the reCAPTCHA verification'),
+    .optional(),
 
   // Security: Honeypot field
   honeypot: z.string().max(0, 'Bot detected'),

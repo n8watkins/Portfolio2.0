@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: 'Nathan Watkins Portfolio',
     images: [
       {
-        url: 'https://nathansportfolio.vercel.app/preview.png', // make this image
+        url: 'https://nathansportfolio.vercel.app/tab/preview.png', // make this image
         width: 1200,
         height: 630,
         alt: 'Nathan Watkins Portfolio Preview',
@@ -38,11 +38,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nathan Watkins Portfolio',
     description: 'Nathan Watkins Next.js Portfolio Page.',
-    images: ['https://nathansportfolio.vercel.app/preview.png'],
+    images: ['https://nathansportfolio.vercel.app/tab/preview.png'],
     creator: '@n8watkins', // your twitter handle
   },
   icons: {
-    icon: '/headerLogo.png',
+    icon: '/tab/headerLogo.png',
   },
   metadataBase: new URL('https://nathansportfolio.vercel.app'),
 };

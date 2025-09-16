@@ -507,28 +507,28 @@ export const workExperience = [
     title: 'Frontend Intern',
     desc: 'Assisted in the development of a web-based platform using React.js, enhancing interactivity.',
     className: 'md:col-span-2',
-    thumbnail: '/exp1.svg',
+    thumbnail: '/experience/exp1.svg',
   },
   {
     id: 2,
     title: 'Coding Tutor',
     desc: 'Provided personalized instruction in programming fundamentals, data structures, and algorithms.',
     className: 'md:col-span-2',
-    thumbnail: '/exp2.svg',
+    thumbnail: '/experience/exp2.svg',
   },
   {
     id: 3,
     title: 'Web Consultant',
     desc: 'Advised clients on online strategies including website design, SEO, and social media integration.',
     className: 'md:col-span-2',
-    thumbnail: '/exp3.svg',
+    thumbnail: '/experience/exp3.svg',
   },
   {
     id: 4,
     title: 'Freelance Developer',
     desc: 'Developed custom websites for diverse clients, handling all aspects from initial concept to deployment.',
     className: 'md:col-span-2',
-    thumbnail: '/exp4v2.svg',
+    thumbnail: '/experience/exp4v2.svg',
   },
 ]
 

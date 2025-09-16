@@ -72,7 +72,7 @@ const Hero = () => {
             <div className="aspect-square w-full h-full relative">
               <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
               <Image
-                src="/portrait.jpg"
+                src="/hero/portrait.jpg"
                 className="rounded-full object-cover"
                 fill
                 priority

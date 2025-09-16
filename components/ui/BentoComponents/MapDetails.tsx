@@ -17,7 +17,7 @@ const MapDetails = () => {
             <FaLocationDot className="absolute text-blue-600 dark:text-[#012485] z-40 w-[3.1rem] h-[3.1rem] mt-[.13rem] ml-[.2rem]" />
             <div className="absolute w-5 h-5 left-[1.15rem] top-[.8rem] z-50 group-hover:scale-150 group-hover:z-50 transition duration-500">
               <Image
-                src="/portrait.jpg"
+                src="/hero/portrait.jpg"
                 alt="headshot"
                 fill
                 className="rounded-full shadow-xl"
