@@ -172,11 +172,10 @@ export function createContactEmailHtml(data: ContactFormData): string {
         <div class="container">
           <div class="header">
             <h1>🚀 New Contact Received!</h1>
-            <p>${insights.context} • ${insights.urgency}</p>
+            <p>${insights.context}</p>
           </div>
 
           <div class="content">
-            <div class="priority-badge">${insights.urgency}</div>
 
             <div class="contact-info">
               <div class="contact-name">${sanitizeHtml(data.name)}</div>
@@ -185,10 +184,7 @@ export function createContactEmailHtml(data: ContactFormData): string {
             </div>
 
             <div class="field">
-              <div class="field-header">
-                <span class="label">💼 Inquiry Type</span>
-                <span class="action-needed">${insights.action}</span>
-              </div>
+              <div class="label">💼 Inquiry Type</div>
               <div class="value">${subjectLabel}</div>
             </div>
 
