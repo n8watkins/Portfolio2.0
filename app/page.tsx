@@ -1,16 +1,19 @@
 'use client'
-import Clients from '@/components/Clients'
-import Experience from '@/components/Experience'
-import { FloatingNav } from '@/components/FloatingNav'
-import Footer from '@/components/Footer'
-import Grid from '@/components/Grid'
+import React from 'react'
 import Hero from '@/components/Hero'
-import Projects from '@/components/Projects'
-import ScrollToTop from '@/components/ui/ScrollToTop'
-import BreakpointDisplay from '@/lib/breakpoint'
 import { navItems } from '@/data'
 import { useSectionTracking } from '@/hooks/useSectionTracking'
 import { useScrollTracking } from '@/hooks/useScrollTracking'
+import dynamic from 'next/dynamic'
+
+// Lazy load navigation and below-the-fold components
+const FloatingNav = dynamic(() => import('@/components/FloatingNav').then(mod => ({ default: mod.FloatingNav })), { ssr: false })
+const Grid = dynamic(() => import('@/components/Grid'), { ssr: false })
+const Projects = dynamic(() => import('@/components/Projects'), { ssr: false })
+const Experience = dynamic(() => import('@/components/Experience'), { ssr: false })
+const Clients = dynamic(() => import('@/components/Clients'), { ssr: false })
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
+const ScrollToTop = dynamic(() => import('@/components/ui/ScrollToTop'), { ssr: false })
 
 export default function Home() {
   // Track section views as user scrolls

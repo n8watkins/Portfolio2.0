@@ -11,7 +11,8 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
-  weight: ['400', '500', '600', '700']
+  weight: ['400', '500', '600', '700'],
+  fallback: ['system-ui', 'arial']
 })
 
 export const metadata: Metadata = {
@@ -57,7 +58,8 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content="UaCoLg9YeNobXjRaOb59YzQxzc8RDb1yiOZEKdmNECU" />
 
-        {/* DNS prefetching for external domains */}
+        {/* Preconnect and DNS prefetching for external domains */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
         {/* Project external links */}
@@ -68,9 +70,9 @@ export default function RootLayout({
 
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

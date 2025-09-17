@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { MdContentCopy } from 'react-icons/md'
 import { BackgroundGradientAnimation } from '../background-gradient-animation'
-import Lottie from 'react-lottie'
+import Lottie from 'lottie-react'
 import animationData from '../../../data/confetti.json'
 
 interface ResumeButtonsProps {
@@ -34,14 +34,6 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
     })
   }
 
-  const defaultOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  }
 
   return (
     <div className="">
@@ -52,7 +44,12 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
           </h2>
         </div>
         <div key={animationKey} className="absolute top-0 left-0 w-full h-full z-50 ">
-          <Lottie options={defaultOptions} height={400} width={400} />
+          <Lottie
+            animationData={animationData}
+            loop={false}
+            autoplay={true}
+            style={{ height: 400, width: 400 }}
+          />
         </div>
         <div
           className={`${buttonContainer} transition-opacity duration-500 ${

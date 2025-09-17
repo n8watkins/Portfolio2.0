@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { motion, AnimatePresence } from 'framer-motion'
-import Lottie from 'react-lottie'
+import Lottie from 'lottie-react'
 import confettiData from '../data/confetti.json'
 
 import { ContactInput } from './ui/ContactInput'
@@ -163,15 +163,6 @@ function ContactFormInner({ className }: ContactFormProps) {
     trackContactEvent('view')
   }, [])
 
-  // Lottie options for confetti
-  const confettiOptions = {
-    loop: false,
-    autoplay: true,
-    animationData: confettiData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  }
 
   if (submissionState === 'success') {
     return (
@@ -184,7 +175,12 @@ function ContactFormInner({ className }: ContactFormProps) {
         {/* Confetti Animation */}
         {showConfetti && (
           <div key={confettiKey} className="absolute inset-0 pointer-events-none z-10">
-            <Lottie options={confettiOptions} height={300} width={300} />
+            <Lottie
+              animationData={confettiData}
+              loop={false}
+              autoplay={true}
+              style={{ height: 300, width: 300 }}
+            />
           </div>
         )}
 
