@@ -27,13 +27,26 @@ Sentry.init({
     }),
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
-      colorScheme: 'system',
+      colorScheme: 'light',
       buttonLabel: 'Report a bug',
       submitButtonLabel: 'Send Bug Report',
       formTitle: 'Bug Report',
-      // Inverse colors: dark modal in light mode, light modal in dark mode
+      // Standard theming: light modal in light mode, dark modal in dark mode
       themeLight: {
-        // Dark modal for light mode
+        // Light modal for light mode
+        background: '#ffffff',
+        backgroundHover: '#f8fafc',
+        foreground: '#1e293b',
+        border: '#e2e8f0',
+        submitButtonBackground: '#8b5cf6',
+        submitButtonBackgroundHover: '#7c3aed',
+        submitButtonForeground: '#ffffff',
+        cancelButtonBackground: '#f1f5f9',
+        cancelButtonBackgroundHover: '#e2e8f0',
+        cancelButtonForeground: '#64748b',
+      },
+      themeDark: {
+        // Dark modal for dark mode
         background: '#1e293b',
         backgroundHover: '#334155',
         foreground: '#f8fafc',
@@ -44,19 +57,6 @@ Sentry.init({
         cancelButtonBackground: '#475569',
         cancelButtonBackgroundHover: '#64748b',
         cancelButtonForeground: '#f8fafc',
-      },
-      themeDark: {
-        // Light modal for dark mode
-        background: '#f8fafc',
-        backgroundHover: '#f1f5f9',
-        foreground: '#1e293b',
-        border: '#e2e8f0',
-        submitButtonBackground: '#8b5cf6',
-        submitButtonBackgroundHover: '#7c3aed',
-        submitButtonForeground: '#ffffff',
-        cancelButtonBackground: '#e2e8f0',
-        cancelButtonBackgroundHover: '#cbd5e1',
-        cancelButtonForeground: '#1e293b',
       },
       // Hide on mobile/small screens to avoid conflicts
       isActive: () => window.innerWidth > 768,
