@@ -11,7 +11,6 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 function clearRateLimit(key: string) {
   if (process.env.NODE_ENV === 'development') {
     rateLimitMap.delete(key)
-    console.log('🧹 Cleared rate limit for key:', key)
   }
 }
 
@@ -41,32 +40,26 @@ function checkRateLimit(key: string): boolean {
   const windowMs = 60 * 60 * 1000 // 1 hour
   const maxRequests = process.env.NODE_ENV === 'development' ? 50 : 3 // Higher limit for development
 
-  console.log('🔍 Rate limit check:', { key, maxRequests, env: process.env.NODE_ENV })
 
   // Clean up expired entry for this key
   const entry = rateLimitMap.get(key)
   if (entry && now > entry.resetTime) {
     rateLimitMap.delete(key)
-    console.log('🧹 Cleaned up expired rate limit entry for key:', key)
   }
 
   const currentEntry = rateLimitMap.get(key)
 
   if (!currentEntry) {
     rateLimitMap.set(key, { count: 1, resetTime: now + windowMs })
-    console.log('✅ First request for key:', key)
     return true
   }
 
-  console.log('📊 Current entry:', { count: currentEntry.count, maxRequests })
 
   if (currentEntry.count >= maxRequests) {
-    console.log('❌ Rate limit exceeded for key:', key, 'count:', currentEntry.count)
     return false
   }
 
   currentEntry.count++
-  console.log('✅ Request allowed for key:', key, 'new count:', currentEntry.count)
   return true
 }
 

@@ -9,13 +9,4 @@ export function reportWebVitals(metric: any) {
     id: metric.id,
   })
 
-  // Log in development for debugging
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Web Vital:', {
-      name: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      id: metric.id,
-    })
-  }
 }

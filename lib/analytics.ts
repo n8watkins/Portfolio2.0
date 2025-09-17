@@ -26,9 +26,6 @@ interface EventParameters {
 export const trackEvent = (eventName: string, parameters: EventParameters = {}) => {
   // Only track in production or when GA_ID is configured
   if (typeof window === 'undefined' || !window.gtag || !process.env.NEXT_PUBLIC_GA_ID) {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Analytics Event:', eventName, parameters)
-    }
     return
   }
 
