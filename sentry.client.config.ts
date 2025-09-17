@@ -59,7 +59,7 @@ Sentry.init({
         cancelButtonForeground: '#f8fafc',
       },
       // Hide on mobile/small screens to avoid conflicts
-      isActive: () => window.innerWidth > 768,
+      isActive: () => window.matchMedia('(min-width: 768px)').matches,
       // Show only icon until 1030px, then show text
       buttonLabel: '',
       triggerLabel: '',

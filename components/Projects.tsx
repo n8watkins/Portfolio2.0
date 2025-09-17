@@ -464,7 +464,7 @@ const handleIconCycleStateChange = useCallback((
 
   useEffect(() => {
     const checkDeviceAndMouse = () => {
-      setIsLargeDevice(window.innerWidth >= 768)
+      setIsLargeDevice(window.matchMedia('(min-width: 768px)').matches)
       setHasMouse(window.matchMedia('(pointer:fine)').matches)
     }
 
