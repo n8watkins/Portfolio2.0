@@ -183,7 +183,7 @@
 
 @layer utilities {
   .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
+    @apply font-bold text-4xl md:text-5xl xl:text-4xl text-center;
   }
 
   .black-gradient {
