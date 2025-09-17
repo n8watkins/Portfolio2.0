@@ -38,7 +38,7 @@ function getRateLimitKey(request: NextRequest): string {
 function checkRateLimit(key: string): boolean {
   const now = Date.now()
   const windowMs = 60 * 60 * 1000 // 1 hour
-  const maxRequests = process.env.NODE_ENV === 'development' ? 50 : 3 // Higher limit for development
+  const maxRequests = process.env.NODE_ENV === 'development' ? 50 : 2 // Higher limit for development
 
 
   // Clean up expired entry for this key
