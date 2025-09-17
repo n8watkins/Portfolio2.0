@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
       console.log('❌ Rate limit exceeded')
       return NextResponse.json(
         {
-          error: 'You\'ve reached the submission limit (3 per hour). Please try again later or email me directly at nathancwatkins23@gmail.com.',
+          error: 'Your message didn\'t go through due to our submission limit. Please try again in an hour, or feel free to reach out to me directly at nathancwatkins23@gmail.com — I\'d love to hear from you!',
           type: 'rate_limit'
         },
         { status: 429 }
