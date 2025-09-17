@@ -27,21 +27,42 @@ Sentry.init({
     }),
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
-      colorScheme: 'light',
+      colorScheme: 'system',
       buttonLabel: 'Report a bug',
       submitButtonLabel: 'Send Bug Report',
       formTitle: 'Bug Report',
-      // Position the button on the bottom-left
+      // Inverse colors: dark modal in light mode, light modal in dark mode
       themeLight: {
+        // Dark modal for light mode
+        background: '#1e293b',
+        backgroundHover: '#334155',
+        foreground: '#f8fafc',
+        border: '#475569',
         submitButtonBackground: '#8b5cf6',
         submitButtonBackgroundHover: '#7c3aed',
+        submitButtonForeground: '#ffffff',
+        cancelButtonBackground: '#475569',
+        cancelButtonBackgroundHover: '#64748b',
+        cancelButtonForeground: '#f8fafc',
       },
       themeDark: {
+        // Light modal for dark mode
+        background: '#f8fafc',
+        backgroundHover: '#f1f5f9',
+        foreground: '#1e293b',
+        border: '#e2e8f0',
         submitButtonBackground: '#8b5cf6',
         submitButtonBackgroundHover: '#7c3aed',
+        submitButtonForeground: '#ffffff',
+        cancelButtonBackground: '#e2e8f0',
+        cancelButtonBackgroundHover: '#cbd5e1',
+        cancelButtonForeground: '#1e293b',
       },
-      // Custom CSS to position button on left
-      triggerLabel: 'Report a bug',
+      // Hide on mobile/small screens to avoid conflicts
+      isActive: () => window.innerWidth > 768,
+      // Show only icon until 1030px, then show text
+      buttonLabel: '',
+      triggerLabel: '',
       triggerAriaLabel: 'Report a bug to our team',
     }),
   ],

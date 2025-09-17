@@ -20,6 +20,18 @@
     --page-margin: 24px;
   }
 
+  /* Hide Sentry button text until 1030px */
+  #sentry-feedback button::after {
+    content: '🐛';
+    font-size: 16px;
+  }
+
+  @media (min-width: 1030px) {
+    #sentry-feedback button::after {
+      content: '🐛 Report a bug';
+    }
+  }
+
   :root {
     --scrollbar-track: theme('colors.blue.400');
     --scrollbar-thumb: theme('colors.blue.600');
