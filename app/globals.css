@@ -26,7 +26,7 @@
     font-size: 16px;
   }
 
-  @media (min-width: 1030px) {
+  @media (min-width: 1072px) {
     #sentry-feedback button::after {
       content: '🐛 Report a bug';
     }
