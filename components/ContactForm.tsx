@@ -58,12 +58,6 @@ function ContactFormInner({ className }: ContactFormProps) {
     setCharCount(messageValue?.length || 0)
   }, [messageValue])
 
-  // Debug form data changes
-  useEffect(() => {
-    console.log('📊 [FORM] Form data changed:', formData)
-    console.log('📊 [FORM] Form errors:', errors)
-    console.log('📊 [FORM] Is form valid:', Object.keys(errors).length === 0)
-  }, [formData, errors])
 
   // Security: Proper timeout cleanup
   useEffect(() => {
@@ -86,17 +80,14 @@ function ContactFormInner({ className }: ContactFormProps) {
   }, [submissionState])
 
   const handleFormSubmit = async () => {
-    console.log('🚀 [FORM] Manual form submission triggered')
 
     // First, execute reCAPTCHA if needed
     const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
     let recaptchaToken = 'dev_bypass_token'
 
     if (executeRecaptcha && !isDevelopment) {
-      console.log('🔐 Executing reCAPTCHA before validation...')
       try {
         recaptchaToken = await executeRecaptcha('contact_form')
-        console.log('🔐 reCAPTCHA token received:', recaptchaToken ? 'Yes' : 'No')
 
         // Set the reCAPTCHA token in the form
         setValue('recaptcha', recaptchaToken)
@@ -107,7 +98,6 @@ function ContactFormInner({ className }: ContactFormProps) {
         return
       }
     } else if (isDevelopment) {
-      console.log('🔐 Development mode: Using bypass token')
       setValue('recaptcha', recaptchaToken)
     }
 
@@ -116,8 +106,6 @@ function ContactFormInner({ className }: ContactFormProps) {
   }
 
   const onSubmit = async (data: ContactFormData) => {
-    console.log('🚀 [FORM] Form submission started with data:', data)
-    console.log('🚀 [FORM] Current submission state:', submissionState)
 
     try {
       setSubmissionState('submitting')
@@ -126,7 +114,6 @@ function ContactFormInner({ className }: ContactFormProps) {
 
       // Form data already includes reCAPTCHA token
 
-      console.log('📤 Sending request to API...')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -268,7 +255,6 @@ function ContactFormInner({ className }: ContactFormProps) {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log('📝 [FORM] Form submit event prevented - using manual submission');
         }}
         className="space-y-4 md:space-y-6"
       >
@@ -405,9 +391,6 @@ function ContactFormInner({ className }: ContactFormProps) {
             type="button"
             disabled={isSubmitting}
             onClick={(e) => {
-              console.log('🖱️ [BTN] Magic button clicked!');
-              console.log('🖱️ [BTN] isSubmitting:', isSubmitting);
-              console.log('🖱️ [BTN] disabled:', isSubmitting);
               e.preventDefault(); // Prevent any default behavior
               handleFormSubmit(); // Call our custom submit handler
             }}
