@@ -207,7 +207,7 @@ Sent from your portfolio contact form at ${new Date().toLocaleString()}
 
       console.log('📧 Sending auto-reply to:', validatedData.email)
       // Send auto-reply to sender
-      const autoReplyHtml = createAutoReplyHtml(validatedData.name)
+      const autoReplyHtml = createAutoReplyHtml(validatedData)
 
       const autoReplyResult = await resend.emails.send({
         from: EMAIL_CONFIG.from,
@@ -221,8 +221,8 @@ Thanks for getting in touch! I've received your message and I'm excited to learn
 
 I'll review your message and get back to you within 24 hours. In the meantime, feel free to:
 • Check out my latest projects on the portfolio
-• Connect with me on LinkedIn: https://www.linkedin.com/in/nathancwatkins/
-• Follow my work on GitHub: https://github.com/natkins23
+• Connect with me on LinkedIn: https://www.linkedin.com/in/n8watkins/
+• Follow my work on GitHub: https://github.com/n8watkins
 
 Looking forward to our conversation! 🚀
 

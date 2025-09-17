@@ -24,10 +24,8 @@ export const contactFormSchema = z.object({
 
   subject: z
     .enum([
-      'work_together',
       'project_opportunity',
-      'collaboration',
-      'general_inquiry',
+      'consulting',
       'networking'
     ])
     .refine((val) => val !== undefined, {
@@ -50,9 +48,7 @@ export const contactFormSchema = z.object({
 export type ContactFormData = z.infer<typeof contactFormSchema>
 
 export const subjectOptions: { value: string; label: string }[] = [
-  { value: 'work_together', label: '💼 Let\'s work together' },
   { value: 'project_opportunity', label: '🚀 New project opportunity' },
-  { value: 'collaboration', label: '💡 Collaboration idea' },
-  { value: 'general_inquiry', label: '📞 General inquiry' },
+  { value: 'consulting', label: '🎯 Consulting' },
   { value: 'networking', label: '🤝 Networking' },
 ]
