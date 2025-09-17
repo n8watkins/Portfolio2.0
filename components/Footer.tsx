@@ -75,7 +75,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's GitHub profile"
-            className="w-12 h-12 rounded-full hover:bg-blue-400/40 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
           >
             <FiGithub className="w-full h-full p-3" aria-hidden="true" />
           </a>
@@ -84,7 +84,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's LinkedIn profile"
-            className="w-12 h-12 rounded-full hover:bg-blue-400/40 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
           >
             <CiLinkedin className="w-full h-full p-2" aria-hidden="true" />
           </a>
@@ -93,7 +93,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's X (Twitter) profile"
-            className="w-12 h-12 rounded-full hover:bg-blue-400/40 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
           >
             <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
           </a>
