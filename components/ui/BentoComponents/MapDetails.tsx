@@ -20,6 +20,7 @@ const MapDetails = () => {
                 src="/hero/portrait.jpg"
                 alt="headshot"
                 fill
+                sizes="20px"
                 className="rounded-full shadow-xl"
                 style={{ objectFit: 'cover' }}
               />

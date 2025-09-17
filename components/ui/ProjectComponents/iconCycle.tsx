@@ -419,6 +419,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
                   src={`/projectIcons/${tech.icon}`}
                   alt={getTechName(tech.icon)}
                   fill
+                  sizes="(max-width: 768px) 32px, (max-width: 1024px) 40px, 48px"
                   style={{ objectFit: 'contain' }}
                 />
               </div>
