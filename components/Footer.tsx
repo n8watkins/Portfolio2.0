@@ -69,7 +69,7 @@ const Footer = () => {
         <motion.nav
           variants={staggerItemVariants}
           aria-label="Footer social media links"
-          className="flex items-center justify-center pb-2 gap-3 z-50">
+          className="flex items-center justify-center pb-4 gap-3 z-50">
           <a
             href="https://github.com/n8watkins"
             target="_blank"
