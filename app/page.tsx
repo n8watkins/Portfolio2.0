@@ -1,18 +1,18 @@
 'use client'
 import React from 'react'
 import Hero from '@/components/Hero'
+import Grid from '@/components/Grid'
+import { FloatingNav } from '@/components/FloatingNav'
 import { navItems } from '@/data'
 import { useSectionTracking } from '@/hooks/useSectionTracking'
 import { useScrollTracking } from '@/hooks/useScrollTracking'
 import dynamic from 'next/dynamic'
 
-// Lazy load navigation and below-the-fold components
-const FloatingNav = dynamic(() => import('@/components/FloatingNav').then(mod => ({ default: mod.FloatingNav })), { ssr: false })
-const Grid = dynamic(() => import('@/components/Grid'), { ssr: false })
-const Projects = dynamic(() => import('@/components/Projects'), { ssr: false })
-const Experience = dynamic(() => import('@/components/Experience'), { ssr: false })
-const Clients = dynamic(() => import('@/components/Clients'), { ssr: false })
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
+// Only lazy load truly below-the-fold components
+const Projects = dynamic(() => import('@/components/Projects'))
+const Experience = dynamic(() => import('@/components/Experience'))
+const Clients = dynamic(() => import('@/components/Clients'))
+const Footer = dynamic(() => import('@/components/Footer'))
 const ScrollToTop = dynamic(() => import('@/components/ui/ScrollToTop'), { ssr: false })
 
 export default function Home() {

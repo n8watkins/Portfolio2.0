@@ -1,12 +1,12 @@
-'use client'
 import React from 'react'
 import Image from 'next/image'
 import GridBackground from './ui/GridBackground'
 import { FiGithub } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
-import ScrollButton from './ui/BentoComponents/ScrollButton'
-import { trackSocialClick } from '@/lib/analytics'
+import dynamic from 'next/dynamic'
+
+const ScrollButton = dynamic(() => import('./ui/BentoComponents/ScrollButton'), { ssr: false })
 
 const Hero = () => {
   return (
@@ -16,16 +16,16 @@ const Hero = () => {
       <GridBackground />
       <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
         <p className="uppercase tracking-widest pb-2 1lg:pb-5 md:pb-10 pt-40  sm:pt-40 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
-          <span className="animate-fade-right animate-delay-[3000ms] ">Code.</span>{' '}
-          <span className="animate-fade-right animate-delay-[3500ms]">Create.</span>{' '}
-          <span className="animate-fade-right animate-delay-[4000ms] ">Innovate.</span>
+          <span>Code.</span>{' '}
+          <span>Create.</span>{' '}
+          <span>Innovate.</span>
         </p>
         <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5  ">
           <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3  ">
-            <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold animate-fade-right animate-delay-[1000ms] ">
+            <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold">
               Hi, I&apos;m <span className="text-purple-500">Nathan</span>
             </h1>
-            <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl animate-fade-up animate-delay-[1200ms] font-semibold dark:font-normal ">
+            <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
               A Next.js Developer
             </p>
             <div className="flex items-center justify-center md:justify-start w-full">
@@ -35,7 +35,6 @@ const Hero = () => {
                     href="https://github.com/n8watkins"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackSocialClick('github', 'https://github.com/n8watkins')}
                     aria-label="View Nathan's GitHub profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >
@@ -45,7 +44,6 @@ const Hero = () => {
                     href="https://www.linkedin.com/in/n8watkins/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackSocialClick('linkedin', 'https://www.linkedin.com/in/n8watkins/')}
                     aria-label="View Nathan's LinkedIn profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >
@@ -55,7 +53,6 @@ const Hero = () => {
                     href="https://x.com/nathancwatkins"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackSocialClick('twitter', 'https://x.com/nathancwatkins')}
                     aria-label="View Nathan's X (Twitter) profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >

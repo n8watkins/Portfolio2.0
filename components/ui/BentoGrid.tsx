@@ -94,13 +94,13 @@ export const BentoGridItem = ({
         )) ||
           ((id === 4 || id == 2) && (
             <div className="relative w-full h-full overflow-hidden">
-              <div className={`relative ${imgContainerClass} `}>
+              <div className={`relative w-full h-full ${imgContainerClass} `}>
               <Image src={`${img}`} fill sizes='100%' className={` ${imgClassName} `} alt={img} />
               </div>
             </div>
           )) ||
           (id == 6 && (
-            <div className={`relative ${imgContainerClass} `}>
+            <div className={`relative w-full h-full ${imgContainerClass} `}>
               <Image src={`${img}`} fill sizes='100%'  className={` ${imgClassName} `} alt={img} />
             </div>
           ))
