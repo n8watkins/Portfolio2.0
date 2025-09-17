@@ -12,6 +12,8 @@ A modern, production-ready developer portfolio built with Next.js 14, featuring 
 - **Fully Responsive**: Mobile-first design with seamless desktop experience
 - **Analytics Integration**: Google Analytics with custom event tracking
 - **Dark/Light Theme**: Automatic system preference detection with manual toggle
+- **Resume Integration**: Direct download and view functionality with analytics tracking
+- **Error Monitoring**: Comprehensive error tracking and performance monitoring with Sentry
 
 ## 🏗️ Architecture
 

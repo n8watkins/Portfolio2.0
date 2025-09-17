@@ -28,7 +28,6 @@ Sentry.init({
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
       colorScheme: 'light',
-      buttonLabel: 'Report a bug',
       submitButtonLabel: 'Send Bug Report',
       formTitle: 'Bug Report',
       // Standard theming: light modal in light mode, dark modal in dark mode
