@@ -59,7 +59,7 @@ const Footer = () => {
       <motion.div
         variants={staggerContainerVariants}
         {...defaultAnimationConfig}
-        className="flex mt-8 lg:flex-row flex-col-reverse justify-center items-center gap-8 lg:mx-10">
+        className="flex mt-8 lg:flex-row flex-col-reverse justify-center xl:justify-between items-center gap-8 lg:mx-10">
         <motion.p
           variants={staggerItemVariants}
           className="lg:text-base text-sm lg:font-normal font-light">
