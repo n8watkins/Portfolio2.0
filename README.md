@@ -89,7 +89,7 @@ Portfolio2.0/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/nathancwatkins/Portfolio2.0.git
+   git clone https://github.com/n8watkins/Portfolio2.0.git
    cd Portfolio2.0
    ```
 

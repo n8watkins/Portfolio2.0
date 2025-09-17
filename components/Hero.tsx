@@ -32,20 +32,20 @@ const Hero = () => {
               <nav aria-label="Social media links" className="relative md:top-0 md:-left-2 z-50">
                 <div className="flex items-center justify-center pb-2 gap-3">
                   <a
-                    href="https://github.com/natkins23"
+                    href="https://github.com/n8watkins"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackSocialClick('github', 'https://github.com/natkins23')}
+                    onClick={() => trackSocialClick('github', 'https://github.com/n8watkins')}
                     aria-label="View Nathan's GitHub profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >
                     <FiGithub className="w-full h-full p-3" aria-hidden="true" />
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/nathancwatkins/"
+                    href="https://www.linkedin.com/in/n8watkins/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackSocialClick('linkedin', 'https://www.linkedin.com/in/nathancwatkins/')}
+                    onClick={() => trackSocialClick('linkedin', 'https://www.linkedin.com/in/n8watkins/')}
                     aria-label="View Nathan's LinkedIn profile"
                     className="w-12 h-12 rounded-full hover:bg-blue-300/30 dark:hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200"
                   >

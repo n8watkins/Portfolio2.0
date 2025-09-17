@@ -71,7 +71,7 @@ const Footer = () => {
           aria-label="Footer social media links"
           className="flex items-center justify-center pb-2 gap-3 z-50">
           <a
-            href="https://github.com/natkins23"
+            href="https://github.com/n8watkins"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's GitHub profile"
@@ -80,7 +80,7 @@ const Footer = () => {
             <FiGithub className="w-full h-full p-3" aria-hidden="true" />
           </a>
           <a
-            href="https://www.linkedin.com/in/nathancwatkins/"
+            href="https://www.linkedin.com/in/n8watkins/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's LinkedIn profile"
