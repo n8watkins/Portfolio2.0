@@ -197,16 +197,6 @@ export function createContactEmailHtml(data: ContactFormData): string {
               <div class="message-box">${sanitizeHtml(data.message)}</div>
             </div>
 
-            <div class="insights">
-              <h3>🎯 Next Steps Recommended</h3>
-              <p><strong>Action:</strong> ${insights.action}</p>
-              <p><strong>Context:</strong> ${insights.context}</p>
-            </div>
-
-            <div class="quick-actions">
-              <h4>⚡ Quick Response Options</h4>
-              <p>Reply directly to this email or use your preferred contact method to follow up.</p>
-            </div>
 
             <div class="footer">
               <p>📧 Received via n8sportfolio.vercel.app contact form</p>
