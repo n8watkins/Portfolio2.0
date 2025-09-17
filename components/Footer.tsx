@@ -89,7 +89,7 @@ const Footer = () => {
             <CiLinkedin className="w-full h-full p-2" aria-hidden="true" />
           </a>
           <a
-            href="https://x.com/nathancwatkins"
+            href="https://x.com/n8watkins"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's X (Twitter) profile"
