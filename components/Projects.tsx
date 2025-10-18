@@ -15,40 +15,25 @@ import { trackProjectEvent, trackModalEvent } from '@/lib/analytics'
 import ImageSlider from './Projects/ImageSlider'
 import ProjectModal from './Projects/ProjectModal'
 import ProjectCard from './Projects/ProjectCard'
+import { getInitialIconCycleState, createStateHandlerMap } from './Projects/utils'
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [iconCycleStates, setIconCycleStates] = useState<Record<number, IconCycleState>>({})
 
-  const getInitialIconCycleState = useCallback((projectId: number): IconCycleState => {
-    const project = projects.find((p) => p.id === projectId)
-    return {
-      currentCategory: project
-        ? (Object.keys(project.technologies)[0] as keyof Technologies)
-        : 'Frontend',
-      cycledIconIndex: 0,
-      highlightedDescriptionIndex: 0,
-    }
-  }, [projects])
-  
-
   const getOnStateChange = useCallback(
-  (projectId: number) =>
-    (newState: IconCycleState | ((prevState: IconCycleState) => IconCycleState)) => {
-      setIconCycleStates((prevStates) => ({
-        ...prevStates,
-        [projectId]:
-          typeof newState === 'function'
-            ? newState(prevStates[projectId] || getInitialIconCycleState(projectId))
-            : newState,
-      }))
-    },
-  [getInitialIconCycleState]
-)
-
-  
-
-
+    (projectId: number) =>
+      (newState: IconCycleState | ((prevState: IconCycleState) => IconCycleState)) => {
+        setIconCycleStates((prevStates) => ({
+          ...prevStates,
+          [projectId]:
+            typeof newState === 'function'
+              ? newState(prevStates[projectId] || getInitialIconCycleState(projectId, projects))
+              : newState,
+        }))
+      },
+    []
+  )
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project)
@@ -56,13 +41,10 @@ const Projects: React.FC = () => {
     trackModalEvent('open', 'project_details', { project_name: project.title })
   }
 
-  const onStateChangeMap = useMemo(() => {
-    const result: Record<number, ReturnType<typeof getOnStateChange>> = {};
-    for (const project of projects) {
-      result[project.id] = getOnStateChange(project.id);
-    }
-    return result;
-  }, [getOnStateChange]);
+  const onStateChangeMap = useMemo(
+    () => createStateHandlerMap(projects, getOnStateChange),
+    [getOnStateChange]
+  )
 
 
   const getModalOnStateChange = useCallback(
@@ -72,13 +54,13 @@ const Projects: React.FC = () => {
           ...prevStates,
           [projectId]:
             typeof newState === 'function'
-              ? newState(prevStates[projectId] || getInitialIconCycleState(projectId))
+              ? newState(prevStates[projectId] || getInitialIconCycleState(projectId, projects))
               : newState,
         }));
       },
-    [getInitialIconCycleState]
+    []
   );
-  
+
   const modalStateChangeHandler = useMemo(() => {
     if (!selectedProject) return () => {};
     return getModalOnStateChange(selectedProject.id);
@@ -111,22 +93,22 @@ const Projects: React.FC = () => {
           project={project}
           onProjectClick={handleProjectClick}
           onIconClick={handleIconClick}
-          iconCycleState={iconCycleStates[project.id] || getInitialIconCycleState(project.id)}
+          iconCycleState={iconCycleStates[project.id] || getInitialIconCycleState(project.id, projects)}
           onIconCycleStateChange={onStateChangeMap[project.id]}
         />
       ))}
       </motion.div>
       <AnimatePresence mode="wait">
         {selectedProject && (
-         <ProjectModal
-         project={selectedProject}
-         isOpen={!!selectedProject}
-         onClose={() => setSelectedProject(null)}
-         iconCycleState={
-           iconCycleStates[selectedProject.id] || getInitialIconCycleState(selectedProject.id)
-         }
-         setIconCycleState={modalStateChangeHandler} 
-       />
+          <ProjectModal
+            project={selectedProject}
+            isOpen={!!selectedProject}
+            onClose={() => setSelectedProject(null)}
+            iconCycleState={
+              iconCycleStates[selectedProject.id] || getInitialIconCycleState(selectedProject.id, projects)
+            }
+            setIconCycleState={modalStateChangeHandler}
+          />
         )}
       </AnimatePresence>
     </div>
