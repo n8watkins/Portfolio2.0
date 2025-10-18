@@ -10,13 +10,13 @@ import { fadeInUpVariants, fadeInVariants, defaultAnimationConfig } from '@/lib/
 const Clients = () => {
   return (
     <section id="testimonials" className="pt-10 pb-0">
-      <motion.h1
+      <motion.h2
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
         className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
         Kind words from
         <span className="text-purple-500"> satisfied clients</span>
-      </motion.h1>
+      </motion.h2>
 
       <motion.div
         variants={fadeInVariants}

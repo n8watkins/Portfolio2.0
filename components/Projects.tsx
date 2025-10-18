@@ -520,12 +520,12 @@ const handleIconCycleStateChange = useCallback((
     <div
       id="projects"
       className="flex flex-col my-20 items-center justify-center gap-5 w-full text-slate-200 mb-40 ">
-      <motion.h1
+      <motion.h2
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
         className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
         A small selection of <span className="text-purple-500 lg:inline">recent projects</span>
-      </motion.h1>
+      </motion.h2>
 
       <motion.div
         variants={staggerContainerSlowVariants}
