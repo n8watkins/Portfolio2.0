@@ -260,10 +260,14 @@ Full-Stack Developer
 
 // Handle CORS for development
 export async function OPTIONS(request: NextRequest) {
+  const allowedOrigin = process.env.NODE_ENV === 'development'
+    ? '*'
+    : process.env.NEXT_PUBLIC_SITE_URL || 'https://nathansportfolio.vercel.app'
+
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': process.env.NODE_ENV === 'development' ? '*' : 'https://nathansportfolio.vercel.app',
+      'Access-Control-Allow-Origin': allowedOrigin,
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },

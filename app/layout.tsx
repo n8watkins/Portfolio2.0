@@ -15,19 +15,22 @@ const inter = Inter({
   fallback: ['system-ui', 'arial']
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nathansportfolio.vercel.app'
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Nathan Watkins Portfolio'
+
 export const metadata: Metadata = {
-  title: 'Nathan Watkins Portfolio',
+  title: siteName,
   description: 'Modern web design and full-stack development by Nathan Watkins.',
   keywords: ['Web Developer', 'Portfolio', 'Next.js', 'React', 'Nathan Watkins'],
   robots: 'index, follow',
   openGraph: {
-    title: 'Nathan Watkins Portfolio',
+    title: siteName,
     description: 'Modern web design and full-stack development by Nathan Watkins.',
-    url: 'https://nathansportfolio.vercel.app',
-    siteName: 'Nathan Watkins Portfolio',
+    url: siteUrl,
+    siteName: siteName,
     images: [
       {
-        url: 'https://nathansportfolio.vercel.app/tab/preview.png', // make this image
+        url: `${siteUrl}/tab/preview.png`,
         width: 1200,
         height: 630,
         alt: 'Nathan Watkins Portfolio Preview',
@@ -37,15 +40,15 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nathan Watkins Portfolio',
+    title: siteName,
     description: 'Nathan Watkins Next.js Portfolio Page.',
-    images: ['https://nathansportfolio.vercel.app/tab/preview.png'],
-    creator: '@n8watkins', // your twitter handle
+    images: [`${siteUrl}/tab/preview.png`],
+    creator: '@n8watkins',
   },
   icons: {
     icon: '/tab/headerLogo.png',
   },
-  metadataBase: new URL('https://nathansportfolio.vercel.app'),
+  metadataBase: new URL(siteUrl),
 };
 
 export default function RootLayout({
