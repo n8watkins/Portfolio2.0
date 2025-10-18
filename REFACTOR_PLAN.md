@@ -1,7 +1,25 @@
 # Component Refactoring Plan
 
+## ⚠️ CRITICAL: READ BEFORE IMPLEMENTING
+
+**STATUS:** 🔴 **REVISIONS REQUIRED** - See `REFACTOR_PLAN_CRITICAL_REVIEW.md`
+
+This plan has been critically reviewed and **12 critical issues** have been identified that MUST be fixed before proceeding with extraction.
+
+**Required Reading:**
+1. Read `REFACTOR_PLAN_CRITICAL_REVIEW.md` completely
+2. Complete Phase 0 (pre-refactoring fixes)
+3. Review revised phases below
+
+**Quick Wins Available:**
+If full refactoring is too risky, see "Appendix: Quick Wins" in the critical review for 45 minutes of LOW-RISK improvements.
+
+---
+
 ## Overview
-This document outlines the plan to refactor the `Projects.tsx` component (currently 640 lines) into smaller, more maintainable components following single responsibility principles.
+This document outlines the plan to refactor the `Projects.tsx` component (currently 639 lines) into smaller, more maintainable components following single responsibility principles.
+
+**Last Updated:** 2025-10-18 (Critical Review Complete)
 
 ---
 
@@ -31,12 +49,14 @@ This document outlines the plan to refactor the `Projects.tsx` component (curren
 - Keyboard navigation
 - Fullscreen modal view
 
-**Props Interface:**
+**Props Interface (REVISED):**
 ```typescript
 interface ImageSliderProps {
   images: string[]
   isModalOpen: boolean
-  projectTitle?: string  // For analytics
+  projectTitle: string      // Required for analytics (not optional!)
+  projectId: number         // NEW - for analytics
+  onImageView?: () => void  // NEW - analytics callback
 }
 ```
 
@@ -90,13 +110,13 @@ interface ProjectModalProps {
 - Show project preview
 - Render tech stack icons
 
-**Props Interface:**
+**Props Interface (REVISED):**
 ```typescript
 interface ProjectCardProps {
   project: Project
   onProjectClick: (project: Project) => void
   onIconClick: (project: Project) => void
-  iconCycleState?: IconCycleState
+  iconCycleState: IconCycleState  // NOT optional! Required for initial render
   onIconCycleStateChange: (state: IconCycleState | ((prev: IconCycleState) => IconCycleState)) => void
 }
 ```
@@ -188,12 +208,82 @@ components/
 
 ## Implementation Steps
 
+### ⚠️ Step 0: Pre-Refactoring Fixes (CRITICAL - DO FIRST)
+
+**MUST complete before extraction to avoid breaking changes:**
+
+1. **Move IconCycleState to lib/types.ts** (prevents circular dependencies)
+   ```typescript
+   // Add to lib/types.ts
+   export interface IconCycleState {
+     currentCategory: keyof Technologies
+     cycledIconIndex: number
+     highlightedDescriptionIndex: number
+   }
+   ```
+
+2. **Remove duplicate state handler** (lines 449-460 in Projects.tsx)
+   - Keep `getOnStateChange`, remove `handleIconCycleStateChange`
+
+3. **Fix z-index values**
+   - ImageSlider fullscreen modal: Change from `z-[10000]` to `z-[10002]`
+
+4. **Remove dead code** (lines 374-388 in ProjectModal)
+   - Empty link with empty h2 tag
+
+5. **Add keyboard event stopPropagation**
+   ```typescript
+   if (e.key === 'Escape') {
+     e.stopPropagation() // Add this
+     handleCloseModal()
+   }
+   ```
+
+6. **Fix dependencies** in getInitialIconCycleState
+   ```typescript
+   }, [projects]) // Add projects dependency
+   ```
+
+7. **Add AnimatePresence mode**
+   ```typescript
+   <AnimatePresence mode="wait">
+   ```
+
+8. **Fix image priority**
+   ```typescript
+   priority={currentIndex === 0 && isImageModalOpen}
+   ```
+
+**Estimated Time:** 30-45 minutes
+**Risk:** LOW
+**Run after fixes:** `npm run type-check && npm run lint`
+
+---
+
 ### Step 1: Create Directory Structure
 ```bash
 mkdir -p components/Projects
+mkdir -p components/Projects/hooks  # Optional, for custom hook
 ```
 
-### Step 2: Extract ImageSlider
+### Step 2: Extract Types First (NEW - Prevents Circular Dependencies)
+1. Verify `IconCycleState` is in `lib/types.ts` (done in Step 0)
+2. Update import in `components/ui/ProjectComponents/iconCycle.tsx`:
+   ```typescript
+   import { IconCycleState } from '@/lib/types'
+   ```
+3. Update import in `components/Projects.tsx`:
+   ```typescript
+   import { Project, Technologies, IconCycleState } from '@/lib/types'
+   ```
+4. Run `npm run type-check` to verify no errors
+5. Commit this change before proceeding
+
+**Why First:** All extracted components need this type, so move it before extraction
+
+---
+
+### Step 3: Extract ImageSlider (REVISED)
 1. Create `components/Projects/ImageSlider.tsx`
 2. Copy ImageSlider component code (lines 22-283)
 3. Add proper imports and exports
