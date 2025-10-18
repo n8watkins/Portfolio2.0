@@ -29,8 +29,8 @@ const Footer = () => {
           {...defaultAnimationConfig}
           id="contact"
           className="text-center mb-12">
-          <h2 className="heading lg:max-w-[45vw] mb-6">
-            Let&apos;s build something <span className="text-purple-500">amazing together!</span> 🚀
+          <h2 className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none lg:max-w-[45vw] mb-6">
+            Let&apos;s build something <span className="text-purple-500">amazing together!</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto px-5 leading-tight text-lg md:text-xl">
             Got a project in mind? Let&apos;s chat! 💬

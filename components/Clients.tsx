@@ -13,7 +13,7 @@ const Clients = () => {
       <motion.h1
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
-        className="heading">
+        className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
         Kind words from
         <span className="text-purple-500"> satisfied clients</span>
       </motion.h1>

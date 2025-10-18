@@ -96,8 +96,8 @@ const Experience = () => {
         <motion.h1
           variants={fadeInUpVariants}
           {...defaultAnimationConfig}
-          className="heading text-slate-800 dark:text-slate-200">
-          My work <span className="text-purple-500"> experience</span>
+          className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
+          Work <span className="text-purple-500">Experience</span>
         </motion.h1>
 
         <motion.div

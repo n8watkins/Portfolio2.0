@@ -505,7 +505,7 @@ export const workExperience = [
   {
     id: 1,
     title: 'Frontend Developer',
-    desc: 'Developed web-based platforms using React.js and modern frontend technologies, enhancing user interactivity.',
+    desc: 'Developed web apps using React and modern frontend tech, enhancing user interactivity.',
     className: 'md:col-span-2',
     thumbnail: '/experience/exp1.svg',
   },

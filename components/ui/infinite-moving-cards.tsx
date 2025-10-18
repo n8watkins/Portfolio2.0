@@ -51,29 +51,29 @@ export const InfiniteMovingCards = ({
           <div
             key={idx}
             className={cn(
-              'w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 flex-shrink-0 px-5 py-5 md:p-16 md:w-[55vw] xl:w-[48vw] 2xl:w-[43vw] bg-blue-500 dark:bg-[rgb(4,7,29)] transition-transform duration-300',
+              'w-[90vw] max-w-full mx-2 relative rounded-2xl border border-slate-800 flex-shrink-0 px-4 py-4 md:p-10 md:w-[50vw] xl:w-[42vw] 2xl:w-[38vw] bg-blue-500 dark:bg-[rgb(4,7,29)] transition-transform duration-300',
               hoveredIndex === idx ? 'scale-103' : ''
             )}
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}>
             <blockquote className="flex flex-col justify-stretch items-start ">
-              <span className="relative z-20 min-h-20 xl:min-h-24 2xl:min-h-28 text-sm md:text-lg xl:text-2xl 2xl:text-3xl leading-[1.6] text-white font-normal">
+              <span className="relative z-20 min-h-20 xl:min-h-24 2xl:min-h-28 text-sm md:text-base xl:text-xl 2xl:text-2xl leading-[1.6] text-white font-normal">
                 {item.quote}
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center">
-                <div className="me-3 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 2xl:w-28 2xl:h-28 relative">
+                <div className="me-3 w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 relative">
                   <Image
                     src={item.image}
                     alt={`Profile picture of ${item.name}`}
                     fill
-                    sizes="(max-width: 768px) 56px, (max-width: 1024px) 64px, (max-width: 1280px) 80px, (max-width: 1536px) 96px, 112px"
+                    sizes="(max-width: 768px) 48px, (max-width: 1024px) 56px, (max-width: 1280px) 64px, (max-width: 1536px) 80px, 96px"
                     style={{ objectFit: 'cover' }}
                     className="rounded-full"
                   />
                 </div>
                 <span className="flex flex-col gap-1">
-                  <span className="text-xl md:text-2xl xl:text-3xl 2xl:text-4xl font-bold leading-[1.6] text-white">{item.name}</span>
-                  <span className="text-sm md:text-base xl:text-lg 2xl:text-xl leading-[1.6] text-white font-normal">{item.title}</span>
+                  <span className="text-lg md:text-xl xl:text-2xl 2xl:text-3xl font-bold leading-[1.6] text-white">{item.name}</span>
+                  <span className="text-xs md:text-sm xl:text-base 2xl:text-lg leading-[1.6] text-white font-normal">{item.title}</span>
                 </span>
               </div>
             </blockquote>
