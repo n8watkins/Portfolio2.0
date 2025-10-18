@@ -5,6 +5,7 @@ import { ThemeProvider } from './provider'
 import Script from 'next/script'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { WebVitals } from './web-vitals'
+import { WebVitalsHUD } from '@/components/WebVitalsHUD'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
@@ -96,6 +97,7 @@ export default function RootLayout({
             {children}
           </ErrorBoundary>
           <WebVitals />
+          <WebVitalsHUD />
           <SpeedInsights />
         </ThemeProvider>
       </body>

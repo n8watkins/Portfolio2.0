@@ -105,12 +105,16 @@ export const trackWebVital = (metric: {
   value: number
   rating: string
   id: string
+  delta?: number
+  navigationType?: string
 }) => {
   trackEvent('web_vital', {
     event_category: 'Performance',
     metric_name: metric.name,
     metric_value: Math.round(metric.value),
     metric_rating: metric.rating,
+    metric_delta: metric.delta ? Math.round(metric.delta) : undefined,
+    navigation_type: metric.navigationType,
     event_label: metric.name,
     value: Math.round(metric.value),
   })
