@@ -70,11 +70,11 @@ function logWebVital(metric: WebVitalMetric) {
   const emoji = getRatingEmoji(rating)
   const formattedValue = formatValue(metric.name, metric.value)
 
-  // Color-coded console output
+  // Color-coded console output (using more readable colors)
   const styles = {
-    good: 'color: #0f0; font-weight: bold',
-    'needs-improvement': 'color: #ff0; font-weight: bold',
-    poor: 'color: #f00; font-weight: bold',
+    good: 'color: #10b981; font-weight: bold',           // Green-500
+    'needs-improvement': 'color: #f59e0b; font-weight: bold', // Amber-500
+    poor: 'color: #ef4444; font-weight: bold',            // Red-500
   }
 
   console.log(

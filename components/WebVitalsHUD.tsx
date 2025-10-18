@@ -14,7 +14,7 @@ interface WebVital {
  * Visual HUD for Web Vitals metrics
  * Shows real-time performance metrics in development
  *
- * Toggle with Ctrl+Shift+V or Cmd+Shift+V
+ * Toggle with Alt+Shift+V
  */
 export function WebVitalsHUD() {
   const [vitals, setVitals] = useState<Record<string, WebVital>>({})
@@ -24,9 +24,10 @@ export function WebVitalsHUD() {
   useEffect(() => {
     if (!isDev) return
 
-    // Keyboard shortcut to toggle: Ctrl+Shift+V (or Cmd+Shift+V on Mac)
+    // Keyboard shortcut to toggle: Alt+Shift+V
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'V') {
+      if (e.altKey && e.shiftKey && e.key === 'V') {
+        e.preventDefault() // Prevent any default browser behavior
         setIsVisible((prev) => !prev)
       }
     }
@@ -116,7 +117,7 @@ export function WebVitalsHUD() {
             <h3 className="text-sm font-bold">Web Vitals</h3>
             <button
               onClick={() => setIsVisible(false)}
-              className="text-white/60 hover:text-white transition-colors"
+              className="text-white/60 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
               aria-label="Close Web Vitals HUD"
             >
               ✕
@@ -127,7 +128,13 @@ export function WebVitalsHUD() {
             <p className="text-white/60">Waiting for metrics...</p>
           ) : (
             <div className="space-y-2">
-              {Object.values(vitals).map((vital) => (
+              {Object.values(vitals)
+                .sort((a, b) => {
+                  // Sort by Core Web Vitals first, then others
+                  const order = ['LCP', 'INP', 'CLS', 'FCP', 'TTFB', 'FID']
+                  return order.indexOf(a.name) - order.indexOf(b.name)
+                })
+                .map((vital) => (
                 <div
                   key={vital.name}
                   className="flex items-center justify-between gap-3"
@@ -157,7 +164,7 @@ export function WebVitalsHUD() {
           )}
 
           <div className="mt-3 pt-2 border-t border-white/20 text-[10px] text-white/40">
-            Press <kbd className="px-1 py-0.5 bg-white/10 rounded">Ctrl+Shift+V</kbd> to toggle
+            Press <kbd className="px-1 py-0.5 bg-white/10 rounded">Alt+Shift+V</kbd> to toggle
           </div>
         </motion.div>
       )}

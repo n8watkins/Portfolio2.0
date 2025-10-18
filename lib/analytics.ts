@@ -113,10 +113,11 @@ export const trackWebVital = (metric: {
     metric_name: metric.name,
     metric_value: Math.round(metric.value),
     metric_rating: metric.rating,
-    metric_delta: metric.delta ? Math.round(metric.delta) : undefined,
-    navigation_type: metric.navigationType,
     event_label: metric.name,
     value: Math.round(metric.value),
+    // Only include optional fields if they exist (GA doesn't handle undefined well)
+    ...(metric.delta !== undefined && { metric_delta: Math.round(metric.delta) }),
+    ...(metric.navigationType && { navigation_type: metric.navigationType }),
   })
 }
 

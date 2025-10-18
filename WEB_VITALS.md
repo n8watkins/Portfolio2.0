@@ -61,7 +61,7 @@ All metrics are automatically sent to Google Analytics as custom events:
 A real-time visual heads-up display shows Web Vitals metrics as they're collected.
 
 **To enable:**
-- Press `Ctrl+Shift+V` (Windows/Linux) or `Cmd+Shift+V` (Mac)
+- Press `Alt+Shift+V`
 - The HUD appears in the bottom-right corner
 - Shows all collected metrics with color-coded ratings
 - Auto-updates as new metrics come in
@@ -96,7 +96,7 @@ Example console output:
 
 1. Run the app in development mode: `npm run dev`
 2. Open the app in your browser
-3. Press `Ctrl+Shift+V` (or `Cmd+Shift+V` on Mac)
+3. Press `Alt+Shift+V`
 4. The HUD will appear in the bottom-right corner
 5. Press the same shortcut again to hide it
 
