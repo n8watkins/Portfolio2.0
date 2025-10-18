@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { techNameMapping, projects } from '@/data'
-import { Technologies, TechNameMappingInterface } from '@/lib/types'
+import { Technologies, TechNameMappingInterface, IconCycleState } from '@/lib/types'
 
 interface IconCycleProps {
   technologies: Technologies
@@ -16,12 +16,6 @@ interface IconCycleProps {
   onIconClick?: () => void
   onIconStateChange?: (icon: string, descriptionIndex: number) => void
   projectId?: number
-}
-
-interface IconCycleState {
-  currentCategory: keyof Technologies
-  cycledIconIndex: number
-  highlightedDescriptionIndex: number
 }
 
 const HOVER_INTERVAL = 3000 // 3 seconds per icon

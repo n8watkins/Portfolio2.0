@@ -31,3 +31,9 @@ export interface Project {
 export type TechNameMappingInterface = {
   [key: string]: string
 }
+
+export interface IconCycleState {
+  currentCategory: keyof Technologies
+  cycledIconIndex: number
+  highlightedDescriptionIndex: number
+}

@@ -6,7 +6,7 @@ import { fadeInUpVariants, staggerContainerSlowVariants, staggerItemVariants, de
 
 import IconCycle from '@/components/ui/ProjectComponents/iconCycle'
 import { projects } from '@/data'
-import { Project, Technologies } from '@/lib/types'
+import { Project, Technologies, IconCycleState } from '@/lib/types'
 import { MdOpenInNew, MdOutlineUnfoldMore } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -77,13 +77,16 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
 
   useEffect(() => {
     if (!isImageModalOpen) return;
-  
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') prevSlide();
       if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'Escape') handleCloseModal();
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        handleCloseModal();
+      }
     };
-  
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isImageModalOpen, prevSlide, nextSlide, handleCloseModal]);
@@ -176,7 +179,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
       {/* === Image Gallery Modal === */}
       <AnimatePresence>
         {isImageModalOpen && (
-          <div className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black/30" onClick={handleCloseModal}>
+          <div className="fixed inset-0 z-[10002] flex flex-col items-center justify-center bg-black/30" onClick={handleCloseModal}>
             <div className="flex flex-col items-center">
             <motion.div
   initial={{ opacity: 0, scale: 0.9 }}
@@ -222,7 +225,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
       fill
       sizes="100vw"
           className="object-cover select-none rounded-xl"
-      priority={true}
+      priority={currentIndex === 0 && isImageModalOpen}
       placeholder="blur"
       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QFLQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
     />
@@ -287,12 +290,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, isModalOpen }) => {
 
 
 
-
-interface IconCycleState {
-  currentCategory: keyof Technologies
-  cycledIconIndex: number
-  highlightedDescriptionIndex: number
-}
 
 const ProjectModal: React.FC<{
   project: Project
@@ -372,20 +369,16 @@ const ProjectModal: React.FC<{
                 </span>
               </a>
               <a
-                      href={project.liveSite}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex flex-row justify-start items-center mb-1 select-none cursor-default">
-                      <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
-                        <h2 className="text-3xl font-bold mb-2 flex justify-center  decoration-3 hover-underline-animation whitespace-nowrap select-none ">
-                         
-                        </h2>
-                        <MdOpenInNew className="flex justify-center items-center w-5 h-5 " />
-                        <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
+                href={project.liveSite}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleLiveSiteClick}
+                className="flex flex-row items-center">
+                <MdOpenInNew className="w-5 h-5 mr-1" />
+                <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
                   Site
                 </span>
-                      </span>
-                    </a>
+              </a>
             </span>
           </div>
           <div className="flex flex-col-reverse sm:flex-row gap-6 mx-1">
@@ -412,10 +405,6 @@ const ProjectModal: React.FC<{
 }
 
 const Projects: React.FC = () => {
-  // COMMENTED OUT: Icon loading state no longer needed with scroll animations
-  // const [isIconsLoading, setIsIconsLoading] = useState(true)
-  const [isLargeDevice, setIsLargeDevice] = useState(false)
-  const [hasMouse, setHasMouse] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [iconCycleStates, setIconCycleStates] = useState<Record<number, IconCycleState>>({})
 
@@ -428,7 +417,7 @@ const Projects: React.FC = () => {
       cycledIconIndex: 0,
       highlightedDescriptionIndex: 0,
     }
-  }, [])
+  }, [projects])
   
 
   const getOnStateChange = useCallback(
@@ -446,41 +435,8 @@ const Projects: React.FC = () => {
 )
 
   
-const handleIconCycleStateChange = useCallback((
-  projectId: number,
-  newState: IconCycleState | ((prevState: IconCycleState) => IconCycleState)
-) => {
-  setIconCycleStates((prevStates) => ({
-    ...prevStates,
-    [projectId]:
-      typeof newState === 'function'
-        ? newState(prevStates[projectId] || getInitialIconCycleState(projectId))
-        : newState,
-  }));
-}, [getInitialIconCycleState]);
-
-  
 
 
-  useEffect(() => {
-    const checkDeviceAndMouse = () => {
-      setIsLargeDevice(window.matchMedia('(min-width: 768px)').matches)
-      setHasMouse(window.matchMedia('(pointer:fine)').matches)
-    }
-
-    checkDeviceAndMouse()
-    window.addEventListener('resize', checkDeviceAndMouse)
-
-    // COMMENTED OUT: Icon loading timer no longer needed
-    // const timer = setTimeout(() => {
-    //   setIsIconsLoading(false)
-    // }, 1500)
-
-    return () => {
-      window.removeEventListener('resize', checkDeviceAndMouse)
-      // clearTimeout(timer) // COMMENTED OUT: Timer no longer exists
-    }
-  }, [])
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project)
@@ -500,9 +456,15 @@ const handleIconCycleStateChange = useCallback((
   const getModalOnStateChange = useCallback(
     (projectId: number) =>
       (newState: IconCycleState | ((prevState: IconCycleState) => IconCycleState)) => {
-        handleIconCycleStateChange(projectId, newState);
+        setIconCycleStates((prevStates) => ({
+          ...prevStates,
+          [projectId]:
+            typeof newState === 'function'
+              ? newState(prevStates[projectId] || getInitialIconCycleState(projectId))
+              : newState,
+        }));
       },
-    [handleIconCycleStateChange]
+    [getInitialIconCycleState]
   );
   
   const modalStateChangeHandler = useMemo(() => {
@@ -619,7 +581,7 @@ const onStateChange = onStateChangeMap[project.id];
   );
 })}
       </motion.div>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {selectedProject && (
          <ProjectModal
          project={selectedProject}
