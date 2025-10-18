@@ -30,8 +30,28 @@ const nextConfig = {
   poweredByHeader: false,
   // Resource optimization
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      'react-icons',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-icons',
+      '@tabler/icons-react',
+    ],
   },
+  // Bundle analyzer - enable with ANALYZE=true npm run build
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config) => {
+      const { BundleAnalyzerPlugin } = require('@next/bundle-analyzer')()
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          reportFilename: './analyze.html',
+        })
+      )
+      return config
+    },
+  }),
   // Redirect common routes to home page
   async redirects() {
     return [
