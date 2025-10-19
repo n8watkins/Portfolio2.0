@@ -5,7 +5,7 @@ import GridBackground from './ui/GridBackground'
 import { FiGithub } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
-import { fadeInDownVariants, fadeInLeftVariants, fadeInRightVariants, staggerContainerVariants } from '@/lib/animations'
+import { staggerContainerVariants } from '@/lib/animations'
 import ScrollButton from './ui/BentoComponents/ScrollButton'
 
 const Hero = () => {
@@ -19,7 +19,7 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           variants={staggerContainerVariants}
-          className="uppercase tracking-widest pb-2 1lg:pb-5 md:pb-10 pt-40  sm:pt-40 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
+          className="uppercase tracking-widest pb-2 1lg:pb-5 md:pb-10 pt-40 sm:pt-40 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
           <motion.span
             variants={{
               hidden: { opacity: 0 },
@@ -48,9 +48,9 @@ const Hero = () => {
             Innovate.
           </motion.span>
         </motion.p>
-        <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5  ">
-          <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3  ">
-            <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5">
+          <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3">
+            <h1 className="text-center md:text-start w-full justify-start text-5xl lg:text-6xl font-semibold">
               Hi, I&apos;m <span className="text-purple-500">Nathan</span>
             </h1>
             <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
@@ -94,7 +94,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex w-full items-center md:justify-start justify-center">
-              <ScrollButton link="about" text="See more" className="" />
+              <ScrollButton link="about" text="See more" />
             </motion.div>
           </div>
           <div className="w-[15rem] h-[15rem] 1sm:w-[17rem] 1sm:h-[17rem] 1lg:w-[19rem] 1lg:h-[19rem] sm:w-[22rem] sm:h-[22rem] relative">

@@ -5,7 +5,7 @@ import { Link } from 'react-scroll'
 interface ScrollButtonProps {
   text: string
   link: string
-  className: string
+  className?: string
 }
 
 const ScrollButton: React.FC<ScrollButtonProps> = ({ text, link, className }) => {
