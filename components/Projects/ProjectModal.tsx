@@ -66,7 +66,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 50, opacity: 0 }}
-        className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] rounded-xl p-6 max-w-[58rem] lg:max-w-[70rem] xl:max-w-[80rem] 2xl:max-w-[90rem] w-full max-h-[90vh] overflow-hidden relative"
+        className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] rounded-xl p-6 max-w-[58rem] lg:max-w-[70rem] xl:max-w-[80rem] 2xl:max-w-[90rem] w-full max-h-[90vh] lg:max-h-[92vh] xl:max-h-[94vh] 2xl:max-h-[95vh] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}>
         <BorderBeam className="beam-1" startPosition={0} />
         <BorderBeam className="beam-2" startPosition={10} />
@@ -132,7 +132,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 onStateChange={setIconCycleState}
               />
             </div>
-            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80">
+            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem]">
               <div className="relative w-full h-full">
                 <ImageSlider
                   images={project.images}
