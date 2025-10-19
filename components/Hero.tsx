@@ -5,10 +5,8 @@ import GridBackground from './ui/GridBackground'
 import { FiGithub } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
-import dynamic from 'next/dynamic'
 import { fadeInDownVariants, fadeInLeftVariants, fadeInRightVariants, staggerContainerVariants } from '@/lib/animations'
-
-const ScrollButton = dynamic(() => import('./ui/BentoComponents/ScrollButton'), { ssr: false })
+import ScrollButton from './ui/BentoComponents/ScrollButton'
 
 const Hero = () => {
   return (
@@ -24,28 +22,28 @@ const Hero = () => {
           className="uppercase tracking-widest pb-2 1lg:pb-5 md:pb-10 pt-40  sm:pt-40 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
           <motion.span
             variants={{
-              hidden: { opacity: 0, y: 15 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
           >
             Code.
           </motion.span>{' '}
           <motion.span
             variants={{
-              hidden: { opacity: 0, y: 15 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] } }
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { duration: 0.4, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] } }
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
           >
             Create.
           </motion.span>{' '}
           <motion.span
             variants={{
-              hidden: { opacity: 0, y: 15 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] } }
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { duration: 0.4, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] } }
             }}
-            className="inline-block will-change-transform"
+            className="inline-block"
           >
             Innovate.
           </motion.span>
@@ -92,10 +90,10 @@ const Hero = () => {
               </nav>
             </div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              className="flex w-full items-center md:justify-start justify-center will-change-transform">
+              className="flex w-full items-center md:justify-start justify-center">
               <ScrollButton link="about" text="See more" className="" />
             </motion.div>
           </div>
