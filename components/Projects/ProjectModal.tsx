@@ -87,35 +87,39 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               onClick={handleLiveSiteClick}
               className="flex flex-row justify-center items-center w-fit">
               <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 ">
-                <h2 className="text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
                   {project.title}
                 </h2>
                 <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
               </span>
             </a>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleGitHubClick}
-              className="flex 1md:hidden items-center mb-2">
-              <FiGithub className="w-6 h-6" />
-            </a>
-          </div>
-
-          <div className="flex flex-row justify-end gap-3 mb-4">
-            <span className="flex flex-row space-x-4 justify-center">
+            {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleGitHubClick}
-                className="hidden 1md:flex flex-row items-center">
-                <FiGithub className="w-5 h-5 mr-1" />
-                <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
-                  Source
-                </span>
+                className="flex 1md:hidden items-center mb-2">
+                <FiGithub className="w-6 h-6" />
               </a>
+            )}
+          </div>
+
+          <div className="flex flex-row justify-end gap-3 mb-4">
+            <span className="flex flex-row space-x-4 justify-center">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleGitHubClick}
+                  className="hidden 1md:flex flex-row items-center">
+                  <FiGithub className="w-5 h-5 mr-1" />
+                  <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
+                    Source
+                  </span>
+                </a>
+              )}
               <a
                 href={project.liveSite}
                 target="_blank"

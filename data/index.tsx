@@ -646,7 +646,6 @@ export const projects = [
           ],
         },
       },
-      github: 'https://github.com/n8watkins/RiverwoodRanch',
       liveSite: 'https://riverwoodranch.web.app/',
     },
   {
