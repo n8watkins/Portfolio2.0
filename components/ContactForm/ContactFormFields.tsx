@@ -73,6 +73,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
             error={errors.name?.message}
             onFocus={() => handleFieldFocus('name')}
             autoComplete="name"
+            disabled={isSubmitting}
           />
         </motion.div>
 
@@ -91,6 +92,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
             error={errors.email?.message}
             onFocus={() => handleFieldFocus('email')}
             autoComplete="email"
+            disabled={isSubmitting}
           />
         </motion.div>
       </motion.div>
@@ -109,6 +111,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
           error={errors.company?.message}
           onFocus={() => handleFieldFocus('company')}
           autoComplete="organization"
+          disabled={isSubmitting}
         />
       </motion.div>
 
@@ -125,6 +128,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
           options={subjectOptions}
           error={errors.subject?.message}
           onFocus={() => handleFieldFocus('subject')}
+          disabled={isSubmitting}
         />
       </motion.div>
 
@@ -144,6 +148,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
           charCount={charCount}
           error={errors.message?.message}
           onFocus={() => handleFieldFocus('message')}
+          disabled={isSubmitting}
         />
       </motion.div>
 
