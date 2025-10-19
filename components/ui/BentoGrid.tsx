@@ -1,20 +1,8 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
-import { useTheme } from 'next-themes'
-import Image from 'next/image'
-import MapDetails from './BentoComponents/MapDetails'
-import GridPattern from '../magicui/grid-pattern'
-import { TechStack } from '../TechStack'
-import ResumeButtons from './BentoComponents/ResumeButtons'
 import { staggerItemVariants } from '@/lib/animations'
-import dynamic from 'next/dynamic'
-
-const EmailButton = dynamic(() => import('@/components/ui/BentoComponents/EmailButton'), {
-  ssr: false,
-})
-
-import ScrollButton from './BentoComponents/ScrollButton'
+import type { GridItemConfig } from '@/lib/types/gridItem'
 
 export const BentoGrid = ({
   className,
@@ -37,38 +25,15 @@ export const BentoGrid = ({
 export const BentoGridItem = ({
   title,
   description,
-  id,
-  index,
-  img,
-  imgClassName,
   titleClassName,
   textContainerClassName,
-  imgContainerClass,
   descriptionClass,
   textOrder,
-  buttonClass,
-  buttonContainer,
   gridItemContainer,
-}: {
-  title?: string | React.ReactNode
-  description?: string | React.ReactNode
-  id?: number
-  index?: number
-  img: string
-  titleClassName: string
-  imgClassName: string
-  textContainerClassName?: string
-  imgContainerClass?: string
-  descriptionClass?: string
-  textOrder?: string
-  buttonClass?: string
-  buttonContainer?: string
-  gridItemContainer?: string
-}) => {
-  const { theme } = useTheme()
-
-  
-
+  renderBackground,
+  renderContent,
+  renderForeground,
+}: GridItemConfig) => {
   return (
     <motion.div
       variants={staggerItemVariants}
@@ -76,76 +41,21 @@ export const BentoGridItem = ({
         'flex w-full h-full rounded-3xl relative group  dark:border-white/[0.2]  bg-gradient-to-br from-blue-400 via-blue-500 to-blue-400 border dark:from-[#020621] dark:via-darkBlue dark:to-[#020621] overflow-hidden  select-none',
         gridItemContainer
       )}>
-      {
-        //backgrounds
-        (id === 1 && (
-          <div className="relative w-full h-full overflow-hidden">
-            <GridPattern className="absolute inset-0 z-10" />
-            <div className={`relative z-30 ${imgContainerClass}`}>
-              <Image
-                src={img}
-                fill
-                sizes='100%'
-                className={`rounded-3xl ${imgClassName}`}
-                alt="Bento grid image"
-                priority
-              />
-            </div>
-          </div>
-        )) ||
-          ((id === 4 || id == 2) && (
-            <div className="relative w-full h-full overflow-hidden">
-              <div className={`relative w-full h-full ${imgContainerClass} `}>
-              <Image src={`${img}`} fill sizes='100%' className={` ${imgClassName} `} alt={img} loading="lazy" />
-              </div>
-            </div>
-          )) ||
-          (id == 6 && (
-            <div className={`relative w-full h-full ${imgContainerClass} `}>
-              <Image src={`${img}`} fill sizes='100%'  className={` ${imgClassName} `} alt={img} loading="lazy" />
-            </div>
-          ))
-      }
+      {/* Background layer - data-driven */}
+      {renderBackground?.()}
 
-      {
-        //text Container
-      }
+      {/* Content layer - data-driven */}
       <div className={`absolute z-[500]   ${textContainerClassName}`}>
-        {id === 2 && (
-          <div>
-            <MapDetails />
-          </div>
-        )}
+        {renderContent?.()}
 
         <div className={` ${textOrder}  `}>
-          <div className={` ${titleClassName} `}>{title}</div>
-          <div className={` ${descriptionClass}`}>{description}</div>
+          {title && <div className={` ${titleClassName} `}>{title}</div>}
+          {description && <div className={` ${descriptionClass}`}>{description}</div>}
         </div>
-        {id === 4 && <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />}
-        {id === 6 && (
-          <div className=" flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
-            <div className="flex  items-center justify-center">
-              <ScrollButton
-                link="projects"
-                className=" lg:h-14  w-fit whitespace-nowrap 1md:w-40"
-                text="Check it out!"
-              />
-            </div>
-          </div>
-        )}
       </div>
 
-      {
-        //forground images
-      }
-      <div className="">
-        {(id === 3 && <TechStack />) ||
-          (id === 5 && (
-            <div className="absolute w-full h-full">
-              <EmailButton buttonClass={buttonClass} buttonContainer={buttonContainer} />
-            </div>
-          ))}
-      </div>
+      {/* Foreground layer - data-driven */}
+      {renderForeground?.()}
     </motion.div>
   )
 }

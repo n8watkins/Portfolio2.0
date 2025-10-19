@@ -15,46 +15,9 @@ const Grid = () => {
         {...defaultAnimationConfig}
       >
         <BentoGrid className=" ">
-          {gridItems.map(
-            (
-              {
-                id,
-                gridItemContainer,
-                title,
-                description,
-                img,
-                imgClassName,
-                titleClassName,
-                textContainerClassName,
-                imgContainerClass,
-                descriptionClass,
-                textOrder,
-                buttonClass,
-                buttonContainer,
-              },
-              i
-            ) => {
-              return (
-                <BentoGridItem
-                  id={id}
-                  key={i}
-                  index={i}
-                  gridItemContainer={gridItemContainer}
-                  title={title}
-                  description={description}
-                  img={img}
-                  imgClassName={imgClassName}
-                  titleClassName={titleClassName}
-                  textContainerClassName={textContainerClassName}
-                  imgContainerClass={imgContainerClass}
-                  descriptionClass={descriptionClass}
-                  textOrder={textOrder}
-                  buttonClass={buttonClass}
-                  buttonContainer={buttonContainer}
-                />
-              )
-            }
-          )}
+          {gridItems.map((item, i) => (
+            <BentoGridItem key={item.id} {...item} />
+          ))}
         </BentoGrid>
       </motion.div>
     </section>

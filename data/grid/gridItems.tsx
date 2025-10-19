@@ -1,32 +1,49 @@
+import Image from 'next/image'
+import dynamic from 'next/dynamic'
+import GridPattern from '@/components/magicui/grid-pattern'
+import MapDetails from '@/components/ui/BentoComponents/MapDetails'
+import { TechStack } from '@/components/TechStack'
+import ResumeButtons from '@/components/ui/BentoComponents/ResumeButtons'
+import ScrollButton from '@/components/ui/BentoComponents/ScrollButton'
+import type { GridItemConfig } from '@/lib/types/gridItem'
+
+const EmailButton = dynamic(
+  () => import('@/components/ui/BentoComponents/EmailButton'),
+  { ssr: false }
+)
+
 //bg-gradient-b rounded-t-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0
-export const gridItems = [
-  {
+const createGridItem1 = (): GridItemConfig => {
+  const imgContainerClass =
+    'absolute ' +
+    'w-[80%] h-[50%]  ' + // Base size
+    'top-[18rem] ' + // Base position
+    'md:w-[30%] md:h-[70%] md:left-60 md:top-1/2 md:-translate-y-1/2 ' +
+    'lg:w-[80%] lg:h-[50%] lg:left-0 lg:top-[18rem] lg:translate-y-0 ' +
+    'xl:w-[27%] xl:h-[80%] xl:left-80 xl:top-1/2 xl:-translate-y-1/2 ' +
+    'z-30 rounded-3xl overflow-visible mx-auto aspect-ratio ' +
+    'transition-all duration-300 ease-in-out ' +
+    'shadow-lg'
+  const imgClassName =
+    'flex relative aspect-ratio rounded-3xl item-center justify-center group-hover:scale-105 transition duration-200'
+  const img = '/bento/laptop.jpeg'
+
+  return {
     id: 1,
     gridItemContainer:
       'col-span-2 row-span-4 h-[40rem]  md:row-span-2 md:col-span-4 lg:col-span-2 lg:row-span-4 xl:col-span-4 md:h-[20rem] lg:h-[40rem] xl:h-[20rem]  xl:w-[100%] ',
     title: 'My Start',
     description:
       'During COVID, I built a Chrome extension to automate class attendance. Coding to make life easier flipped my learning paradigm.',
-    imgContainerClass:
-      'absolute ' +
-      'w-[80%] h-[50%]  ' + // Base size
-      'top-[18rem] ' + // Base position
-      // 'sm:w-[40%] sm:h-[60%] ' +
-      'md:w-[30%] md:h-[70%] md:left-60 md:top-1/2 md:-translate-y-1/2 ' + // Adjust for medium screens
-      'lg:w-[80%] lg:h-[50%] lg:left-0 lg:top-[18rem] lg:translate-y-0 ' + // Adjust for large screens
-      'xl:w-[27%] xl:h-[80%] xl:left-80 xl:top-1/2 xl:-translate-y-1/2 ' + // Adjust for extra large screens
-      'z-30 rounded-3xl overflow-visible mx-auto aspect-ratio ' +
-      'transition-all duration-300 ease-in-out ' +
-      'shadow-lg',
-    imgClassName:
-      'flex relative aspect-ratio rounded-3xl item-center justify-center group-hover:scale-105 transition duration-200',
+    imgContainerClass,
+    imgClassName,
     duration: 'rounded-3xl z-10',
-    img: '/bento/laptop.jpeg',
+    img,
     textContainerClassName:
       'absolute inset-0 flex flex-col justify-center ' +
       'p-6 md:p-8 ' +
       'z-20 text-slate-200 ' +
-      'w-full md:w-2/3 lg:w-1/2', // Adjust text width to make room for image
+      'w-full md:w-2/3 lg:w-1/2',
     textOrder: ' ',
     titleClassName:
       'absolute top-4 font-sans  transition duration-200 group-hover:translate-x-2 font-bold ' +
@@ -39,34 +56,69 @@ export const gridItems = [
       'select-none',
     buttonContainer: '',
     buttonClass: '',
-  },
-  // '1sm:w-[17rem] 1sm:h-[17rem] 1sm:top-[19rem] 1sm:left-[1.8rem] ' +
-  // '1md:w-[20rem] 1md:h-[20rem] 1md:top-[17rem] 1md:m-auto ' +
-  // '1lg:w-[20rem] 1lg:h-[20rem] 1lg:top-[17rem] 1lg:left-10 ' +
-  // 'top-[16rem] left-12 ' +
-  // 'sm:left-20 ' +
-  // 'md:top-2 md:left-[28rem] md:w-[16rem] md:h-[16rem] ' +
-  // 'lg:top-[16rem] lg:left-9 lg:w-[20rem] lg:h-[20rem] ' +
-  // 'xl:top-2 xl:left-[43rem] xl:w-[16rem] xl:h-[16rem] ' +
-  // '2xl:left-[43rem] ' +
 
-  {
-    id: 2,
-    title: 'Ready to relocate',
-    description: '',
-    gridItemContainer:
-      'col-span-2 row-span-3 sm:row-span-3   md:col-span-2 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-6 ',
-    imgContainerClass: 'relative w-full h-full group overflow-hidden rounded-3xl',
-    imgClassName: 'absolute top-0   rounded-3xl  z-10  transition duration-500',
-    textContainerClassName:
-      'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621] dark:to-[#020621]/0 text-slate-200',
-    titleClassName:
-      'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
-    textOrder: 'group-hover:translate-x-2 duration-200',
-    img: '/bento/globe.jpeg',
-    buttonContainer: '',
-    buttonClass: '',
-  },
+    renderBackground: () => (
+      <div className="relative w-full h-full overflow-hidden">
+        <GridPattern className="absolute inset-0 z-10" />
+        <div className={`relative z-30 ${imgContainerClass}`}>
+          <Image
+            src={img}
+            fill
+            sizes="100%"
+            className={`rounded-3xl ${imgClassName}`}
+            alt="Bento grid image"
+            priority
+          />
+        </div>
+      </div>
+    ),
+  }
+}
+
+export const gridItems: GridItemConfig[] = [
+  createGridItem1(),
+
+  (() => {
+    const imgContainerClass = 'relative w-full h-full group overflow-hidden rounded-3xl'
+    const imgClassName = 'absolute top-0   rounded-3xl  z-10  transition duration-500'
+    const img = '/bento/globe.jpeg'
+
+    return {
+      id: 2,
+      title: 'Ready to relocate',
+      description: '',
+      gridItemContainer:
+        'col-span-2 row-span-3 sm:row-span-3   md:col-span-2 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-6 ',
+      imgContainerClass,
+      imgClassName,
+      textContainerClassName:
+        'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621] dark:to-[#020621]/0 text-slate-200',
+      titleClassName:
+        'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
+      textOrder: 'group-hover:translate-x-2 duration-200',
+      img,
+      buttonContainer: '',
+      buttonClass: '',
+
+      renderBackground: () => (
+        <div className="relative w-full h-full overflow-hidden">
+          <div className={imgContainerClass}>
+            <Image
+              src={img}
+              fill
+              sizes="100%"
+              className={imgClassName}
+              alt={img}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      ),
+
+      renderContent: () => <MapDetails />,
+    }
+  })(),
+
   {
     id: 3,
     title: 'My tech stack',
@@ -79,60 +131,131 @@ export const gridItems = [
     textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
     titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center  select-none ',
     descriptionClass: 'relative text-base w-[50%]  font-bold nowrap whitespace-nowrap select-none ',
-    img: ``,
-    buttonContainer: '',
-    buttonClass: '',
-  },
-  {
-    id: 4,
-    title: 'Check out my resume!',
-    description: '',
-    gridItemContainer:
-      'col-span-2 row-span-1 md:col-span-2  lg:col-span-2 xl:row-span-2 xl:col-span-2 group  ',
-    imgContainerClass: '  ',
-    imgClassName:
-      'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  ',
-    img: '/bento/resume.svg',
-    textContainerClassName:
-      'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
-    textOrder:
-      'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
-    titleClassName:
-      'flex transition duration-300  pt-[5rem] z-30 font-sans font-bold   select-none text-slate-200 dark:text-neutral-200  text-2xl lg:text-3xl text-start w-full',
-    buttonContainer: 'flex items-center justify-evenly z-50 w-full h-full pb-14',
-    buttonClass: `inline-flex h-12 py-2 px-6 z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer`,
-
-
-  },
-  //Have a project? Let's Connect
-  {
-    id: 5,
-    title: '',
-    description: '',
-    gridItemContainer: 'col-span-2 row-span-2 md:row-span-1 lg:col-span-2 xl:row-span-2 ',
-    imgClassName: '',
-    textContainerClassName: '',
-    titleClassName: ' pt-16 h-40  rounded-b-3xl select-none',
-    textOrder: '',
     img: '',
-    buttonContainer: 'flex items-center  justify-evenly z-50     w-full h-full pt-10 ',
-    buttonClass: `inline-flex h-12  py-2 px-6  z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms]`,
-  },
-  {
-    id: 6,
-    title: "Currently building an AI-driven lead generation tool powered by OpenAI's Realtime API",
-    description: 'The Inside Scoop ',
-    gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-4',
-    imgContainerClass: 'absolute top-10  w-full h-full ',
-    imgClassName: 'absolute pl-40 ',
-    img: '/bento/code.svg',
-    textContainerClassName:
-      'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
-    textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
-    titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
-    descriptionClass:
-      'relative text-sm w-[50%]  font-semibold dark:font-normal nowrap whitespace-nowrap select-none',
     buttonContainer: '',
     buttonClass: '',
+
+    renderForeground: () => <TechStack />,
   },
+
+  (() => {
+    const imgContainerClass = '  '
+    const imgClassName =
+      'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  '
+    const img = '/bento/resume.svg'
+    const buttonContainer = 'flex items-center justify-evenly z-50 w-full h-full pb-14'
+    const buttonClass = `inline-flex h-12 py-2 px-6 z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer`
+
+    return {
+      id: 4,
+      title: 'Check out my resume!',
+      description: '',
+      gridItemContainer:
+        'col-span-2 row-span-1 md:col-span-2  lg:col-span-2 xl:row-span-2 xl:col-span-2 group  ',
+      imgContainerClass,
+      imgClassName,
+      img,
+      textContainerClassName:
+        'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
+      textOrder:
+        'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
+      titleClassName:
+        'flex transition duration-300  pt-[5rem] z-30 font-sans font-bold   select-none text-slate-200 dark:text-neutral-200  text-2xl lg:text-3xl text-start w-full',
+      buttonContainer,
+      buttonClass,
+
+      renderBackground: () => (
+        <div className="relative w-full h-full overflow-hidden">
+          <div className={`relative w-full h-full ${imgContainerClass}`}>
+            <Image
+              src={img}
+              fill
+              sizes="100%"
+              className={imgClassName}
+              alt={img}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      ),
+
+      renderContent: () => (
+        <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />
+      ),
+    }
+  })(),
+
+  (() => {
+    const buttonContainer = 'flex items-center  justify-evenly z-50     w-full h-full pt-10 '
+    const buttonClass = `inline-flex h-12  py-2 px-6  z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms]`
+
+    return {
+      id: 5,
+      title: '',
+      description: '',
+      gridItemContainer: 'col-span-2 row-span-2 md:row-span-1 lg:col-span-2 xl:row-span-2 ',
+      imgClassName: '',
+      textContainerClassName: '',
+      titleClassName: ' pt-16 h-40  rounded-b-3xl select-none',
+      textOrder: '',
+      img: '',
+      buttonContainer,
+      buttonClass,
+
+      renderForeground: () => (
+        <div className="absolute w-full h-full">
+          <EmailButton buttonClass={buttonClass} buttonContainer={buttonContainer} />
+        </div>
+      ),
+    }
+  })(),
+
+  (() => {
+    const imgContainerClass = 'absolute top-10  w-full h-full '
+    const imgClassName = 'absolute pl-40 '
+    const img = '/bento/code.svg'
+
+    return {
+      id: 6,
+      title: "Currently building an AI-driven lead generation tool powered by OpenAI's Realtime API",
+      description: 'The Inside Scoop ',
+      gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-4',
+      imgContainerClass,
+      imgClassName,
+      img,
+      textContainerClassName:
+        'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
+      textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
+      titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
+      descriptionClass:
+        'relative text-sm w-[50%]  font-semibold dark:font-normal nowrap whitespace-nowrap select-none',
+      buttonContainer: '',
+      buttonClass: '',
+
+      renderBackground: () => (
+        <div className={`relative w-full h-full ${imgContainerClass}`}>
+          <Image
+            src={img}
+            fill
+            sizes="100%"
+            className={imgClassName}
+            alt={img}
+            loading="lazy"
+          />
+        </div>
+      ),
+
+      renderContent: () => (
+        <div className="flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
+          <div className="flex  items-center justify-center">
+            <ScrollButton
+              link="projects"
+              className=" lg:h-14  w-fit whitespace-nowrap 1md:w-40"
+              text="Check it out!"
+            />
+          </div>
+        </div>
+      ),
+    }
+  })(),
 ]
