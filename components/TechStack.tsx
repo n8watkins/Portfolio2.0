@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
 import Marquee from '@/components/magicui/marquee'
-import { tech_libraries, tech_tools } from '../data/index'
+import { tech_libraries, tech_tools } from '@/data/techStack'
 import { ReactElement } from 'react'
 
 const StackContainer = ({

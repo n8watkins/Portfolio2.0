@@ -1,7 +1,7 @@
 import { useId, useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
-import { coloredSquares } from '@/data'
+import { coloredSquares } from '@/data/grid'
 
 interface GridPatternProps {
   width?: number

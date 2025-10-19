@@ -2,7 +2,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { BentoGrid, BentoGridItem } from './ui/BentoGrid'
-import { gridItems } from '@/data'
+import { gridItems } from '@/data/grid'
 import { useTheme } from 'next-themes'
 import { staggerContainerVariants, defaultAnimationConfig } from '@/lib/animations'
 

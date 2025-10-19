@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { fadeInUpVariants, staggerContainerSlowVariants, defaultAnimationConfig } from '@/lib/animations'
-import { projects } from '@/data'
+import { projects } from '@/data/projects'
 import { Project, IconCycleState } from '@/lib/types'
 import { trackProjectEvent, trackModalEvent } from '@/lib/analytics'
 import ProjectModal from './ProjectModal'

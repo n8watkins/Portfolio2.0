@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { techNameMapping, projects } from '@/data'
+import { techNameMapping, projects } from '@/data/projects'
 import { Technologies, TechNameMappingInterface, IconCycleState } from '@/lib/types'
 
 interface IconCycleProps {
