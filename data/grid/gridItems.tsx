@@ -75,51 +75,49 @@ const createGridItem1 = (): GridItemConfig => {
   }
 }
 
-export const gridItems: GridItemConfig[] = [
-  createGridItem1(),
+const createGridItem2 = (): GridItemConfig => {
+  const imgContainerClass = 'relative w-full h-full group overflow-hidden rounded-3xl'
+  const imgClassName = 'absolute top-0   rounded-3xl  z-10  transition duration-500'
+  const img = '/bento/globe.jpeg'
 
-  (() => {
-    const imgContainerClass = 'relative w-full h-full group overflow-hidden rounded-3xl'
-    const imgClassName = 'absolute top-0   rounded-3xl  z-10  transition duration-500'
-    const img = '/bento/globe.jpeg'
+  return {
+    id: 2,
+    title: 'Ready to relocate',
+    description: '',
+    gridItemContainer:
+      'col-span-2 row-span-3 sm:row-span-3   md:col-span-2 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-6 ',
+    imgContainerClass,
+    imgClassName,
+    textContainerClassName:
+      'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621] dark:to-[#020621]/0 text-slate-200',
+    titleClassName:
+      'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
+    textOrder: 'group-hover:translate-x-2 duration-200',
+    img,
+    buttonContainer: '',
+    buttonClass: '',
 
-    return {
-      id: 2,
-      title: 'Ready to relocate',
-      description: '',
-      gridItemContainer:
-        'col-span-2 row-span-3 sm:row-span-3   md:col-span-2 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-6 ',
-      imgContainerClass,
-      imgClassName,
-      textContainerClassName:
-        'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621] dark:to-[#020621]/0 text-slate-200',
-      titleClassName:
-        'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',
-      textOrder: 'group-hover:translate-x-2 duration-200',
-      img,
-      buttonContainer: '',
-      buttonClass: '',
-
-      renderBackground: () => (
-        <div className="relative w-full h-full overflow-hidden">
-          <div className={imgContainerClass}>
-            <Image
-              src={img}
-              fill
-              sizes="100%"
-              className={imgClassName}
-              alt={img}
-              loading="lazy"
-            />
-          </div>
+    renderBackground: () => (
+      <div className="relative w-full h-full overflow-hidden">
+        <div className={imgContainerClass}>
+          <Image
+            src={img}
+            fill
+            sizes="100%"
+            className={imgClassName}
+            alt={img}
+            loading="lazy"
+          />
         </div>
-      ),
+      </div>
+    ),
 
-      renderContent: () => <MapDetails />,
-    }
-  })(),
+    renderContent: () => <MapDetails />,
+  }
+}
 
-  {
+const createGridItem3 = (): GridItemConfig => {
+  return {
     id: 3,
     title: 'My tech stack',
     description: 'I constantly try to improve',
@@ -136,103 +134,37 @@ export const gridItems: GridItemConfig[] = [
     buttonClass: '',
 
     renderForeground: () => <TechStack />,
-  },
+  }
+}
 
-  (() => {
-    const imgContainerClass = '  '
-    const imgClassName =
-      'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  '
-    const img = '/bento/resume.svg'
-    const buttonContainer = 'flex items-center justify-evenly z-50 w-full h-full pb-14'
-    const buttonClass = `inline-flex h-12 py-2 px-6 z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer`
+const createGridItem4 = (): GridItemConfig => {
+  const imgContainerClass = '  '
+  const imgClassName =
+    'absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  '
+  const img = '/bento/resume.svg'
+  const buttonContainer = 'flex items-center justify-evenly z-50 w-full h-full pb-14'
+  const buttonClass = `inline-flex h-12 py-2 px-6 z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800 bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms] cursor-pointer`
 
-    return {
-      id: 4,
-      title: 'Check out my resume!',
-      description: '',
-      gridItemContainer:
-        'col-span-2 row-span-1 md:col-span-2  lg:col-span-2 xl:row-span-2 xl:col-span-2 group  ',
-      imgContainerClass,
-      imgClassName,
-      img,
-      textContainerClassName:
-        'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
-      textOrder:
-        'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
-      titleClassName:
-        'flex transition duration-300  pt-[5rem] z-30 font-sans font-bold   select-none text-slate-200 dark:text-neutral-200  text-2xl lg:text-3xl text-start w-full',
-      buttonContainer,
-      buttonClass,
+  return {
+    id: 4,
+    title: 'Check out my resume!',
+    description: '',
+    gridItemContainer:
+      'col-span-2 row-span-1 md:col-span-2  lg:col-span-2 xl:row-span-2 xl:col-span-2 group  ',
+    imgContainerClass,
+    imgClassName,
+    img,
+    textContainerClassName:
+      'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
+    textOrder:
+      'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',
+    titleClassName:
+      'flex transition duration-300  pt-[5rem] z-30 font-sans font-bold   select-none text-slate-200 dark:text-neutral-200  text-2xl lg:text-3xl text-start w-full',
+    buttonContainer,
+    buttonClass,
 
-      renderBackground: () => (
-        <div className="relative w-full h-full overflow-hidden">
-          <div className={`relative w-full h-full ${imgContainerClass}`}>
-            <Image
-              src={img}
-              fill
-              sizes="100%"
-              className={imgClassName}
-              alt={img}
-              loading="lazy"
-            />
-          </div>
-        </div>
-      ),
-
-      renderContent: () => (
-        <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />
-      ),
-    }
-  })(),
-
-  (() => {
-    const buttonContainer = 'flex items-center  justify-evenly z-50     w-full h-full pt-10 '
-    const buttonClass = `inline-flex h-12  py-2 px-6  z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms]`
-
-    return {
-      id: 5,
-      title: '',
-      description: '',
-      gridItemContainer: 'col-span-2 row-span-2 md:row-span-1 lg:col-span-2 xl:row-span-2 ',
-      imgClassName: '',
-      textContainerClassName: '',
-      titleClassName: ' pt-16 h-40  rounded-b-3xl select-none',
-      textOrder: '',
-      img: '',
-      buttonContainer,
-      buttonClass,
-
-      renderForeground: () => (
-        <div className="absolute w-full h-full">
-          <EmailButton buttonClass={buttonClass} buttonContainer={buttonContainer} />
-        </div>
-      ),
-    }
-  })(),
-
-  (() => {
-    const imgContainerClass = 'absolute top-10  w-full h-full '
-    const imgClassName = 'absolute pl-40 '
-    const img = '/bento/code.svg'
-
-    return {
-      id: 6,
-      title: "Currently building an AI-driven lead generation tool powered by OpenAI's Realtime API",
-      description: 'The Inside Scoop ',
-      gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-4',
-      imgContainerClass,
-      imgClassName,
-      img,
-      textContainerClassName:
-        'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
-      textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
-      titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
-      descriptionClass:
-        'relative text-sm w-[50%]  font-semibold dark:font-normal nowrap whitespace-nowrap select-none',
-      buttonContainer: '',
-      buttonClass: '',
-
-      renderBackground: () => (
+    renderBackground: () => (
+      <div className="relative w-full h-full overflow-hidden">
         <div className={`relative w-full h-full ${imgContainerClass}`}>
           <Image
             src={img}
@@ -243,19 +175,94 @@ export const gridItems: GridItemConfig[] = [
             loading="lazy"
           />
         </div>
-      ),
+      </div>
+    ),
 
-      renderContent: () => (
-        <div className="flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
-          <div className="flex  items-center justify-center">
-            <ScrollButton
-              link="projects"
-              className=" lg:h-14  w-fit whitespace-nowrap 1md:w-40"
-              text="Check it out!"
-            />
-          </div>
+    renderContent: () => (
+      <ResumeButtons buttonClass={buttonClass} buttonContainer={buttonContainer} />
+    ),
+  }
+}
+
+const createGridItem5 = (): GridItemConfig => {
+  const buttonContainer = 'flex items-center  justify-evenly z-50     w-full h-full pt-10 '
+  const buttonClass = `inline-flex h-12  py-2 px-6  z-[5000] animate-shimmer items-center justify-center rounded-md border border-slate-800  bg-[length:200%_100%] font-medium text-slate-200 transition-transform focus:outline-none focus:ring-0 focus:ring-offset-slate-50 hover:scale-105 animate-duration-[3000ms]`
+
+  return {
+    id: 5,
+    title: '',
+    description: '',
+    gridItemContainer: 'col-span-2 row-span-2 md:row-span-1 lg:col-span-2 xl:row-span-2 ',
+    imgClassName: '',
+    textContainerClassName: '',
+    titleClassName: ' pt-16 h-40  rounded-b-3xl select-none',
+    textOrder: '',
+    img: '',
+    buttonContainer,
+    buttonClass,
+
+    renderForeground: () => (
+      <div className="absolute w-full h-full">
+        <EmailButton buttonClass={buttonClass} buttonContainer={buttonContainer} />
+      </div>
+    ),
+  }
+}
+
+const createGridItem6 = (): GridItemConfig => {
+  const imgContainerClass = 'absolute top-10  w-full h-full '
+  const imgClassName = 'absolute pl-40 '
+  const img = '/bento/code.svg'
+
+  return {
+    id: 6,
+    title: "Currently building an AI-driven lead generation tool powered by OpenAI's Realtime API",
+    description: 'The Inside Scoop ',
+    gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-4',
+    imgContainerClass,
+    imgClassName,
+    img,
+    textContainerClassName:
+      'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
+    textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
+    titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
+    descriptionClass:
+      'relative text-sm w-[50%]  font-semibold dark:font-normal nowrap whitespace-nowrap select-none',
+    buttonContainer: '',
+    buttonClass: '',
+
+    renderBackground: () => (
+      <div className={`relative w-full h-full ${imgContainerClass}`}>
+        <Image
+          src={img}
+          fill
+          sizes="100%"
+          className={imgClassName}
+          alt={img}
+          loading="lazy"
+        />
+      </div>
+    ),
+
+    renderContent: () => (
+      <div className="flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
+        <div className="flex  items-center justify-center">
+          <ScrollButton
+            link="projects"
+            className=" lg:h-14  w-fit whitespace-nowrap 1md:w-40"
+            text="Check it out!"
+          />
         </div>
-      ),
-    }
-  })(),
+      </div>
+    ),
+  }
+}
+
+export const gridItems: GridItemConfig[] = [
+  createGridItem1(),
+  createGridItem2(),
+  createGridItem3(),
+  createGridItem4(),
+  createGridItem5(),
+  createGridItem6(),
 ]

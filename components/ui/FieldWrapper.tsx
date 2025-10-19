@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
-interface FieldWrapperProps {
+export interface FieldWrapperProps {
   label: string
   error?: string
   emoji?: string
