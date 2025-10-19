@@ -41,6 +41,7 @@ const Experience = () => {
             <motion.div
               key={card.id}
               variants={staggerItemVariants}
+              className="w-full"
             >
               <Button
                 duration={Math.floor(Math.random() * 10000) + 10000}
@@ -54,11 +55,11 @@ const Experience = () => {
                   borderRadius: `calc(1rem * 0.96)`,
                 }}
                 className={cn(
-                  'flex-1 border-neutral-200 dark:border-slate-800 cursor-default h-full',
+                  'w-full border-neutral-200 dark:border-slate-800 cursor-default',
                   currentTheme === 'dark' ? 'text-white' : 'text-black'
                 )}>
-                <div className="flex flex-col p-3 py-4 md:p-5 md:py-6 lg:p-8 lg:py-8 xl:p-10 xl:py-8 hover:scale-105 duration-200 z-20 h-full">
-                  <div className="flex flex-row items-center mb-4">
+                <div className="flex flex-col p-3 py-4 md:p-5 md:py-6 lg:p-8 lg:py-8 xl:p-10 xl:py-8 hover:scale-105 duration-200 z-20 w-full h-[15rem] md:h-[16rem] lg:h-[20rem] xl:h-[22rem]">
+                  <div className="flex flex-row items-center mb-4 w-full">
                     <div className="flex-shrink-0">
                       <Image
                         src={card.thumbnail}
@@ -68,13 +69,13 @@ const Experience = () => {
                         className="z-20 lg:w-32 md:w-20 w-16 lg:h-32 md:h-20 h-16 xl:w-40 xl:h-40 object-contain"
                       />
                     </div>
-                    <h3 className="ml-5 text-center text-2xl lg:text-3xl xl:text-4xl font-bold flex-1">
+                    <h3 className="ml-5 text-center text-2xl md:text-3xl lg:text-4xl font-bold flex-1 h-[5rem] md:h-[4.5rem] lg:h-[4rem] flex items-center justify-center py-1">
                       {card.title}
                     </h3>
                   </div>
                   <p
                     className={cn(
-                      'text-start text-base xl:text-lg flex-1',
+                      'text-start text-base md:text-lg lg:text-lg xl:text-xl h-[6rem] md:h-[7rem] lg:h-[9.5rem] xl:h-[10.5rem] overflow-hidden',
                       currentTheme === 'dark' ? 'text-white-100' : 'text-white'
                     )}>
                     {card.desc}

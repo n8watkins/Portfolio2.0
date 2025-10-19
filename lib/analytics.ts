@@ -1,8 +1,13 @@
 // Analytics utility functions for tracking user interactions
+import { logger } from './logger'
 
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void
+    gtag?: (
+      command: 'event' | 'config' | 'set',
+      targetId: string,
+      params?: Record<string, string | number | boolean | undefined>
+    ) => void
   }
 }
 
@@ -17,7 +22,13 @@ interface EventParameters {
   metric_name?: string
   metric_value?: number
   metric_rating?: string
-  [key: string]: any
+  metric_delta?: number
+  navigation_type?: string
+  error?: string
+  field?: string
+  url?: string
+  source?: string
+  trigger?: string
 }
 
 /**
@@ -35,7 +46,7 @@ export const trackEvent = (eventName: string, parameters: EventParameters = {}) 
       ...parameters,
     })
   } catch (error) {
-    console.warn('Analytics tracking failed:', error)
+    logger.warn('Analytics tracking failed:', error)
   }
 }
 

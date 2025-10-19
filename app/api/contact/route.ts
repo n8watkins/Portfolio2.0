@@ -3,6 +3,20 @@ import { contactFormSchema } from '@/lib/validations/contact'
 import { resend, EMAIL_CONFIG } from '@/lib/email/resend'
 import { createContactEmailHtml, createAutoReplyHtml } from '@/lib/email/templates'
 import { subjectOptions } from '@/lib/validations/contact'
+import { logger } from '@/lib/logger'
+
+// Global type declaration for rate limit cleanup interval
+declare global {
+  var rateLimitCleanupInterval: NodeJS.Timeout | undefined
+}
+
+// Configuration constants
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
+const RATE_LIMIT_MAX_REQUESTS_PROD = 2 // 2 requests per hour in production
+const RATE_LIMIT_MAX_REQUESTS_DEV = 50 // Higher limit for testing
+const RATE_LIMIT_CLEANUP_INTERVAL_MS = 60 * 60 * 1000 // Clean up expired entries every hour
+const MAX_REQUEST_BODY_SIZE = 10 * 1024 // 10KB maximum request size
+const RECAPTCHA_MIN_SCORE = 0.5 // Google recommends 0.5 for forms (0.0=bot, 1.0=human)
 
 // Security: Rate limiting with cleanup
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
@@ -26,7 +40,7 @@ function cleanupRateLimit() {
 
 // Initialize cleanup interval once
 if (typeof global.rateLimitCleanupInterval === 'undefined') {
-  global.rateLimitCleanupInterval = setInterval(cleanupRateLimit, 60 * 60 * 1000) // Every hour
+  global.rateLimitCleanupInterval = setInterval(cleanupRateLimit, RATE_LIMIT_CLEANUP_INTERVAL_MS)
 }
 
 function getRateLimitKey(request: NextRequest): string {
@@ -37,8 +51,10 @@ function getRateLimitKey(request: NextRequest): string {
 
 function checkRateLimit(key: string): boolean {
   const now = Date.now()
-  const windowMs = 60 * 60 * 1000 // 1 hour
-  const maxRequests = process.env.NODE_ENV === 'development' ? 50 : 2 // Higher limit for development
+  const windowMs = RATE_LIMIT_WINDOW_MS
+  const maxRequests = process.env.NODE_ENV === 'development'
+    ? RATE_LIMIT_MAX_REQUESTS_DEV
+    : RATE_LIMIT_MAX_REQUESTS_PROD
 
 
   // Clean up expired entry for this key
@@ -66,12 +82,12 @@ function checkRateLimit(key: string): boolean {
 async function verifyRecaptcha(token: string): Promise<boolean> {
   // Skip reCAPTCHA verification in development mode
   if (process.env.NODE_ENV === 'development') {
-    console.log('🔐 Development mode: Skipping reCAPTCHA verification')
+    logger.info('🔐 Development mode: Skipping reCAPTCHA verification')
     return true
   }
 
   if (!process.env.RECAPTCHA_SECRET_KEY) {
-    console.warn('RECAPTCHA_SECRET_KEY not set, skipping verification')
+    logger.warn('RECAPTCHA_SECRET_KEY not set, skipping verification')
     return false
   }
 
@@ -91,9 +107,9 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
     // For reCAPTCHA v3, check both success and score
     // Score ranges from 0.0 (very likely a bot) to 1.0 (very likely a human)
-    const isValid = data.success === true && data.score >= 0.5
+    const isValid = data.success === true && data.score >= RECAPTCHA_MIN_SCORE
 
-    console.log('reCAPTCHA verification:', {
+    logger.info('reCAPTCHA verification:', {
       success: data.success,
       score: data.score,
       action: data.action,
@@ -102,21 +118,20 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 
     return isValid
   } catch (error) {
-    console.error('reCAPTCHA verification error:', error)
+    logger.error('reCAPTCHA verification error:', error)
     return false
   }
 }
 
 export async function POST(request: NextRequest) {
-  console.log('🚀 Contact API called')
+  logger.info('🚀 Contact API called')
   try {
     // Security: Request size limiting
-    const MAX_BODY_SIZE = 10 * 1024 // 10KB
     const bodyText = await request.text()
-    console.log('📄 Body size:', bodyText.length, 'bytes')
+    logger.info('📄 Body size:', bodyText.length, 'bytes')
 
-    if (bodyText.length > MAX_BODY_SIZE) {
-      console.log('❌ Request too large')
+    if (bodyText.length > MAX_REQUEST_BODY_SIZE) {
+      logger.info('❌ Request too large')
       return NextResponse.json(
         { error: 'Request too large' },
         { status: 413 }
@@ -125,7 +140,7 @@ export async function POST(request: NextRequest) {
 
     // Security: Rate limiting
     const rateLimitKey = getRateLimitKey(request)
-    console.log('🔑 Rate limit key:', rateLimitKey)
+    logger.info('🔑 Rate limit key:', rateLimitKey)
 
     // Clear rate limit for localhost/development testing
     if (process.env.NODE_ENV === 'development' && rateLimitKey.includes('localhost')) {
@@ -133,7 +148,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!checkRateLimit(rateLimitKey)) {
-      console.log('❌ Rate limit exceeded')
+      logger.info('❌ Rate limit exceeded')
       return NextResponse.json(
         {
           error: 'Your message didn\'t go through due to our submission limit. Please try again in an hour, or feel free to reach out to me directly at nathancwatkins23@gmail.com — I\'d love to hear from you!',
@@ -145,13 +160,13 @@ export async function POST(request: NextRequest) {
 
     // Parse and validate request body
     const body = JSON.parse(bodyText)
-    console.log('📝 Form data received:', { name: body.name, email: body.email, subject: body.subject })
+    logger.info('📝 Form data received:', { name: body.name, email: body.email, subject: body.subject })
     const validatedData = contactFormSchema.parse(body)
-    console.log('✅ Validation passed')
+    logger.info('✅ Validation passed')
 
     // Security: Check honeypot field
     if (validatedData.honeypot && validatedData.honeypot.length > 0) {
-      console.warn('Bot detected via honeypot field')
+      logger.warn('Bot detected via honeypot field')
       return NextResponse.json(
         { error: 'Invalid submission' },
         { status: 400 }
@@ -159,9 +174,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Security: Verify reCAPTCHA
-    console.log('🔐 Verifying reCAPTCHA...')
+    logger.info('🔐 Verifying reCAPTCHA...')
     const isRecaptchaValid = await verifyRecaptcha(validatedData.recaptcha)
-    console.log('🔐 reCAPTCHA valid:', isRecaptchaValid)
+    logger.info('🔐 reCAPTCHA valid:', isRecaptchaValid)
     if (!isRecaptchaValid) {
       return NextResponse.json(
         { error: 'reCAPTCHA verification failed. Please try again.' },
@@ -173,7 +188,7 @@ export async function POST(request: NextRequest) {
     const subjectLabel = subjectOptions.find(opt => opt.value === validatedData.subject)?.label || validatedData.subject
 
     try {
-      console.log('📧 Sending notification email to:', EMAIL_CONFIG.to)
+      logger.info('📧 Sending notification email to:', EMAIL_CONFIG.to)
       // Send notification email to Nathan
       const contactEmailHtml = createContactEmailHtml(validatedData)
 
@@ -196,9 +211,9 @@ ${validatedData.message}
 Sent from your portfolio contact form at ${new Date().toLocaleString()}
         `.trim(),
       })
-      console.log('✅ Notification email sent:', notificationResult.data?.id)
+      logger.info('✅ Notification email sent:', notificationResult.data?.id)
 
-      console.log('📧 Sending auto-reply to:', validatedData.email)
+      logger.info('📧 Sending auto-reply to:', validatedData.email)
       // Send auto-reply to sender
       const autoReplyHtml = createAutoReplyHtml(validatedData)
 
@@ -224,24 +239,24 @@ Nathan Watkins
 Full-Stack Developer
         `.trim(),
       })
-      console.log('✅ Auto-reply email sent:', autoReplyResult.data?.id)
+      logger.info('✅ Auto-reply email sent:', autoReplyResult.data?.id)
 
     } catch (emailError) {
-      console.error('Email sending error:', emailError)
+      logger.error('Email sending error:', emailError)
       return NextResponse.json(
         { error: 'Failed to send email. Please try again later.' },
         { status: 500 }
       )
     }
 
-    console.log('🎉 Contact form submission successful!')
+    logger.info('🎉 Contact form submission successful!')
     return NextResponse.json(
       { message: 'Message sent successfully!' },
       { status: 200 }
     )
 
   } catch (error) {
-    console.error('Contact form submission error:', error)
+    logger.error('Contact form submission error:', error)
 
     // Security: Don't expose detailed validation errors
     if (error instanceof Error && error.name === 'ZodError') {

@@ -212,7 +212,7 @@ test.describe('Web Vitals Performance', () => {
         .filter((r) => {
           // Check for synchronous scripts or stylesheets
           return (r.name.endsWith('.js') || r.name.endsWith('.css')) &&
-                 r.renderBlockingStatus === 'blocking'
+                 (r as any).renderBlockingStatus === 'blocking'
         })
         .map((r) => ({
           url: r.name.split('/').pop(),

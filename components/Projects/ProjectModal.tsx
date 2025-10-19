@@ -107,6 +107,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
 
           <div className="flex flex-row justify-end gap-3 mb-2 sm:mb-4">
             <span className="flex flex-row space-x-4 justify-center">
+              <a
+                href={project.liveSite}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleLiveSiteClick}
+                className="hidden sm:flex flex-row items-center">
+                <MdOpenInNew className="w-5 h-5 mr-1" />
+                <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
+                  Site
+                </span>
+              </a>
               {project.github && (
                 <a
                   href={project.github}

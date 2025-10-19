@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { contactFormSchema, ContactFormData } from '@/lib/validations/contact'
 import { trackContactEvent } from '@/lib/analytics'
+import { logger } from '@/lib/logger'
 
 export type SubmissionState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -67,21 +68,25 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
         body: JSON.stringify(data),
       })
 
+      // Check mount status immediately after async operation
       if (!isMountedRef.current) return
 
       if (!response.ok) {
         const errorData = await response.json()
-        console.error('Form submission error:', errorData)
+
+        // Check mount status again after another async operation
+        if (!isMountedRef.current) return
+
+        logger.error('Form submission error:', errorData)
 
         if (response.status === 429 || errorData.type === 'rate_limit') {
-          if (isMountedRef.current) {
-            setLiveRegionMessage(errorData.error || 'Rate limit exceeded. Please try again later or email me directly.')
-          }
+          setLiveRegionMessage(errorData.error || 'Rate limit exceeded. Please try again later or email me directly.')
         }
 
         throw new Error(errorData.error || 'Failed to send message')
       }
 
+      // Check before success state updates
       if (!isMountedRef.current) return
 
       setSubmissionState('success')
@@ -97,7 +102,7 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
     } catch (error) {
       if (!isMountedRef.current) return
 
-      console.error('Contact form error:', error)
+      logger.error('Contact form error:', error)
       setSubmissionState('error')
       setLiveRegionMessage('Failed to send message. Please try again or email me directly.')
       trackContactEvent('submit_error', undefined, { error: String(error) })
@@ -114,7 +119,7 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
         recaptchaToken = await executeRecaptcha('contact_form')
         setValue('recaptcha', recaptchaToken)
       } catch (error) {
-        console.error('❌ [FORM] reCAPTCHA execution failed:', error)
+        logger.error('❌ [FORM] reCAPTCHA execution failed:', error)
         setSubmissionState('error')
         setLiveRegionMessage('Security verification failed. Please try again.')
         return
