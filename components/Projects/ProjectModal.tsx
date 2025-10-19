@@ -66,7 +66,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 50, opacity: 0 }}
-        className="bg-gradient-to-br from-blue-600 via-blue-400 to-blue-600 dark:from-[#050a28] dark:via-[#0e1f50] dark:to-[#050a28] rounded-xl p-6 max-w-[62rem] lg:max-w-[70rem] xl:max-w-[78rem] 2xl:max-w-[85rem] w-full max-h-[75vh] lg:max-h-[77vh] xl:max-h-[80vh] overflow-hidden relative"
+        className="bg-gradient-to-br from-blue-600 via-blue-400 to-blue-600 dark:from-[#050a28] dark:via-[#0e1f50] dark:to-[#050a28] rounded-xl p-6 max-w-[68rem] lg:max-w-[76rem] xl:max-w-[84rem] 2xl:max-w-[92rem] w-full max-h-[80vh] lg:max-h-[82vh] xl:max-h-[85vh] overflow-hidden relative"
         onClick={(e) => e.stopPropagation()}>
         <BorderBeam className="beam-1" startPosition={0} />
         <BorderBeam className="beam-2" startPosition={10} />
@@ -79,7 +79,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
           <IoMdClose aria-hidden="true" />
         </button>
         <div className="flex flex-col justify-center w-full mt-6 text-white">
-          <div className="flex justify-center items-center w-full">
+          <div className="flex justify-center items-center w-full gap-3">
             <a
               href={project.liveSite}
               target="_blank"
@@ -93,6 +93,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
               </span>
             </a>
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleGitHubClick}
+              className="flex 1md:hidden items-center mb-2">
+              <FiGithub className="w-6 h-6" />
+            </a>
           </div>
 
           <div className="flex flex-row justify-end gap-3 mb-4">
@@ -102,9 +110,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleGitHubClick}
-                className="flex flex-row items-center">
+                className="hidden 1md:flex flex-row items-center">
                 <FiGithub className="w-5 h-5 mr-1" />
-                <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
+                <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
                   Source
                 </span>
               </a>
@@ -113,15 +121,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleLiveSiteClick}
-                className="flex flex-row items-center">
+                className="hidden 1md:flex flex-row items-center">
                 <MdOpenInNew className="w-5 h-5 mr-1" />
-                <span className="hidden 1md:inline-block text-sm underline-offset-2 decoration-3 hover-underline-animation">
+                <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
                   Site
                 </span>
               </a>
             </span>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row gap-6 mx-1">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-6 mx-0 sm:mx-1">
             <div className="w-full sm:w-1/2">
               <IconCycle
                 technologies={project.technologies}
@@ -132,7 +140,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 onStateChange={setIconCycleState}
               />
             </div>
-            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] mb-16 sm:mb-0">
+            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] mb-4 sm:mb-0">
               <div className="relative w-full h-full">
                 <ImageSlider
                   images={project.images}
