@@ -132,7 +132,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 onStateChange={setIconCycleState}
               />
             </div>
-            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem]">
+            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] mb-16 sm:mb-0">
               <div className="relative w-full h-full">
                 <ImageSlider
                   images={project.images}

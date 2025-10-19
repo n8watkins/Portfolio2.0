@@ -191,105 +191,96 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
       {/* === Image Gallery Modal === */}
       <AnimatePresence>
         {isImageModalOpen && (
-          <div className="fixed inset-0 z-[10002] flex flex-col items-center justify-center bg-black/30" onClick={handleCloseModal}>
-            <div className="flex flex-col items-center">
+          <div className="fixed inset-0 z-[10002] flex flex-col items-center justify-center bg-black/80" onClick={handleCloseModal}>
             <motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.9 }}
-  transition={{ duration: 0.4, ease: 'easeInOut' }}
-  onClick={(e) => e.stopPropagation()}
-  className="relative bg-[#06153b] rounded-2xl w-[90vw] sm:w-[75vw] md:w-[65vw] lg:w-[60vw] xl:w-[65vw] h-[80vh] sm:h-[75vh] md:h-[65vh] lg:h-[60vh] xl:h-[65vh] flex flex-col"
->
-  <BorderBeam className="beam-1" startPosition={0} />
-  <BorderBeam className="beam-2" startPosition={10} />
-  <BorderBeam className="beam-2" startPosition={20} />
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative flex flex-col items-center gap-4"
+            >
+              {/* Close button - positioned absolute to viewport */}
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 p-2 sm:p-3 text-white rounded-full flex items-center justify-center transition-all duration-200 z-10 border-2 border-white/50"
+                aria-label="Close image viewer"
+              >
+                <IoMdClose size={20} className="sm:hidden" aria-hidden="true" />
+                <IoMdClose size={24} className="hidden sm:block" aria-hidden="true" />
+              </button>
 
-  {/* Close button - positioned relative to modal */}
-  <button
-    onClick={handleCloseModal}
-    className="absolute top-4 right-4 bg-white/30 hover:bg-white/60 p-3 hover:text-black rounded-full flex items-center justify-center transition-all duration-200 z-10"
-    aria-label="Close image viewer"
-  >
-    <IoMdClose size={24} aria-hidden="true" />
-  </button>
+              {/* Image container with chevrons */}
+              <div className="relative w-[95vw] sm:w-[85vw] md:w-[70vw] lg:w-[60vw] xl:w-[55vw] aspect-video">
+                <Image
+                  src={images[currentIndex]}
+                  alt={`${projectTitle} screenshot ${currentIndex + 1} - fullscreen view`}
+                  fill
+                  sizes="100vw"
+                  className="object-cover select-none rounded-xl"
+                  priority={currentIndex === 0 && isImageModalOpen}
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QFLQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                />
 
-  {/* Container with external chevrons and image */}
-  <div className="flex items-center justify-center px-8 pt-12 pb-4">
-    {/* Left chevron - external to image */}
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        prevSlide();
-      }}
-      className="flex-shrink-0 cursor-pointer mr-6 bg-blue-500 p-3 rounded-full hover:bg-blue-400 hover:scale-105 active:scale-95 transition-all duration-200"
-      aria-label="Previous image"
-      disabled={images.length <= 1}
-    >
-      <ChevronLeft size={32} aria-hidden="true" />
-    </button>
+                {/* Left chevron - overlaid on image */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevSlide();
+                  }}
+                  className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 cursor-pointer bg-blue-500/70 p-2 sm:p-3 rounded-full sm:hover:bg-blue-400/80 sm:hover:scale-105 active:scale-95 transition-all duration-200"
+                  aria-label="Previous image"
+                  disabled={images.length <= 1}
+                >
+                  <ChevronLeft size={20} className="sm:hidden" aria-hidden="true" />
+                  <ChevronLeft size={32} className="hidden sm:block" aria-hidden="true" />
+                </button>
 
-    {/* Image container */}
-    <div className="relative w-full max-h-[65vh] xl:max-h-[55vh] aspect-video">
-      <Image
-      src={images[currentIndex]}
-      alt={`${projectTitle} screenshot ${currentIndex + 1} - fullscreen view`}
-      fill
-      sizes="100vw"
-          className="object-cover select-none rounded-xl"
-      priority={currentIndex === 0 && isImageModalOpen}
-      placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QFLQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-    />
-      </div>
+                {/* Right chevron - overlaid on image */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextSlide();
+                  }}
+                  className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 cursor-pointer bg-blue-500/70 p-2 sm:p-3 rounded-full sm:hover:bg-blue-400/80 sm:hover:scale-105 active:scale-95 transition-all duration-200"
+                  aria-label="Next image"
+                  disabled={images.length <= 1}
+                >
+                  <ChevronRight size={20} className="sm:hidden" aria-hidden="true" />
+                  <ChevronRight size={32} className="hidden sm:block" aria-hidden="true" />
+                </button>
+              </div>
 
-      {/* Right chevron - external to image */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          nextSlide();
-        }}
-        className="flex-shrink-0 cursor-pointer ml-6 bg-blue-500 p-3 rounded-full hover:bg-blue-400 hover:scale-105 active:scale-95 transition-all duration-200"
-        aria-label="Next image"
-        disabled={images.length <= 1}
-      >
-        <ChevronRight size={32} aria-hidden="true" />
-      </button>
-    </div>
+              {/* Pagination dots - directly below image */}
+              <div className="flex gap-2 sm:gap-5 transition-all duration-300">
+                {images.map((_, index) => (
+                  <div
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentIndex(index);
+                    }}
+                    className={`h-1.5 w-6 sm:h-2 sm:w-10 rounded-full cursor-pointer transition-colors duration-200 ${
+                      index === currentIndex ? 'bg-blue-500' : 'bg-white/80'
+                    }`}
+                  />
+                ))}
+              </div>
 
-  {/* Bottom: pagination dots - centered between screenshot and container bottom */}
-  <div className="flex justify-center items-center py-1">
-    <div className="flex gap-5 transition-all duration-300">
-      {images.map((_, index) => (
-        <div
-          key={index}
-          onClick={(e) => {
-            e.stopPropagation();
-            setCurrentIndex(index);
-          }}
-          className={`h-2 w-10 rounded-full cursor-pointer transition-colors duration-200 ${
-            index === currentIndex ? 'bg-blue-500' : 'bg-white/80'
-          }`}
-        />
-      ))}
-    </div>
-  </div>
-
-</motion.div>
-  {/* Keyboard Hint */}
-<div className="hidden sm:flex absolute bottom-32 right-64 text-white/70 text-sm  items-center gap-3 pointer-events-none">
-  <div className="flex items-center gap-1">
-    <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">←</kbd>
-    <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">→</kbd>
-    <span className="ml-1">to navigate</span>
-  </div>
-  <div className="flex items-center gap-1 ml-4">
-    <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">esc</kbd>
-    <span className="ml-1">to close</span>
-  </div>
-</div>
-  {/* End of Keyboard Hint */}
-            </div>
+              {/* Keyboard Hint */}
+              <div className="hidden sm:flex absolute -bottom-16 text-white/70 text-sm items-center gap-3 pointer-events-none">
+                <div className="flex items-center gap-1">
+                  <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">←</kbd>
+                  <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">→</kbd>
+                  <span className="ml-1">to navigate</span>
+                </div>
+                <div className="flex items-center gap-1 ml-4">
+                  <kbd className="bg-white/20 px-2 py-1 rounded border border-white/30 text-xs">esc</kbd>
+                  <span className="ml-1">to close</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         )}
       </AnimatePresence>

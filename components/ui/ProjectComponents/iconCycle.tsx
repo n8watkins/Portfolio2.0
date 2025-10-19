@@ -505,7 +505,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
       </div>
       <div className="-translate-y-2  1lg:-translate-y-1">
         {renderIcons()}
-        <div className="-translate-y-3 sm:-translate-y-0">{renderTechName()}</div>
+        <div className="translate-y-1 sm:-translate-y-0">{renderTechName()}</div>
       </div>
     </>
   )

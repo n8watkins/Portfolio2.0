@@ -217,6 +217,9 @@ const config = {
     require('tailwindcss-animate'),
     require('tailwindcss-animated'),
     addVariablesForColors,
+    function ({ addVariant }: any) {
+      addVariant('landscape', '@media (orientation: landscape)')
+    },
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
