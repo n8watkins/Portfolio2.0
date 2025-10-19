@@ -66,7 +66,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 50, opacity: 0 }}
-        className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 dark:from-[#0f1f3f] dark:via-[#1a2f5c] dark:to-[#0f1f3f] rounded-xl p-6 max-w-[58rem] lg:max-w-[65rem] xl:max-w-[72rem] 2xl:max-w-[78rem] w-full max-h-[90vh] lg:max-h-[92vh] xl:max-h-[94vh] 2xl:max-h-[95vh] overflow-y-auto relative"
+        className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 dark:from-[#0f1f3f] dark:via-[#1a2f5c] dark:to-[#0f1f3f] rounded-xl p-6 max-w-[58rem] lg:max-w-[65rem] xl:max-w-[72rem] 2xl:max-w-[78rem] w-full max-h-[85vh] lg:max-h-[88vh] xl:max-h-[90vh] overflow-hidden relative"
         onClick={(e) => e.stopPropagation()}>
         <BorderBeam className="beam-1" startPosition={0} />
         <BorderBeam className="beam-2" startPosition={10} />
