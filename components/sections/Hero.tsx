@@ -1,12 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import GridBackground from './ui/GridBackground'
+import GridBackground from '@/components/ui/GridBackground'
 import { FiGithub } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
 import { staggerContainerVariants } from '@/lib/animations'
-import ScrollButton from './ui/BentoComponents/ScrollButton'
+import ScrollButton from '@/components/ui/BentoComponents/ScrollButton'
 
 const Hero = () => {
   return (

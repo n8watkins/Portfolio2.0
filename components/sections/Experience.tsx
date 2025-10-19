@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { workExperience } from '@/data/experience'
-import { Button } from './ui/MovingBorders'
+import { Button } from '@/components/ui/MovingBorders'
 import { cn } from '@/lib/utils'
 import { fadeInUpVariants, staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 

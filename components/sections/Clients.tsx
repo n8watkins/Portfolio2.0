@@ -4,7 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 import { testimonials } from '@/data/testimonials'
-import { InfiniteMovingCards } from './ui/infinite-moving-cards'
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
 import { fadeInUpVariants, fadeInVariants, defaultAnimationConfig } from '@/lib/animations'
 
 const Clients = () => {
