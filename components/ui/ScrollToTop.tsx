@@ -36,9 +36,9 @@ const ScrollToTop = () => {
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top of page"
-      className="fixed bottom-6 right-6 z-50 p-3 md:p-4 lg:p-5 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+      className="fixed bottom-6 right-6 z-50 p-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
     >
-      <FaArrowUp className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" aria-hidden="true" />
+      <FaArrowUp className="w-4 h-4" aria-hidden="true" />
     </button>
   )
 }

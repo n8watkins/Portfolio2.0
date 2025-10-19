@@ -20,31 +20,45 @@ const Hero = () => {
         <motion.p
           initial="hidden"
           animate="visible"
-          variants={fadeInDownVariants}
+          variants={staggerContainerVariants}
           className="uppercase tracking-widest pb-2 1lg:pb-5 md:pb-10 pt-40  sm:pt-40 md:pt-10 text-base md:text-xl text-center text-darkBlue font-semibold dark:font-normal dark:text-white max-w-80">
-          <span>Code.</span>{' '}
-          <span>Create.</span>{' '}
-          <span>Innovate.</span>
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }
+            }}
+            className="inline-block will-change-transform"
+          >
+            Code.
+          </motion.span>{' '}
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] } }
+            }}
+            className="inline-block will-change-transform"
+          >
+            Create.
+          </motion.span>{' '}
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] } }
+            }}
+            className="inline-block will-change-transform"
+          >
+            Innovate.
+          </motion.span>
         </motion.p>
         <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5  ">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainerVariants}
-            className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3  ">
-            <motion.h1
-              variants={fadeInLeftVariants}
-              className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold">
+          <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3  ">
+            <h1 className="text-center md:text-start w-full justify-start text-5xl md:text-5xl lg:text-6xl font-semibold">
               Hi, I&apos;m <span className="text-purple-500">Nathan</span>
-            </motion.h1>
-            <motion.p
-              variants={fadeInLeftVariants}
-              className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
+            </h1>
+            <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
               A Next.js Developer
-            </motion.p>
-            <motion.div
-              variants={fadeInLeftVariants}
-              className="flex items-center justify-center md:justify-start w-full">
+            </p>
+            <div className="flex items-center justify-center md:justify-start w-full">
               <nav aria-label="Social media links" className="relative md:top-0 md:-left-2 z-50">
                 <div className="flex items-center justify-center pb-2 gap-3">
                   <a
@@ -76,18 +90,16 @@ const Hero = () => {
                   </a>
                 </div>
               </nav>
-            </motion.div>
+            </div>
             <motion.div
-              variants={fadeInLeftVariants}
-              className="flex w-full items-center md:justify-start justify-center ">
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              className="flex w-full items-center md:justify-start justify-center will-change-transform">
               <ScrollButton link="about" text="See more" className="" />
             </motion.div>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInRightVariants}
-            className="w-[17rem] h-[17rem] 1sm:w-[20rem] 1sm:h-[20rem] relative">
+          </div>
+          <div className="w-[15rem] h-[15rem] 1sm:w-[17rem] 1sm:h-[17rem] 1lg:w-[19rem] 1lg:h-[19rem] sm:w-[22rem] sm:h-[22rem] relative">
             <div className="aspect-square w-full h-full relative">
               <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
               <Image
@@ -101,7 +113,7 @@ const Hero = () => {
                 alt="Professional headshot of Nathan Watkins, a Next.js developer"
               />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
