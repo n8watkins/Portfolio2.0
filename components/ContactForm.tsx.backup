@@ -61,21 +61,13 @@ function ContactFormInner({ className }: ContactFormProps) {
 
   // Security: Proper timeout cleanup
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
-
     if (submissionState === 'success' || submissionState === 'error') {
-      timeoutId = setTimeout(() => {
-        setSubmissionState((currentState) => {
-          return currentState === submissionState ? 'idle' : currentState
-        })
+      const timeoutId = setTimeout(() => {
+        setSubmissionState('idle')
         setLiveRegionMessage('')
       }, 5000)
-    }
 
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
+      return () => clearTimeout(timeoutId)
     }
   }, [submissionState])
 
