@@ -78,7 +78,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
           aria-label="Close project details">
           <IoMdClose aria-hidden="true" />
         </button>
-        <div className="flex flex-col justify-center w-full mt-6 text-white">
+        <div className="flex flex-col justify-center w-full mt-2 sm:mt-6 text-white">
           <div className="flex justify-center items-center w-full gap-3">
             <a
               href={project.liveSite}
@@ -90,7 +90,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
                   {project.title}
                 </h2>
-                <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
+                <MdOpenInNew className="flex justify-center items-center w-5 h-5 mb-2" />
               </span>
             </a>
             {project.github && (
@@ -99,13 +99,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleGitHubClick}
-                className="flex 1md:hidden items-center mb-2">
+                className="flex sm:hidden items-center mb-2">
                 <FiGithub className="w-6 h-6" />
               </a>
             )}
           </div>
 
-          <div className="flex flex-row justify-end gap-3 mb-4">
+          <div className="flex flex-row justify-end gap-3 mb-2 sm:mb-4">
             <span className="flex flex-row space-x-4 justify-center">
               {project.github && (
                 <a
@@ -113,28 +113,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={handleGitHubClick}
-                  className="hidden 1md:flex flex-row items-center">
+                  className="hidden sm:flex flex-row items-center">
                   <FiGithub className="w-5 h-5 mr-1" />
                   <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
                     Source
                   </span>
                 </a>
               )}
-              <a
-                href={project.liveSite}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleLiveSiteClick}
-                className="hidden 1md:flex flex-row items-center">
-                <MdOpenInNew className="w-5 h-5 mr-1" />
-                <span className="text-sm underline-offset-2 decoration-3 hover-underline-animation">
-                  Site
-                </span>
-              </a>
             </span>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-6 mx-0 sm:mx-1">
-            <div className="w-full sm:w-1/2">
+          <div className="flex flex-col-reverse sm:flex-row gap-1 1lg:gap-0 sm:gap-6 -mx-6 sm:mx-1">
+            <div className="w-full sm:w-1/2 px-6 sm:px-0">
               <IconCycle
                 technologies={project.technologies}
                 orientation="h"
@@ -144,8 +133,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 onStateChange={setIconCycleState}
               />
             </div>
-            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] mb-4 sm:mb-0">
-              <div className="relative w-full h-full">
+            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] mb-8 1md:mb-12 1lg:mb-20 sm:mb-0 px-4 1lg:px-6 sm:px-0">
+              <div className="relative w-full 1lg:max-w-[22rem] sm:max-w-none h-full">
                 <ImageSlider
                   images={project.images}
                   isModalOpen={isOpen}

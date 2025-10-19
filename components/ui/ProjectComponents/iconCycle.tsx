@@ -377,7 +377,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
     <div
       className={`flex flex-wrap h-12 mb-1 pt-2 ${
         orientation === 'v' ? 'flex-col' : 'flex-row'
-      } items-start justify-center gap-3 `}>
+      } items-start justify-center gap-2 sm:gap-3 `}>
       {allIconsRef.current
         .filter((tech) => tech.category === currentCategory)
         .map((tech) => (
@@ -403,7 +403,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
             }}
             transition={{ duration: 0.2 }}>
             <div
-              className={`w-12 h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
                 hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
                   ? 'border-slate-200 border-2 dark:border-slate-200'
                   : 'border-transparent border-slate-400 border dark:border-slate-400'
@@ -473,7 +473,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
           }
         </div>
       </div>
-      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-6 2xl:-translate-y-4 select-none">
+      <div className="relative flex flex-col justify-start items-start w-full 1lg:w-[80%] m-auto sm:w-full xl:justify-center xl:items-center h-40 1lg:justify-center 1lg:items-center  -translate-x-3 -translate-y-5 1md:-translate-y-3 1lg:-translate-y-5  sm:-translate-y-2 2xl:-translate-y-4 select-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentCategory}
@@ -481,11 +481,11 @@ const IconCycle: React.FC<IconCycleProps> = ({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.5 }}
-            className="w-full px-4 mr-2  ">
+            className="w-full px-4 mr-2 xl:w-[32rem] xl:mx-auto xl:px-0">
             {technologies[currentCategory].descriptionParts.map((part, index) => (
               <motion.div
                 key={index}
-                className={`flex items-center justify-center  sm:items-start text-sm 1md:text-sm 1lg:text-base w-fit cursor-pointer rounded-xl px-1 1md:px-2 py-1   ${
+                className={`flex items-center justify-start text-sm 1md:text-sm 1lg:text-base w-fit cursor-pointer rounded-xl px-1 1md:px-2 py-1   ${
                   index === highlightedDescriptionIndex ? 'dark:bg-blue-800 bg-slate-600' : ''
                 }`}
                 onMouseEnter={() => handleDescriptionHover(index)}

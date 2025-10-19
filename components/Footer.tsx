@@ -47,7 +47,7 @@ const Footer = () => {
               <ContactForm />
             </ContactFormErrorBoundary>
             {/* Custom reCAPTCHA v3 badge */}
-            <div className="absolute bottom-4 right-4 opacity-70 hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-4 right-4 opacity-70 select-none">
               <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
                 <span>🛡️</span>
                 <span>Protected by reCAPTCHA v3</span>

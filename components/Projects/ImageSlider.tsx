@@ -174,7 +174,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         </div>
 
         {/* === Fixed-position indicators BELOW image === */}
-        <div className="mt-4 flex justify-center gap-2">
+        <div className="mt-2 flex justify-center gap-2">
           {images.map((_, index) => (
             <div
               key={index}
