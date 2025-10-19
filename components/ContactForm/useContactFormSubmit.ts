@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
@@ -26,6 +26,15 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
   const [showConfetti, setShowConfetti] = useState(false)
   const [confettiKey, setConfettiKey] = useState(0)
   const { executeRecaptcha } = useGoogleReCaptcha()
+  const isMountedRef = useRef(true)
+
+  // Track component mount status to prevent setState on unmounted component
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -44,6 +53,8 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
+      if (!isMountedRef.current) return
+
       setSubmissionState('submitting')
       setLiveRegionMessage('Submitting your message...')
       trackContactEvent('submit_attempt')
@@ -56,16 +67,22 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
         body: JSON.stringify(data),
       })
 
+      if (!isMountedRef.current) return
+
       if (!response.ok) {
         const errorData = await response.json()
         console.error('Form submission error:', errorData)
 
         if (response.status === 429 || errorData.type === 'rate_limit') {
-          setLiveRegionMessage(errorData.error || 'Rate limit exceeded. Please try again later or email me directly.')
+          if (isMountedRef.current) {
+            setLiveRegionMessage(errorData.error || 'Rate limit exceeded. Please try again later or email me directly.')
+          }
         }
 
         throw new Error(errorData.error || 'Failed to send message')
       }
+
+      if (!isMountedRef.current) return
 
       setSubmissionState('success')
       setLiveRegionMessage('Message sent successfully! I will get back to you within 24 hours.')
@@ -78,6 +95,8 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
       reset()
 
     } catch (error) {
+      if (!isMountedRef.current) return
+
       console.error('Contact form error:', error)
       setSubmissionState('error')
       setLiveRegionMessage('Failed to send message. Please try again or email me directly.')

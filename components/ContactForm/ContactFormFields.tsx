@@ -13,7 +13,7 @@ import { SubmissionState } from './useContactFormSubmit'
 interface ContactFormFieldsProps {
   form: UseFormReturn<ContactFormData>
   submissionState: SubmissionState
-  onSubmit: () => void
+  onSubmit: () => Promise<void>
 }
 
 export function ContactFormFields({ form, submissionState, onSubmit }: ContactFormFieldsProps) {

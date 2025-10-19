@@ -34,6 +34,7 @@ function ContactFormInner({ className }: ContactFormProps) {
     if (submissionState === 'success' || submissionState === 'error') {
       const timeoutId = setTimeout(() => {
         setSubmissionState('idle')
+        // Note: liveRegionMessage is managed by the hook and will be cleared on next submission
       }, 5000)
 
       return () => clearTimeout(timeoutId)
