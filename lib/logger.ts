@@ -10,28 +10,28 @@ export const logger = {
   /**
    * Log informational messages (development only)
    */
-  info: (...args: any[]) => {
+  info: (...args: unknown[]) => {
     if (isDev) console.log(...args)
   },
 
   /**
    * Log warnings (always logged)
    */
-  warn: (...args: any[]) => {
+  warn: (...args: unknown[]) => {
     console.warn(...args)
   },
 
   /**
    * Log errors (always logged)
    */
-  error: (...args: any[]) => {
+  error: (...args: unknown[]) => {
     console.error(...args)
   },
 
   /**
    * Log debug information (development only)
    */
-  debug: (...args: any[]) => {
+  debug: (...args: unknown[]) => {
     if (isDev) console.debug(...args)
   },
 }
