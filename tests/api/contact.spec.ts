@@ -18,7 +18,6 @@ function createValidFormData(overrides: Partial<any> = {}) {
   return {
     name: 'John Doe',
     email: 'john.doe@example.com',
-    company: 'Acme Corp',
     subject: 'project_opportunity',
     message: 'This is a test message that is longer than 10 characters.',
     recaptcha: 'dev_bypass_token',
@@ -43,18 +42,6 @@ test.describe('Contact API - Valid Submissions', () => {
     expect(data.message).toBe('Message sent successfully!')
   })
 
-  test('should accept submission without optional company field', async ({ request }) => {
-    const formData = createValidFormData({ company: '' })
-
-    const response = await request.post(`${BASE_URL}/api/contact`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: formData,
-    })
-
-    expect(response.status()).toBe(200)
-  })
 
   test('should accept all valid subject types', async ({ request }) => {
     const subjects = ['project_opportunity', 'consulting', 'networking']

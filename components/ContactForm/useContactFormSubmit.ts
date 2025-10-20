@@ -42,7 +42,6 @@ export function useContactFormSubmit(): UseContactFormSubmitReturn {
     defaultValues: {
       name: '',
       email: '',
-      company: '',
       subject: undefined,
       message: '',
       recaptcha: '',

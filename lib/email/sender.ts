@@ -50,7 +50,6 @@ export async function sendContactEmails(data: ContactFormData): Promise<EmailRes
 New contact form submission:
 
 From: ${data.name} (${data.email})
-${data.company ? `Company: ${data.company}` : ''}
 Subject: ${subjectLabel}
 
 Message:

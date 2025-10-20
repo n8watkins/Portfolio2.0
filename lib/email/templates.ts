@@ -180,7 +180,6 @@ export function createContactEmailHtml(data: ContactFormData): string {
             <div class="contact-info">
               <div class="contact-name">${sanitizeHtml(data.name)}</div>
               <a href="mailto:${sanitizeHtml(data.email)}" class="contact-email">${sanitizeHtml(data.email)}</a>
-              ${data.company ? `<div class="contact-company">🏢 ${sanitizeHtml(data.company)}</div>` : ''}
             </div>
 
             <div class="field">

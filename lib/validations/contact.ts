@@ -16,12 +16,6 @@ export const contactFormSchema = z.object({
       return parts.length === 2 && parts[1].includes('.')
     }, 'Please enter a valid email address'),
 
-  company: z
-    .string()
-    .max(100, 'Company name must be less than 100 characters')
-    .optional()
-    .or(z.literal('')),
-
   subject: z
     .enum([
       'project_opportunity',

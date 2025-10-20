@@ -102,24 +102,6 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.3, ease: "easeOut" }}
       >
-        <ContactInput
-          {...register('company')}
-          id="company"
-          label="Company (Optional)"
-          emoji="🏢"
-          placeholder="Company name"
-          error={errors.company?.message}
-          onFocus={() => handleFieldFocus('company')}
-          autoComplete="organization"
-          disabled={isSubmitting}
-        />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0.35, ease: "easeOut" }}
-      >
         <ContactSelect
           {...register('subject')}
           id="subject"
