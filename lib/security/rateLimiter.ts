@@ -7,7 +7,7 @@ import { NextRequest } from 'next/server'
 
 // Configuration constants
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
-const RATE_LIMIT_MAX_REQUESTS_PROD = 2 // 2 requests per hour in production
+const RATE_LIMIT_MAX_REQUESTS_PROD = 5 // 5 requests per hour in production
 const RATE_LIMIT_MAX_REQUESTS_DEV = 50 // Higher limit for testing
 const RATE_LIMIT_CLEANUP_INTERVAL_MS = 60 * 60 * 1000 // Clean up expired entries every hour
 
