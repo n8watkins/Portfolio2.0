@@ -22,7 +22,7 @@ export const gridItem6: GridItemConfig = {
   img: '/bento/code.svg',
 
   textContainerClassName:
-    'absolute  top-0 pt-0 xl:pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
+    'absolute  top-0 pt-5 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
 
   textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 group-hover:translate-x-2 duration-200',
 
@@ -48,7 +48,7 @@ export const gridItem6: GridItemConfig = {
   ),
 
   renderContent: () => (
-    <div className="flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-0 1md:pt-5  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
+    <div className="flex relative items-start justify-center w-2/5 h-1/2 xl:h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
       <div className="flex  items-center justify-center">
         <ScrollButton
           link="projects"
