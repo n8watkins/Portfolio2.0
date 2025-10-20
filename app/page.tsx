@@ -6,6 +6,7 @@ import { FloatingNav } from '@/components/layout/FloatingNav'
 import { navItems } from '@/data/navigation'
 import { useSectionTracking } from '@/hooks/useSectionTracking'
 import { useScrollTracking } from '@/hooks/useScrollTracking'
+import SectionErrorBoundary from '@/components/SectionErrorBoundary'
 import dynamic from 'next/dynamic'
 
 // Only lazy load truly below-the-fold components
@@ -24,22 +25,38 @@ export default function Home() {
   return (
     <main id="main-content" className="relative w-full bg-blue-400 dark:bg-darkBlue flex overflow-hidden">
       <div className="w-full m-auto">
-        <Hero />
+        <SectionErrorBoundary sectionName="Hero Section">
+          <Hero />
+        </SectionErrorBoundary>
+
         <FloatingNav navItems={navItems} />
+
         <div className="m-auto max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
           <section id="about" aria-label="About me">
-            <Grid />
+            <SectionErrorBoundary sectionName="About Section">
+              <Grid />
+            </SectionErrorBoundary>
           </section>
+
           <section id="experience" aria-label="Work experience">
-            <Experience />
+            <SectionErrorBoundary sectionName="Experience Section">
+              <Experience />
+            </SectionErrorBoundary>
           </section>
+
           <section id="testimonials" aria-label="Client testimonials">
-            <Clients />
+            <SectionErrorBoundary sectionName="Testimonials Section">
+              <Clients />
+            </SectionErrorBoundary>
           </section>
+
           <section id="contact">
-            <Footer />
+            <SectionErrorBoundary sectionName="Contact Section">
+              <Footer />
+            </SectionErrorBoundary>
           </section>
         </div>
+
         <ScrollToTop />
       </div>
     </main>

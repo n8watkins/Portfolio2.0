@@ -119,9 +119,10 @@ NEXT_PUBLIC_GA_ID=your_ga_id
 
 # Portfolio Info
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_NAME=Your Portfolio Name
 NEXT_PUBLIC_VERSION=2.0
 
-# Google reCAPTCHA
+# Google reCAPTCHA v3
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key
 RECAPTCHA_SECRET_KEY=your_secret_key
 
@@ -129,7 +130,20 @@ RECAPTCHA_SECRET_KEY=your_secret_key
 RESEND_API_KEY=your_resend_api_key
 CONTACT_EMAIL_TO=your-email@domain.com
 CONTACT_EMAIL_FROM=contact@your-domain.com
+
+# Sentry (Optional - Error Tracking)
+SENTRY_AUTH_TOKEN=your_sentry_token
+NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn
 ```
+
+#### 🔑 Where to Get API Keys
+
+| Service | URL | Free Tier | Notes |
+|---------|-----|-----------|-------|
+| Google Analytics | [analytics.google.com](https://analytics.google.com) | ✅ Yes | Create a GA4 property |
+| reCAPTCHA v3 | [google.com/recaptcha](https://www.google.com/recaptcha/admin) | ✅ Yes | Select "reCAPTCHA v3" (NOT v2) |
+| Resend | [resend.com](https://resend.com/api-keys) | ✅ 100 emails/day | Modern email API |
+| Sentry | [sentry.io](https://sentry.io) | ✅ 5K errors/month | Error tracking (optional) |
 
 ## 📧 Contact Form Deep Dive
 
@@ -266,6 +280,53 @@ npm run start
 - **Marquee Components**: Magic UI marquee provides superior infinite scroll performance
 - **Animation Performance**: Framer Motion optimized for 60fps smooth interactions
 - **Form UX**: reCAPTCHA v3 integration maintains seamless user experience
+
+## 🏛️ Architecture Decisions
+
+### Composition Pattern for Grid Items
+
+The BentoGrid uses a data-driven composition pattern instead of ID-based conditionals:
+
+```typescript
+// ✅ Clean: Data-driven render functions
+<BentoGridItem
+  renderBackground={() => <GridPattern />}
+  renderContent={() => <MapDetails />}
+  renderForeground={() => <TechStack />}
+/>
+
+// ❌ Old: 152 lines of ID-based conditionals
+{id === 1 && <Component1 />}
+{id === 2 && <Component2 />}
+```
+
+**Result**: 59% code reduction, better maintainability, easier testing
+
+### Shared Field Wrapper Component
+
+Form fields use a shared wrapper to eliminate duplication:
+
+```typescript
+<FieldWrapper label="Name" error={errors.name} emoji="👤">
+  <input {...field} />
+</FieldWrapper>
+```
+
+**Benefits**: DRY principle, consistent styling, centralized error handling
+
+### Centralized Animation Library
+
+All animations defined in `lib/animations.ts` for consistency:
+
+```typescript
+import { animationPresets } from '@/lib/animations'
+
+<motion.div {...animationPresets.fadeInUp}>
+  Content
+</motion.div>
+```
+
+**Benefits**: Consistent timing, easy global changes, better performance
 
 ## 📄 License
 
