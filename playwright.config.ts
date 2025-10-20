@@ -1,4 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
+import * as dotenv from 'dotenv'
+import * as path from 'path'
+
+// Load environment variables from .env.local
+dotenv.config({ path: path.resolve(__dirname, '.env.local') })
 
 /**
  * Playwright configuration for Web Vitals testing
@@ -70,9 +75,21 @@ export default defineConfig({
 
   // Run your local dev server before starting the tests
   webServer: {
-    command: 'npm run dev',
+    command: 'NODE_ENV=test npm run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
+    env: {
+      NODE_ENV: 'test',
+      // Pass all environment variables from .env.local to the test server
+      RESEND_API_KEY: process.env.RESEND_API_KEY,
+      CONTACT_EMAIL_TO: process.env.CONTACT_EMAIL_TO,
+      CONTACT_EMAIL_FROM: process.env.CONTACT_EMAIL_FROM,
+      NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+      RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY,
+      NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
+      NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+      NEXT_PUBLIC_VERSION: process.env.NEXT_PUBLIC_VERSION,
+    },
   },
 })

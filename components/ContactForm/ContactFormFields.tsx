@@ -88,7 +88,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
             type="email"
             label="Email Address"
             emoji="📧"
-            placeholder="your.email@company.com"
+            placeholder="your@email.com"
             error={errors.email?.message}
             onFocus={() => handleFieldFocus('email')}
             autoComplete="email"

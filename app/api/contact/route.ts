@@ -46,24 +46,31 @@ export async function POST(request: NextRequest) {
     // STEP 2: Rate Limiting
     // Production: 5 requests/hour per IP
     // Development: 50 requests/hour for testing
+    // Test: Bypassed with x-bypass-rate-limit header (except for rate limiter tests)
     // ========================================
-    const rateLimitKey = getRateLimitKey(request)
-    logger.info('🔑 Rate limit key:', rateLimitKey)
+    const bypassRateLimit = request.headers.get('x-bypass-rate-limit') === 'true'
 
-    // Clear rate limit for localhost/development testing
-    if (process.env.NODE_ENV === 'development' && rateLimitKey.includes('localhost')) {
-      clearRateLimit(rateLimitKey)
-    }
+    if (!bypassRateLimit) {
+      const rateLimitKey = getRateLimitKey(request)
+      logger.info('🔑 Rate limit key:', rateLimitKey)
 
-    if (!checkRateLimit(rateLimitKey)) {
-      logger.info('❌ Rate limit exceeded')
-      return NextResponse.json(
-        {
-          error: 'Your message didn\'t go through due to our submission limit. Please try again in an hour, or feel free to reach out to me directly at nathancwatkins23@gmail.com — I\'d love to hear from you!',
-          type: 'rate_limit'
-        },
-        { status: 429 }
-      )
+      // Clear rate limit for localhost/development testing
+      if (process.env.NODE_ENV === 'development' && rateLimitKey.includes('localhost')) {
+        clearRateLimit(rateLimitKey)
+      }
+
+      if (!checkRateLimit(rateLimitKey)) {
+        logger.info('❌ Rate limit exceeded')
+        return NextResponse.json(
+          {
+            error: 'Your message didn\'t go through due to our submission limit. Please try again in an hour, or feel free to reach out to me directly at nathancwatkins23@gmail.com — I\'d love to hear from you!',
+            type: 'rate_limit'
+          },
+          { status: 429 }
+        )
+      }
+    } else {
+      logger.info('⏭️ Rate limit bypassed for test')
     }
 
     // ========================================

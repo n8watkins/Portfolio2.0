@@ -8,7 +8,8 @@ import { NextRequest } from 'next/server'
 // Configuration constants
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000 // 1 hour
 const RATE_LIMIT_MAX_REQUESTS_PROD = 5 // 5 requests per hour in production
-const RATE_LIMIT_MAX_REQUESTS_DEV = 50 // Higher limit for testing
+const RATE_LIMIT_MAX_REQUESTS_DEV = 50 // Higher limit for development
+const RATE_LIMIT_MAX_REQUESTS_TEST = 1000 // Very high limit for tests, but still capped to catch runaway tests
 const RATE_LIMIT_CLEANUP_INTERVAL_MS = 60 * 60 * 1000 // Clean up expired entries every hour
 
 /**
@@ -57,14 +58,23 @@ if (typeof global.rateLimitCleanupInterval === 'undefined') {
 
 /**
  * Extract rate limit key from request
- * Uses forwarded IP (from proxy) or direct IP
+ * In test mode, uses IP + User-Agent + timestamp to give each test its own rate limit
+ * In production, uses only IP address for rate limiting
  *
  * @param request - Next.js request object
- * @returns IP address string
+ * @returns Rate limit key string
  */
 export function getRateLimitKey(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for')
   const ip = forwarded ? forwarded.split(',')[0] : request.ip || 'unknown'
+
+  // In test mode, include user-agent and test ID to separate each test
+  if (process.env.NODE_ENV === 'test') {
+    const userAgent = request.headers.get('user-agent') || 'unknown-agent'
+    const testId = request.headers.get('x-test-id') || Date.now().toString()
+    return `${ip}:${userAgent}:${testId}`
+  }
+
   return ip
 }
 
@@ -79,9 +89,16 @@ export function getRateLimitKey(request: NextRequest): string {
 export function checkRateLimit(key: string): boolean {
   const now = Date.now()
   const windowMs = RATE_LIMIT_WINDOW_MS
-  const maxRequests = process.env.NODE_ENV === 'development'
-    ? RATE_LIMIT_MAX_REQUESTS_DEV
-    : RATE_LIMIT_MAX_REQUESTS_PROD
+
+  // Determine max requests based on environment
+  let maxRequests: number
+  if (process.env.NODE_ENV === 'test') {
+    maxRequests = RATE_LIMIT_MAX_REQUESTS_TEST
+  } else if (process.env.NODE_ENV === 'development') {
+    maxRequests = RATE_LIMIT_MAX_REQUESTS_DEV
+  } else {
+    maxRequests = RATE_LIMIT_MAX_REQUESTS_PROD
+  }
 
   // Clean up expired entry for this key
   const entry = rateLimitMap.get(key)
