@@ -10,6 +10,7 @@ import SectionErrorBoundary from '@/components/SectionErrorBoundary'
 import dynamic from 'next/dynamic'
 
 // Only lazy load truly below-the-fold components
+const Projects = dynamic(() => import('@/components/Projects'))
 const Experience = dynamic(() => import('@/components/sections/Experience'))
 const Clients = dynamic(() => import('@/components/sections/Clients'))
 const Footer = dynamic(() => import('@/components/layout/Footer'))
@@ -35,6 +36,12 @@ export default function Home() {
           <section id="about" aria-label="About me">
             <SectionErrorBoundary sectionName="About Section">
               <Grid />
+            </SectionErrorBoundary>
+          </section>
+
+          <section id="projects" aria-label="Projects">
+            <SectionErrorBoundary sectionName="Projects Section">
+              <Projects />
             </SectionErrorBoundary>
           </section>
 
