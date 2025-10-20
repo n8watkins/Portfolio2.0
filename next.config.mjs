@@ -118,6 +118,12 @@ export default withBundleAnalyzer(withSentryConfig(nextConfig, {
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
 
+  // Disable telemetry to reduce build warnings
+  telemetry: false,
+
+  // Auth token from environment variable (optional - only needed for source map uploads)
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
