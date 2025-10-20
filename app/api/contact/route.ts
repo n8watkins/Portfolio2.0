@@ -123,10 +123,31 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   }
 }
 
+/**
+ * POST /api/contact - Handle contact form submissions
+ *
+ * SECURITY LAYERS:
+ * 1. Request size validation (10KB limit)
+ * 2. Rate limiting (2 requests/hour in production)
+ * 3. Input validation (Zod schema)
+ * 4. Honeypot field check (bot detection)
+ * 5. reCAPTCHA v3 verification (score-based)
+ *
+ * FLOW:
+ * 1. Validate request size
+ * 2. Check rate limit
+ * 3. Parse and validate form data
+ * 4. Security checks (honeypot + reCAPTCHA)
+ * 5. Send notification email (to site owner)
+ * 6. Send auto-reply email (to submitter)
+ */
 export async function POST(request: NextRequest) {
   logger.info('🚀 Contact API called')
   try {
-    // Security: Request size limiting
+    // ========================================
+    // STEP 1: Request Size Validation
+    // Prevents DoS attacks via large payloads
+    // ========================================
     const bodyText = await request.text()
     logger.info('📄 Body size:', bodyText.length, 'bytes')
 
@@ -138,7 +159,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Security: Rate limiting
+    // ========================================
+    // STEP 2: Rate Limiting
+    // Production: 2 requests/hour per IP
+    // Development: 50 requests/hour for testing
+    // ========================================
     const rateLimitKey = getRateLimitKey(request)
     logger.info('🔑 Rate limit key:', rateLimitKey)
 
@@ -158,22 +183,28 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Parse and validate request body
+    // ========================================
+    // STEP 3: Input Validation
+    // Zod schema validates: name, email, subject, message length
+    // ========================================
     const body = JSON.parse(bodyText)
     logger.info('📝 Form data received:', { name: body.name, email: body.email, subject: body.subject })
     const validatedData = contactFormSchema.parse(body)
     logger.info('✅ Validation passed')
 
-    // Security: Check honeypot field
+    // ========================================
+    // STEP 4: Security Checks
+    // A) Honeypot: Hidden field must be empty (bots often fill it)
+    // B) reCAPTCHA v3: Score-based verification (0.5+ threshold)
+    // ========================================
     if (validatedData.honeypot && validatedData.honeypot.length > 0) {
-      logger.warn('Bot detected via honeypot field')
+      logger.warn('🤖 Bot detected via honeypot field')
       return NextResponse.json(
         { error: 'Invalid submission' },
         { status: 400 }
       )
     }
 
-    // Security: Verify reCAPTCHA
     logger.info('🔐 Verifying reCAPTCHA...')
     const isRecaptchaValid = await verifyRecaptcha(validatedData.recaptcha)
     logger.info('🔐 reCAPTCHA valid:', isRecaptchaValid)
@@ -184,7 +215,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get subject label for email
+    // ========================================
+    // STEP 5: Send Emails
+    // Sends both notification (to me) and auto-reply (to sender)
+    // ========================================
     const subjectLabel = subjectOptions.find(opt => opt.value === validatedData.subject)?.label || validatedData.subject
 
     try {

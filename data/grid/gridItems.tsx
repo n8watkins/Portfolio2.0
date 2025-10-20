@@ -12,20 +12,40 @@ const EmailButton = dynamic(
   { ssr: false }
 )
 
-//bg-gradient-b rounded-t-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0
+/**
+ * Grid Item 1: "My Start" - Origin story about COVID-era Chrome extension
+ *
+ * RESPONSIVE LAYOUT STRATEGY:
+ * - Mobile (base): Text stacked on top, image below (18rem from top)
+ * - Tablet (md): Text left, image right (side-by-side layout)
+ * - Desktop (lg): Returns to stacked layout for better content flow
+ * - XL screens: Back to side-by-side with more horizontal space
+ *
+ * This alternating pattern ensures optimal readability at each breakpoint.
+ */
 const createGridItem1 = (): GridItemConfig => {
+  // Image container with responsive positioning
+  // Mobile → Tablet (side-by-side) → Desktop (stacked) → XL (side-by-side)
   const imgContainerClass =
     'absolute ' +
+    // Mobile: 80% width, positioned 18rem from top (below text)
     'w-[80%] h-[50%]  ' + // Base size
     'top-[18rem] ' + // Base position
+    // Tablet: Smaller (30%), positioned on right side, vertically centered
     'md:w-[30%] md:h-[70%] md:left-60 md:top-1/2 md:-translate-y-1/2 ' +
+    // Desktop: Returns to mobile-like stacked layout (80% width, below text)
     'lg:w-[80%] lg:h-[50%] lg:left-0 lg:top-[18rem] lg:translate-y-0 ' +
+    // XL: Side-by-side again (27% width, far right, vertically centered)
     'xl:w-[27%] xl:h-[80%] xl:left-80 xl:top-1/2 xl:-translate-y-1/2 ' +
+    // Visual polish: layering, corners, smooth transitions
     'z-30 rounded-3xl overflow-visible mx-auto aspect-ratio ' +
     'transition-all duration-300 ease-in-out ' +
     'shadow-lg'
+
+  // Hover effect: subtle scale up on group hover
   const imgClassName =
     'flex relative aspect-ratio rounded-3xl item-center justify-center group-hover:scale-105 transition duration-200'
+
   const img = '/bento/laptop.jpeg'
 
   return {
