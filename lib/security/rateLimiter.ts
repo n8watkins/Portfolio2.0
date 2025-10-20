@@ -129,3 +129,27 @@ export function clearRateLimit(key: string): void {
 export function getRateLimitStatus(key: string): RateLimitEntry | null {
   return rateLimitMap.get(key) || null
 }
+
+/**
+ * Cleanup and stop the rate limit interval
+ * Useful for graceful shutdown in long-running Node.js servers
+ *
+ * Note: In serverless environments (e.g., Vercel), this is not necessary
+ * as the process is short-lived and will be terminated automatically.
+ *
+ * @example
+ * ```ts
+ * // On server shutdown
+ * process.on('SIGTERM', () => {
+ *   cleanupRateLimiterInterval()
+ *   server.close()
+ * })
+ * ```
+ */
+export function cleanupRateLimiterInterval(): void {
+  if (global.rateLimitCleanupInterval) {
+    clearInterval(global.rateLimitCleanupInterval)
+    global.rateLimitCleanupInterval = undefined
+    rateLimitMap.clear()
+  }
+}

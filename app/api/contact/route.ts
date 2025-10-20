@@ -11,7 +11,7 @@ import { sendContactEmails } from '@/lib/email/sender'
  *
  * SECURITY LAYERS:
  * 1. Request size validation (10KB limit)
- * 2. Rate limiting (2 requests/hour in production)
+ * 2. Rate limiting (5 requests/hour in production)
  * 3. Input validation (Zod schema)
  * 4. Honeypot field check (bot detection)
  * 5. reCAPTCHA v3 verification (score-based)
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     // ========================================
     // STEP 2: Rate Limiting
-    // Production: 2 requests/hour per IP
+    // Production: 5 requests/hour per IP
     // Development: 50 requests/hour for testing
     // ========================================
     const rateLimitKey = getRateLimitKey(request)
