@@ -46,7 +46,7 @@ const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonCl
             <a
               target="_blank"
               href={
-                'https://drive.google.com/file/d/1B_I_aQ3Kb7PTTdYtXD0DX_ubRBHVjuBG/view?usp=sharing'
+                'https://drive.google.com/file/d/1YqIv0xOL4vOygI448JKCzKTkLHONxg8L/view?usp=sharing'
               }
               onClick={() => trackResumeEvent('view')}>
               <button
@@ -56,8 +56,8 @@ const ResumeButtons: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonCl
               </button>
             </a>
             <a
-              href="https://drive.google.com/uc?export=download&id=1B_I_aQ3Kb7PTTdYtXD0DX_ubRBHVjuBG"
-              download="Nathan_Watkins_NextJS_Resume"
+              href="https://drive.google.com/uc?export=download&id=1YqIv0xOL4vOygI448JKCzKTkLHONxg8L"
+              download="Nathan_Watkins_Resume"
               onClick={() => trackResumeEvent('download')}>
               <button
                 className={`${buttonClass} gap-2 bg-[linear-gradient(40deg,#1e40af,45%,#2563eb,55%,#1e40af)] border-white/30 animate-duration-[6000ms]`}>
