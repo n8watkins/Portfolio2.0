@@ -48,7 +48,7 @@ export const gridItem6: GridItemConfig = {
   ),
 
   renderContent: () => (
-    <div className="flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
+    <div className="flex relative items-start justify-center w-2/5 h-full pl-10 1md:pl-5 1lg:pl-1  pt-0 1md:pt-5  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
       <div className="flex  items-center justify-center">
         <ScrollButton
           link="projects"
