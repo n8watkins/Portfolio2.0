@@ -37,7 +37,9 @@ export async function sendContactEmails(data: ContactFormData): Promise<EmailRes
     // ========================================
     // STEP 1: Send notification email to site owner
     // ========================================
-    logger.info('📧 Sending notification email to:', EMAIL_CONFIG.to)
+    logger.info('📧 Sending notification email')
+    logger.info('   From:', EMAIL_CONFIG.from)
+    logger.info('   To:', EMAIL_CONFIG.to)
 
     const contactEmailHtml = createContactEmailHtml(data)
 
@@ -60,12 +62,20 @@ Sent from your portfolio contact form at ${new Date().toLocaleString()}
       `.trim(),
     })
 
-    logger.info('✅ Notification email sent:', notificationResult.data?.id)
+    if (notificationResult.error) {
+      logger.error('❌ Notification email failed:', notificationResult.error)
+      throw new Error(`Resend error: ${notificationResult.error.message}`)
+    }
+
+    logger.info('✅ Notification email sent successfully')
+    logger.info('   Email ID:', notificationResult.data?.id)
 
     // ========================================
     // STEP 2: Send auto-reply email to submitter
     // ========================================
-    logger.info('📧 Sending auto-reply to:', data.email)
+    logger.info('📧 Sending auto-reply email')
+    logger.info('   From:', EMAIL_CONFIG.from)
+    logger.info('   To:', data.email)
 
     const autoReplyHtml = createAutoReplyHtml(data)
 
@@ -92,7 +102,13 @@ Full-Stack Developer
       `.trim(),
     })
 
-    logger.info('✅ Auto-reply email sent:', autoReplyResult.data?.id)
+    if (autoReplyResult.error) {
+      logger.error('❌ Auto-reply email failed:', autoReplyResult.error)
+      throw new Error(`Resend error: ${autoReplyResult.error.message}`)
+    }
+
+    logger.info('✅ Auto-reply email sent successfully')
+    logger.info('   Email ID:', autoReplyResult.data?.id)
 
     return {
       success: true,
