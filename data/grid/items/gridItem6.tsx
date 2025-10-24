@@ -48,11 +48,11 @@ export const gridItem6: GridItemConfig = {
   ),
 
   renderContent: () => (
-    <div className="flex relative items-start justify-center w-2/5 h-1/2 xl:h-full pl-10 1md:pl-5 1lg:pl-1  pt-5 1md:pt-10  lg:right-3  xl:pt-20 xl:right-5 xl:items-center">
-      <div className="flex  items-center justify-center">
+    <div className="flex absolute items-end justify-end w-full h-full pr-10 md:pr-16 lg:pr-20 pb-24 md:pb-28 lg:pb-32">
+      <div className="flex items-center justify-center">
         <ScrollButton
           link="projects"
-          className=" lg:h-14  w-fit whitespace-nowrap 1md:w-40"
+          className="lg:h-14 w-fit whitespace-nowrap 1md:w-40"
           text="Check it out!"
         />
       </div>
