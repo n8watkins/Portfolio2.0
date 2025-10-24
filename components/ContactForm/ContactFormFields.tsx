@@ -14,10 +14,9 @@ interface ContactFormFieldsProps {
   form: UseFormReturn<ContactFormData>
   submissionState: SubmissionState
   onSubmit: () => Promise<void>
-  onTestAnimation?: () => void
 }
 
-export function ContactFormFields({ form, submissionState, onSubmit, onTestAnimation }: ContactFormFieldsProps) {
+export function ContactFormFields({ form, submissionState, onSubmit }: ContactFormFieldsProps) {
   const [charCount, setCharCount] = useState(0)
 
   const {
@@ -157,36 +156,22 @@ export function ContactFormFields({ form, submissionState, onSubmit, onTestAnima
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.45, ease: "easeOut" }}
       >
-        <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
-          {onTestAnimation && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault()
-                onTestAnimation()
-              }}
-              className="text-sm px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors duration-200"
-            >
-              Test
-            </button>
-          )}
-          <button
-            type="button"
-            disabled={isSubmitting}
-            onClick={(e) => {
-              e.preventDefault()
-              onSubmit()
-            }}
-            className={`relative inline-flex h-12 w-full sm:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
-              isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-            }`}
-          >
-            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-            <span className="inline-flex h-full w-full items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 pointer-events-none">
-              {isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
-            </span>
-          </button>
-        </div>
+        <button
+          type="button"
+          disabled={isSubmitting}
+          onClick={(e) => {
+            e.preventDefault()
+            onSubmit()
+          }}
+          className={`relative inline-flex h-12 w-full md:w-60 overflow-hidden rounded-lg p-[1px] focus:outline-none transition-all duration-200 ${
+            isSubmitting ? "opacity-75 cursor-not-allowed" : ""
+          }`}
+        >
+          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+          <span className="inline-flex h-full w-full items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 pointer-events-none">
+            {isSubmitting ? "Sending... 🚀" : "Send Message 🚀"}
+          </span>
+        </button>
       </motion.div>
 
       <p className="text-center text-sm text-slate-600 dark:text-slate-400 pb-8">

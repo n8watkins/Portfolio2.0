@@ -43,20 +43,6 @@ function ContactFormInner({ className }: ContactFormProps) {
     }
   }, [submissionState, setSubmissionState])
 
-  // Test animation handler (doesn't send email)
-  const handleTestAnimation = async () => {
-    // Simulate the loading state
-    setSubmissionState('submitting')
-
-    // Wait for 1.5 seconds to show the loading animation
-    await new Promise(resolve => setTimeout(resolve, 1500))
-
-    // Then trigger success state with confetti
-    setSubmissionState('success')
-    setShowConfetti(true)
-    setConfettiKey(prev => prev + 1)
-  }
-
   if (submissionState === 'submitting') {
     return <ContactFormLoading />
   }
@@ -94,7 +80,6 @@ function ContactFormInner({ className }: ContactFormProps) {
         form={form}
         submissionState={submissionState}
         onSubmit={handleFormSubmit}
-        onTestAnimation={handleTestAnimation}
       />
     </motion.div>
   )
