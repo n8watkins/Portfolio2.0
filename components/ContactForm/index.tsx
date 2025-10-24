@@ -5,6 +5,7 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 import { motion } from 'framer-motion'
 import { useContactFormSubmit } from './useContactFormSubmit'
 import { ContactFormSuccess } from './ContactFormSuccess'
+import { ContactFormLoading } from './ContactFormLoading'
 import { ContactFormFields } from './ContactFormFields'
 import { trackContactEvent } from '@/lib/analytics'
 
@@ -20,6 +21,7 @@ function ContactFormInner({ className }: ContactFormProps) {
     showConfetti,
     setShowConfetti,
     confettiKey,
+    setConfettiKey,
     form,
     handleFormSubmit,
   } = useContactFormSubmit()
@@ -29,17 +31,35 @@ function ContactFormInner({ className }: ContactFormProps) {
     trackContactEvent('view')
   }, [])
 
-  // Auto-reset state after timeout
+  // Auto-reset state after timeout (30 seconds)
   useEffect(() => {
     if (submissionState === 'success' || submissionState === 'error') {
       const timeoutId = setTimeout(() => {
         setSubmissionState('idle')
         // Note: liveRegionMessage is managed by the hook and will be cleared on next submission
-      }, 5000)
+      }, 30000)
 
       return () => clearTimeout(timeoutId)
     }
   }, [submissionState, setSubmissionState])
+
+  // Test animation handler (doesn't send email)
+  const handleTestAnimation = async () => {
+    // Simulate the loading state
+    setSubmissionState('submitting')
+
+    // Wait for 1.5 seconds to show the loading animation
+    await new Promise(resolve => setTimeout(resolve, 1500))
+
+    // Then trigger success state with confetti
+    setSubmissionState('success')
+    setShowConfetti(true)
+    setConfettiKey(prev => prev + 1)
+  }
+
+  if (submissionState === 'submitting') {
+    return <ContactFormLoading />
+  }
 
   if (submissionState === 'success') {
     return (
@@ -74,6 +94,7 @@ function ContactFormInner({ className }: ContactFormProps) {
         form={form}
         submissionState={submissionState}
         onSubmit={handleFormSubmit}
+        onTestAnimation={handleTestAnimation}
       />
     </motion.div>
   )

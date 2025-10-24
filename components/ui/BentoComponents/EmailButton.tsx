@@ -3,6 +3,7 @@ import { MdContentCopy } from 'react-icons/md'
 import { BackgroundGradientAnimation } from '../background-gradient-animation'
 import Lottie from 'lottie-react'
 import animationData from '../../../data/confetti.json'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface ResumeButtonsProps {
   buttonContainer?: string
@@ -78,9 +79,18 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
             className={`${buttonClass} pointer-events-auto gap-3 bg-[linear-gradient(1100deg,#5b21b6,45%,#6d28d9,55%,#5b21b6)] dark:bg-[linear-gradient(1100deg,#001f54,45%,#002b76,55%,#001f54)] border-white/30 dark:bg-animate-duration-[4000ms] `}
             onClick={handleEmailClick}
             disabled={!isVisible}>
-            <span className="text-white dark:text-white font-semibold dark:font-normal">
-              {copiedEmail ? 'Copied!' : 'Copy Email'}
-            </span>{' '}
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={copiedEmail ? 'copied' : 'copy'}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                className="text-white dark:text-white font-semibold dark:font-normal"
+              >
+                {copiedEmail ? 'Copied!' : 'Copy Email'}
+              </motion.span>
+            </AnimatePresence>
             <MdContentCopy className="text-white dark:text-white " />
           </button>
         </div>
