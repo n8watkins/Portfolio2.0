@@ -7,7 +7,7 @@ import type { GridItemConfig } from '@/lib/types/gridItem'
  *
  * VISUAL STRATEGY:
  * - Code/development icon as background
- * - Gradient overlay at top for text readability
+ * - Gradient overlay at bottom for text readability
  * - CTA button to scroll to projects section
  * - Highlights current work (AI lead generation tool)
  */
@@ -22,9 +22,9 @@ export const gridItem6: GridItemConfig = {
   img: '/bento/code.svg',
 
   textContainerClassName:
-    'absolute  top-0 pt-5 lg:pt-8 h-52 w-full bg-gradient-to-b rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
+    'absolute  bottom-0 pb-5 lg:pb-8 h-52 w-full bg-gradient-to-t rounded-t-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621]/90 dark:to-[#020621]/0 z-30 text-slate-200 dark:text-white select-none ',
 
-  textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 pt-0 md:pt-5 lg:pt-8 group-hover:translate-x-2 duration-200',
+  textOrder: 'flex flex-col-reverse xs:pl-10 1sm:pl-5 pb-0 md:pb-5 lg:pb-8 group-hover:translate-x-2 duration-200',
 
   titleClassName: ' font-sans font-bold text-2xl lg:text-4xl items-center   ',
 
