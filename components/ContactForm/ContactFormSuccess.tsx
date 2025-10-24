@@ -19,16 +19,40 @@ export function ContactFormSuccess({ showConfetti, confettiKey, onSendAnother }:
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="text-center py-12 relative"
     >
-      {/* Confetti Animation */}
+      {/* Double Confetti Animation - BAM BAM! */}
       {showConfetti && (
-        <div key={confettiKey} className="absolute inset-0 pointer-events-none z-10">
-          <Lottie
-            animationData={confettiData}
-            loop={false}
-            autoplay={true}
-            style={{ height: 300, width: 300 }}
-          />
-        </div>
+        <>
+          {/* First firework - BAM! */}
+          <motion.div
+            key={confettiKey}
+            className="absolute inset-0 pointer-events-none z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.1 }}
+          >
+            <Lottie
+              animationData={confettiData}
+              loop={false}
+              autoplay={true}
+              style={{ height: 300, width: 300 }}
+            />
+          </motion.div>
+          {/* Second firework - BAM! (delayed and offset to the right) */}
+          <motion.div
+            key={`${confettiKey}-2`}
+            className="absolute inset-0 pointer-events-none z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.1 }}
+          >
+            <Lottie
+              animationData={confettiData}
+              loop={false}
+              autoplay={true}
+              style={{ height: 300, width: 300, marginLeft: '150px' }}
+            />
+          </motion.div>
+        </>
       )}
 
       <motion.div

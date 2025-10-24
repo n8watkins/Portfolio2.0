@@ -13,6 +13,7 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [animationKey, setAnimationKey] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
+  const [showSecondFirework, setShowSecondFirework] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,9 +28,15 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
       if (!copiedEmail) {
         setCopiedEmail(true)
         setAnimationKey((prevKey) => prevKey + 1)
+        setShowSecondFirework(false)
+        // Trigger second firework with delay - BAM BAM!
+        setTimeout(() => {
+          setShowSecondFirework(true)
+        }, 200)
       }
       setTimeout(() => {
         setCopiedEmail(false)
+        setShowSecondFirework(false)
       }, 5000)
     })
   }
@@ -43,6 +50,7 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
             Have a Project? Let&apos;s Connect!{' '}
           </h2>
         </div>
+        {/* First firework - BAM! */}
         <div key={animationKey} className="absolute top-0 left-0 w-full h-full z-50 ">
           <Lottie
             animationData={animationData}
@@ -51,6 +59,17 @@ const EmailButton: React.FC<ResumeButtonsProps> = ({ buttonContainer, buttonClas
             style={{ height: 400, width: 400 }}
           />
         </div>
+        {/* Second firework - BAM! (delayed and offset to the right) */}
+        {showSecondFirework && (
+          <div key={`${animationKey}-2`} className="absolute top-0 left-0 w-full h-full z-50 ">
+            <Lottie
+              animationData={animationData}
+              loop={false}
+              autoplay={true}
+              style={{ height: 400, width: 400, marginLeft: '150px' }}
+            />
+          </div>
+        )}
         <div
           className={`${buttonContainer} transition-opacity duration-500 ${
             isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
