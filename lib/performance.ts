@@ -63,9 +63,12 @@ function getRatingEmoji(rating: string): string {
 }
 
 /**
- * Log web vital to console with formatting
+ * Log web vital to console with formatting (development only)
  */
 function logWebVital(metric: WebVitalMetric) {
+  // Only log in development mode
+  if (process.env.NODE_ENV !== 'development') return
+
   const rating = metric.rating || getRating(metric.name, metric.value)
   const emoji = getRatingEmoji(rating)
   const formattedValue = formatValue(metric.name, metric.value)
@@ -82,17 +85,15 @@ function logWebVital(metric: WebVitalMetric) {
     styles[rating] || 'color: #888'
   )
 
-  // Detailed info in development
-  if (process.env.NODE_ENV === 'development') {
-    console.table({
-      Metric: metric.name,
-      Value: formattedValue,
-      Rating: rating,
-      Delta: formatValue(metric.name, metric.delta),
-      ID: metric.id,
-      Navigation: metric.navigationType,
-    })
-  }
+  // Detailed info table
+  console.table({
+    Metric: metric.name,
+    Value: formattedValue,
+    Rating: rating,
+    Delta: formatValue(metric.name, metric.delta),
+    ID: metric.id,
+    Navigation: metric.navigationType,
+  })
 }
 
 /**
