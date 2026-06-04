@@ -50,12 +50,20 @@ const Hero = () => {
         </motion.p>
         <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5">
           <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3">
-            <h1 className="text-center md:text-start w-full justify-start text-5xl lg:text-6xl font-semibold">
+            <motion.h1
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              className="text-center md:text-start w-full justify-start text-5xl lg:text-6xl font-semibold">
               Hi, I&apos;m <span className="text-purple-500">Nathan</span>
-            </h1>
-            <p className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+              className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
               A Next.js Developer
-            </p>
+            </motion.p>
             <div className="flex items-center justify-center md:justify-start w-full">
               <nav aria-label="Social media links" className="relative md:top-0 md:-left-2 z-50">
                 <div className="flex items-center justify-center pb-2 gap-3">
@@ -97,7 +105,11 @@ const Hero = () => {
               <ScrollButton link="about" text="See more" />
             </motion.div>
           </div>
-          <div className="w-[15rem] h-[15rem] 1sm:w-[17rem] 1sm:h-[17rem] 1lg:w-[19rem] 1lg:h-[19rem] sm:w-[22rem] sm:h-[22rem] relative">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            className="w-[15rem] h-[15rem] 1sm:w-[17rem] 1sm:h-[17rem] 1lg:w-[19rem] 1lg:h-[19rem] sm:w-[22rem] sm:h-[22rem] relative">
             <div className="aspect-square w-full h-full relative">
               <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
               <Image
@@ -111,7 +123,7 @@ const Hero = () => {
                 alt="Professional headshot of Nathan Watkins, a Next.js developer"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
