@@ -8,7 +8,6 @@ export const contactFormSchema = z.object({
     .regex(/^[a-zA-ZÀ-ÿ\u0100-\u017F\u0180-\u024F\u1E00-\u1EFF\s'-\.]+$/, 'Name contains invalid characters'),
 
   email: z
-    .string()
     .email('Please enter a valid email address')
     .max(100, 'Email must be less than 100 characters')
     .refine((email) => {
