@@ -135,14 +135,16 @@ export default withBundleAnalyzer(withSentryConfig(nextConfig, {
   // Hides source maps from generated client bundles
   hideSourceMaps: true,
 
-  // Automatically tree-shake Sentry logger statements to reduce bundle size
-  disableLogger: true,
-
-  // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-  // See the following for more information:
-  // https://docs.sentry.io/product/crons/
-  // https://vercel.com/docs/cron-jobs
-  automaticVercelMonitors: true,
+  // Webpack-specific options (moved under `webpack` in @sentry/nextjs v10).
+  webpack: {
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    treeshake: {
+      removeDebugLogging: true,
+    },
+    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
+    // See: https://docs.sentry.io/product/crons/ and https://vercel.com/docs/cron-jobs
+    automaticVercelMonitors: true,
+  },
 
   // Delete source maps after upload to prevent serving them to users
   sourcemaps: {

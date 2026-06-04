@@ -1,5 +1,7 @@
 // This file configures the initialization of Sentry on the client.
-// The config you add here will be used whenever a users loads a page in their browser.
+// The config you add here will be used whenever a user loads a page in their browser.
+// This file (instrumentation-client.ts) replaces the deprecated sentry.client.config.ts
+// and is required for client-side Sentry to load under Turbopack (Next 16 default).
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from '@sentry/nextjs'
@@ -65,3 +67,6 @@ Sentry.init({
     }),
   ],
 })
+
+// Instruments App Router navigations so client-side transitions are traced.
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart
