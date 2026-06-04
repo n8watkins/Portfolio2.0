@@ -53,21 +53,24 @@ const Hero = () => {
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.5, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-center md:text-start w-full justify-start text-5xl lg:text-6xl font-semibold">
               Hi, I&apos;m <span className="text-purple-500">Nathan</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.5, delay: 1.0, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-center md:text-start w-full pl-1 md:tracking-wider text-2xl md:text-lg lg:text-2xl font-semibold dark:font-normal">
               A Next.js Developer
             </motion.p>
             <div className="flex items-center justify-center md:justify-start w-full">
               <nav aria-label="Social media links" className="relative md:top-0 md:-left-2 z-50">
                 <div className="flex items-center justify-center pb-2 gap-3">
-                  <a
+                  <motion.a
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
                     href="https://github.com/n8watkins"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -75,8 +78,11 @@ const Hero = () => {
                     className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
                   >
                     <FiGithub className="w-full h-full p-3" aria-hidden="true" />
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.35, ease: [0.25, 0.1, 0.25, 1] }}
                     href="https://www.linkedin.com/in/n8watkins/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -84,8 +90,11 @@ const Hero = () => {
                     className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
                   >
                     <CiLinkedin className="w-full h-full p-2" aria-hidden="true" />
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.5, ease: [0.25, 0.1, 0.25, 1] }}
                     href="https://x.com/n8watkins"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -93,14 +102,14 @@ const Hero = () => {
                     className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
                   >
                     <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
-                  </a>
+                  </motion.a>
                 </div>
               </nav>
             </div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.5, delay: 1.7, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex w-full items-center md:justify-start justify-center">
               <ScrollButton link="about" text="See more" />
             </motion.div>
@@ -108,7 +117,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.5, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
             className="w-[15rem] h-[15rem] 1sm:w-[17rem] 1sm:h-[17rem] 1lg:w-[19rem] 1lg:h-[19rem] sm:w-[22rem] sm:h-[22rem] relative">
             <div className="aspect-square w-full h-full relative">
               <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
