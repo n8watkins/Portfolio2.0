@@ -66,7 +66,8 @@ if (typeof global.rateLimitCleanupInterval === 'undefined') {
  */
 export function getRateLimitKey(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for')
-  const ip = forwarded ? forwarded.split(',')[0] : request.ip || 'unknown'
+  // Next 16 removed NextRequest.ip; derive the client IP from forwarding headers.
+  const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip') || 'unknown'
 
   // In test mode, include user-agent and test ID to separate each test
   if (process.env.NODE_ENV === 'test') {

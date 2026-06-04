@@ -167,7 +167,7 @@ export const FloatingNav = ({
                 : {}
             }
           >
-            {React.cloneElement(item.icon as React.ReactElement, {
+            {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, {
               className: 'w-4 h-4 sm:w-5 sm:h-5',
             })}
           </motion.div>

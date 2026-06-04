@@ -58,6 +58,9 @@ class ErrorBoundary extends Component<Props, State> {
                 Refresh Page
               </button>
               <br />
+              {/* Full page navigation is intentional here: it forces a hard reload to
+                  recover from a broken React tree. next/link would keep the errored state. */}
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a
                 href="/"
                 className="inline-flex items-center px-4 py-2 text-darkBlue dark:text-slate-300 hover:text-purple-500 transition-colors"

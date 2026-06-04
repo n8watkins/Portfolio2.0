@@ -9,9 +9,9 @@ interface MapAnimationProps {
 const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerClass }) => {
   const pathRefs = useMemo(
     () => [
-      { current: null } as React.RefObject<SVGPathElement>,
-      { current: null } as React.RefObject<SVGPathElement>,
-      { current: null } as React.RefObject<SVGPathElement>,
+      { current: null } as React.RefObject<SVGPathElement | null>,
+      { current: null } as React.RefObject<SVGPathElement | null>,
+      { current: null } as React.RefObject<SVGPathElement | null>,
     ],
     []
   )
