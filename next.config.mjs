@@ -42,7 +42,6 @@ const nextConfig = {
       'react-icons',
       '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-icons',
-      '@tabler/icons-react',
     ],
   },
   // Bundle analyzer configuration moved to withBundleAnalyzer wrapper below

@@ -1,6 +1,7 @@
 import { BiLogoTypescript } from 'react-icons/bi'
 import { FaAws, FaGitAlt, FaHtml5, FaReact } from 'react-icons/fa6'
 import { IoLogoCss3, IoLogoJavascript } from 'react-icons/io'
+import { IoLogoAmplify } from 'react-icons/io5'
 import { RiFirebaseLine, RiNextjsLine, RiTailwindCssFill } from 'react-icons/ri'
 import {
   SiJest,
@@ -23,7 +24,6 @@ import {
   SiPostgresql,
   SiClerk,
   SiNextdotjs,
-  SiAwsamplify,
 } from 'react-icons/si'
 import { AiOutlineApi } from 'react-icons/ai' // For APIs
 import { GrMysql } from 'react-icons/gr'
@@ -97,7 +97,7 @@ export const tech_libraries = [
   },
   {
     name: 'AWS Amplify',
-    icon: <SiAwsamplify className="w-7 h-7" />,
+    icon: <IoLogoAmplify className="w-7 h-7" />,
     description: 'Set of tools for building scalable mobile and web apps.',
     category: 'Development Platform',
   },
