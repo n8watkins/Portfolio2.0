@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     const healthData = {
       status: 'ok',
       timestamp: new Date().toISOString(),
-      version: process.env.NEXT_PUBLIC_VERSION || '2.0',
+      version: process.env.NEXT_PUBLIC_VERSION || '2.0.0',
       environment: process.env.NODE_ENV,
       uptime: process.uptime(),
       memory: {

@@ -1,7 +1,10 @@
 {
   "name": "Portfolio2.0",
-  "version": "2.0",
+  "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -52,7 +55,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@lhci/cli": "^0.15.1",
-    "@next/bundle-analyzer": "^15.5.6",
+    "@next/bundle-analyzer": "^14.2.32",
     "@playwright/test": "^1.56.1",
     "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
