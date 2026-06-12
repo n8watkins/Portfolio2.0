@@ -1,90 +1,95 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import { useTheme } from 'next-themes'
-import Image from 'next/image'
 import { workExperience } from '@/data/experience'
-import { Button } from '@/components/ui/MovingBorders'
-import { cn } from '@/lib/utils'
 import { fadeInUpVariants, staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 
 const Experience = () => {
-  const { theme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const currentTheme = theme === 'system' ? resolvedTheme : theme
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return null
-  }
-
   return (
-    <div className="relative py-20 xl:max-w-6xl 2xl:max-w-7xl m-auto text-slate-200 select-none">
-        <motion.h2
-          variants={fadeInUpVariants}
-          {...defaultAnimationConfig}
-          className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
-          Work <span className="text-purple-500">Experience</span>
-        </motion.h2>
+    <div className="relative py-20 xl:max-w-6xl 2xl:max-w-7xl m-auto select-none">
+      <motion.h2
+        variants={fadeInUpVariants}
+        {...defaultAnimationConfig}
+        className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200">
+        Work <span className="text-purple-500">Experience</span>
+      </motion.h2>
 
-        <motion.div
-          variants={staggerContainerVariants}
-          {...defaultAnimationConfig}
-          className="w-full mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16">
-          {workExperience.map((card) => (
-            <motion.div
-              key={card.id}
-              variants={staggerItemVariants}
-              className="w-full"
-            >
-              <Button
-                duration={Math.floor(Math.random() * 10000) + 10000}
-                borderRadius="1rem"
-                style={{
-                  background: currentTheme === 'dark' ? '#020621' : '#3B82F6',
-                  backgroundColor:
-                    currentTheme === 'dark'
-                      ? 'linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)'
-                      : 'linear-gradient(90deg, rgba(59,130,246,1) 0%, rgba(37,99,235,1) 100%)',
-                  borderRadius: `calc(1rem * 0.96)`,
-                }}
-                className={cn(
-                  'w-full border-neutral-200 dark:border-slate-800 cursor-default',
-                  currentTheme === 'dark' ? 'text-white' : 'text-black'
-                )}>
-                <div className="flex flex-col p-3 py-4 md:p-5 md:py-6 lg:p-8 lg:py-8 xl:p-10 xl:py-8 hover:scale-105 duration-200 z-20 w-full h-[15rem] md:h-[16rem] lg:h-[20rem] xl:h-[22rem]">
-                  <div className="flex flex-row items-center mb-4 w-full">
-                    <div className="flex-shrink-0">
-                      <Image
-                        src={card.thumbnail}
-                        alt={card.title}
-                        width={128}
-                        height={128}
-                        className="z-20 lg:w-32 md:w-20 w-16 lg:h-32 md:h-20 h-16 xl:w-40 xl:h-40 object-contain"
-                      />
-                    </div>
-                    <h3 className="ml-5 text-center text-2xl md:text-3xl lg:text-4xl font-bold flex-1 h-[5rem] md:h-[4.5rem] lg:h-[4rem] flex items-center justify-center py-1">
-                      {card.title}
-                    </h3>
+      <motion.div
+        variants={staggerContainerVariants}
+        {...defaultAnimationConfig}
+        className="relative mt-4 px-2 md:px-4">
+
+        {/* Vertical timeline line */}
+        <div className="absolute left-[9px] md:left-[11px] top-2 bottom-4 w-px bg-gradient-to-b from-purple-500 via-purple-400/40 to-transparent" />
+
+        <div className="space-y-10">
+          {workExperience.map((item, index) => {
+            const isFirst = index === 0
+            const showDivider = item.additional && workExperience[index - 1] && !workExperience[index - 1].additional
+
+            return (
+              <React.Fragment key={item.id}>
+                {showDivider && (
+                  <div className="relative pl-10 md:pl-12">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                      Additional Experience
+                    </p>
                   </div>
-                  <p
-                    className={cn(
-                      'text-start text-base md:text-lg lg:text-lg xl:text-xl h-[6rem] md:h-[7rem] lg:h-[9.5rem] xl:h-[10.5rem] overflow-hidden',
-                      currentTheme === 'dark' ? 'text-white-100' : 'text-white'
-                    )}>
-                    {card.desc}
+                )}
+
+                <motion.div
+                  variants={staggerItemVariants}
+                  className="relative pl-10 md:pl-12">
+
+                  {/* Timeline dot */}
+                  <div className="absolute left-0 top-[7px] w-[19px] h-[19px] rounded-full bg-purple-500 border-[3px] border-blue-400 dark:border-slate-900 shadow-lg shadow-purple-500/30" />
+
+                  {/* Period + location */}
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1.5">
+                    <span className="text-xs font-semibold tracking-wider uppercase text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20">
+                      {item.period}
+                    </span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500">{item.location}</span>
+                  </div>
+
+                  {/* Role */}
+                  <h3 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white leading-snug">
+                    {item.role}
+                  </h3>
+
+                  {/* Company */}
+                  <p className="text-base font-semibold mt-0.5 mb-4">
+                    {item.companyUrl ? (
+                      <a
+                        href={item.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-400 hover:text-purple-300 transition-colors">
+                        {item.company}
+                      </a>
+                    ) : (
+                      <span className="text-purple-400">{item.company}</span>
+                    )}
                   </p>
-                </div>
-              </Button>
-            </motion.div>
-          ))}
-        </motion.div>
+
+                  {/* Bullets */}
+                  <ul className="space-y-2.5">
+                    {item.bullets.map((bullet, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                        <span className="mt-[9px] flex-shrink-0 w-[5px] h-[5px] rounded-full bg-purple-400/60" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </React.Fragment>
+            )
+          })}
+        </div>
+      </motion.div>
     </div>
   )
 }
