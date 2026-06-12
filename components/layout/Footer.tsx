@@ -1,4 +1,4 @@
-import { FaLocationArrow, FaXTwitter } from 'react-icons/fa6'
+import { FaLocationArrow, FaXTwitter, FaTwitch, FaYoutube } from 'react-icons/fa6'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
@@ -116,6 +116,24 @@ const Footer = () => {
             className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
           >
             <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
+          </a>
+          <a
+            href="https://twitch.tv/n8builds"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow Nathan on Twitch"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+          >
+            <FaTwitch className="w-full h-full p-3" aria-hidden="true" />
+          </a>
+          <a
+            href="https://youtube.com/@n8builds"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow Nathan on YouTube"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+          >
+            <FaYoutube className="w-full h-full p-3" aria-hidden="true" />
           </a>
         </motion.nav>
       </motion.div>

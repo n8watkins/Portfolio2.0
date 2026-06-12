@@ -8,6 +8,8 @@ import { ContactFormSuccess } from './ContactFormSuccess'
 import { ContactFormLoading } from './ContactFormLoading'
 import { ContactFormFields } from './ContactFormFields'
 import { trackContactEvent } from '@/lib/analytics'
+import { CONTACT_PREFILL_EVENT, consumePendingSubject } from '@/lib/contactPrefill'
+import type { ContactFormData } from '@/lib/validations/contact'
 
 interface ContactFormProps {
   className?: string
@@ -30,6 +32,23 @@ function ContactFormInner({ className }: ContactFormProps) {
   useEffect(() => {
     trackContactEvent('view')
   }, [])
+
+  // Allow CTAs elsewhere on the page (e.g. Appturnity consulting card) to
+  // preselect the subject dropdown
+  useEffect(() => {
+    const pending = consumePendingSubject()
+    if (pending) {
+      form.setValue('subject', pending)
+    }
+    const handler = (event: Event) => {
+      const subject = (event as CustomEvent<ContactFormData['subject']>).detail
+      if (subject) {
+        form.setValue('subject', subject)
+      }
+    }
+    window.addEventListener(CONTACT_PREFILL_EVENT, handler)
+    return () => window.removeEventListener(CONTACT_PREFILL_EVENT, handler)
+  }, [form])
 
   // Auto-reset state after timeout (30 seconds)
   useEffect(() => {
