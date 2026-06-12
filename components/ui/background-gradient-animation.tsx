@@ -94,12 +94,12 @@ export const BackgroundGradientAnimation = ({
     return () => cancelAnimationFrame(frameId)
   }, [])
 
+  // Attached to the container (not the blob) so the glow tracks the cursor
+  // even over text/children; the blob's own rect moves with its transform.
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (interactiveRef.current) {
-      const rect = interactiveRef.current.getBoundingClientRect()
-      tgX.current = event.clientX - rect.left
-      tgY.current = event.clientY - rect.top
-    }
+    const rect = event.currentTarget.getBoundingClientRect()
+    tgX.current = event.clientX - rect.left
+    tgY.current = event.clientY - rect.top
   }
 
   const [isSafari, setIsSafari] = useState(false)
@@ -109,6 +109,7 @@ export const BackgroundGradientAnimation = ({
 
   return (
     <div
+      onMouseMove={interactive ? handleMouseMove : undefined}
       className={cn(
         'absolute w-full h-full z-50 overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] animate-fade duration-500',
         containerClassName
@@ -177,11 +178,10 @@ export const BackgroundGradientAnimation = ({
         {interactive && (
           <div
             ref={interactiveRef}
-            onMouseMove={handleMouseMove}
             className={cn(
               `absolute [background:radial-gradient(circle_at_center,_rgba(var(--pointer-color),_0.8)_0,_rgba(var(--pointer-color),_0)_50%)_no-repeat]`,
               `[mix-blend-mode:var(--blending-value)] w-full h-full -top-1/2 -left-1/2`,
-              `opacity-70`
+              `opacity-70 pointer-events-none`
             )}></div>
         )}
       </div>

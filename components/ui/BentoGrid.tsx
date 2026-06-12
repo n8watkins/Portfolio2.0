@@ -1,8 +1,58 @@
 'use client'
+import { useCallback, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { staggerItemVariants } from '@/lib/animations'
 import type { GridItemConfig } from '@/lib/types/gridItem'
+
+/**
+ * Cursor-following glow shared by every bento card — a single blurred radial
+ * div eased toward the cursor with rAF (runs only while hovered), matching
+ * the look of the heavier BackgroundGradientAnimation on the email card.
+ */
+const useCursorGlow = () => {
+  const glowRef = useRef<HTMLDivElement>(null)
+  const frame = useRef<number | null>(null)
+  const cur = useRef({ x: 0, y: 0 })
+  const tgt = useRef({ x: 0, y: 0 })
+
+  const step = useCallback(() => {
+    cur.current.x += (tgt.current.x - cur.current.x) / 8
+    cur.current.y += (tgt.current.y - cur.current.y) / 8
+    if (glowRef.current) {
+      glowRef.current.style.transform = `translate(${Math.round(cur.current.x)}px, ${Math.round(
+        cur.current.y
+      )}px)`
+    }
+    frame.current = requestAnimationFrame(step)
+  }, [])
+
+  const onMouseEnter = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const rect = event.currentTarget.getBoundingClientRect()
+      cur.current = tgt.current = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      }
+      if (frame.current === null) frame.current = requestAnimationFrame(step)
+    },
+    [step]
+  )
+
+  const onMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    tgt.current = { x: event.clientX - rect.left, y: event.clientY - rect.top }
+  }, [])
+
+  const onMouseLeave = useCallback(() => {
+    if (frame.current !== null) {
+      cancelAnimationFrame(frame.current)
+      frame.current = null
+    }
+  }, [])
+
+  return { glowRef, onMouseEnter, onMouseMove, onMouseLeave }
+}
 
 export const BentoGrid = ({
   className,
@@ -34,15 +84,26 @@ export const BentoGridItem = ({
   renderContent,
   renderForeground,
 }: GridItemConfig) => {
+  const { glowRef, onMouseEnter, onMouseMove, onMouseLeave } = useCursorGlow()
+
   return (
     <motion.div
       variants={staggerItemVariants}
+      onMouseEnter={onMouseEnter}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
       className={cn(
-        'flex w-full h-full rounded-3xl relative group  dark:border-white/[0.2]  bg-gradient-to-br from-blue-400 via-blue-500 to-blue-400 border dark:from-[#1e293b] dark:via-darkBlue dark:to-[#1e293b] overflow-hidden  select-none',
+        'flex w-full h-full rounded-3xl relative group  dark:border-white/[0.2]  bg-gradient-to-br from-blue-400 via-blue-500 to-blue-400 border dark:from-[#0c4a6e] dark:via-[#0f172a] dark:to-[#0f172a] overflow-hidden  select-none',
         gridItemContainer
       )}>
       {/* Background layer - data-driven */}
       {renderBackground?.()}
+
+      {/* Cursor-following glow — above backgrounds, below content */}
+      <div
+        ref={glowRef}
+        className="absolute w-full h-full -top-1/2 -left-1/2 z-[400] pointer-events-none opacity-0 group-hover:opacity-60 transition-opacity duration-300 [background:radial-gradient(circle_at_center,_rgba(56,189,248,0.8)_0,_rgba(56,189,248,0)_50%)_no-repeat] [mix-blend-mode:hard-light]"
+      />
 
       {/* Content layer - data-driven */}
       <div className={`absolute z-[500]   ${textContainerClassName}`}>
