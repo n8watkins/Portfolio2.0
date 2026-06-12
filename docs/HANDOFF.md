@@ -1,99 +1,77 @@
 # HANDOFF — portfolio2.0
 
-_Last updated: 2026-06-12 (session: contact-form removal + dependency upgrades)_
+_Last updated: 2026-06-12 (session: contact-form removal, dep upgrades, about/projects/bento redesign, portfolio.n8builds.dev domain setup)_
 
 ## Project summary
 
-Nathan Watkins' personal portfolio — positioned as an **online resume / digital card** whose job is to funnel visitors to **n8builds.dev** (his main build-in-public site) and **Appturnity** (his consulting company, https://appturnity.web.app). Dark-only, slate + sky-blue palette.
+Nathan Watkins' personal portfolio — an **online resume / digital card** whose job is to funnel visitors to **n8builds.dev** (his main build-in-public site, project `n8builds-web`, source at `~/n8builds/n8builds-web`) and **Appturnity** (his consulting company, https://appturnity.web.app). Dark-only, slate + sky-blue palette.
 
-- Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind 3.4, framer-motion, react-scroll.
-- Run: `npm run dev` → **http://localhost:4829** (port is non-standard, set in package.json).
-- Tests: `npx playwright test --project=chromium` (config/webServer point at 4829 — fixed this session; do NOT pre-start the dev server, Playwright boots its own with `NODE_ENV=test`).
+- Stack: Next.js 16.2.9 (App Router, Turbopack dev / webpack build), React 19, TypeScript, Tailwind 3.4, framer-motion 12, react-scroll.
+- Run: `npm run dev` → **http://localhost:4829** (non-standard port, set in package.json).
+- Tests: `npx playwright test --project=chromium` (webServer on 4829, `reuseExistingServer` outside CI; suite = `tests/web-vitals.spec.ts` only).
 - Checks: `npm run type-check`, `npm run lint`. Husky + lint-staged run eslint on commit.
-- Not deployed this session; commits are **local only, not pushed**.
+- Deploy: Vercel project **`portfolio`** (account natkins23), prod URL **n8sportfolio.vercel.app** (NOT nathansportfolio/n8portfolio — older notes and the resume PDF have wrong URLs). Pushes to GitHub `n8watkins/Portfolio2.0` main auto-deploy.
+- **All session work is committed AND pushed** through `f715e17`.
 
-## State (all verified working at 4829, committed)
+## State (all verified: type-check/lint clean, 10/10 Playwright, visual smokes)
 
-Recent session commits (newest first): `ce33c78` Appturnity-CTA hover fix, `56b7fa6` brand cards, `0dbb22f` hero CTAs, `b087482` experience hover reveals, `96e6394` about intro, `69b0f98` horizontal project cards, `0fc5713` watercolor portrait, `7e24190` Playwright port fix, plus the earlier redesign commits (`2dbd17a`…`21f6426`).
+This session's commits, oldest first:
 
-- Projects: exactly 2 horizontal full-width cards (GeminiGPT, Net-Trailer) under a "Building for the AI-native web" blurb. `liveSite` is optional; GeminiGPT card shows "Live demo coming soon" until deployed.
-- Hero: rotating portrait (`data/portraits.ts`, 2 images, 3s fade), animated grid squares, two brand-hover CTAs (n8builds gradient / Appturnity white + understroke swoosh). "See more" removed. 72vh.
-- Nav: always visible, text-only, headshot scrolls to top, react-scroll `offset={-80}`.
-- Experience: company/client links (arroyosecogc.com, riverwoodranch.web.app, Coder School Santa Monica), hover image reveals (`hoverImage` in `data/experience.tsx`).
-- Brand section (`components/sections/AppturnityCard.tsx`): big Appturnity card (live-site screenshot, SiteForge story) + n8builds card (gradient wordmark). The "Need something built?" CTA mailtos `nathancwatkins23@gmail.com?subject=Consulting inquiry`.
-- Footer (`#contact`): slim routing card — n8builds gradient CTA, Appturnity white+swoosh CTA, visible mailto. The old Resend + reCAPTCHA form was removed 2026-06-12 (see Next steps #1).
+- `b67a2a8` Contact form fully removed → slim routing footer card (n8builds CTA, Appturnity CTA + swoosh, visible mailto). Deps dropped: resend, react-google-recaptcha-v3, react-hook-form, @hookform/resolvers, isomorphic-dompurify, zod (+ @types). Old form stack survives at `ce33c78` — it's the reference implementation to port to n8builds-web's contact page someday.
+- `cb32403`…`c7e0129` Dep upgrades: safe batch (next 16.2.9, sentry 10.57, radix, types) + majors one-at-a-time: framer-motion 12.40, sharp 0.35, speed-insights 2, tailwind-merge 3, lucide-react 1.18, tailwindcss-animated 2.1. **Deferred, user must opt in: tailwindcss 4, eslint 10, typescript 6, @types/node 25.**
+- `1327d49` About intro: inline links (Appturnity sky-underline, n8builds gradient, Twitch purple), 3 emojis, polaroid snapshot strip (3 tilted photos, straighten on hover, Appturnity one links out).
+- `7084c7a` Bento: cursor-follow glow fixed (handler was on the blob, now on the container — works over text) and rolled out to ALL bento cards via lightweight `useCursorGlow` in `components/ui/BentoGrid.tsx` (single radial div, rAF lerp only while hovered). Cards' dark base is now the blue gradient (`#0c4a6e → #0f172a`).
+- `d519ca1` Projects: heading/blurb left-aligned; blurb streams word-by-word like LLM tokens with blinking caret (`BLURB` const in `components/Projects/index.tsx`); cards un-boxed (no bg/border), alternate image-left/right by index, images 55%-wide; Details modal: IconCycle removed, full-width ImageSlider, new `highlights: string[]` bullets (data in `data/projects.tsx`, type in `lib/types.ts`); ImageSlider fullscreen "Expand" view deleted.
+- `f715e17` Experience: Appturnity entry now has chips for riverwoodranch.web.app, lifelineclinicallab.com, comfort1hvac.com, primeshows.live (from the resume; Riverlakes/Sierra Lakes skipped — resume gives no URLs).
 
 ## Next steps
 
-### 1. ✅ DONE — Remove the contact form (completed 2026-06-12)
+### 1. portfolio.n8builds.dev goes live (BLOCKED on user's Cloudflare action)
 
-Form stack fully deleted (plus orphaned `lib/security/rateLimiter.ts`/`validation.ts`); footer now has the slim routing card (n8builds CTA, Appturnity CTA with swoosh, visible mailto); brand-card "Need something built?" mailtos directly. Deps removed: resend, react-google-recaptcha-v3, react-hook-form, @hookform/resolvers, isomorphic-dompurify, zod, @types/react-google-recaptcha, @types/dompurify. Env examples cleaned. Reference implementation survives at `ce33c78`. Original plan below for reference.
+Decision made: **this portfolio moves to `portfolio.n8builds.dev`**; root n8builds.dev = main site.
 
-<details><summary>Original plan</summary>
+Already done (Vercel CLI, authed as natkins23): `portfolio.n8builds.dev` attached to project `portfolio`; `n8builds.dev` + `www` attached to `n8builds-web`. Registrar→Cloudflare delegation works; **the Cloudflare zone (id `afced55cbbdc5f0e6be1b72143af477e`) is active but has ZERO records**. The user must add, all DNS-only/gray-cloud (proxy breaks Vercel certs): `A @ → 76.76.21.21`, `CNAME www → cname.vercel-dns.com`, `CNAME portfolio → cname.vercel-dns.com`. Local wrangler OAuth token is zone:read only — cannot write DNS; a Zone.DNS-edit API token from the user would allow doing it via API.
 
-### Remove the contact form (decided by user — do not re-ask)
+**After DNS resolves** (check: `curl -s -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=portfolio.n8builds.dev&type=CNAME'`):
+1. Set `NEXT_PUBLIC_SITE_URL=https://portfolio.n8builds.dev` on the Vercel `portfolio` project (`vercel env`), redeploy, verify metadata/canonical/sitemap.
+2. Verify all four n8builds.dev links on the site work (hero CTA, About intro, brand card, footer).
+3. Remind user: resume PDF link should point at the new domain (PDF lives outside this repo).
 
-Rationale: inbound contact will live on n8builds.dev; this site only routes. **No simplified form** — that option was explicitly considered and rejected. Full deletion is fine; user has a clone and git history.
+### 2. GeminiGPT deploy (backlog)
 
-1. `components/layout/Footer.tsx` — delete the ContactForm block (incl. `ContactFormErrorBoundary`, reCAPTCHA badge note). Replace with a slim contact card under the existing "Let's build something amazing together!" heading:
-   - CTA 1: "Get in touch → n8builds.dev" (https://n8builds.dev, n8builds styling like the hero CTA).
-   - CTA 2: "Consulting → Appturnity" (https://appturnity.web.app/ — their site has its own intake/quiz).
-   - Keep a visible `mailto:nathancwatkins23@gmail.com` line — it's the only working contact path until the n8builds.dev domain is connected (it was NOT live as of 2026-06-12; user said he's connecting it now — verify before relying on it).
-2. `components/sections/AppturnityCard.tsx` — "Need something built?" react-scroll Link → replace with `mailto:nathancwatkins23@gmail.com?subject=Consulting%20inquiry` (or link to the Appturnity site); remove `requestSubjectPrefill` usage.
-3. Delete (full file removals): `components/ContactForm/` (5 files), `components/ContactFormErrorBoundary.tsx`, `lib/contactPrefill.ts`, `app/api/contact/route.ts`, `lib/email/` (resend.ts, sender.ts, templates.ts), `lib/security/recaptcha.ts`, `lib/validations/contact.ts`, `tests/api/contact.spec.ts`.
-4. `lib/analytics.ts` — remove `trackContactEvent` only if nothing else uses it (grep first).
-5. Deps now removable: `resend`, `react-google-recaptcha-v3`, `@types/react-google-recaptcha`, `react-hook-form`, `@hookform/resolvers`, `isomorphic-dompurify` (grep each for other usages before removing; zod may be used elsewhere — check).
-6. Nav "Contact" item still points at `#contact` (the footer section) — keep, the slim card is the target. Env vars `RESEND_API_KEY`/`NEXT_PUBLIC_RECAPTCHA_SITE_KEY` become unused.
-7. Note for later: this form stack (route + validation + Resend templates) is the reference implementation to port into `~/n8builds/n8builds-web` for its contact page. It survives in git history at `ce33c78`.
+Deploy `/home/natkins/portfolio/examples/gemini-chat-app` (Railway-ready: railway.json, Dockerfile; env: GEMINI_API_KEY, NEXTAUTH_*, Google OAuth + callback URL, TRUST_PROXY=true). Then add `liveSite` to GeminiGPT in `data/projects.tsx` and replace placeholder screenshots `public/projects/geminigpt*.webp` with populated-chat shots.
 
-Acceptance: type-check + lint clean; `#contact` section renders the slim card; no references to ContactForm/api/contact remain (`grep -rn 'ContactForm\|api/contact\|contactPrefill'`); contact API Playwright spec deleted so `npx playwright test` runs only web-vitals.
+### 3. Small flagged issues (user aware, not yet requested)
 
-</details>
+- Narrow-mobile: hero CTAs sit tight against / possibly overlap the "About me" eyebrow (hero is `h-[72vh] min-h-[34rem]`, `components/sections/Hero.tsx`). Pre-existing.
+- Some card text-overlays still use slate-gray `#1e293b` gradients on the now-bluer bento base (`data/grid/items/gridItem2/3/6.tsx`) — fine in screenshots, possibly muddy.
+- More hero portraits: drop files in `public/hero/`, list in `data/portraits.ts`.
 
-### 2. ✅ DONE — Upgrade dependencies (completed 2026-06-12)
+### 4. Deferred dep majors (separate task, user opt-in)
 
-Safe batch (next 16.2.9, eslint-config-next, @next/bundle-analyzer, @sentry/nextjs 10.57, radix minors, @types/react, @types/node 20.x) plus majors one-at-a-time with builds: framer-motion 12.40, sharp 0.35, @vercel/speed-insights 2, tailwind-merge 3, lucide-react 1.18, tailwindcss-animated 2.1 (animate-fade/-infinite/-duration utilities verified in built CSS). All checks green: type-check, lint (12 pre-existing warnings), 10/10 Playwright, hero-rotation visual smoke. **Still deferred (user must opt in): tailwindcss 4, eslint 10, typescript 6, @types/node 25.** Original plan below.
-
-<details><summary>Original plan</summary>
-
-### Upgrade dependencies ("make the project new")
-
-From `npm outdated` (2026-06-12):
-
-- **Safe batch (wanted/minor):** next 16.2.9, eslint-config-next 16.2.9, @next/bundle-analyzer 16.2.9, @sentry/nextjs 10.57, radix minors, @types/react 19.2.17, isomorphic-dompurify 3.16, react-hook-form 7.78 (moot if removed in step 1). Do `npm update` style bumps, then build + test.
-- **Low-risk majors, do individually with a build between each:** framer-motion 11→12 (check `AnimatePresence` usage in PortraitRotator/ImageSlider/Projects), sharp 0.35, @vercel/speed-insights 2, tailwind-merge 3, lucide-react 1.x, tailwindcss-animated 2 (verify `animate-*` classes used in ScrollButton/LinkButton still exist).
-- **Defer / separate task (user should opt in):** tailwindcss 3.4→4 (big config migration: `tailwind.config.ts` matchUtilities for `bg-grid`, custom breakpoints `1sm/1md/1lg`, darkMode class — Tailwind 4 moves to CSS-first config), eslint 10 (flat-config interactions with eslint-config-next), typescript 6, @types/node 25 (align with runtime; engines says >=20.9).
-
-Acceptance: `npm run build` succeeds, `npm run type-check`/`lint` clean, dev-server visual smoke (hero rotation, project cards, hovers), `npx playwright test --project=chromium` web-vitals spec not worse than before.
-
-</details>
-
-### 3. Backlog (earlier sessions, still open)
-
-- **GeminiGPT live URL**: deploy `/home/natkins/portfolio/examples/gemini-chat-app` (Railway-ready: railway.json, Dockerfile; env: GEMINI_API_KEY, NEXTAUTH_*, Google OAuth + callback URL, TRUST_PROXY=true). Then add `liveSite` to GeminiGPT in `data/projects.tsx` and replace its two placeholder screenshots in `public/projects/geminigpt*.webp` with populated-chat shots.
-- **n8builds.dev domain**: was dead (NXDOMAIN); user connecting it to Vercel. All four site links (hero CTA, Inside Scoop, brand card, footer) depend on it.
-- More hero portraits: drop files in `public/hero/`, list in `data/portraits.ts` (rotator supports `fade | slide | zoom-blur`).
-- Resume typo (in the PDF, not this repo): visible text says `n8portfolio.vercel.app` (404) but the hyperlink targets `nathansportfolio.vercel.app`.
+tailwindcss 3.4→4 (CSS-first config migration: matchUtilities `bg-grid`, custom breakpoints `1sm/1md/1lg`, darkMode class), eslint 10, typescript 6, @types/node 25.
 
 ## Conventions & gotchas
 
-- Commit after every logical change (user's global rule), trailer: `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`. Conventional-commit style messages (`feat(scope): …`). Don't push unless asked.
-- Husky pre-commit runs eslint --fix via lint-staged; a JSX syntax error aborts the commit and **reverts staged changes** — fix and re-stage.
-- Background `npm run dev` tasks get SIGTERM'd by the harness; for scripted browser checks run server + script in ONE foreground Bash command. Never `pkill -f 'next dev --port 4829'` — the pattern matches the shell's own wrapper and kills your command (exit 144).
-- Ports: portfolio 4829; user's unrelated projects occupy 3001 (asset-arsenal) and 7678 (portfolio-rank) — don't kill those.
-- Playwright API tests sent REAL emails via Resend (rate-limited at 5 req/s → 500s). Goes away when the form is removed.
-- Verification pattern: Playwright script with `chromium.launch({ args: ['--no-sandbox'] })`, slow-scroll to trigger framer-motion viewport animations before screenshots (sections are opacity-0 until scrolled into view).
+- Commit after every logical change, conventional-commit style, trailer `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`. This session pushes to origin/main (auto-deploys Vercel).
+- **Turbopack stale-CSS cache**: brand-new Tailwind utility classes can silently render width-0 from a stale `.next` persistent cache. Stop the server FIRST, then `rm -rf .next`, then restart — `rm -rf .next` under a running server corrupts the cache ("Compaction failed").
+- Kill the dev server by port: `lsof -t -i:4829 | xargs -r kill` — zsh doesn't word-split `$(...)` into `kill`, and pgrep/pkill by pattern matches your own shell wrapper (exit 144).
+- Detached dev server pattern that survives the session: `setsid nohup npm run dev >/tmp/portfolio-dev.log 2>&1 < /dev/null &`. First request after cold start compiles for ~30-60s — curls hang, not dead.
+- Playwright suite can mass-fail with beforeEach networkidle timeouts when parallel workers stampede a cold/post-HMR dev server — warm `/` once and re-run before believing failures.
+- Verification pattern: Playwright script `chromium.launch({ args: ['--no-sandbox'] })`, run from the REPO ROOT (scripts in /tmp can't resolve `@playwright/test`), slow-scroll first — sections are opacity-0 until scrolled into view.
 - 12 pre-existing lint warnings (React Compiler/refs) — not errors, ignore.
-- Turbopack (`next dev`) persistent cache in `.next` can serve **stale Tailwind CSS** — brand-new utility classes (e.g. a first-ever `w-24`) silently render width 0. Fix: stop the server FIRST, then `rm -rf .next`, then restart. Never `rm -rf .next` under a running server (corrupts the cache: "Compaction failed"). Also: kill by port with `lsof -t -i:4829 | xargs -r kill` — zsh doesn't word-split `$(...)` into `kill`, and pgrep-by-pattern matches your own shell (exit 144).
-- Appturnity brand: primary `#237EF6`, light theme, SVG swoosh understroke (`M1 5.5C54.5 2.5 150.5 1.5 299 11.5`, replicated in Hero CTA). n8builds brand: cyan-400→blue-600 on `#050812`. Twitch/YouTube handle **n8builds**; GitHub/X/LinkedIn **n8watkins**.
-- SiteForge = internal Appturnity engine (`/home/natkins/appturnity/site-forge/la-pool-engine`), no public URL — described, never linked.
+- Ports: 4829 = this app; 3001 and 7678 belong to the user's other projects — don't kill.
+- Appturnity brand: `#237EF6`, swoosh path `M1 5.5C54.5 2.5 150.5 1.5 299 11.5`. n8builds: cyan-400→blue-600 on `#050812`. Twitch/YouTube handle **n8builds**; GitHub/X/LinkedIn **n8watkins**. SiteForge = internal Appturnity engine, described but never linked.
+- User decisions already made — do NOT re-ask: no contact form ever (routing card only); projects have no card boxes; ImageSlider has no fullscreen view; Details modal = bullets not icon-cycle; portfolio lives at portfolio.n8builds.dev.
 
 ## File map (for the next steps)
 
-- `components/layout/Footer.tsx` — heading + form block to replace with slim contact card
-- `components/sections/AppturnityCard.tsx` — consulting CTA to re-point; brand cards
-- `components/ContactForm/*`, `components/ContactFormErrorBoundary.tsx` — delete
-- `app/api/contact/route.ts`, `lib/email/*`, `lib/security/recaptcha.ts`, `lib/validations/contact.ts`, `lib/contactPrefill.ts` — delete
-- `tests/api/contact.spec.ts` — delete; `tests/web-vitals.spec.ts` — keep
-- `package.json` — dep removals + upgrades; `data/projects.tsx` — GeminiGPT liveSite later
-- `components/sections/Hero.tsx` — reference for n8builds/Appturnity CTA styling to reuse in footer card
+- `components/sections/Hero.tsx` — hero, CTAs, mobile-overlap issue
+- `components/sections/Grid.tsx` — About intro (links/emojis/snapshots) + bento wrapper
+- `components/ui/BentoGrid.tsx` — `useCursorGlow` + card base gradient
+- `components/ui/background-gradient-animation.tsx` — email-card animated gradient (handler on container)
+- `components/Projects/{index,ProjectCard,ProjectModal,ImageSlider}.tsx` — projects section
+- `data/projects.tsx` — project copy, `highlights` bullets, GeminiGPT `liveSite` goes here
+- `data/experience.tsx` — experience entries + link chips
+- `data/grid/items/` — bento card configs (overlay gradients live here)
+- `app/layout.tsx` / env — `NEXT_PUBLIC_SITE_URL` consumers for the domain switch
