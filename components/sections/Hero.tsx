@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import GridBackground from '@/components/ui/GridBackground'
 import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
@@ -7,6 +6,8 @@ import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
 import { staggerContainerVariants } from '@/lib/animations'
 import ScrollButton from '@/components/ui/BentoComponents/ScrollButton'
+import PortraitRotator from '@/components/sections/PortraitRotator'
+import { heroPortraits } from '@/data/portraits'
 
 const Hero = () => {
   return (
@@ -161,14 +162,10 @@ const Hero = () => {
             className="w-[15rem] h-[15rem] 1sm:w-[17rem] 1sm:h-[17rem] 1lg:w-[19rem] 1lg:h-[19rem] sm:w-[22rem] sm:h-[22rem] relative">
             <div className="aspect-square w-full h-full relative">
               <div className="absolute inset-0 dark:bg-black/20 rounded-full z-10"></div>
-              <Image
-                src="/hero/portrait.jpg"
-                className="rounded-full object-cover"
-                fill
-                priority
-                placeholder="blur"
+              <PortraitRotator
+                images={heroPortraits}
+                transition="fade"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                sizes="(max-width: 320px) 17rem, (max-width: 768px) 17rem, 20rem"
                 alt="Professional headshot of Nathan Watkins, an AI full-stack developer"
               />
             </div>
