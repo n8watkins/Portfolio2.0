@@ -45,22 +45,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       variants={staggerItemVariants}
       className="relative flex flex-col items-start bg-gradient-to-br from-blue-700 via-blue-500 to-blue-700 dark:bg-gradient-to-br dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] justify-center p-3 lg:p-4 xl:p-6 w-full max-w-full min-w-0 rounded-xl col-span-1 border border-white/[.2] shadow-md overflow-hidden"
     >
-      <div>
-        <div className="relative w-full pt-[56.25%] rounded-xl mb-4 overflow-hidden">
-          <div
-            onClick={() => onProjectClick(project)}
-            className="absolute inset-0 rounded-xl cursor-pointer overflow-hidden"
-          >
-            <Image
-              src={project.images[0]}
-              alt={project.title}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="rounded-xl select-none object-cover hover:scale-[1.01] duration-200 transform-gpu will-change-transform"
-            />
+      <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full items-stretch">
+        <div className="relative w-full md:w-[46%] flex-shrink-0">
+          <div className="relative w-full pt-[56.25%] md:pt-0 md:h-full md:min-h-[16rem] rounded-xl overflow-hidden">
+            <div
+              onClick={() => onProjectClick(project)}
+              className="absolute inset-0 rounded-xl cursor-pointer overflow-hidden"
+            >
+              <Image
+                src={project.images[0]}
+                alt={project.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 45vw"
+                className="rounded-xl select-none object-cover hover:scale-[1.01] duration-200 transform-gpu will-change-transform"
+              />
+            </div>
           </div>
         </div>
-        <div className="relative flex flex-col w-full max-w-full overflow-hidden">
+        <div className="relative flex flex-col flex-1 min-w-0 max-w-full overflow-hidden justify-center">
           <div className="flex w-full justify-between items-start gap-2 min-w-0 select-none">
             <div className="flex flex-col flex-1 min-w-0">
               {project.liveSite ? (

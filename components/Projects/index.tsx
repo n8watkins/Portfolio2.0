@@ -85,7 +85,7 @@ const Projects: React.FC = () => {
       <motion.div
         variants={staggerContainerSlowVariants}
         {...defaultAnimationConfig}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-4 xl:gap-5 2xl:gap-6">
+        className="grid grid-cols-1 gap-6 lg:gap-8 w-full px-2 md:px-4">
       {projects.map((project: Project) => (
         <ProjectCard
           key={project.id}
