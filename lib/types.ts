@@ -25,7 +25,7 @@ export interface Project {
   images: string[]
   technologies: Technologies
   github?: string
-  liveSite: string
+  liveSite?: string
 }
 
 export type TechNameMappingInterface = {

@@ -1,124 +1,67 @@
 export const projects = [
-    {
-      id: 1,
-      title: 'Appturnity',
-      subTitle: 'Software Consulting',
-      des: 'App consulting service that helps clients validate and scope new software ideas in a clear, modern layout.',
-      images: [
-        '/projects/Appturnity.webp',
-        '/projects/Appturnity1.webp',
-        '/projects/Appturnity2.webp',
-        '/projects/Appturnity3.webp',
-
-      ],
-      technologies: {
-        Frontend: {
-          descriptionParts: [
-            {
-              text: 'Simple, clean UI with component-based design',
-              icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
-            },
-            {
-              text: 'Type-safe architecture for reliable UX',
-              icons: [{ icon: 'ts.svg' }],
-            },
-          ],
-        },
-        Backend: {
-          descriptionParts: [
-            {
-              text: 'Job matching logic powered by ChatGPT embeddings',
-              icons: [{ icon: 'gpt.png' }],
-            },
-
-          ],
-        },
-        Cloud: {
-          descriptionParts: [
-            {
-              text: 'Development IDE and production deployment with Replit',
-              icons: [{ icon: 'replit.png' }],
-            },
-            {
-              text: 'Version control via GitHub',
-              icons: [{ icon: 'github.png' }],
-            },
-          ],
-        },
-      },
-      github: 'https://github.com/n8watkins/appturnity',
-      liveSite: 'https://appturnity.web.app/',
-    },
-    {
-      id: 2,
-      title: 'Welcome Page',
-      subTitle: 'Property Management',
-      des: `A platform designed to streamline board duties with login access, document upload, and email forwarding.`,
-      images: [
-        '/projects/riverwood.webp',
-        '/projects/riverwood1.webp',
-        '/projects/riverwood2.webp',
-        '/projects/riverwood3.webp',
-        '/projects/riverwood4.webp',
-        '/projects/riverwood5.webp',
-      ],
-      technologies: {
-        Frontend: {
-          descriptionParts: [
-            {
-              text: 'Responsive design with modern UI',
-              icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
-            },
-            {
-              text: 'Fast development and hot module replacement with Vite',
-              icons: [{ icon: 'vite.svg' }],
-            },
-            {
-              text: 'Type-safe development using TypeScript',
-              icons: [{ icon: 'ts.svg' }],
-            },
-          ],
-        },
-        Backend: {
-          descriptionParts: [
-            {
-              text: 'RESTful API developed with Express.js',
-              icons: [{ icon: 'express.svg' }],
-            },
-            {
-              text: 'Data modeling and validation using Zod',
-              icons: [{ icon: 'zod.png' }],
-            },
-            {
-              text: 'Database managed with Drizzle ORM',
-              icons: [{ icon: 'drizzle.png' }],
-            },
-            {
-              text: 'Authentication and real-time data',
-              icons: [{ icon: 'firebase.png' }],
-            },
-          ],
-        },
-        Cloud: {
-          descriptionParts: [
-            {
-              text: 'Deployed on Firebase Hosting',
-              icons: [{ icon: 'firebase.png' }],
-            },
-            {
-              text: 'Version control and collaboration via GitHub',
-              icons: [{ icon: 'github.svg' }],
-            },
-          ],
-        },
-      },
-      liveSite: 'https://riverwoodranch.web.app/',
-    },
   {
-    id: 3,
+    id: 1,
+    title: 'GeminiGPT',
+    subTitle: 'AI Chat Platform',
+    des: `A full-stack AI chat platform powered by Google's Gemini 2.5 Flash. Supports multi-chat sessions, cross-chat semantic search over LanceDB vector embeddings, PDF and DOCX document understanding, and real-time response streaming over WebSockets — with a bring-your-own-key model that keeps usage private.`,
+    images: ['/projects/geminigpt.webp', '/projects/geminigpt1.webp'],
+    technologies: {
+      Frontend: {
+        descriptionParts: [
+          {
+            text: 'Responsive chat UI with modern components',
+            icons: [{ icon: 're.svg' }, { icon: 'tail.svg' }],
+          },
+          {
+            text: 'Next.js App Router with server-side rendering',
+            icons: [{ icon: 'next.svg' }],
+          },
+          {
+            text: 'End-to-end type safety',
+            icons: [{ icon: 'ts.svg' }],
+          },
+        ],
+      },
+      Backend: {
+        descriptionParts: [
+          {
+            text: 'Gemini 2.5 Flash with streaming responses and function calling',
+            icons: [{ icon: 'gemini.svg' }],
+          },
+          {
+            text: 'Real-time message streaming over WebSockets',
+            icons: [{ icon: 'socketio.svg' }],
+          },
+          {
+            text: 'SQLite chat persistence + LanceDB vector search across conversations',
+            icons: [{ icon: 'sqlite.svg' }],
+          },
+          {
+            text: 'Custom Node server with PDF / DOCX document processing',
+            icons: [{ icon: 'node.png' }],
+          },
+        ],
+      },
+      Cloud: {
+        descriptionParts: [
+          {
+            text: 'Containerized deployment on Railway',
+            icons: [{ icon: 'railway.svg' }, { icon: 'dock.svg' }],
+          },
+          {
+            text: 'Version control and CI via GitHub',
+            icons: [{ icon: 'github.png' }],
+          },
+        ],
+      },
+    },
+    github: 'https://github.com/n8watkins/GeminiGPT',
+  },
+  {
+    id: 2,
     title: 'Net-Trailer',
     subTitle: 'Netflix Clone',
-    des: 'Find and watch Movie and TV trailers, providing a similar experience to the popular streaming platform',
+    des: `A Netflix-style streaming experience: browse TMDB-powered titles, watch trailers, and build a personal watchlist. Includes secure authentication with NextAuth, full Stripe and PayPal subscription checkout flows, and Firebase-backed persistence.`,
     images: [
       '/projects/netflix.webp',
       '/projects/netflix1.webp',
@@ -174,68 +117,6 @@ export const projects = [
     github: 'https://github.com/n8watkins/net_trailer',
     liveSite: 'https://net-trailers.vercel.app/',
   },
-  {
-    id: 4,
-    title: 'Quizmatic',
-    subTitle: 'AI Quiz Generation',
-    des: `An AI application that leverages OpenAI\'s ChatGPT to generate tailored quizzes on various topics.`,
-    images: [
-      '/projects/quizmatic.webp',
-      '/projects/quizmatic1.webp',
-      '/projects/quizmatic2.webp',
-      '/projects/quizmatic3.webp',
-    ],
-    technologies: {
-      Frontend: {
-        descriptionParts: [
-          {
-            text: 'A responsive design with modern UI components',
-            icons: [{ icon: 're.svg' }, { icon: 'shadcn.png' }, { icon: 'tail.svg' }],
-          },
-          {
-            text: 'Leveraging Next.js for SSR, SSG, and efficient routing',
-            icons: [{ icon: 'next.svg' }],
-          },
-          {
-            text: 'Enhancing reliability with type safety',
-            icons: [{ icon: 'ts.svg' }],
-          },
-        ],
-      },
-      Backend: {
-        descriptionParts: [
-          {
-            text: 'Server-side validation and type checking',
-            icons: [{ icon: 'zod.png' }],
-          },
-          {
-            text: 'ORM managed database with type-saftey schema validation',
-            icons: [{ icon: 'prisma.png' }, { icon: 'PostgreSQL.png' }],
-          },
-          {
-            text: 'Integrated ChatGPT for user tailored quiz generation ',
-            icons: [{ icon: 'gpt.png' }],
-          },
-        ],
-      },
-      Cloud: {
-        descriptionParts: [
-          {
-            text: 'Deployed with modern hosting and version control',
-            icons: [{ icon: 'vercel.png' }, { icon: 'github.png' }],
-          },
-          {
-            text: 'Utilized Supabase for real-time database functionality, authentication, and serverless APIs',
-            icons: [{ icon: 'supabase.png' }],
-          },
-        ],
-      },
-    },
-    github: 'https://github.com/n8watkins/Quizmatic',
-    liveSite: 'https://quizmatic.vercel.app/',
-  }
-
-
 ]
 
 export const techNameMapping = {
@@ -265,6 +146,10 @@ export const techNameMapping = {
   'wha.svg': 'WhatsApp API',
   'insta.svg': 'Instagram API',
   'gpt.png': 'ChatGPT API',
+  'gemini.svg': 'Gemini API',
+  'socketio.svg': 'Socket.IO',
+  'sqlite.svg': 'SQLite',
+  'railway.svg': 'Railway',
   //----->Auth
   'clerk.svg': 'Clerk',
   'nextAuth.png': 'NextAuth',
