@@ -43,7 +43,7 @@
     "sharp": "^0.35.1",
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-animated": "^1.1.2"
+    "tailwindcss-animated": "^2.1.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
