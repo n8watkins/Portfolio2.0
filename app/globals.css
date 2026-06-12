@@ -117,7 +117,7 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {

@@ -7,6 +7,7 @@ export type WorkExperienceItem = {
   period: string
   bullets: string[]
   links?: { label: string; url: string }[]
+  hoverImage?: string
   additional?: boolean
 }
 
@@ -26,6 +27,7 @@ export const workExperience: WorkExperienceItem[] = [
     links: [
       { label: 'riverwoodranch.web.app', url: 'https://riverwoodranch.web.app/' },
     ],
+    hoverImage: '/projects/Appturnity.webp',
   },
   {
     id: 2,
@@ -39,6 +41,7 @@ export const workExperience: WorkExperienceItem[] = [
       'Improved mobile Lighthouse scores by 40 points across all projects.',
     ],
     links: [{ label: 'arroyosecogc.com', url: 'https://www.arroyosecogc.com/' }],
+    hoverImage: '/experience/arroyoseco.webp',
   },
   {
     id: 3,
@@ -54,6 +57,7 @@ export const workExperience: WorkExperienceItem[] = [
   {
     id: 4,
     company: 'The Coder School',
+    companyUrl: 'https://www.thecoderschool.com/locations/santamonica/',
     location: 'Santa Monica, CA',
     role: 'Programming Instructor',
     period: 'June 2024 – Present',
@@ -61,5 +65,6 @@ export const workExperience: WorkExperienceItem[] = [
     bullets: [
       'Teach full-stack development with JavaScript and Python, including LLM-assisted coding and debugging.',
     ],
+    hoverImage: '/experience/coderschool.webp',
   },
 ]

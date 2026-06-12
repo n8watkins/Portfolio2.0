@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { workExperience } from '@/data/experience'
@@ -46,7 +47,25 @@ const Experience = () => {
                   <div className="absolute left-0 top-[14px] w-[19px] h-[19px] rounded-full bg-sky-500 border-[3px] border-slate-900 shadow-lg shadow-sky-500/40" />
 
                   {/* Card */}
-                  <div className="rounded-xl p-5 md:p-6 bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:shadow-black/50 hover:border-white/10 transition-all duration-300">
+                  <div className="group relative overflow-hidden rounded-xl p-5 md:p-6 bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:shadow-black/50 hover:border-sky-500/30 transition-all duration-300">
+
+                    {/* Hover image reveal (desktop only) */}
+                    {item.hoverImage && (
+                      <div
+                        className="absolute inset-y-0 right-0 w-[45%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none hidden md:block"
+                        aria-hidden="true">
+                        <Image
+                          src={item.hoverImage}
+                          alt=""
+                          fill
+                          sizes="40vw"
+                          className="object-cover object-center [mask-image:linear-gradient(to_left,black_40%,transparent)] scale-105 group-hover:scale-100 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-slate-950/30" />
+                      </div>
+                    )}
+
+                    <div className="relative z-10">
 
                     {/* Period + location */}
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-2">
@@ -104,6 +123,7 @@ const Experience = () => {
                         ))}
                       </div>
                     )}
+                    </div>
                   </div>
                 </motion.div>
               </React.Fragment>
