@@ -64,13 +64,23 @@ const Projects: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col my-20 items-center justify-center gap-5 w-full text-slate-200 mb-40 ">
+    <div className="flex flex-col my-20 items-center justify-center gap-5 w-full text-slate-200 mb-16 ">
       <motion.h2
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
-        className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
-        Some <span className="text-sky-400 lg:inline">recent projects</span>
+        className="text-5xl font-bold pt-10 pb-4 text-center text-slate-800 dark:text-slate-200 select-none">
+        Building for the <span className="text-sky-400 lg:inline">AI-native web</span>
       </motion.h2>
+
+      <motion.p
+        variants={fadeInUpVariants}
+        {...defaultAnimationConfig}
+        className="max-w-2xl mx-auto px-4 mb-8 text-center text-base md:text-lg text-slate-600 dark:text-slate-400 select-none">
+        Generative AI is changing what software can be — and how it gets built. These two
+        projects are where I explore that shift hands-on: streaming AI interfaces, semantic
+        search over vector embeddings, and the full-stack plumbing that makes intelligent
+        products feel effortless.
+      </motion.p>
 
       <motion.div
         variants={staggerContainerSlowVariants}
