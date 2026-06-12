@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import ScrollButton from '@/components/ui/BentoComponents/ScrollButton'
+import LinkButton from '@/components/ui/BentoComponents/LinkButton'
 import type { GridItemConfig } from '@/lib/types/gridItem'
 
 /**
@@ -8,7 +8,7 @@ import type { GridItemConfig } from '@/lib/types/gridItem'
  * VISUAL STRATEGY:
  * - Code/development icon as background
  * - Gradient overlay at bottom for text readability
- * - CTA button to scroll to projects section
+ * - CTA button out to n8builds.dev where the build is documented
  * - Highlights current work (AI lead generation tool)
  */
 export const gridItem6: GridItemConfig = {
@@ -50,10 +50,10 @@ export const gridItem6: GridItemConfig = {
   renderContent: () => (
     <div className="flex absolute items-end justify-start w-full h-full pl-5 md:pl-6 lg:pl-8 pb-24 md:pb-28 lg:pb-32">
       <div className="flex items-center justify-center">
-        <ScrollButton
-          link="projects"
+        <LinkButton
+          href="https://n8builds.dev"
           className="lg:h-14 w-fit whitespace-nowrap 1md:w-40"
-          text="Check it out!"
+          text="Follow the build"
         />
       </div>
     </div>
