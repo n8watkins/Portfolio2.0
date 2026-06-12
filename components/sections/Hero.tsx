@@ -5,17 +5,16 @@ import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
 import { staggerContainerVariants } from '@/lib/animations'
-import ScrollButton from '@/components/ui/BentoComponents/ScrollButton'
 import PortraitRotator from '@/components/sections/PortraitRotator'
 import { heroPortraits } from '@/data/portraits'
 
 const Hero = () => {
   return (
     <div
-      className="relative flex flex-col h-[85vh] items-center justify-center bg-blue-400 dark:bg-darkBlue transition-bg select-none"
+      className="relative flex flex-col h-[72vh] min-h-[34rem] items-center justify-center bg-blue-400 dark:bg-darkBlue transition-bg select-none"
       id="home">
       <GridBackground />
-      <div className="max-w-[100vw] h-[85vh] md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
+      <div className="max-w-[100vw] h-full md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
         <motion.p
           initial="hidden"
           animate="visible"
@@ -111,48 +110,57 @@ const Hero = () => {
                   >
                     <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
                   </motion.a>
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 1.6 }}
-                    className="hidden md:block w-px h-6 bg-slate-300 dark:bg-slate-700"
-                    aria-hidden="true"
-                  />
-                  <motion.a
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 1.65, ease: [0.25, 0.1, 0.25, 1] }}
-                    href="https://n8builds.dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit my main site, n8builds.dev"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400/60 dark:hover:text-sky-400 transition-colors duration-200"
-                  >
-                    n8builds.dev
-                    <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
-                  </motion.a>
-                  <motion.a
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
-                    href="https://appturnity.web.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit Appturnity, my consulting company"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400/60 dark:hover:text-sky-400 transition-colors duration-200"
-                  >
-                    Appturnity
-                    <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
-                  </motion.a>
                 </div>
               </nav>
             </div>
+
+            {/* Brand CTAs — the two places this card funnels to */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.7, ease: [0.25, 0.1, 0.25, 1] }}
-              className="flex w-full items-center md:justify-start justify-center">
-              <ScrollButton link="about" text="See more" />
+              transition={{ duration: 0.5, delay: 1.65, ease: [0.25, 0.1, 0.25, 1] }}
+              className="flex w-full flex-wrap items-center md:justify-start justify-center gap-3 pt-1">
+              <a
+                href="https://n8builds.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit my main site, n8builds.dev"
+                className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-sky-400/40 text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-white hover:border-transparent hover:bg-gradient-to-r hover:from-cyan-400 hover:to-blue-600 hover:shadow-lg hover:shadow-sky-500/40 transition-all duration-300"
+              >
+                n8builds.dev
+                <FiArrowUpRight
+                  className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  aria-hidden="true"
+                />
+              </a>
+              <a
+                href="https://appturnity.web.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Appturnity, my consulting company"
+                className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-400 dark:border-slate-600 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-white hover:text-slate-900 hover:border-white hover:shadow-lg hover:shadow-slate-100/20 transition-all duration-300"
+              >
+                <span className="relative">
+                  Appturnity
+                  {/* Appturnity's hand-drawn understroke, shown on hover */}
+                  <svg
+                    className="absolute -bottom-1.5 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#237EF6]/40"
+                    viewBox="0 0 300 12"
+                    fill="none"
+                    aria-hidden="true">
+                    <path
+                      d="M1 5.5C54.5 2.5 150.5 1.5 299 11.5"
+                      stroke="currentColor"
+                      strokeWidth="14"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+                <FiArrowUpRight
+                  className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  aria-hidden="true"
+                />
+              </a>
             </motion.div>
           </div>
           <motion.div
