@@ -1,6 +1,6 @@
 # HANDOFF — portfolio2.0
 
-_Last updated: 2026-06-12 (session: digital-card redesign, round 2)_
+_Last updated: 2026-06-12 (session: contact-form removal + dependency upgrades)_
 
 ## Project summary
 
@@ -20,12 +20,18 @@ Recent session commits (newest first): `ce33c78` Appturnity-CTA hover fix, `56b7
 - Hero: rotating portrait (`data/portraits.ts`, 2 images, 3s fade), animated grid squares, two brand-hover CTAs (n8builds gradient / Appturnity white + understroke swoosh). "See more" removed. 72vh.
 - Nav: always visible, text-only, headshot scrolls to top, react-scroll `offset={-80}`.
 - Experience: company/client links (arroyosecogc.com, riverwoodranch.web.app, Coder School Santa Monica), hover image reveals (`hoverImage` in `data/experience.tsx`).
-- Brand section (`components/sections/AppturnityCard.tsx`): big Appturnity card (live-site screenshot, SiteForge story) + n8builds card (gradient wordmark). The "Need something built?" CTA currently scrolls to the contact form and preselects the consulting subject via `lib/contactPrefill.ts`.
-- Contact form (footer): full Resend + reCAPTCHA form — **scheduled for removal, see Next steps.**
+- Brand section (`components/sections/AppturnityCard.tsx`): big Appturnity card (live-site screenshot, SiteForge story) + n8builds card (gradient wordmark). The "Need something built?" CTA mailtos `nathancwatkins23@gmail.com?subject=Consulting inquiry`.
+- Footer (`#contact`): slim routing card — n8builds gradient CTA, Appturnity white+swoosh CTA, visible mailto. The old Resend + reCAPTCHA form was removed 2026-06-12 (see Next steps #1).
 
 ## Next steps
 
-### 1. Remove the contact form (decided by user — do not re-ask)
+### 1. ✅ DONE — Remove the contact form (completed 2026-06-12)
+
+Form stack fully deleted (plus orphaned `lib/security/rateLimiter.ts`/`validation.ts`); footer now has the slim routing card (n8builds CTA, Appturnity CTA with swoosh, visible mailto); brand-card "Need something built?" mailtos directly. Deps removed: resend, react-google-recaptcha-v3, react-hook-form, @hookform/resolvers, isomorphic-dompurify, zod, @types/react-google-recaptcha, @types/dompurify. Env examples cleaned. Reference implementation survives at `ce33c78`. Original plan below for reference.
+
+<details><summary>Original plan</summary>
+
+### Remove the contact form (decided by user — do not re-ask)
 
 Rationale: inbound contact will live on n8builds.dev; this site only routes. **No simplified form** — that option was explicitly considered and rejected. Full deletion is fine; user has a clone and git history.
 
@@ -42,7 +48,15 @@ Rationale: inbound contact will live on n8builds.dev; this site only routes. **N
 
 Acceptance: type-check + lint clean; `#contact` section renders the slim card; no references to ContactForm/api/contact remain (`grep -rn 'ContactForm\|api/contact\|contactPrefill'`); contact API Playwright spec deleted so `npx playwright test` runs only web-vitals.
 
-### 2. Upgrade dependencies ("make the project new")
+</details>
+
+### 2. ✅ DONE — Upgrade dependencies (completed 2026-06-12)
+
+Safe batch (next 16.2.9, eslint-config-next, @next/bundle-analyzer, @sentry/nextjs 10.57, radix minors, @types/react, @types/node 20.x) plus majors one-at-a-time with builds: framer-motion 12.40, sharp 0.35, @vercel/speed-insights 2, tailwind-merge 3, lucide-react 1.18, tailwindcss-animated 2.1 (animate-fade/-infinite/-duration utilities verified in built CSS). All checks green: type-check, lint (12 pre-existing warnings), 10/10 Playwright, hero-rotation visual smoke. **Still deferred (user must opt in): tailwindcss 4, eslint 10, typescript 6, @types/node 25.** Original plan below.
+
+<details><summary>Original plan</summary>
+
+### Upgrade dependencies ("make the project new")
 
 From `npm outdated` (2026-06-12):
 
@@ -51,6 +65,8 @@ From `npm outdated` (2026-06-12):
 - **Defer / separate task (user should opt in):** tailwindcss 3.4→4 (big config migration: `tailwind.config.ts` matchUtilities for `bg-grid`, custom breakpoints `1sm/1md/1lg`, darkMode class — Tailwind 4 moves to CSS-first config), eslint 10 (flat-config interactions with eslint-config-next), typescript 6, @types/node 25 (align with runtime; engines says >=20.9).
 
 Acceptance: `npm run build` succeeds, `npm run type-check`/`lint` clean, dev-server visual smoke (hero rotation, project cards, hovers), `npx playwright test --project=chromium` web-vitals spec not worse than before.
+
+</details>
 
 ### 3. Backlog (earlier sessions, still open)
 
