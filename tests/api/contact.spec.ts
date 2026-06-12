@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test'
  * - Error handling
  */
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:4829'
 
 // Helper function to create valid form data
 function createValidFormData(overrides: Partial<any> = {}) {
