@@ -1,11 +1,12 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Link } from 'react-scroll'
 import { FiArrowUpRight, FiGithub } from 'react-icons/fi'
 import { FaTwitch, FaYoutube, FaXTwitter } from 'react-icons/fa6'
-import { fadeInUpVariants, staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
+import { staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 import { requestSubjectPrefill } from '@/lib/contactPrefill'
 
 const followLinks = [
@@ -32,8 +33,8 @@ const followLinks = [
 ]
 
 /**
- * Brand / "digital card" section: introduces Appturnity (consulting) and
- * points visitors at n8builds.dev and the live-build socials.
+ * Brand / "digital card" section: Appturnity (consulting) and n8builds.dev
+ * (build-in-public log) — the two places this site funnels visitors.
  */
 const AppturnityCard = () => {
   return (
@@ -41,72 +42,114 @@ const AppturnityCard = () => {
       <motion.div
         variants={staggerContainerVariants}
         {...defaultAnimationConfig}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Consulting card */}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+
+        {/* Appturnity — consulting */}
         <motion.div
           variants={staggerItemVariants}
-          className="rounded-xl p-6 md:p-8 bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
-          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
-            Consulting
-          </p>
-          <h3 className="text-2xl md:text-3xl font-bold text-slate-100">Appturnity</h3>
-          <p className="text-sm md:text-base text-slate-400 leading-relaxed mt-2 mb-6 flex-1">
-            My consulting company — custom apps and AI automation for small businesses.
-            If you have a project in mind, I&apos;d love to hear about it.
-          </p>
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href="https://appturnity.web.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-700 text-sm text-slate-300 hover:text-sky-400 hover:border-sky-400/60 transition-colors duration-200">
-              appturnity.web.app
-              <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
-            </a>
-            <Link
-              to="contact"
-              smooth={true}
-              offset={-80}
-              duration={300}
-              onClick={() => requestSubjectPrefill('consulting')}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sky-500/15 border border-sky-500/30 text-sm text-sky-300 hover:bg-sky-500/25 hover:border-sky-400/60 cursor-pointer transition-colors duration-200">
-              Need something built?
-            </Link>
+          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
+          <a
+            href="https://appturnity.web.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Appturnity"
+            className="relative block aspect-[16/8] overflow-hidden">
+            <Image
+              src="/brand/appturnity-site.webp"
+              alt="The Appturnity website"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+          </a>
+          <div className="p-6 md:p-8 flex flex-col flex-1">
+            <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
+              Consulting
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold text-slate-100">Appturnity</h3>
+            <p className="text-sm md:text-base text-slate-400 leading-relaxed mt-3 mb-6 flex-1">
+              My consulting company — custom apps and AI automation for small businesses,
+              from healthcare to property management to HVAC. The current obsession is{' '}
+              <span className="text-slate-200 font-semibold">SiteForge</span>: an engine
+              that audits local businesses and auto-builds each one a polished,
+              ready-to-launch website, then turns that into an ongoing care plan.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="https://appturnity.web.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-700 text-sm text-slate-300 hover:text-sky-400 hover:border-sky-400/60 transition-colors duration-200">
+                appturnity.web.app
+                <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+              </a>
+              <Link
+                to="contact"
+                smooth={true}
+                offset={-80}
+                duration={300}
+                onClick={() => requestSubjectPrefill('consulting')}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sky-500/15 border border-sky-500/30 text-sm text-sky-300 hover:bg-sky-500/25 hover:border-sky-400/60 cursor-pointer transition-colors duration-200">
+                Need something built?
+              </Link>
+            </div>
           </div>
         </motion.div>
 
-        {/* Follow card */}
+        {/* n8builds.dev — build in public */}
         <motion.div
           variants={staggerItemVariants}
-          className="rounded-xl p-6 md:p-8 bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
-          <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
-            Follow the work
-          </p>
-          <h3 className="text-2xl md:text-3xl font-bold text-slate-100">n8builds.dev</h3>
-          <p className="text-sm md:text-base text-slate-400 leading-relaxed mt-2 mb-6 flex-1">
-            Everything I&apos;m building lives on my main site — and I sometimes build live
-            on Twitch and YouTube.
-          </p>
-          <div className="flex flex-wrap items-center gap-2">
-            <a
-              href="https://n8builds.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-700 text-sm text-slate-300 hover:text-sky-400 hover:border-sky-400/60 transition-colors duration-200 mr-1">
-              n8builds.dev
-              <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
-            </a>
-            {followLinks.map((social) => (
+          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
+          <a
+            href="https://n8builds.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit n8builds.dev"
+            className="relative block aspect-[16/8] overflow-hidden bg-[#050812]">
+            {/* Brand visual — cyan-to-blue wordmark on deep navy */}
+            <div className="absolute inset-0 bg-grid-white/[0.04]" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              <span className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 group-hover:from-cyan-300 group-hover:to-blue-500 transition-colors duration-300">
+                n8builds.dev
+              </span>
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                Build log
+              </span>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent pointer-events-none" />
+          </a>
+          <div className="p-6 md:p-8 flex flex-col flex-1">
+            <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
+              Follow the work
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold text-slate-100">n8builds.dev</h3>
+            <p className="text-sm md:text-base text-slate-400 leading-relaxed mt-3 mb-6 flex-1">
+              My build log. I&apos;m making a whole lot of things at once — AI products,
+              automations, dev tools — and shipping them in public. Sometimes I&apos;m live
+              while I do it: catch the streams on Twitch and YouTube.
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
               <a
-                key={social.label}
-                href={social.href}
+                href="https://n8builds.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Follow Nathan on ${social.label}`}
-                className="w-11 h-11 rounded-full text-slate-300 hover:text-sky-400 hover:bg-slate-700/70 transition-colors duration-200">
-                {social.icon}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-700 text-sm text-slate-300 hover:text-sky-400 hover:border-sky-400/60 transition-colors duration-200 mr-1">
+                n8builds.dev
+                <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>
-            ))}
+              {followLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow Nathan on ${social.label}`}
+                  className="w-11 h-11 rounded-full text-slate-300 hover:text-sky-400 hover:bg-slate-700/70 transition-colors duration-200">
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </motion.div>
       </motion.div>
