@@ -71,7 +71,7 @@ const Projects: React.FC = () => {
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
         className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200 select-none">
-        A small selection of <span className="text-purple-500 lg:inline">recent projects</span>
+        Some <span className="text-purple-500 lg:inline">recent projects</span>
       </motion.h2>
 
       <motion.div

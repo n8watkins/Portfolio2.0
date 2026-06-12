@@ -12,7 +12,7 @@ const Experience = () => {
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
         className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200">
-        Work <span className="text-purple-500">Experience</span>
+        <span className="text-purple-500">Experience</span>
       </motion.h2>
 
       <motion.div

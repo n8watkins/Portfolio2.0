@@ -18,12 +18,9 @@ export const workExperience: WorkExperienceItem[] = [
     role: 'Full Stack Developer & Co-Founder',
     period: 'March 2023 – Present',
     bullets: [
-      'Lead end-to-end development across healthcare, property management, and HVAC sectors using React, Next.js, and TypeScript.',
-      'Built internal dashboards and automation tools with Next.js API Routes, Firebase, Cloudflare Workers, and Gemini AI to streamline workflows and deliver responsive, SEO-optimized interfaces.',
-      'Automated blood-test workflows via Python and Cloudflare Workers using the Gemini API, replacing manual entry and saving ~$20K/year.',
-      'Developed in-house AI software for client sourcing using OpenAI browser agents to evaluate prospective websites by performance, accessibility, and SEO.',
-      'Implemented ISR to improve LCP/INP metrics by ~35%, boosting performance and organic visibility across client projects.',
-      'Integrated GTM and GA4 for conversion tracking and campaign analytics.',
+      'Lead end-to-end development of client apps across healthcare, property management, and HVAC using React, Next.js, and TypeScript.',
+      'Built AI automation with Gemini and Cloudflare Workers that replaced manual data entry, saving clients ~$20K/year.',
+      'Developed in-house AI tooling that scores prospective client sites on performance, accessibility, and SEO.',
     ],
   },
   {
@@ -33,9 +30,8 @@ export const workExperience: WorkExperienceItem[] = [
     role: 'Web Developer',
     period: 'June 2022 – January 2023',
     bullets: [
-      'Consulted and developed multiple course and event websites — Arroyo Seco Golf Course, Riverlakes Golf Club, and Sierra Lakes Golf Club — using React, Next.js, and Firebase.',
-      'Integrated Firebase Hosting, Cloudinary, and Google Analytics for real-time content updates, optimized media delivery, and performance tracking.',
-      'Improved mobile Lighthouse scores for best practices and SEO by 40 points across all projects.',
+      'Built course and event sites for the Donovan portfolio with React, Next.js, and Firebase, with a custom CMS for staff.',
+      'Improved mobile Lighthouse scores by 40 points across all projects.',
     ],
   },
   {
@@ -45,9 +41,8 @@ export const workExperience: WorkExperienceItem[] = [
     role: 'Frontend Developer',
     period: 'July 2021 – May 2022',
     bullets: [
-      'Developed and launched 5+ small business websites across dental, HVAC, and barbershop industries using React, Tailwind CSS, and Firebase.',
-      'Implemented performance enhancements (image compression, lazy loading, cross-browser testing), improving page load times by ~40%.',
-      'Deployed via Firebase Hosting and Vercel with integrated analytics dashboards, enabling clients to track engagement and update site content.',
+      'Launched 5+ small business sites focused on SEO, responsive UX, and Core Web Vitals.',
+      'Cut page load times ~40% via image compression, lazy loading, and cross-browser testing.',
     ],
   },
   {
@@ -58,8 +53,7 @@ export const workExperience: WorkExperienceItem[] = [
     period: 'June 2024 – Present',
     additional: true,
     bullets: [
-      'Instruct students on weekends in building full-stack applications using JavaScript, Python, and Scratch.',
-      'Guide students in leveraging LLMs for coding and debugging beginner projects.',
+      'Teach full-stack development with JavaScript and Python, including LLM-assisted coding and debugging.',
     ],
   },
 ]
