@@ -26,6 +26,9 @@ export const workExperience: WorkExperienceItem[] = [
     ],
     links: [
       { label: 'riverwoodranch.web.app', url: 'https://riverwoodranch.web.app/' },
+      { label: 'lifelineclinicallab.com', url: 'https://lifelineclinicallab.com/' },
+      { label: 'comfort1hvac.com', url: 'https://comfort1hvac.com/' },
+      { label: 'primeshows.live', url: 'https://primeshows.live/' },
     ],
     hoverImage: '/projects/Appturnity.webp',
   },
