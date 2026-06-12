@@ -6,6 +6,7 @@ export type WorkExperienceItem = {
   role: string
   period: string
   bullets: string[]
+  links?: { label: string; url: string }[]
   additional?: boolean
 }
 
@@ -22,10 +23,14 @@ export const workExperience: WorkExperienceItem[] = [
       'Built AI automation with Gemini and Cloudflare Workers that replaced manual data entry, saving clients ~$20K/year.',
       'Developed in-house AI tooling that scores prospective client sites on performance, accessibility, and SEO.',
     ],
+    links: [
+      { label: 'riverwoodranch.web.app', url: 'https://riverwoodranch.web.app/' },
+    ],
   },
   {
     id: 2,
     company: 'Donovan Golf Course Management',
+    companyUrl: 'https://www.arroyosecogc.com/',
     location: 'Pasadena, CA',
     role: 'Web Developer',
     period: 'June 2022 – January 2023',
@@ -33,6 +38,7 @@ export const workExperience: WorkExperienceItem[] = [
       'Built course and event sites for the Donovan portfolio with React, Next.js, and Firebase, with a custom CMS for staff.',
       'Improved mobile Lighthouse scores by 40 points across all projects.',
     ],
+    links: [{ label: 'arroyosecogc.com', url: 'https://www.arroyosecogc.com/' }],
   },
   {
     id: 3,

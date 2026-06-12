@@ -2,16 +2,17 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { FiArrowUpRight } from 'react-icons/fi'
 import { workExperience } from '@/data/experience'
 import { fadeInUpVariants, staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 
 const Experience = () => {
   return (
-    <div className="relative py-20 xl:max-w-6xl 2xl:max-w-7xl m-auto select-none">
+    <div className="relative pt-8 pb-20 xl:max-w-6xl 2xl:max-w-7xl m-auto select-none">
       <motion.h2
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
-        className="text-5xl font-bold py-14 text-center text-slate-800 dark:text-slate-200">
+        className="text-5xl font-bold pt-6 pb-8 text-center text-slate-800 dark:text-slate-200">
         <span className="text-sky-400">Experience</span>
       </motion.h2>
 
@@ -86,6 +87,23 @@ const Experience = () => {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Related links */}
+                    {item.links && item.links.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {item.links.map((link) => (
+                          <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 bg-sky-500/10 px-2.5 py-1 rounded-full border border-sky-500/20 hover:border-sky-500/40 transition-colors">
+                            {link.label}
+                            <FiArrowUpRight className="w-3 h-3" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               </React.Fragment>
