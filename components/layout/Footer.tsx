@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
 import { ContactFormErrorBoundary } from '@/components/ContactFormErrorBoundary'
-import { FiGithub } from 'react-icons/fi'
+import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { fadeInUpVariants, fadeInVariants, staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 
@@ -62,13 +62,34 @@ const Footer = () => {
         <motion.p
           variants={staggerItemVariants}
           className="lg:text-base text-sm lg:font-normal font-light">
-          Copyright © 2025 Nathan Watkins
+          Copyright © 2026 Nathan Watkins
         </motion.p>
 
         <motion.nav
           variants={staggerItemVariants}
           aria-label="Footer social media links"
           className="flex items-center justify-center pb-4 gap-3 z-50">
+          <a
+            href="https://n8builds.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit my main site, n8builds.dev"
+            className="flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-200"
+          >
+            n8builds.dev
+            <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+          </a>
+          <a
+            href="https://appturnity.web.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Appturnity, my consulting company"
+            className="flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-200"
+          >
+            Appturnity
+            <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+          </a>
+          <span className="w-px h-6 bg-slate-300 dark:bg-slate-700" aria-hidden="true" />
           <a
             href="https://github.com/n8watkins"
             target="_blank"

@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import GridBackground from '@/components/ui/GridBackground'
-import { FiGithub } from 'react-icons/fi'
+import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { FaXTwitter } from 'react-icons/fa6'
 import { staggerContainerVariants } from '@/lib/animations'
@@ -109,6 +109,39 @@ const Hero = () => {
                     className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-colors duration-200"
                   >
                     <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
+                  </motion.a>
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 1.6 }}
+                    className="hidden md:block w-px h-6 bg-slate-300 dark:bg-slate-700"
+                    aria-hidden="true"
+                  />
+                  <motion.a
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.65, ease: [0.25, 0.1, 0.25, 1] }}
+                    href="https://n8builds.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit my main site, n8builds.dev"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400/60 dark:hover:text-sky-400 transition-colors duration-200"
+                  >
+                    n8builds.dev
+                    <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </motion.a>
+                  <motion.a
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.8, ease: [0.25, 0.1, 0.25, 1] }}
+                    href="https://appturnity.web.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Appturnity, my consulting company"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 hover:text-sky-500 hover:border-sky-400/60 dark:hover:text-sky-400 transition-colors duration-200"
+                  >
+                    Appturnity
+                    <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
                   </motion.a>
                 </div>
               </nav>
