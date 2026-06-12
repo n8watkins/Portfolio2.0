@@ -21,8 +21,8 @@ const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Nathan Watkins Portfolio'
 
 export const metadata: Metadata = {
   title: siteName,
-  description: 'Modern web design and full-stack development by Nathan Watkins.',
-  keywords: ['Web Developer', 'Portfolio', 'Next.js', 'React', 'Nathan Watkins'],
+  description: 'AI-powered full-stack development by Nathan Watkins — React, Next.js, and intelligent automation.',
+  keywords: ['AI Developer', 'Full-Stack Developer', 'Portfolio', 'Next.js', 'React', 'Nathan Watkins', 'AI Integration', 'Automation'],
   robots: 'index, follow',
   openGraph: {
     title: siteName,
@@ -92,7 +92,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" disableTransitionOnChange>
           <ErrorBoundary>
             {children}
           </ErrorBoundary>

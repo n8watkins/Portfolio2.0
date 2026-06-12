@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
 import { Link } from 'react-scroll'
-import { ModeToggle } from '@/components/ModeToggle'
 
 const cn = (...classes: (string | boolean | undefined | null)[]): string =>
   classes.filter(Boolean).join(' ')
@@ -103,10 +102,7 @@ export const FloatingNav = ({
     return { left: 0, width: 0 }
   }
 
-  const allItems: Array<NavItem | { name: string; icon: React.ReactElement }> = [
-    ...navItems,
-    { name: '', icon: <ModeToggle /> }, 
-  ]
+  const allItems = navItems
   
 
 
@@ -140,46 +136,33 @@ export const FloatingNav = ({
     onMouseEnter={() => setActiveIndex(idx)}
     onMouseLeave={() => setActiveIndex(null)}
   >
-    {'link' in item ? (
-      <Link
-        to={item.link}
-        activeClass="active"
-        spy={true}
-        smooth={true}
-        offset={0}
-        duration={300}
-        onClick={handleNavClick}
-        className="flex items-center"
-        aria-label={`Navigate to ${item.name} section`}
-      >
-        {item.icon && (
-          <motion.div
-            className="mr-1 sm:mr-2 flex items-center justify-center"
-            animate={
-              activeIndex === idx
-                ? {
-                    scale: [1, 1.2, 1],
-                    transition: {
-                      repeat: Infinity,
-                      duration: 1,
-                    },
-                  }
-                : {}
-            }
-          >
-            {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, {
-              className: 'w-4 h-4 sm:w-5 sm:h-5',
-            })}
-          </motion.div>
-        )}
-        <span className="text-xs sm:text-sm">{item.name}</span>
-      </Link>
-    ) : (
-      <div className="flex items-center justify-center">
-        {item.icon}
-        {item.name && <span className="text-xs sm:text-sm ml-2">{item.name}</span>}
-      </div>
-    )}
+    <Link
+      to={item.link}
+      activeClass="active"
+      spy={true}
+      smooth={true}
+      offset={0}
+      duration={300}
+      onClick={handleNavClick}
+      className="flex items-center"
+      aria-label={`Navigate to ${item.name} section`}
+    >
+      {item.icon && (
+        <motion.div
+          className="mr-1 sm:mr-2 flex items-center justify-center"
+          animate={
+            activeIndex === idx
+              ? { scale: [1, 1.2, 1], transition: { repeat: Infinity, duration: 1 } }
+              : {}
+          }
+        >
+          {React.cloneElement(item.icon as React.ReactElement<{ className?: string }>, {
+            className: 'w-4 h-4 sm:w-5 sm:h-5',
+          })}
+        </motion.div>
+      )}
+      <span className="text-xs sm:text-sm">{item.name}</span>
+    </Link>
   </div>
 ))}
           <motion.div
