@@ -6,40 +6,27 @@ import { FiGithub } from 'react-icons/fi'
 import { MdOpenInNew } from 'react-icons/md'
 import { IoMdClose } from 'react-icons/io'
 import { BorderBeam } from '../magicui/border-beam'
-import IconCycle from '@/components/ui/ProjectComponents/iconCycle'
 import ImageSlider from './ImageSlider'
 import { trackProjectEvent, trackModalEvent } from '@/lib/analytics'
-import { Project, IconCycleState } from '@/lib/types'
+import { Project } from '@/lib/types'
 
 interface ProjectModalProps {
   project: Project
   isOpen: boolean
   onClose: () => void
-  iconCycleState: IconCycleState
-  setIconCycleState: (
-    state: IconCycleState | ((prevState: IconCycleState) => IconCycleState)
-  ) => void
 }
 
 /**
  * ProjectModal component displays detailed project information
  *
  * Features:
- * - Full project details with title, links, and description
- * - IconCycle integration for technology stack
- * - ImageSlider for project screenshots
+ * - Full project details with title and links
+ * - Wide ImageSlider for project screenshots
+ * - "How it works" highlight bullets with the stack referenced in prose
  * - Analytics tracking for GitHub and live site clicks
- * - Framer Motion animations
- * - BorderBeam visual effects
- * - Z-index: 10001 (below ImageSlider fullscreen modal at 10002)
+ * - Framer Motion animations + BorderBeam visual effects
  */
-const ProjectModal: React.FC<ProjectModalProps> = ({
-  project,
-  isOpen,
-  onClose,
-  iconCycleState,
-  setIconCycleState
-}) => {
+const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
   if (!isOpen) return null
 
   const handleModalClose = () => {
@@ -66,7 +53,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 50, opacity: 0 }}
-        className="bg-gradient-to-br from-blue-600 via-blue-400 to-blue-600 dark:from-[#050a28] dark:via-[#0e1f50] dark:to-[#050a28] rounded-xl p-6 max-w-[68rem] lg:max-w-[76rem] xl:max-w-[84rem] 2xl:max-w-[92rem] w-full max-h-[80vh] lg:max-h-[82vh] xl:max-h-[85vh] overflow-hidden relative"
+        className="bg-gradient-to-br from-blue-600 via-blue-400 to-blue-600 dark:from-[#050a28] dark:via-[#0e1f50] dark:to-[#050a28] rounded-xl p-6 max-w-3xl lg:max-w-4xl w-full max-h-[85vh] overflow-hidden relative"
         onClick={(e) => e.stopPropagation()}>
         <BorderBeam className="beam-1" startPosition={0} />
         <BorderBeam className="beam-2" startPosition={10} />
@@ -145,27 +132,32 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               )}
             </span>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row gap-1 1lg:gap-0 sm:gap-6 -mx-6 sm:mx-1">
-            <div className="w-full sm:w-1/2 px-6 sm:px-0">
-              <IconCycle
-                technologies={project.technologies}
-                orientation="h"
-                view="detailed"
-                initialCategory={iconCycleState.currentCategory}
-                initialIconIndex={iconCycleState.cycledIconIndex}
-                onStateChange={setIconCycleState}
+          <div className="flex flex-col gap-5 overflow-y-auto max-h-[calc(85vh-8rem)] pr-1">
+            {/* Screenshots — full width of the modal */}
+            <div className="w-full">
+              <ImageSlider
+                images={project.images}
+                isModalOpen={isOpen}
+                projectTitle={project.title}
+                projectId={project.id}
               />
             </div>
-            <div className="flex sm:w-1/2 justify-center items-center h-40 sm:h-64 md:h-80 lg:h-96 xl:h-[28rem] 2xl:h-[32rem] mb-8 1md:mb-12 1lg:mb-20 sm:mb-0 px-4 1lg:px-6 sm:px-0">
-              <div className="relative w-full 1lg:max-w-[22rem] sm:max-w-none h-full">
-                <ImageSlider
-                  images={project.images}
-                  isModalOpen={isOpen}
-                  projectTitle={project.title}
-                  projectId={project.id}
-                />
-              </div>
-            </div>
+
+            {/* How it works — stack referenced in prose */}
+            {project.highlights && (
+              <ul className="flex flex-col gap-3 pb-4 text-left">
+                {project.highlights.map((highlight, i) => (
+                  <li
+                    key={i}
+                    className="flex gap-3 text-sm md:text-base leading-relaxed text-slate-100">
+                    <span className="text-sky-400 select-none" aria-hidden="true">
+                      ▸
+                    </span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </motion.div>

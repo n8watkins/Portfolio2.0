@@ -24,6 +24,7 @@ export interface Project {
   des: string
   images: string[]
   technologies: Technologies
+  highlights?: string[]
   github?: string
   liveSite?: string
 }

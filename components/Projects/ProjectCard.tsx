@@ -12,6 +12,7 @@ import { Project, IconCycleState } from '@/lib/types'
 
 interface ProjectCardProps {
   project: Project
+  index: number
   onProjectClick: (project: Project) => void
   onIconClick: (project: Project) => void
   iconCycleState: IconCycleState
@@ -34,6 +35,7 @@ interface ProjectCardProps {
  */
 const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
+  index,
   onProjectClick,
   onIconClick,
   iconCycleState,
@@ -43,11 +45,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <motion.div
       key={project.id}
       variants={staggerItemVariants}
-      className="relative flex flex-col items-start bg-gradient-to-br from-blue-700 via-blue-500 to-blue-700 dark:bg-gradient-to-br dark:from-[#01051c] dark:via-[#06153b] dark:to-[#01051c] justify-center p-3 lg:p-4 xl:p-6 w-full max-w-full min-w-0 rounded-xl col-span-1 border border-white/[.2] shadow-md overflow-hidden"
+      className="relative flex flex-col items-start justify-center w-full max-w-full min-w-0 col-span-1"
     >
-      <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 w-full items-stretch">
-        <div className="relative w-full md:w-[46%] flex-shrink-0">
-          <div className="relative w-full pt-[56.25%] md:pt-0 md:h-full md:min-h-[16rem] rounded-xl overflow-hidden">
+      <div
+        className={`flex flex-col ${
+          index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+        } gap-4 md:gap-8 lg:gap-10 w-full items-stretch`}
+      >
+        <div className="relative w-full md:w-[55%] flex-shrink-0">
+          <div className="relative w-full pt-[56.25%] md:pt-0 md:h-full md:min-h-[18rem] lg:min-h-[22rem] xl:min-h-[26rem] rounded-xl overflow-hidden">
             <div
               onClick={() => onProjectClick(project)}
               className="absolute inset-0 rounded-xl cursor-pointer overflow-hidden"
@@ -121,7 +127,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               </span>
             </span>
           </div>
-          <p className="text-sm sm:text-base md:text-base min-h-10 mt-1 dark:text-slate-300 select-none">
+          <p className="text-base md:text-lg min-h-10 mt-1 dark:text-slate-300 select-none">
             {project.des}
           </p>
           <IconCycle

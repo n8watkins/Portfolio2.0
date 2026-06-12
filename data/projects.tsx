@@ -55,6 +55,13 @@ export const projects = [
         ],
       },
     },
+    highlights: [
+      'Responses stream token-by-token from Gemini 2.5 Flash over Socket.IO WebSockets, so answers render as they generate — no waiting on the full completion.',
+      'Every message is embedded and indexed in a LanceDB vector database, enabling semantic search that recalls context across all of your past chats, not just the current one.',
+      'Drop in PDFs and DOCX files — a custom Node.js pipeline parses them server-side so the model can reason over your documents.',
+      'Bring-your-own-key design: your Gemini API key stays client-side, so usage and conversations remain private.',
+      'Chats persist in SQLite; the whole app ships as a Docker container deployed on Railway with CI through GitHub.',
+    ],
     github: 'https://github.com/n8watkins/GeminiGPT',
   },
   {
@@ -114,6 +121,13 @@ export const projects = [
         ],
       },
     },
+    highlights: [
+      'Browses live TMDB data — trending titles, genre rows, and trailer playback — with a cinematic, Netflix-style UI built in React and Tailwind CSS.',
+      'Secure sign-in with NextAuth; sessions gate the watchlist and checkout flows.',
+      'Full subscription checkout implemented twice over: both Stripe and PayPal payment flows, end to end.',
+      'Your watchlist and profile persist in Firebase, syncing in real time across sessions.',
+      'Server-rendered with Next.js and deployed on Vercel, with Cloudinary handling optimized image delivery.',
+    ],
     github: 'https://github.com/n8watkins/net_trailer',
     liveSite: 'https://net-trailers.vercel.app/',
   },
