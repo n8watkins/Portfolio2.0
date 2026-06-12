@@ -9,7 +9,7 @@ import { staggerContainerVariants, defaultAnimationConfig } from '@/lib/animatio
 const Grid = () => {
   const { theme } = useTheme()
   return (
-    <section id="about" className="mb-10">
+    <section className="mb-10">
       <motion.div
         variants={staggerContainerVariants}
         {...defaultAnimationConfig}

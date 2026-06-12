@@ -53,7 +53,7 @@ class ErrorBoundary extends Component<Props, State> {
             <div className="space-y-3">
               <button
                 onClick={() => window.location.reload()}
-                className="inline-flex items-center px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
               >
                 Refresh Page
               </button>
@@ -63,7 +63,7 @@ class ErrorBoundary extends Component<Props, State> {
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a
                 href="/"
-                className="inline-flex items-center px-4 py-2 text-darkBlue dark:text-slate-300 hover:text-purple-500 transition-colors"
+                className="inline-flex items-center px-4 py-2 text-darkBlue dark:text-slate-300 hover:text-sky-400 transition-colors"
               >
                 Return to Home
               </a>

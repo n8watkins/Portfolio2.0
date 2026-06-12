@@ -27,7 +27,7 @@ export const ContactTextarea = forwardRef<HTMLTextAreaElement, ContactTextareaPr
             'w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600',
             'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100',
             'placeholder-slate-500 dark:placeholder-slate-400',
-            'focus:ring-2 focus:ring-purple-500 focus:border-transparent',
+            'focus:ring-2 focus:ring-sky-500 focus:border-transparent',
             'transition-all duration-200 resize-y min-h-[120px]',
             'hover:border-slate-400 dark:hover:border-slate-500',
             error && 'border-red-500 dark:border-red-400 focus:ring-red-500',

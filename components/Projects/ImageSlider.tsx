@@ -143,7 +143,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                 </AnimatePresence>
               </div>
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-xl animate-pulse flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-sky-100 dark:from-gray-800 dark:to-gray-900 rounded-xl animate-pulse flex items-center justify-center">
                 <div className="text-sm text-gray-500 dark:text-gray-400">Loading...</div>
               </div>
             )}

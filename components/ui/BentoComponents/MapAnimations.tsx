@@ -125,7 +125,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerC
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <defs>
           <marker
-            id="neon-purple-circle"
+            id="neon-sky-circle"
             markerWidth="10"
             markerHeight="10"
             refX="5"
@@ -149,7 +149,7 @@ const MapAnimation: React.FC<MapAnimationProps> = ({ imgClassName, imgContainerC
             stroke="url(#neonPurpleGradient)"
             strokeWidth="5"
             fill="none"
-            markerEnd="url(#neon-purple-circle)"
+            markerEnd="url(#neon-sky-circle)"
             className="neon-path"
           />
         ))}

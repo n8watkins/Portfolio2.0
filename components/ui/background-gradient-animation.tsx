@@ -49,17 +49,17 @@ export const BackgroundGradientAnimation = ({
     const isLightMode = resolvedTheme === 'light'
     document.body.style.setProperty(
       '--gradient-background-start',
-      isLightMode ? gradientBackgroundStart : 'rgb(108, 0, 162)'
+      isLightMode ? gradientBackgroundStart : 'rgb(12, 74, 110)'
     )
     document.body.style.setProperty(
       '--gradient-background-end',
-      isLightMode ? gradientBackgroundEnd : 'rgb(0, 17, 82)'
+      isLightMode ? gradientBackgroundEnd : 'rgb(15, 23, 42)'
     )
-    document.body.style.setProperty('--first-color', isLightMode ? firstColor : '18, 113, 255')
-    document.body.style.setProperty('--second-color', isLightMode ? secondColor : '221, 74, 255')
-    document.body.style.setProperty('--third-color', isLightMode ? thirdColor : '100, 220, 255')
-    document.body.style.setProperty('--fourth-color', isLightMode ? fourthColor : '200, 50, 50')
-    document.body.style.setProperty('--fifth-color', isLightMode ? fifthColor : '180, 180, 50')
+    document.body.style.setProperty('--first-color', isLightMode ? firstColor : '56, 189, 248')
+    document.body.style.setProperty('--second-color', isLightMode ? secondColor : '59, 130, 246')
+    document.body.style.setProperty('--third-color', isLightMode ? thirdColor : '14, 165, 233')
+    document.body.style.setProperty('--fourth-color', isLightMode ? fourthColor : '99, 102, 241')
+    document.body.style.setProperty('--fifth-color', isLightMode ? fifthColor : '34, 211, 238')
     document.body.style.setProperty('--pointer-color', pointerColor)
     document.body.style.setProperty('--size', size)
     document.body.style.setProperty('--blending-value', isLightMode ? blendingValue : 'hard-light')

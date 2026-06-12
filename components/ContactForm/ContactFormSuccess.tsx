@@ -68,7 +68,7 @@ export function ContactFormSuccess({ showConfetti, confettiKey, onSendAnother }:
         </motion.p>
         <motion.button
           onClick={onSendAnother}
-          className="text-purple-600 dark:text-purple-400 hover:underline transition-colors duration-200"
+          className="text-sky-600 dark:text-sky-400 hover:underline transition-colors duration-200"
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.4 }}

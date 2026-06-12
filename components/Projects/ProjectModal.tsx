@@ -74,7 +74,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
 
         <button
           onClick={handleModalClose}
-          className="absolute top-2 right-2 p-3 bg-purple-300 rounded-full dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+          className="absolute top-2 right-2 p-3 bg-sky-300 rounded-full dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition"
           aria-label="Close project details">
           <IoMdClose aria-hidden="true" />
         </button>

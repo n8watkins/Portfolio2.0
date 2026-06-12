@@ -22,7 +22,7 @@ export const gridItem2: GridItemConfig = {
   img: '/bento/globe.jpeg',
 
   textContainerClassName:
-    'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#020621] dark:via-[#020621] dark:to-[#020621]/0 text-slate-200',
+    'bottom-0 w-full h-32 left-0  pt-10 h-52 bg-gradient-to-t rounded-b-3xl from-blue-500 via-blue-500 to-blue-500/0 dark:from-[#1e293b] dark:via-[#1e293b] dark:to-[#1e293b]/0 text-slate-200',
 
   titleClassName:
     'relative z-30 font-sans font-bold dark:text-neutral-200 flex  items-center  xs:pl-10 1sm:pl-5 pt-28 w-full h-[5rem] select-none text-2xl lg:text-4xl',

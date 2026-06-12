@@ -55,7 +55,7 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-center md:text-start w-full justify-start text-5xl lg:text-6xl font-semibold">
-              Hi, I&apos;m <span className="text-purple-500">Nathan</span>
+              Hi, I&apos;m <span className="text-sky-400">Nathan</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 15 }}

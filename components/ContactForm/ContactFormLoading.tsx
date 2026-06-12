@@ -26,7 +26,7 @@ export function ContactFormLoading() {
         {[0, 1, 2].map((i) => (
           <motion.div
             key={i}
-            className="w-4 h-4 bg-purple-500 dark:bg-purple-400 rounded-full"
+            className="w-4 h-4 bg-sky-500 dark:bg-sky-400 rounded-full"
             animate={{
               y: [0, -12, 0],
             }}

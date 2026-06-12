@@ -122,7 +122,7 @@ export const FloatingNav = ({
         role="navigation"
         aria-label="Main navigation"
         className={cn(
-          'flex max-w-fit fixed top-2 1lg:top-4  xl:top-6 inset-x-0 mx-auto border dark:border-white/[0.2] rounded-2xl bg-gradient-to-r from-purple-200 to-blue-300 dark:from-gray-900 dark:to-blue-950 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),5px_0px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] py-0.5 sm:py-1 items-center justify-center z-[9999]',
+          'flex max-w-fit fixed top-2 1lg:top-4  xl:top-6 inset-x-0 mx-auto border dark:border-white/[0.2] rounded-2xl bg-gradient-to-r from-sky-200 to-blue-300 dark:from-gray-900 dark:to-blue-950 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),5px_0px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] py-0.5 sm:py-1 items-center justify-center z-[9999]',
           className
         )}>
         <div ref={navRef} className="flex items-center relative px-1 sm:px-2">

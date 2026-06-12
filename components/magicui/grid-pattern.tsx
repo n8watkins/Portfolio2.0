@@ -48,9 +48,9 @@ export function GridPattern({
   }, [])
 
   const isLightTheme = resolvedTheme === 'light'
-  const gridColor = isLightTheme ? '#3B82F6' : '#020621' // blue-500 for light mode
+  const gridColor = isLightTheme ? '#3B82F6' : '#1e293b' // blue-500 for light mode
   const gridStrokeColor = isLightTheme ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.3)'
-  const gradientEndColor = isLightTheme ? '#3B82F6' : '#020621'
+  const gradientEndColor = isLightTheme ? '#3B82F6' : '#1e293b'
 
   const responsiveClasses = cn(
     'h-[40rem] w-[28rem]', // base size

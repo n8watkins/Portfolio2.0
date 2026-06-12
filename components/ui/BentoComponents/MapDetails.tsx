@@ -13,7 +13,7 @@ const MapDetails = () => {
       <div className="absolute   1sm:left-4 1sm:-top-[5.4rem]  1md:left-6 1md:-top-[5.4rem] 1lg:left-7 1lg:-top-[5.4rem] sm:-top-[5.4rem] sm:left-10  md:-top-[6rem] md:left-5 lg:-top-[5.4rem] lg:left-7  xl:-top-[8rem] xl:left-8 w-14 h-14 z-50  dark:font-normal ">
         <div className="flex">
           <div className="group-hover:scale-110 group-hover:-translate-y-1 group-hover:-translate-x-1 transition duration-500 ">
-            <FaLocationDot className="absolute text-neutral-200 dark:text-purple-300 w-14 h-14" />
+            <FaLocationDot className="absolute text-neutral-200 dark:text-sky-300 w-14 h-14" />
             <FaLocationDot className="absolute text-blue-600 dark:text-[#012485] z-40 w-[3.1rem] h-[3.1rem] mt-[.13rem] ml-[.2rem]" />
             <div className="absolute w-5 h-5 left-[1.15rem] top-[.8rem] z-50 group-hover:scale-150 group-hover:z-50 transition duration-500">
               <Image

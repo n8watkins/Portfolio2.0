@@ -278,7 +278,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
       <div className="mt-9 1sm:mt-6 1lg:mt-1 md:mt-6 lg:mt-4 flex items-center justify-center mb-1 ">
         <div className="w-12 h-12 flex items-center justify-center">
           <ChevronLeft
-            className="cursor-pointer text-white hover:text-purple-400 transition-colors"
+            className="cursor-pointer text-white hover:text-sky-400 transition-colors"
             onClick={handlePreviousCategory}
           />
         </div>
@@ -287,7 +287,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
         </div>
         <div className="w-12 h-12 flex items-center justify-center">
           <ChevronRight
-            className="cursor-pointer text-white hover:text-purple-400 transition-colors"
+            className="cursor-pointer text-white hover:text-sky-400 transition-colors"
             onClick={handleNextCategory}
           />
         </div>

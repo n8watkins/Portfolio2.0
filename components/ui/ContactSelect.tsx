@@ -24,7 +24,7 @@ export const ContactSelect = forwardRef<HTMLSelectElement, ContactSelectProps>(
           className={cn(
             "w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600",
             "bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100",
-            "focus:ring-2 focus:ring-purple-500 focus:border-transparent",
+            "focus:ring-2 focus:ring-sky-500 focus:border-transparent",
             "transition-all duration-200",
             "hover:border-slate-400 dark:hover:border-slate-500",
             error && "border-red-500 dark:border-red-400 focus:ring-red-500",

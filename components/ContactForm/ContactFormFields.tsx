@@ -178,7 +178,7 @@ export function ContactFormFields({ form, submissionState, onSubmit }: ContactFo
         Prefer email? Reach me directly at{' '}
         <a
           href="mailto:nathancwatkins23@gmail.com"
-          className="text-purple-600 dark:text-purple-400 hover:underline"
+          className="text-sky-600 dark:text-sky-400 hover:underline"
         >
           nathancwatkins23@gmail.com
         </a>

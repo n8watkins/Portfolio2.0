@@ -27,7 +27,7 @@ export const gridItem4: GridItemConfig = {
   img: '/bento/resume.svg',
 
   textContainerClassName:
-    'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#020621]/90 dark:to-[#020621]/0 ',
+    'flex items-center justify-start xs:pl-10 1sm:pl-5  w-full h-full whitespace-nowrap dark:via-[#1e293b]/90 dark:to-[#1e293b]/0 ',
 
   textOrder:
     'group-hover:-translate-y-20 group-hover:translate-x-[3.5rem] 1sm:group-hover:translate-x-[0rem] sm:group-hover:translate-x-[5.5rem] duration-200 md:group-hover:translate-x-[1rem] xl:group-hover:translate-x-[3rem] ',

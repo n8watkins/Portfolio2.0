@@ -37,14 +37,14 @@ export class ContactFormErrorBoundary extends React.Component<Props, State> {
             Please refresh the page or email me directly at{' '}
             <a
               href="mailto:nathancwatkins@gmail.com"
-              className="text-purple-600 dark:text-purple-400 hover:underline"
+              className="text-sky-600 dark:text-sky-400 hover:underline"
             >
               nathancwatkins@gmail.com
             </a>
           </p>
           <button
             onClick={() => this.setState({ hasError: false, error: undefined })}
-            className="text-purple-600 dark:text-purple-400 hover:underline"
+            className="text-sky-600 dark:text-sky-400 hover:underline"
           >
             Try again
           </button>
