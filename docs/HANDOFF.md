@@ -83,7 +83,8 @@ Acceptance: `npm run build` succeeds, `npm run type-check`/`lint` clean, dev-ser
 - Ports: portfolio 4829; user's unrelated projects occupy 3001 (asset-arsenal) and 7678 (portfolio-rank) — don't kill those.
 - Playwright API tests sent REAL emails via Resend (rate-limited at 5 req/s → 500s). Goes away when the form is removed.
 - Verification pattern: Playwright script with `chromium.launch({ args: ['--no-sandbox'] })`, slow-scroll to trigger framer-motion viewport animations before screenshots (sections are opacity-0 until scrolled into view).
-- 13 pre-existing lint warnings (React Compiler/refs) — not errors, ignore.
+- 12 pre-existing lint warnings (React Compiler/refs) — not errors, ignore.
+- Turbopack (`next dev`) persistent cache in `.next` can serve **stale Tailwind CSS** — brand-new utility classes (e.g. a first-ever `w-24`) silently render width 0. Fix: stop the server FIRST, then `rm -rf .next`, then restart. Never `rm -rf .next` under a running server (corrupts the cache: "Compaction failed"). Also: kill by port with `lsof -t -i:4829 | xargs -r kill` — zsh doesn't word-split `$(...)` into `kill`, and pgrep-by-pattern matches your own shell (exit 144).
 - Appturnity brand: primary `#237EF6`, light theme, SVG swoosh understroke (`M1 5.5C54.5 2.5 150.5 1.5 299 11.5`, replicated in Hero CTA). n8builds brand: cyan-400→blue-600 on `#050812`. Twitch/YouTube handle **n8builds**; GitHub/X/LinkedIn **n8watkins**.
 - SiteForge = internal Appturnity engine (`/home/natkins/appturnity/site-forge/la-pool-engine`), no public URL — described, never linked.
 
