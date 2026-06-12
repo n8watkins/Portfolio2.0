@@ -14,7 +14,7 @@ export const gridItem3: GridItemConfig = {
   title: 'My tech stack',
   description: 'I constantly try to improve',
   gridItemContainer:
-    'col-span-2 row-span-3 md:col-span-2  lg:col-span-2  lg:row-span-3 xl:col-span-2 xl:row-span-6',
+    'col-span-2 row-span-5 md:col-span-2 md:row-span-3 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-5',
 
   imgClassName: '',
   img: '',

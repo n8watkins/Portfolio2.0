@@ -15,7 +15,7 @@ export const gridItem2: GridItemConfig = {
   title: 'Ready to relocate',
   description: '',
   gridItemContainer:
-    'col-span-2 row-span-3 sm:row-span-3   md:col-span-2 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-6 ',
+    'col-span-2 row-span-5 md:col-span-2 md:row-span-3 lg:col-span-2 lg:row-span-3 xl:col-span-2 xl:row-span-5 ',
 
   imgContainerClass: 'relative w-full h-full group overflow-hidden rounded-3xl',
   imgClassName: 'absolute top-0   rounded-3xl  z-10  transition duration-500',
