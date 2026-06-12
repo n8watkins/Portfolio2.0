@@ -141,19 +141,3 @@ export const trackResumeEvent = (action: 'view' | 'download') => {
     event_label: action,
   })
 }
-
-/**
- * Track contact form interactions
- */
-export const trackContactEvent = (
-  action: 'view' | 'field_focus' | 'submit_attempt' | 'submit_success' | 'submit_error' | 'recaptcha_complete',
-  field?: string,
-  additionalData: EventParameters = {}
-) => {
-  trackEvent(`contact_form_${action}`, {
-    event_category: 'Contact Form',
-    event_label: field || action,
-    field,
-    ...additionalData,
-  })
-}

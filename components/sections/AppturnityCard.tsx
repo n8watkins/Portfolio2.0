@@ -3,11 +3,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Link } from 'react-scroll'
 import { FiArrowUpRight, FiGithub } from 'react-icons/fi'
 import { FaTwitch, FaYoutube, FaXTwitter } from 'react-icons/fa6'
 import { staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
-import { requestSubjectPrefill } from '@/lib/contactPrefill'
 
 const followLinks = [
   {
@@ -84,15 +82,11 @@ const AppturnityCard = () => {
                 appturnity.web.app
                 <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>
-              <Link
-                to="contact"
-                smooth={true}
-                offset={-80}
-                duration={300}
-                onClick={() => requestSubjectPrefill('consulting')}
+              <a
+                href="mailto:nathancwatkins23@gmail.com?subject=Consulting%20inquiry"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-sky-500/15 border border-sky-500/30 text-sm text-sky-300 hover:bg-sky-500/25 hover:border-sky-400/60 cursor-pointer transition-colors duration-200">
                 Need something built?
-              </Link>
+              </a>
             </div>
           </div>
         </motion.div>

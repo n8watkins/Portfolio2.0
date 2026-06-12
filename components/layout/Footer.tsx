@@ -1,9 +1,7 @@
-import { FaLocationArrow, FaXTwitter, FaTwitch, FaYoutube } from 'react-icons/fa6'
+import { FaXTwitter, FaTwitch, FaYoutube } from 'react-icons/fa6'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import ContactForm from '@/components/ContactForm'
-import { ContactFormErrorBoundary } from '@/components/ContactFormErrorBoundary'
-import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
+import { FiGithub, FiArrowUpRight, FiMail } from 'react-icons/fi'
 import { CiLinkedin } from 'react-icons/ci'
 import { fadeInUpVariants, fadeInVariants, staggerContainerVariants, staggerItemVariants, defaultAnimationConfig } from '@/lib/animations'
 
@@ -36,22 +34,63 @@ const Footer = () => {
           </p>
         </motion.div>
 
-        {/* Contact Form with Error Boundary */}
+        {/* Slim contact card — this site routes; inbound contact lives on n8builds.dev */}
         <motion.div
           variants={fadeInVariants}
           {...defaultAnimationConfig}
           className="w-full max-w-2xl mx-auto mb-8 px-4">
-          <div className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10 shadow-xl relative">
-            <ContactFormErrorBoundary>
-              <ContactForm />
-            </ContactFormErrorBoundary>
-            {/* Custom reCAPTCHA v3 badge */}
-            <div className="absolute bottom-4 right-4 opacity-70 select-none">
-              <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                <span>🛡️</span>
-                <span>Protected by reCAPTCHA v3</span>
-              </div>
+          <div className="bg-white/5 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-xl flex flex-col items-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="https://n8builds.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Get in touch via my main site, n8builds.dev"
+                className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-sky-400/40 text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-white hover:border-transparent hover:bg-gradient-to-r hover:from-cyan-400 hover:to-blue-600 hover:shadow-lg hover:shadow-sky-500/40 transition-all duration-300"
+              >
+                Get in touch — n8builds.dev
+                <FiArrowUpRight
+                  className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  aria-hidden="true"
+                />
+              </a>
+              <a
+                href="https://appturnity.web.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Consulting inquiries via Appturnity"
+                className="group flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-400 dark:border-slate-600 text-base font-semibold text-slate-800 dark:text-slate-200 hover:bg-white hover:text-slate-900 dark:hover:text-slate-900 hover:border-white hover:shadow-lg hover:shadow-slate-100/20 transition-all duration-300"
+              >
+                Consulting —{' '}
+                <span className="relative">
+                  Appturnity
+                  {/* Appturnity's hand-drawn understroke, shown on hover */}
+                  <svg
+                    className="absolute -bottom-1.5 left-0 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#237EF6]/40"
+                    viewBox="0 0 300 12"
+                    fill="none"
+                    aria-hidden="true">
+                    <path
+                      d="M1 5.5C54.5 2.5 150.5 1.5 299 11.5"
+                      stroke="currentColor"
+                      strokeWidth="14"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+                <FiArrowUpRight
+                  className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                  aria-hidden="true"
+                />
+              </a>
             </div>
+            <a
+              href="mailto:nathancwatkins23@gmail.com"
+              className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-200"
+            >
+              <FiMail className="w-4 h-4" aria-hidden="true" />
+              nathancwatkins23@gmail.com
+            </a>
           </div>
         </motion.div>
       </div>
