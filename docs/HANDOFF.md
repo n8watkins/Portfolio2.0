@@ -1,6 +1,6 @@
 # HANDOFF — portfolio2.0
 
-_Last updated: 2026-06-12 (session: contact-form removal, dep upgrades, about/projects/bento redesign, portfolio.n8builds.dev domain setup)_
+_Last updated: 2026-06-13 (session: mobile hero fix, bento overlay retint, portfolio.n8builds.dev now LIVE + SEO surfaces switched over)_
 
 ## Project summary
 
@@ -26,18 +26,13 @@ This session's commits, oldest first:
 
 ## Next steps
 
-### 1. portfolio.n8builds.dev goes live (BLOCKED on user's Cloudflare action)
+### 1. ~~portfolio.n8builds.dev goes live~~ DONE (2026-06-13)
 
-_Re-checked 2026-06-12 (second session): DoH query still NXDOMAIN — zone still empty._
+**LIVE.** The site serves at `https://portfolio.n8builds.dev` (HTTP 200, valid cert). Nathan added the three Cloudflare DNS records (all DNS-only/gray-cloud): `A @ → 76.76.21.21`, `CNAME www → cname.vercel-dns.com`, `CNAME portfolio → cname.vercel-dns.com` — all resolve. Vercel domain attachments were already in place (`portfolio.n8builds.dev` → project `portfolio`; `n8builds.dev` + `www` → `n8builds-web`).
 
-Decision made: **this portfolio moves to `portfolio.n8builds.dev`**; root n8builds.dev = main site.
+This session: set `NEXT_PUBLIC_SITE_URL=https://portfolio.n8builds.dev` on the Vercel `portfolio` project (Production + Development — the CLI's agent-non-interactive mode wouldn't set Preview, but `d66e73c` made the code fallback the new domain so Preview deploys inherit it). `d66e73c` also replaced the stale `nathansportfolio.vercel.app` default in `app/layout.tsx`, `app/sitemap.ts`, `public/robots.txt`. Verified live after redeploy: og:url, og:image, sitemap.xml, robots.txt all show `portfolio.n8builds.dev`; the four n8builds.dev outbound links target the root `https://n8builds.dev` (200) and were unaffected.
 
-Already done (Vercel CLI, authed as natkins23): `portfolio.n8builds.dev` attached to project `portfolio`; `n8builds.dev` + `www` attached to `n8builds-web`. Registrar→Cloudflare delegation works; **the Cloudflare zone (id `afced55cbbdc5f0e6be1b72143af477e`) is active but has ZERO records**. The user must add, all DNS-only/gray-cloud (proxy breaks Vercel certs): `A @ → 76.76.21.21`, `CNAME www → cname.vercel-dns.com`, `CNAME portfolio → cname.vercel-dns.com`. Local wrangler OAuth token is zone:read only — cannot write DNS; a Zone.DNS-edit API token from the user would allow doing it via API.
-
-**After DNS resolves** (check: `curl -s -H 'accept: application/dns-json' 'https://cloudflare-dns.com/dns-query?name=portfolio.n8builds.dev&type=CNAME'`):
-1. Set `NEXT_PUBLIC_SITE_URL=https://portfolio.n8builds.dev` on the Vercel `portfolio` project (`vercel env`), redeploy, verify metadata/canonical/sitemap.
-2. Verify all four n8builds.dev links on the site work (hero CTA, About intro, brand card, footer).
-3. Remind user: resume PDF link should point at the new domain (PDF lives outside this repo).
+**Still open:** the resume PDF (outside this repo) still links to the old portfolio URL — Nathan should update it to `portfolio.n8builds.dev`.
 
 ### 2. GeminiGPT deploy (backlog)
 
