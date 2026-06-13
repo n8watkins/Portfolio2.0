@@ -44,6 +44,12 @@ Deploy `/home/natkins/portfolio/examples/gemini-chat-app` (Railway-ready: railwa
 - ~~Slate `#1e293b` overlays on bluer bento base~~ DONE `6be08d5` — retinted to `#0d304c` (midpoint of the base gradient) in gridItem2/3/4/6 + TechStack panel/edge fades; `grid-pattern.tsx` intentionally untouched (site background, not a card).
 - More hero portraits: drop files in `public/hero/`, list in `data/portraits.ts`. (Needs user-provided images.)
 
+### 3b. Backlog cleanups (flagged 2026-06-13, not yet started)
+
+- **Dead Vercel env vars on the `portfolio` project**: `RESEND_API_KEY`, `RECAPTCHA_SECRET_KEY`, `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `CONTACT_EMAIL_TO` — all orphaned when the contact form was removed (`b67a2a8`). Harmless but cluttery, and the recaptcha/resend keys are unused secrets. Remove from this project — but the contact stack is slated to be ported to n8builds-web, so copy the values there first if not already done. (`NEXT_PUBLIC_GA_ID` is still in use — keep it.)
+- **gridItem class-string cleanup**: `data/grid/items/*.tsx` carry iteration cruft — doubled-up class strings (e.g. `w-full h-full w-full h-full` in gridItem6), redundant `absolute`s, leftover empty `buttonContainer`/`buttonClass` fields. Low-risk tidy pass.
+- **Substance/proof ordering**: strongest assets (Appturnity client sites, the AI lead-gen tool) sit below the fold while filler-ish bento cards ("Ready to relocate", globe) surface high. Consider promoting proof higher. (Bigger/subjective — needs user direction.)
+
 ### 4. Deferred dep majors (separate task, user opt-in)
 
 tailwindcss 3.4→4 (CSS-first config migration: matchUtilities `bg-grid`, custom breakpoints `1sm/1md/1lg`, darkMode class), eslint 10, typescript 6, @types/node 25.
