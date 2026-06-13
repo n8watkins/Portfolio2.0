@@ -28,6 +28,8 @@ This session's commits, oldest first:
 
 ### 1. portfolio.n8builds.dev goes live (BLOCKED on user's Cloudflare action)
 
+_Re-checked 2026-06-12 (second session): DoH query still NXDOMAIN — zone still empty._
+
 Decision made: **this portfolio moves to `portfolio.n8builds.dev`**; root n8builds.dev = main site.
 
 Already done (Vercel CLI, authed as natkins23): `portfolio.n8builds.dev` attached to project `portfolio`; `n8builds.dev` + `www` attached to `n8builds-web`. Registrar→Cloudflare delegation works; **the Cloudflare zone (id `afced55cbbdc5f0e6be1b72143af477e`) is active but has ZERO records**. The user must add, all DNS-only/gray-cloud (proxy breaks Vercel certs): `A @ → 76.76.21.21`, `CNAME www → cname.vercel-dns.com`, `CNAME portfolio → cname.vercel-dns.com`. Local wrangler OAuth token is zone:read only — cannot write DNS; a Zone.DNS-edit API token from the user would allow doing it via API.
@@ -41,11 +43,11 @@ Already done (Vercel CLI, authed as natkins23): `portfolio.n8builds.dev` attache
 
 Deploy `/home/natkins/portfolio/examples/gemini-chat-app` (Railway-ready: railway.json, Dockerfile; env: GEMINI_API_KEY, NEXTAUTH_*, Google OAuth + callback URL, TRUST_PROXY=true). Then add `liveSite` to GeminiGPT in `data/projects.tsx` and replace placeholder screenshots `public/projects/geminigpt*.webp` with populated-chat shots.
 
-### 3. Small flagged issues (user aware, not yet requested)
+### 3. Small flagged issues
 
-- Narrow-mobile: hero CTAs sit tight against / possibly overlap the "About me" eyebrow (hero is `h-[72vh] min-h-[34rem]`, `components/sections/Hero.tsx`). Pre-existing.
-- Some card text-overlays still use slate-gray `#1e293b` gradients on the now-bluer bento base (`data/grid/items/gridItem2/3/6.tsx`) — fine in screenshots, possibly muddy.
-- More hero portraits: drop files in `public/hero/`, list in `data/portraits.ts`.
+- ~~Narrow-mobile hero CTA overlap~~ DONE `9ee4f26` — hero is `h-auto pb-12` below md, `md:h-[72vh]` up (overlap was real: at 320px the CTAs sat on the About intro text; verified fixed at 320/360/768/1440).
+- ~~Slate `#1e293b` overlays on bluer bento base~~ DONE `6be08d5` — retinted to `#0d304c` (midpoint of the base gradient) in gridItem2/3/4/6 + TechStack panel/edge fades; `grid-pattern.tsx` intentionally untouched (site background, not a card).
+- More hero portraits: drop files in `public/hero/`, list in `data/portraits.ts`. (Needs user-provided images.)
 
 ### 4. Deferred dep majors (separate task, user opt-in)
 
