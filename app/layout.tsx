@@ -16,7 +16,7 @@ const inter = Inter({
   fallback: ['system-ui', 'arial']
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nathansportfolio.vercel.app'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://portfolio.n8builds.dev'
 const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Nathan Watkins Portfolio'
 
 export const metadata: Metadata = {
