@@ -11,7 +11,7 @@ import { heroPortraits } from '@/data/portraits'
 const Hero = () => {
   return (
     <div
-      className="relative flex flex-col h-[72vh] min-h-[34rem] items-center justify-center bg-blue-400 dark:bg-darkBlue transition-bg select-none"
+      className="relative flex flex-col h-auto min-h-[34rem] md:h-[72vh] pb-12 md:pb-0 items-center justify-center bg-blue-400 dark:bg-darkBlue transition-bg select-none"
       id="home">
       <GridBackground />
       <div className="max-w-[100vw] h-full md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
