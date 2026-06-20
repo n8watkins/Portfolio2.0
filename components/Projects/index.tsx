@@ -1,11 +1,11 @@
 import React, { useCallback, useState, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { FiArrowUpRight } from 'react-icons/fi'
 import { fadeInUpVariants, staggerContainerSlowVariants, defaultAnimationConfig } from '@/lib/animations'
 import { projects } from '@/data/projects'
 import { Project, IconCycleState } from '@/lib/types'
-import { trackProjectEvent, trackModalEvent } from '@/lib/analytics'
-import ProjectModal from './ProjectModal'
+import { trackProjectEvent } from '@/lib/analytics'
 import ProjectCard from './ProjectCard'
 import { getInitialIconCycleState, createStateHandlerMap } from './utils'
 
@@ -13,7 +13,7 @@ const BLURB =
   'Generative AI is changing what software can be — and how it gets built. These are the projects where I explore that shift hands-on.'
 
 const Projects: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const router = useRouter()
   const [iconCycleStates, setIconCycleStates] = useState<Record<number, IconCycleState>>({})
 
   const getOnStateChange = useCallback(
@@ -31,9 +31,8 @@ const Projects: React.FC = () => {
   )
 
   const handleProjectClick = (project: Project) => {
-    setSelectedProject(project)
     trackProjectEvent('view', project.title)
-    trackModalEvent('open', 'project_details', { project_name: project.title })
+    router.push(`/projects/${project.slug}`)
   }
 
   const onStateChangeMap = useMemo(
@@ -43,9 +42,8 @@ const Projects: React.FC = () => {
 
 
   const handleIconClick = (project: Project) => {
-    setSelectedProject(project)
     trackProjectEvent('icon_click', project.title)
-    trackModalEvent('open', 'project_details', { project_name: project.title, trigger: 'icon' })
+    router.push(`/projects/${project.slug}`)
   }
 
   return (
@@ -133,16 +131,6 @@ const Projects: React.FC = () => {
           />
         </a>
       </motion.div>
-
-      <AnimatePresence mode="wait">
-        {selectedProject && (
-          <ProjectModal
-            project={selectedProject}
-            isOpen={!!selectedProject}
-            onClose={() => setSelectedProject(null)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   )
 }

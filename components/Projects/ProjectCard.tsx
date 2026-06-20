@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { FiGithub } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 import { MdOpenInNew, MdOutlineUnfoldMore } from 'react-icons/md'
@@ -76,16 +77,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               <span className="hidden sm:inline underline underline-offset-2 decoration-1">Source</span>
             </a>
           )}
-          <button
-            type="button"
+          <Link
+            href={`/projects/${project.slug}`}
             aria-label={`View ${project.title} details`}
-            onClick={() => onProjectClick(project)}
-            className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-sky-400 transition-colors rounded cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue">
+            onClick={() => trackProjectEvent('view', project.title, { source: 'grid' })}
+            className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-sky-400 transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue">
             <MdOutlineUnfoldMore className="w-5 h-5" />
             <span className="hidden sm:inline underline underline-offset-2 decoration-1 whitespace-nowrap">
               Details
             </span>
-          </button>
+          </Link>
         </div>
       </div>
 

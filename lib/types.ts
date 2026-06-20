@@ -19,13 +19,17 @@ export interface Technologies {
 
 export interface Project {
   id: number
+  /** URL slug for the project's detail page, e.g. /projects/echo */
+  slug: string
   title: string
   subTitle: string
   des: string
   images: string[]
   technologies: Technologies
-  /** The "why" — what this project is exploring / the question behind it. Shown in the modal. */
+  /** The "why" — the goal / what this project is exploring / the question behind it. */
   purpose?: string
+  /** How the project actually uses AI — the model, the technique, the implementation. */
+  aiUsage?: string
   highlights?: string[]
   github?: string
   liveSite?: string
