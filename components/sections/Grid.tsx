@@ -12,7 +12,7 @@ const Grid = () => {
       <motion.div
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
-        className="max-w-3xl mx-auto text-center px-4 pt-28 md:pt-36 pb-14 select-none">
+        className="max-w-3xl mx-auto text-center px-4 pt-36 md:pt-48 pb-14 select-none">
         <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-3">
           Get to know me
         </p>
@@ -20,12 +20,15 @@ const Grid = () => {
           About me
         </h2>
         <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
-          I&apos;m Nathan — an AI-focused full-stack developer based in Los Angeles. After years
-          of shipping production web apps for small businesses, I&apos;m all-in on what generative
-          AI unlocks: streaming interfaces, agents that use tools, retrieval over vector search,
-          and the engineering that makes intelligent products actually feel good to use. I work
-          across the whole stack — React and TypeScript up front, Node and Python on the back, and
-          whichever model API fits the problem.
+          I&apos;m Nathan — a full-stack developer in Los Angeles, a little obsessed with what
+          generative AI makes possible. My favorite part of building is the moment a rough idea
+          turns into something you can actually use.
+        </p>
+        <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed mt-5">
+          Outside of client work I&apos;m the kind of person who builds tools to scratch my own
+          itches — a faster way to dictate, a way to skip to the point of a long video, whatever&apos;s
+          bugging me that week. I like small, sharp projects, learning in public, and taking things
+          apart to see how they work.
         </p>
         <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed mt-5">
           When I&apos;m not consulting through{' '}
@@ -44,15 +47,7 @@ const Grid = () => {
             className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 transition-colors duration-200">
             n8builds.dev
           </a>{' '}
-          — shipping small, sharp projects and sometimes streaming the process live on{' '}
-          <a
-            href="https://twitch.tv/n8builds"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold text-purple-500 dark:text-purple-400 underline decoration-purple-400/40 underline-offset-4 hover:text-purple-300 hover:decoration-purple-300 transition-colors duration-200">
-            Twitch
-          </a>
-          .
+          — shipping projects, writing about what I learn, and sometimes streaming the process live.
         </p>
       </motion.div>
 

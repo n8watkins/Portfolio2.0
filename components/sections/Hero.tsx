@@ -49,7 +49,7 @@ const Hero = () => {
           </motion.span>
         </motion.p>
         <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-8 md:gap-14">
-          <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3">
+          <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-3 md:gap-5">
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -68,7 +68,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.15, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-center md:text-start w-full pl-1 text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-sm">
+              className="text-center md:text-start w-full pl-1 text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-md">
               Building intelligent products that automate, scale, and perform — across the full stack.
             </motion.p>
             <div className="flex items-center justify-center md:justify-start w-full">
