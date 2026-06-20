@@ -119,31 +119,17 @@ const IconCycle: React.FC<IconCycleProps> = ({
   }, [categories, currentCategory, handleCategoryClick])
 
   
-  const didMountRef = useRef(false);
-  const lastStateRef = useRef<IconCycleState | null>(null);
-
+  // Report the visible selection up so the parent can persist it. The effect only
+  // re-runs when one of these primitives actually changes (no manual diff needed);
+  // we just skip the initial mount so we don't echo the starting state straight back.
+  const hasMountedRef = useRef(false)
   useEffect(() => {
-    const currentState: IconCycleState = {
-      currentCategory,
-      cycledIconIndex,
-      highlightedDescriptionIndex,
-    };
-  
-    const lastState = lastStateRef.current;
-  
-    const hasChanged =
-      !lastState ||
-      lastState.currentCategory !== currentState.currentCategory ||
-      lastState.cycledIconIndex !== currentState.cycledIconIndex ||
-      lastState.highlightedDescriptionIndex !== currentState.highlightedDescriptionIndex;
-  
-    if (hasChanged && didMountRef.current && onStateChange) {
-      onStateChange(currentState);
-      lastStateRef.current = currentState;
-    } else {
-      didMountRef.current = true;
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true
+      return
     }
-  }, [currentCategory, cycledIconIndex, highlightedDescriptionIndex, onStateChange]);
+    onStateChange?.({ currentCategory, cycledIconIndex, highlightedDescriptionIndex })
+  }, [currentCategory, cycledIconIndex, highlightedDescriptionIndex, onStateChange])
 
 
   const handleIconHover = useCallback((icon: string, descriptionIndex: number) => {
@@ -273,11 +259,14 @@ const IconCycle: React.FC<IconCycleProps> = ({
       {allIcons
         .filter((tech) => tech.category === currentCategory)
         .map((tech) => (
-          <motion.div
+          <motion.button
+            type="button"
             key={`${currentCategory}-${tech.descriptionIndex}-${tech.icon}`}
-            className="relative flex flex-col items-center "
+            className="relative flex flex-col items-center appearance-none bg-transparent border-0 p-0 cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
             onMouseEnter={() => handleIconHover(tech.icon, tech.descriptionIndex)}
             onMouseLeave={handleIconHoverEnd}
+            onFocus={() => handleIconHover(tech.icon, tech.descriptionIndex)}
+            onBlur={handleIconHoverEnd}
             onClick={() => handleIconClick(tech.icon, tech.descriptionIndex)}
             animate={{
               scale:
@@ -310,7 +299,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
                 />
               </div>
             </div>
-          </motion.div>
+          </motion.button>
         ))}
     </div>
   )

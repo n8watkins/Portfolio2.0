@@ -89,4 +89,21 @@ test.describe('IconCycle', () => {
     await expect(dialog).toBeVisible()
     await expect(dialog).toHaveAttribute('aria-label', /project details/i)
   })
+
+  test('icons are keyboard-operable (focus + Enter opens modal)', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await gotoProjects(page)
+    const alt = await page.evaluate(() => {
+      const imgs = [...document.querySelectorAll('#projects img')].filter((i) =>
+        /projectIcons/.test((i as HTMLImageElement).src) || /projectIcons/.test(i.getAttribute('src') || '')
+      )
+      return (imgs[0] as HTMLImageElement | undefined)?.alt
+    })
+    // The icon is a real <button> whose accessible name comes from the inner img alt.
+    const iconButton = page.getByRole('button', { name: alt! }).first()
+    await iconButton.focus()
+    await expect(iconButton).toBeFocused()
+    await iconButton.press('Enter')
+    await expect(page.locator('[role="dialog"]')).toBeVisible()
+  })
 })
