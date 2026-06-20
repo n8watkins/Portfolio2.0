@@ -54,7 +54,7 @@ const Projects: React.FC = () => {
         <motion.h2
           variants={fadeInUpVariants}
           {...defaultAnimationConfig}
-          className="text-5xl font-bold pt-24 md:pt-28 pb-4 text-slate-800 dark:text-slate-200 select-none">
+          className="text-5xl font-bold pt-14 md:pt-16 pb-4 text-slate-800 dark:text-slate-200 select-none">
           Building for the <span className="text-sky-400 lg:inline">AI-native web</span>
         </motion.h2>
 
@@ -90,7 +90,10 @@ const Projects: React.FC = () => {
       <motion.div
         variants={staggerContainerSlowVariants}
         {...defaultAnimationConfig}
-        className="grid grid-cols-1 gap-16 lg:gap-24 w-full px-2 md:px-4">
+        // The card grid is tall; trigger the stagger as soon as it starts entering
+        // the viewport (not at 30% of the whole grid, which a tall grid may never hit).
+        viewport={{ once: true, amount: 0.05 }}
+        className="grid grid-cols-1 gap-14 lg:gap-20 w-full px-2 md:px-4">
       {projects.map((project: Project, index: number) => (
         <ProjectCard
           key={project.id}

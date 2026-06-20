@@ -4,7 +4,7 @@ export const projects = [
     title: 'Echo',
     subTitle: 'Realtime Voice Agent',
     des: `A browser-based realtime voice AI — speak and it speaks back, streamed and interruptible. Echo closes the whole spoken loop (mic → transcribe → think → speak) with function-calling tools in the middle and a turn-taking state machine that lets you talk over it. The model was the easy part; the ~800 milliseconds of perceived latency were the hard part.`,
-    images: ['/projects/echo.webp', '/projects/echo1.webp'],
+    images: ['/projects/echo1.webp', '/projects/echo.webp'],
     technologies: {
       Frontend: {
         descriptionParts: [
@@ -66,7 +66,7 @@ export const projects = [
     title: 'Scout',
     subTitle: 'Agentic Research Assistant',
     des: `An AI agent that plans, searches the live web, reads sources, and writes a cited report — streaming each step as it happens. Scout is a from-scratch ReAct loop on Gemini with function calling and SSE: no agent framework, no black box. It doesn't hand you an answer, it shows you the reasoning loop that produced it. The process is the product.`,
-    images: ['/projects/scout.webp', '/projects/scout1.webp'],
+    images: ['/projects/scout1.webp', '/projects/scout.webp'],
     technologies: {
       Frontend: {
         descriptionParts: [
