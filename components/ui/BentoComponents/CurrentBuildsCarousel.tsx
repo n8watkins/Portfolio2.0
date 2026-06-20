@@ -6,10 +6,11 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
 
 /**
- * "Currently building" — a living feed of the projects I'm shipping in public
+ * "Building in public" — a living feed of the projects I'm shipping in public
  * (see n8builds.dev), adapted into the bento style. The header stays fixed
  * top-left while the build cycles underneath: each slide carries the project's
- * own icon, a status, a one-line pitch, its stack, and direct links out.
+ * own icon, a one-line pitch, its stack, and direct links out (Code / Live).
+ * Auto-advances, but pauses on hover/focus.
  */
 type BuildLink = { github: string; live?: string }
 
@@ -90,7 +91,7 @@ export default function CurrentBuildsCarousel() {
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
           </span>
           <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-100">
-            Currently building
+            Building in public
           </p>
         </div>
         <a
