@@ -33,7 +33,7 @@ function ProjectLinks({ project }: { project: Project }) {
         </a>
       ) : (
         <span className="inline-flex items-center gap-2 text-slate-400">
-          <span className="h-2 w-2 rounded-full bg-sky-400" aria-hidden="true" /> Live demo coming soon
+          <span className="h-2 w-2 rounded-full bg-slate-500" aria-hidden="true" /> Runs locally — grab it on GitHub
         </span>
       )}
       {project.github && (
@@ -88,9 +88,8 @@ export default function ProjectDetail({ project }: { project: Project }) {
           <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100">
             {project.title}
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
-            {project.des}
-          </p>
+          {/* No description here on purpose — the card already shows `des`; the
+              article below opens with the distinct "goal" so the click pays off. */}
           {/* Primary links — visible at all breakpoints (the sidebar is desktop-only) */}
           <div className="mt-6 lg:hidden">
             <ProjectLinks project={project} />
@@ -156,7 +155,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           {/* Sidebar (desktop) — itinerary + meta card */}
           <aside className="hidden lg:block sticky top-10 space-y-6 select-none">
             <nav aria-label="On this page">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-3">
                 On this page
               </p>
               <ul className="space-y-2 border-l border-white/10">
@@ -173,7 +172,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             </nav>
 
             <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-3">
                 Project
               </p>
               <ProjectLinks project={project} />

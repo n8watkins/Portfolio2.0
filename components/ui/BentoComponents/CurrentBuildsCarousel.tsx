@@ -61,19 +61,27 @@ const INTERVAL_MS = 6000
 
 export default function CurrentBuildsCarousel() {
   const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
   const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
-    if (prefersReducedMotion) return
+    if (prefersReducedMotion || paused) return
     const id = setInterval(() => setIndex((i) => (i + 1) % BUILDS.length), INTERVAL_MS)
     return () => clearInterval(id)
     // Re-arm on index change too (e.g. dot click) so the timer bar stays in sync.
-  }, [prefersReducedMotion, index])
+    // Pause on hover/focus (WCAG 2.2.2) — also keeps the focused slide from
+    // unmounting and dropping a keyboard user's focus mid-interaction.
+  }, [prefersReducedMotion, paused, index])
 
   const build = BUILDS[index]
 
   return (
-    <div className="absolute inset-0 z-30 flex flex-col p-4 md:p-5 select-none">
+    <div
+      className="absolute inset-0 z-30 flex flex-col p-4 md:p-5 select-none"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}>
       {/* Fixed header — stays put while the build below cycles */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">

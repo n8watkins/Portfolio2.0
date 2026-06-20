@@ -40,7 +40,7 @@ const Grid = () => {
             href="https://n8builds.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 transition-colors duration-200">
+            className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 underline decoration-cyan-400/40 underline-offset-4 hover:from-cyan-300 hover:to-blue-300 hover:decoration-cyan-300 transition-colors duration-200">
             n8builds.dev
           </a>
           , where I ship in public.

@@ -43,7 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div
         className={`flex flex-col ${
           index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-        } gap-6 md:gap-10 lg:gap-12 items-center`}>
+        } gap-6 md:gap-10 lg:gap-12 items-start`}>
         {/* Image side — just the screenshot */}
         <div className="w-full md:w-1/2 min-w-0">
           <CardImageCarousel

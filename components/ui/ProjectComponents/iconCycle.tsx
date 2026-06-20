@@ -347,11 +347,14 @@ const IconCycle: React.FC<IconCycleProps> = ({
             {technologies[currentCategory].descriptionParts.map((part, index) => (
               <motion.div
                 key={index}
-                className={`flex items-center justify-start text-sm 1md:text-sm 1lg:text-base w-fit cursor-pointer rounded-xl px-1 1md:px-2 py-1   ${
+                tabIndex={0}
+                className={`flex items-center justify-start text-sm 1md:text-sm 1lg:text-base w-fit cursor-pointer rounded-xl px-1 1md:px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400  ${
                   index === highlightedDescriptionIndex ? 'dark:bg-blue-800 bg-slate-600' : ''
                 }`}
                 onMouseEnter={() => handleDescriptionHover(index)}
                 onMouseLeave={handleDescriptionHoverEnd}
+                onFocus={() => handleDescriptionHover(index)}
+                onBlur={handleDescriptionHoverEnd}
                 animate={{
                   x: index === highlightedDescriptionIndex ? 10 : 0,
                   scale: index === highlightedDescriptionIndex ? 1.05 : 1,
