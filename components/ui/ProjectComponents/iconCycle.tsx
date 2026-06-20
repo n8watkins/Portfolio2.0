@@ -150,10 +150,8 @@ const IconCycle: React.FC<IconCycleProps> = ({
       )
       if (newIndex === -1) return
       setCycledIconIndex(newIndex)
-      setTimeout(() => {
-        onIconStateChange?.(icon, descriptionIndex)
-        onIconClick?.()
-      }, 0)
+      onIconStateChange?.(icon, descriptionIndex)
+      onIconClick?.()
     },
     [allIcons, currentCategory, onIconClick, onIconStateChange]
   )

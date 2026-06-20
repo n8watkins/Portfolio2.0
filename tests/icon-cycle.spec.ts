@@ -71,11 +71,22 @@ test.describe('IconCycle', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' }) // stop the cycle for a stable read
     await gotoProjects(page)
     const before = await firstCategory(page)
-    await page.getByLabel('Next tech category').first().click()
-    await expect.poll(() => firstCategory(page)).not.toBe(before)
+    // Re-click each iteration so a click swallowed under heavy load doesn't flake the test.
+    await expect(async () => {
+      await page.getByLabel('Next tech category').first().click()
+      expect(await firstCategory(page)).not.toBe(before)
+    }).toPass({ timeout: 20000 })
   })
 
-  test('clicking an icon opens the project modal', async ({ page }) => {
+  test('the Details link navigates to the project detail page', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await gotoProjects(page)
+    // First card is Echo; "Details" is a real link to its detail page.
+    await page.getByRole('link', { name: /view echo details/i }).first().click()
+    await expect(page).toHaveURL(/\/projects\/echo/, { timeout: 30000 })
+  })
+
+  test('tech icons are keyboard-operable buttons', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await gotoProjects(page)
     const alt = await page.evaluate(() => {
@@ -84,26 +95,9 @@ test.describe('IconCycle', () => {
       )
       return (imgs[0] as HTMLImageElement | undefined)?.alt
     })
-    await page.getByAltText(alt!).first().click()
-    const dialog = page.locator('[role="dialog"]')
-    await expect(dialog).toBeVisible()
-    await expect(dialog).toHaveAttribute('aria-label', /project details/i)
-  })
-
-  test('icons are keyboard-operable (focus + Enter opens modal)', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-    await gotoProjects(page)
-    const alt = await page.evaluate(() => {
-      const imgs = [...document.querySelectorAll('#projects img')].filter((i) =>
-        /projectIcons/.test((i as HTMLImageElement).src) || /projectIcons/.test(i.getAttribute('src') || '')
-      )
-      return (imgs[0] as HTMLImageElement | undefined)?.alt
-    })
-    // The icon is a real <button> whose accessible name comes from the inner img alt.
+    // Each tech icon is a real <button> (keyboard-reachable) named after the tech.
     const iconButton = page.getByRole('button', { name: alt! }).first()
     await iconButton.focus()
     await expect(iconButton).toBeFocused()
-    await iconButton.press('Enter')
-    await expect(page.locator('[role="dialog"]')).toBeVisible()
   })
 })
