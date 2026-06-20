@@ -4,7 +4,6 @@ export const projects = [
     slug: 'echo',
     title: 'Echo',
     subTitle: 'Realtime Voice Agent',
-    tagline: 'Talk to it and it talks back — streamed, interruptible, and low-latency.',
     des: `A browser-based realtime voice AI — speak and it speaks back, streamed and interruptible. Echo closes the whole spoken loop (mic → transcribe → think → speak) with function-calling tools in the middle and a turn-taking state machine that lets you talk over it. The model was the easy part; the ~800 milliseconds of perceived latency were the hard part.`,
     images: ['/projects/echo1.webp', '/projects/echo.webp'],
     technologies: {
@@ -70,7 +69,6 @@ export const projects = [
     slug: 'scout',
     title: 'Scout',
     subTitle: 'Agentic Research Assistant',
-    tagline: 'An AI agent that researches the live web and shows its reasoning, step by step.',
     des: `An AI agent that plans, searches the live web, reads sources, and writes a cited report — streaming each step as it happens. Scout is a from-scratch ReAct loop on Gemini with function calling and SSE: no agent framework, no black box. It doesn't hand you an answer, it shows you the reasoning loop that produced it. The process is the product.`,
     images: ['/projects/scout1.webp', '/projects/scout.webp'],
     technologies: {
@@ -136,7 +134,6 @@ export const projects = [
     slug: 'geminigpt',
     title: 'GeminiGPT',
     subTitle: 'AI Chat Platform',
-    tagline: 'Chat across sessions, search every past conversation, and drop in PDFs to ask about them.',
     des: `A full-stack AI chat platform powered by Google's Gemini 2.5 Flash. Supports multi-chat sessions, cross-chat semantic search over LanceDB vector embeddings, PDF and DOCX document understanding, and real-time response streaming over WebSockets — with a bring-your-own-key model that keeps usage private.`,
     images: ['/projects/geminigpt.webp', '/projects/geminigpt1.webp'],
     technologies: {
@@ -205,7 +202,6 @@ export const projects = [
     slug: 'net-trailer',
     title: 'Net-Trailer',
     subTitle: 'AI-Powered Netflix Clone',
-    tagline: 'A Netflix-style app where you describe the vibe and AI picks what to watch.',
     des: `A Netflix-style streaming app with an AI brain. Describe what you're in the mood for in plain language and Gemini turns it into tailored picks, while a personalized "Recommended For You" engine learns from your watch history and feedback. Plus TMDB-powered browsing and trailers, secure auth, full Stripe and PayPal subscription checkout, and Firebase-backed persistence.`,
     images: [
       '/projects/netflix.webp',

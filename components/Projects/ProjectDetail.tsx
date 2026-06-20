@@ -102,7 +102,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="relative w-full h-52 md:h-72 rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40 shadow-xl shadow-black/30 mb-14">
+          className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40 shadow-xl shadow-black/30 mb-14">
           <Image
             src={project.images[0]}
             alt={project.title}
@@ -119,7 +119,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             {project.purpose && (
               <section>
                 <Heading id="goal">The goal — what I&apos;m exploring</Heading>
-                <p className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                <p className="text-lg md:text-xl leading-relaxed text-slate-600 dark:text-slate-300">
                   {project.purpose}
                 </p>
               </section>
@@ -128,7 +128,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             {project.aiUsage && (
               <section>
                 <Heading id="ai">How it uses AI</Heading>
-                <p className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                <p className="text-lg md:text-xl leading-relaxed text-slate-600 dark:text-slate-300">
                   {project.aiUsage}
                 </p>
               </section>
@@ -141,7 +141,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                   {project.highlights.map((highlight, i) => (
                     <li
                       key={i}
-                      className="flex gap-3 text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                      className="flex gap-3 text-lg md:text-xl leading-relaxed text-slate-600 dark:text-slate-300">
                       <span className="text-sky-400 select-none mt-1" aria-hidden="true">
                         ▸
                       </span>

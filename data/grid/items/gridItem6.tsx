@@ -11,7 +11,7 @@ export const gridItem6: GridItemConfig = {
   id: 6,
   title: '',
   description: '',
-  gridItemContainer: 'col-span-2 row-span-4 md:col-span-4 md:row-span-3 xl:row-span-5',
+  gridItemContainer: 'col-span-2 row-span-3 md:col-span-4 md:row-span-2 xl:row-span-3',
 
   textContainerClassName: '',
   titleClassName: '',

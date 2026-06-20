@@ -106,8 +106,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
           </div>
 
-          <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed select-none line-clamp-3">
-            {project.tagline ?? project.des}
+          <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed select-none">
+            {project.des}
           </p>
 
           <IconCycle

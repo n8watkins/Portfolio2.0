@@ -73,7 +73,7 @@ export default function CurrentBuildsCarousel() {
   const build = BUILDS[index]
 
   return (
-    <div className="absolute inset-0 z-30 flex flex-col p-5 md:p-6 lg:p-7 select-none">
+    <div className="absolute inset-0 z-30 flex flex-col p-4 md:p-5 select-none">
       {/* Fixed header — stays put while the build below cycles */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
@@ -89,14 +89,17 @@ export default function CurrentBuildsCarousel() {
           href="https://n8builds.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-sky-300 hover:text-sky-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded">
-          n8builds.dev
-          <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+          className="group/n8 inline-flex items-center gap-1 text-sm font-semibold text-sky-300 hover:text-sky-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded">
+          <span className="underline-offset-4 group-hover/n8:underline">n8builds.dev</span>
+          <FiArrowUpRight
+            className="w-4 h-4 transition-transform group-hover/n8:translate-x-0.5 group-hover/n8:-translate-y-0.5"
+            aria-hidden="true"
+          />
         </a>
       </div>
 
       {/* Timer bar — fills over each build's turn */}
-      <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="mt-2.5 h-1 w-full overflow-hidden rounded-full bg-white/10">
         {prefersReducedMotion ? (
           <div className="h-full w-full bg-sky-400/60" />
         ) : (
@@ -111,7 +114,7 @@ export default function CurrentBuildsCarousel() {
       </div>
 
       {/* Cycling build — icon + details */}
-      <div className="relative flex-1 mt-4 min-h-0">
+      <div className="relative flex-1 mt-2.5 min-h-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -119,12 +122,12 @@ export default function CurrentBuildsCarousel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
-            className="flex h-full w-full items-start gap-5 md:gap-6">
+            className="flex h-full w-full items-start gap-4 md:gap-5">
             {/* Project icon */}
             <div
-              className={`relative hidden sm:block h-24 w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 flex-shrink-0 rounded-2xl border border-white/10 bg-gradient-to-br ${build.gradient}`}>
+              className={`relative hidden sm:block h-20 w-20 md:h-24 md:w-24 flex-shrink-0 rounded-2xl border border-white/10 bg-gradient-to-br ${build.gradient}`}>
               <div className="absolute inset-[18%]">
-                <Image src={build.image} alt="" fill sizes="128px" className="object-contain" />
+                <Image src={build.image} alt="" fill sizes="96px" className="object-contain" />
               </div>
             </div>
 
@@ -134,12 +137,12 @@ export default function CurrentBuildsCarousel() {
               <p className={`mt-1 text-xs font-semibold uppercase tracking-wider ${build.accent}`}>
                 {build.tag}
               </p>
-              <p className="mt-2.5 max-w-2xl text-sm text-slate-200/90 md:text-base leading-relaxed">
+              <p className="mt-2 max-w-2xl text-sm text-slate-200/90 md:text-base leading-snug line-clamp-2">
                 {build.desc}
               </p>
 
               {/* Stack */}
-              <div className="mt-3 hidden flex-wrap gap-1.5 md:flex">
+              <div className="mt-2.5 hidden flex-wrap gap-1.5 md:flex">
                 {build.stack.map((s) => (
                   <span
                     key={s}
@@ -150,14 +153,14 @@ export default function CurrentBuildsCarousel() {
               </div>
 
               {/* Per-build redirects */}
-              <div className="mt-3 flex items-center gap-2.5">
+              <div className="mt-2.5 flex items-center gap-2.5">
                 <a
                   href={build.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${build.name} source on GitHub`}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
-                  <FiGithub className="w-4 h-4" aria-hidden="true" />
+                  className="group/code inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white hover:border-white/25 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                  <FiGithub className="w-4 h-4 transition-transform group-hover/code:scale-110" aria-hidden="true" />
                   Code
                 </a>
                 {build.links.live && (
@@ -166,9 +169,12 @@ export default function CurrentBuildsCarousel() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${build.name} live demo`}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-sky-400/30 bg-sky-500/15 px-3 py-1.5 text-sm font-medium text-sky-200 hover:bg-sky-500/25 hover:text-sky-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                    className="group/live inline-flex items-center gap-1.5 rounded-lg border border-sky-400/30 bg-sky-500/15 px-3 py-1.5 text-sm font-medium text-sky-200 hover:bg-sky-500/25 hover:text-sky-100 hover:border-sky-400/60 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-500/20 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
                     Live
-                    <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                    <FiArrowUpRight
+                      className="w-4 h-4 transition-transform group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5"
+                      aria-hidden="true"
+                    />
                   </a>
                 )}
               </div>
@@ -178,7 +184,7 @@ export default function CurrentBuildsCarousel() {
       </div>
 
       {/* Dots */}
-      <div className="mt-3 flex items-center gap-1.5">
+      <div className="mt-2.5 flex items-center gap-1.5">
         {BUILDS.map((b, i) => (
           <button
             key={b.name}

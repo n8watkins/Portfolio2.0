@@ -36,7 +36,7 @@ export default function CardImageCarousel({ images, alt, onClick }: CardImageCar
       onClick={onClick}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="group/img relative w-full h-52 sm:h-60 md:h-64 rounded-xl overflow-hidden cursor-pointer border border-white/10 bg-slate-900/40 shadow-lg shadow-black/30">
+      className="group/img relative w-full h-56 sm:h-64 md:h-72 rounded-xl overflow-hidden cursor-pointer border border-white/10 bg-slate-900/40 shadow-lg shadow-black/30">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
