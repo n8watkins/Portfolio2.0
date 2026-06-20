@@ -34,7 +34,7 @@ export const projects = [
           },
           {
             text: 'Optional Live engine: native Gemini Live speech-to-speech over a raw WebSocket opened from the browser straight to Gemini, with single-use ephemeral tokens',
-            icons: [{ icon: 'gemini.svg' }],
+            icons: [{ icon: 'websocket.svg' }],
           },
         ],
       },
@@ -292,6 +292,7 @@ export const techNameMapping = {
   'gpt.png': 'ChatGPT API',
   'gemini.svg': 'Gemini API',
   'socketio.svg': 'Socket.IO',
+  'websocket.svg': 'WebSocket',
   'sqlite.svg': 'SQLite',
   'railway.svg': 'Railway',
   //----->Auth
