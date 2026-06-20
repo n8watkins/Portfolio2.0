@@ -9,13 +9,6 @@ import { MdOpenInNew } from 'react-icons/md'
 import IconCycle from '@/components/ui/ProjectComponents/iconCycle'
 import { Project } from '@/lib/types'
 
-const SECTIONS = [
-  { id: 'goal', label: 'The goal' },
-  { id: 'ai', label: 'How it uses AI' },
-  { id: 'how', label: 'How it works' },
-  { id: 'stack', label: 'The stack' },
-] as const
-
 function Heading({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <h2
@@ -26,12 +19,57 @@ function Heading({ id, children }: { id: string; children: React.ReactNode }) {
   )
 }
 
+/** Live demo / Source / n8builds links — rendered both inline (mobile) and in the sidebar. */
+function ProjectLinks({ project }: { project: Project }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5 text-sm">
+      {project.liveSite ? (
+        <a
+          href={project.liveSite}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200 transition-colors">
+          <MdOpenInNew className="w-4 h-4" aria-hidden="true" /> Live demo
+        </a>
+      ) : (
+        <span className="inline-flex items-center gap-2 text-slate-400">
+          <span className="h-2 w-2 rounded-full bg-sky-400" aria-hidden="true" /> Live demo coming soon
+        </span>
+      )}
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-slate-300 hover:text-sky-400 transition-colors">
+          <FiGithub className="w-4 h-4" aria-hidden="true" /> Source
+        </a>
+      )}
+      <a
+        href="https://n8builds.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 text-slate-300 hover:text-sky-400 transition-colors">
+        <FiArrowUpRight className="w-4 h-4" aria-hidden="true" /> n8builds.dev
+      </a>
+    </div>
+  )
+}
+
 /**
  * Project detail page, read like a short blog post: image up top, a sticky
- * "on this page" itinerary + a meta card on the side, generous spacing, and a
- * full-width interactive stack breakdown at the bottom.
+ * "on this page" itinerary + meta card on the side (desktop), generous spacing,
+ * and a full-width interactive stack breakdown at the bottom.
  */
 export default function ProjectDetail({ project }: { project: Project }) {
+  // TOC derived from the sections that actually render (sections are conditional).
+  const toc = [
+    project.purpose && { id: 'goal', label: 'The goal' },
+    project.aiUsage && { id: 'ai', label: 'How it uses AI' },
+    project.highlights?.length && { id: 'how', label: 'How it works' },
+    { id: 'stack', label: 'The stack' },
+  ].filter(Boolean) as { id: string; label: string }[]
+
   return (
     <main className="min-h-screen bg-blue-400 dark:bg-darkBlue text-slate-700 dark:text-slate-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-16">
@@ -43,7 +81,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         </Link>
 
         {/* Header */}
-        <header className="mb-10">
+        <header className="mb-8">
           <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
             {project.subTitle}
           </p>
@@ -53,6 +91,10 @@ export default function ProjectDetail({ project }: { project: Project }) {
           <p className="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
             {project.des}
           </p>
+          {/* Primary links — visible at all breakpoints (the sidebar is desktop-only) */}
+          <div className="mt-6 lg:hidden">
+            <ProjectLinks project={project} />
+          </div>
         </header>
 
         {/* Hero image — top of the post */}
@@ -92,7 +134,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
               </section>
             )}
 
-            {project.highlights && (
+            {project.highlights && project.highlights.length > 0 && (
               <section>
                 <Heading id="how">How it works</Heading>
                 <ul className="flex flex-col gap-3">
@@ -111,14 +153,14 @@ export default function ProjectDetail({ project }: { project: Project }) {
             )}
           </article>
 
-          {/* Sidebar — itinerary + meta card */}
+          {/* Sidebar (desktop) — itinerary + meta card */}
           <aside className="hidden lg:block sticky top-10 space-y-6 select-none">
             <nav aria-label="On this page">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
                 On this page
               </p>
               <ul className="space-y-2 border-l border-white/10">
-                {SECTIONS.map((s) => (
+                {toc.map((s) => (
                   <li key={s.id}>
                     <a
                       href={`#${s.id}`}
@@ -134,37 +176,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
               <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
                 Project
               </p>
-              <div className="flex flex-col gap-2.5 text-sm">
-                {project.liveSite ? (
-                  <a
-                    href={project.liveSite}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200 transition-colors">
-                    <MdOpenInNew className="w-4 h-4" aria-hidden="true" /> Live demo
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center gap-2 text-slate-400">
-                    <span className="h-2 w-2 rounded-full bg-sky-400" aria-hidden="true" /> Live demo coming soon
-                  </span>
-                )}
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-slate-300 hover:text-sky-400 transition-colors">
-                    <FiGithub className="w-4 h-4" aria-hidden="true" /> Source
-                  </a>
-                )}
-                <a
-                  href="https://n8builds.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-slate-300 hover:text-sky-400 transition-colors">
-                  <FiArrowUpRight className="w-4 h-4" aria-hidden="true" /> n8builds.dev
-                </a>
-              </div>
+              <ProjectLinks project={project} />
             </div>
           </aside>
         </div>

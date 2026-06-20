@@ -76,9 +76,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`View ${project.title} source on GitHub`}
                   onClick={() => trackProjectEvent('github_click', project.title, { source: 'grid' })}
-                  className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-sky-400 transition-colors">
-                  <FiGithub className="w-5 h-5" />
+                  className="flex items-center gap-1.5 text-sm text-slate-300 hover:text-sky-400 transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue">
+                  <FiGithub className="w-5 h-5" aria-hidden="true" />
                   <span className="hidden lg:inline underline underline-offset-2 decoration-1">Source</span>
                 </a>
               )}

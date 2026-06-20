@@ -48,7 +48,8 @@ export default function CurrentBuildsCarousel() {
     if (prefersReducedMotion) return
     const id = setInterval(() => setIndex((i) => (i + 1) % BUILDS.length), INTERVAL_MS)
     return () => clearInterval(id)
-  }, [prefersReducedMotion])
+    // Re-arm on index change too (e.g. dot click) so the timer bar stays in sync.
+  }, [prefersReducedMotion, index])
 
   const build = BUILDS[index]
   const Icon = build.Icon
