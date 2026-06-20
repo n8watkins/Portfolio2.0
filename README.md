@@ -1,17 +1,17 @@
 # Nathan's Portfolio 2.0 🚀
 
-A modern, production-ready developer portfolio built with Next.js 14, featuring enterprise-grade contact functionality, advanced animations, and comprehensive security measures.
+A modern, production-ready developer portfolio built with Next.js 16, featuring per-project detail pages, a "building in public" bento, advanced animations, and an interactive tech-stack cycler.
 
 ## ✨ Key Features
 
-- **Modern Stack**: Next.js 14 with App Router, TypeScript, and Tailwind CSS
-- **Enterprise Contact Form**: 7-layer security with Resend, reCAPTCHA v3, rate limiting, and XSS protection
+- **Modern Stack**: Next.js 16 with App Router, TypeScript, and Tailwind CSS
+- **Per-Project Detail Pages**: Blog-style `/projects/[slug]` pages with a sticky table of contents and a full-width tech-stack breakdown
+- **"Building in Public" Bento**: An auto-cycling feed of what I'm shipping, with per-build links out to GitHub / live / n8builds.dev
 - **Advanced Animations**: Framer Motion with scroll-triggered fade-ins and interactive elements
-- **Performance Optimized**: 340 kB bundle size, optimized images, and comprehensive monitoring
-- **Security First**: Multi-layer protection with rate limiting (5/hour), honeypot, and sanitization
+- **Performance Optimized**: Optimized images, code splitting, and comprehensive monitoring
 - **Fully Responsive**: Mobile-first design with seamless desktop experience
-- **Analytics Integration**: Google Analytics with custom event tracking for all interactions
-- **Dark/Light Theme**: Automatic system preference detection with manual toggle
+- **Analytics Integration**: Google Analytics 4 with custom event tracking for all interactions
+- **Dark Theme**: Cohesive dark-only design (slate + sky-blue)
 - **Error Boundaries**: Granular section-level error handling with graceful degradation
 - **Web Vitals HUD**: Real-time performance monitoring (Alt+Shift+V toggle in dev mode)
 - **Testing & CI**: Playwright E2E tests, Lighthouse CI, and automated accessibility testing
@@ -22,7 +22,7 @@ A modern, production-ready developer portfolio built with Next.js 14, featuring 
 ### Tech Stack
 
 **Frontend:**
-- Next.js 14 (App Router)
+- Next.js 16 (App Router)
 - TypeScript for type safety
 - Tailwind CSS for styling
 - Framer Motion for animations
@@ -31,9 +31,6 @@ A modern, production-ready developer portfolio built with Next.js 14, featuring 
 
 **Backend:**
 - Next.js API Routes
-- Resend for email delivery
-- Google reCAPTCHA v3
-- Comprehensive security middleware
 
 **Development & Testing:**
 - ESLint + TypeScript strict mode
@@ -48,75 +45,24 @@ A modern, production-ready developer portfolio built with Next.js 14, featuring 
 
 ```
 Portfolio2.0/
-├── app/                          # Next.js 14 App Router
-│   ├── api/
-│   │   ├── contact/
-│   │   │   └── route.ts          # Contact API orchestration (168 lines)
-│   │   └── health/               # Health check endpoints
-│   ├── globals.css               # Global styles and CSS variables
-│   ├── layout.tsx                # Root layout with providers & metadata
-│   ├── page.tsx                  # Home page with lazy-loaded sections
-│   ├── provider.tsx              # Theme provider wrapper
-│   ├── web-vitals.tsx            # Performance monitoring
+├── app/                          # Next.js 16 App Router
+│   ├── api/health/               # Health check endpoint
+│   ├── projects/[slug]/          # Per-project detail pages
+│   ├── layout.tsx                # Root layout, metadata, GA snippet
+│   ├── page.tsx                  # Home (lazy-loaded sections)
+│   ├── sitemap.ts / robots       # SEO surfaces
 │   └── global-error.tsx          # Global error boundary
-├── components/                   # React components
-│   ├── ContactForm/              # Multi-file contact form module
-│   │   ├── index.tsx             # Main form component
-│   │   ├── ContactFormFields.tsx # Form fields UI
-│   │   ├── ContactFormSuccess.tsx # Success state
-│   │   └── useContactFormSubmit.ts # Form logic hook
-│   ├── Projects/                 # Project showcase module
-│   │   ├── index.tsx             # Projects container
-│   │   ├── ProjectCard.tsx       # Individual project cards
-│   │   ├── ProjectModal.tsx      # Project detail modal
-│   │   └── utils.ts              # Helper functions
-│   ├── sections/                 # Page sections
-│   │   ├── Hero.tsx              # Landing section
-│   │   ├── Grid.tsx              # About/BentoGrid section
-│   │   ├── Experience.tsx        # Work experience
-│   │   └── Clients.tsx           # Testimonials
-│   ├── layout/                   # Layout components
-│   │   ├── FloatingNav.tsx       # Sticky navigation
-│   │   └── Footer.tsx            # Site footer
-│   ├── ui/                       # Reusable UI components
-│   │   ├── BentoGrid.tsx         # Data-driven grid system
-│   │   ├── MagicButton.tsx       # Animated buttons
-│   │   └── ScrollToTop.tsx       # Scroll-to-top button
-│   ├── SectionErrorBoundary.tsx  # Granular error boundaries
-│   ├── ErrorBoundary.tsx         # Global error boundary
-│   └── WebVitalsHUD.tsx          # Performance HUD (Alt+Shift+V)
-├── lib/                          # Utilities and business logic
-│   ├── security/                 # Security modules
-│   │   ├── rateLimiter.ts        # IP-based rate limiting (131 lines)
-│   │   ├── recaptcha.ts          # reCAPTCHA verification (103 lines)
-│   │   └── validation.ts         # Input sanitization (86 lines)
-│   ├── email/                    # Email functionality
-│   │   ├── sender.ts             # Email sending logic (110 lines)
-│   │   └── templates.ts          # HTML email templates
-│   ├── validations/              # Zod schemas
-│   │   └── contact.ts            # Contact form validation
-│   ├── analytics.ts              # Google Analytics tracking
-│   ├── animations.ts             # Framer Motion presets
-│   ├── logger.ts                 # Centralized logging
-│   └── types.ts                  # TypeScript types
-├── data/                         # Static content
-│   ├── grid/                     # BentoGrid items (split into files)
-│   │   ├── gridItems.tsx         # Re-exports (15 lines)
-│   │   └── items/                # Individual grid items
-│   ├── projects.tsx              # Project portfolio data
-│   ├── experience.tsx            # Work history
-│   ├── techStack.tsx             # Technology arrays
-│   └── navigation.tsx            # Nav items
-├── hooks/                        # Custom React hooks
-│   ├── useSectionTracking.ts    # IntersectionObserver tracking
-│   └── useScrollTracking.ts     # Scroll depth monitoring
+├── components/
+│   ├── Projects/                 # Project cards + blog-style detail pages
+│   ├── sections/                 # Hero, About/Bento (Grid), Experience, Testimonials
+│   ├── ui/                       # BentoGrid, ProjectComponents/iconCycle,
+│   │                             #   BentoComponents/CurrentBuildsCarousel, etc.
+│   └── layout/                   # FloatingNav, Footer
+├── lib/                          # analytics, animations, logger, types
+├── data/                         # projects, grid items, experience, navigation
+├── hooks/                        # section + scroll tracking
 ├── tests/                        # Playwright E2E tests
-│   └── web-vitals.spec.ts       # Performance testing
-├── public/                       # Static assets
-│   ├── projects/                 # Project screenshots
-│   ├── hero/                     # Hero section images
-│   └── bento/                    # BentoGrid assets
-└── [config files]                # Next.js, TS, Tailwind, Playwright, etc.
+└── public/                       # projects, hero, bento, builds assets
 ```
 
 **Key Stats:**
@@ -167,15 +113,6 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 NEXT_PUBLIC_SITE_NAME=Your Portfolio Name
 NEXT_PUBLIC_VERSION=2.0
 
-# Google reCAPTCHA v3
-NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key
-RECAPTCHA_SECRET_KEY=your_secret_key
-
-# Resend Email Service
-RESEND_API_KEY=your_resend_api_key
-CONTACT_EMAIL_TO=your-email@domain.com
-CONTACT_EMAIL_FROM=contact@your-domain.com
-
 # Sentry (Optional - Error Tracking)
 SENTRY_AUTH_TOKEN=your_sentry_token
 NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn
@@ -185,64 +122,8 @@ NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn
 
 | Service | URL | Free Tier | Notes |
 |---------|-----|-----------|-------|
-| Google Analytics | [analytics.google.com](https://analytics.google.com) | ✅ Yes | Create a GA4 property |
-| reCAPTCHA v3 | [google.com/recaptcha](https://www.google.com/recaptcha/admin) | ✅ Yes | Select "reCAPTCHA v3" (NOT v2) |
-| Resend | [resend.com](https://resend.com/api-keys) | ✅ 100 emails/day | Modern email API |
+| Google Analytics | [analytics.google.com](https://analytics.google.com) | ✅ Yes | Create a GA4 property — no Google Cloud project needed |
 | Sentry | [sentry.io](https://sentry.io) | ✅ 5K errors/month | Error tracking (optional) |
-
-## 📧 Contact Form Deep Dive
-
-The contact form is a production-ready enterprise solution with multiple layers of security and validation.
-
-### Features
-
-- **7-layer security architecture** (see Security Measures below)
-- **Client-side validation** with React Hook Form + Zod
-- **Server-side validation** with comprehensive sanitization
-- **reCAPTCHA v3** for invisible bot protection (score-based)
-- **Rate limiting** to prevent spam (5 requests per hour)
-- **Honeypot field** for additional bot detection
-- **XSS protection** with DOMPurify sanitization
-- **Request size validation** (10KB limit)
-- **Professional email templates** with auto-reply functionality
-- **Real-time character counting** and field validation
-- **Smooth animations** and loading states with confetti celebration
-- **Accessibility compliant** with WCAG guidelines
-
-### Technical Implementation
-
-**Frontend Flow:**
-1. User fills out form with real-time validation
-2. On submit, reCAPTCHA executes invisibly
-3. Form validation runs with reCAPTCHA token
-4. API request sent with sanitized data
-5. Success/error states with animations
-
-**Backend Flow:**
-1. Request size validation (10KB limit)
-2. Rate limiting check per IP (5 requests/hour)
-3. Honeypot field validation
-4. reCAPTCHA token verification (0.5+ score)
-5. Data sanitization with DOMPurify
-6. Zod schema validation
-7. Email sending via Resend API
-8. Auto-reply confirmation email
-
-### Security Measures (7 Layers)
-
-1. **Request Size Validation** - 10KB limit prevents DoS attacks
-2. **IP-based Rate Limiting** - 5 requests/hour in production (50/hour in dev)
-3. **Honeypot Field** - Hidden field detects bots
-4. **reCAPTCHA v3** - Score-based verification (0.5+ threshold)
-5. **XSS Sanitization** - DOMPurify cleans all inputs
-6. **Zod Validation** - Type-safe schema validation
-7. **Error Masking** - Generic errors to clients, detailed logs server-side
-
-**Additional Security:**
-- In-memory rate limit store with automatic cleanup
-- Environment-based security bypasses for development
-- Comprehensive logging for audit trails
-- No sensitive data exposure in responses
 
 ## 🎨 Animations & UX
 
@@ -343,7 +224,7 @@ npm run start
 
 ### Content Management
 
-- **Portfolio data**: Edit `data/index.tsx`
+- **Portfolio data**: Edit `data/projects.tsx`
 - **Project information**: Update project arrays and images
 - **Contact details**: Modify footer and contact sections
 - **Theme colors**: Customize in `app/globals.css`
@@ -376,7 +257,6 @@ npm run start
 - **CSS Masks**: Gradient effects in infinite card animations
 - **Marquee Components**: Magic UI marquee for performant infinite scroll
 - **Animation Performance**: Framer Motion optimized for 60fps
-- **Form UX**: Invisible reCAPTCHA v3 maintains seamless experience
 - **Error Resilience**: Section-level boundaries prevent cascading failures
 - **Type Safety**: Zod schemas provide runtime validation + TypeScript types
 
@@ -400,18 +280,6 @@ The BentoGrid uses a data-driven composition pattern instead of ID-based conditi
 ```
 
 **Result**: 59% code reduction, better maintainability, easier testing
-
-### Shared Field Wrapper Component
-
-Form fields use a shared wrapper to eliminate duplication:
-
-```typescript
-<FieldWrapper label="Name" error={errors.name} emoji="👤">
-  <input {...field} />
-</FieldWrapper>
-```
-
-**Benefits**: DRY principle, consistent styling, centralized error handling
 
 ### Centralized Animation Library
 
