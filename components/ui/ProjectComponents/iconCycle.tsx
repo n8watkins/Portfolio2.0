@@ -198,7 +198,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
   const renderTitle = () => {
     return (
-      <div className="mt-9 1sm:mt-6 1lg:mt-1 md:mt-6 lg:mt-4 flex items-center justify-center mb-1 ">
+      <div className="mt-1 flex items-center justify-center mb-1 ">
         <button
           type="button"
           onClick={handlePreviousCategory}

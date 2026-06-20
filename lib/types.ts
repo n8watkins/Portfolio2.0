@@ -24,6 +24,8 @@ export interface Project {
   title: string
   subTitle: string
   des: string
+  /** One short line for the project card — simpler than `des`, which is kept for the detail header. */
+  tagline?: string
   images: string[]
   technologies: Technologies
   /** The "why" — the goal / what this project is exploring / the question behind it. */

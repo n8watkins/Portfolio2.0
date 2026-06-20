@@ -23,9 +23,9 @@ interface ProjectCardProps {
 }
 
 /**
- * ProjectCard — alternating "back and forth" layout. One side holds the title +
- * an auto-cycling image; the other holds the description + the tech-stack cycler.
- * Sides flip per card (even = media left, odd = media right).
+ * ProjectCard — alternating "back and forth" layout. One side is the auto-cycling
+ * image; the other stacks the title over its description and the tech-stack cycler.
+ * Sides flip per card (even = image left, odd = image right).
  */
 const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
@@ -44,7 +44,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         className={`flex flex-col ${
           index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
         } gap-6 md:gap-10 lg:gap-12 items-center`}>
-        {/* Media side — title + auto-cycling image */}
+        {/* Image side — just the screenshot */}
+        <div className="w-full md:w-1/2 min-w-0">
+          <CardImageCarousel
+            images={project.images}
+            alt={project.title}
+            onClick={() => onProjectClick(project)}
+          />
+        </div>
+
+        {/* Text side — title over description + tech stack */}
         <div className="w-full md:w-1/2 flex flex-col gap-3 min-w-0">
           <div className="flex items-start justify-between gap-3 select-none">
             <div className="flex flex-col min-w-0">
@@ -96,18 +105,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
           </div>
 
-          <CardImageCarousel
-            images={project.images}
-            alt={project.title}
-            onClick={() => onProjectClick(project)}
-          />
-        </div>
-
-        {/* Text side — description + tech stack */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center gap-2 min-w-0">
           <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed select-none">
-            {project.des}
+            {project.tagline ?? project.des}
           </p>
+
           <IconCycle
             technologies={project.technologies}
             orientation="h"

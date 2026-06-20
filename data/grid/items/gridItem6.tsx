@@ -3,8 +3,9 @@ import type { GridItemConfig } from '@/lib/types/gridItem'
 
 /**
  * Grid Item 6: "Currently building" — an enlarged bento card with a carousel of
- * the projects I'm actively shipping in public (Scribe, TLDW, Portfolio Ranker),
- * each with a visual, a live indicator, a timer, and links out to n8builds.dev.
+ * the projects I'm actively shipping in public (LocalDictate, TL;DW, Portfolio
+ * Rank), each with its own icon, a status, its stack, a timer, and direct links
+ * out to GitHub / the live demo / n8builds.dev.
  */
 export const gridItem6: GridItemConfig = {
   id: 6,

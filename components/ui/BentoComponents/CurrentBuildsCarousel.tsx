@@ -1,44 +1,71 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { FaMicrophone, FaYoutube, FaTrophy } from 'react-icons/fa6'
 import { FiGithub, FiArrowUpRight } from 'react-icons/fi'
 
 /**
  * "Currently building" — a living feed of the projects I'm shipping in public
  * (see n8builds.dev), adapted into the bento style. The header stays fixed
- * top-left while the build cycles underneath, with a timer bar showing progress
- * through each one.
+ * top-left while the build cycles underneath: each slide carries the project's
+ * own icon, a status, a one-line pitch, its stack, and direct links out.
  */
-const BUILDS = [
+type BuildLink = { github: string; live?: string }
+
+interface Build {
+  name: string
+  tag: string
+  status: 'Shipped' | 'Active'
+  statusDot: string
+  desc: string
+  image: string
+  gradient: string
+  accent: string
+  stack: string[]
+  links: BuildLink
+}
+
+const BUILDS: Build[] = [
   {
-    name: 'Scribe',
-    tag: 'Rust · whisper.cpp',
-    desc: 'Hold a hotkey, talk, release — transcribed on-device and dropped right at your cursor. No cloud, no account, no audio leaves your machine.',
-    Icon: FaMicrophone,
-    gradient: 'from-orange-500/25 via-amber-500/10 to-transparent',
-    accent: 'text-orange-300',
-  },
-  {
-    name: 'TLDW',
-    tag: 'Chrome extension',
-    desc: 'Too Long; Didn’t Watch — summarizes long videos so you get the point without sitting through the whole thing.',
-    Icon: FaYoutube,
-    gradient: 'from-rose-500/25 via-red-500/10 to-transparent',
-    accent: 'text-rose-300',
-  },
-  {
-    name: 'Portfolio Ranker',
-    tag: 'Web app',
-    desc: 'Scores and ranks developer portfolios against each other, so you can see exactly how yours stacks up.',
-    Icon: FaTrophy,
-    gradient: 'from-sky-500/25 via-blue-500/10 to-transparent',
+    name: 'LocalDictate',
+    tag: 'Desktop · Rust + Whisper',
+    status: 'Shipped',
+    statusDot: 'bg-emerald-400',
+    desc: 'Hold a hotkey, talk, release — transcribed on-device by whisper.cpp and dropped right at your cursor. No cloud, no account, no audio leaves your machine.',
+    image: '/builds/localdictate.png',
+    gradient: 'from-slate-500/25 via-blue-600/15 to-transparent',
     accent: 'text-sky-300',
+    stack: ['Tauri', 'Rust', 'whisper.cpp', 'SQLite'],
+    links: { github: 'https://github.com/n8watkins/localdictate' },
+  },
+  {
+    name: 'TL;DW',
+    tag: 'Chrome extension · Gemini',
+    status: 'Shipped',
+    statusDot: 'bg-emerald-400',
+    desc: 'Too Long; Didn’t Watch — press Alt+G on any YouTube video and it opens Gemini with your saved prompt and the video URL already filled in.',
+    image: '/builds/tldw.png',
+    gradient: 'from-orange-500/25 via-amber-500/12 to-transparent',
+    accent: 'text-orange-300',
+    stack: ['Chrome MV3', 'TypeScript', 'Vite'],
+    links: { github: 'https://github.com/n8watkins/tl-dw' },
+  },
+  {
+    name: 'Portfolio Rank',
+    tag: 'Web app · AI scoring',
+    status: 'Active',
+    statusDot: 'bg-amber-400',
+    desc: '1,700+ developer portfolios, browsable and searchable — soon ranked by head-to-head votes and AI scoring instead of alphabetically.',
+    image: '/builds/portfolio-rank.png',
+    gradient: 'from-sky-500/25 via-blue-500/12 to-transparent',
+    accent: 'text-sky-300',
+    stack: ['Next.js', 'TypeScript', 'Vercel'],
+    links: { github: 'https://github.com/n8watkins/portfolio-rank', live: 'https://portfoliorank.vercel.app' },
   },
 ]
 
-const INTERVAL_MS = 5000
+const INTERVAL_MS = 6000
 
 export default function CurrentBuildsCarousel() {
   const [index, setIndex] = useState(0)
@@ -52,10 +79,9 @@ export default function CurrentBuildsCarousel() {
   }, [prefersReducedMotion, index])
 
   const build = BUILDS[index]
-  const Icon = build.Icon
 
   return (
-    <div className="absolute inset-0 z-30 flex flex-col p-5 md:p-7 lg:p-8 select-none">
+    <div className="absolute inset-0 z-30 flex flex-col p-5 md:p-6 lg:p-7 select-none">
       {/* Fixed header — stays put while the build below cycles */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
@@ -67,24 +93,14 @@ export default function CurrentBuildsCarousel() {
             Currently building
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <a
-            href="https://github.com/n8watkins"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="My GitHub"
-            className="text-slate-300 hover:text-sky-400 transition-colors">
-            <FiGithub className="w-5 h-5" />
-          </a>
-          <a
-            href="https://n8builds.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm font-semibold text-sky-300 hover:text-sky-200 transition-colors">
-            n8builds.dev
-            <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
-          </a>
-        </div>
+        <a
+          href="https://n8builds.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-sky-300 hover:text-sky-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded">
+          n8builds.dev
+          <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+        </a>
       </div>
 
       {/* Timer bar — fills over each build's turn */}
@@ -102,8 +118,8 @@ export default function CurrentBuildsCarousel() {
         )}
       </div>
 
-      {/* Cycling build — visual + details */}
-      <div className="relative flex-1 mt-4">
+      {/* Cycling build — icon + details */}
+      <div className="relative flex-1 mt-4 min-h-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -111,22 +127,71 @@ export default function CurrentBuildsCarousel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4 }}
-            className="flex h-full w-full items-center gap-4 md:gap-6">
-            {/* Visual */}
+            className="flex h-full w-full items-start gap-5 md:gap-6">
+            {/* Project icon */}
             <div
-              className={`relative hidden sm:flex h-24 w-36 md:h-28 md:w-48 lg:h-32 lg:w-56 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br ${build.gradient}`}>
-              <Icon className={`h-8 w-8 md:h-10 md:w-10 ${build.accent}`} aria-hidden="true" />
+              className={`relative hidden sm:block h-24 w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 flex-shrink-0 rounded-2xl border border-white/10 bg-gradient-to-br ${build.gradient}`}>
+              <div className="absolute inset-[18%]">
+                <Image
+                  src={build.image}
+                  alt={`${build.name} icon`}
+                  fill
+                  sizes="128px"
+                  className="object-contain"
+                />
+              </div>
             </div>
 
             {/* Details */}
             <div className="flex min-w-0 flex-col">
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                 <h3 className="text-2xl font-bold text-slate-100 lg:text-3xl">{build.name}</h3>
-                <span className={`rounded-full border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider ${build.accent}`}>
-                  {build.tag}
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-slate-200">
+                  <span className={`h-1.5 w-1.5 rounded-full ${build.statusDot}`} aria-hidden="true" />
+                  {build.status}
                 </span>
               </div>
-              <p className="mt-2 max-w-2xl text-sm text-slate-200/90 md:text-base">{build.desc}</p>
+              <p className={`mt-1 text-xs font-semibold uppercase tracking-wider ${build.accent}`}>
+                {build.tag}
+              </p>
+              <p className="mt-2.5 max-w-2xl text-sm text-slate-200/90 md:text-base leading-relaxed">
+                {build.desc}
+              </p>
+
+              {/* Stack */}
+              <div className="mt-3 hidden flex-wrap gap-1.5 md:flex">
+                {build.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              {/* Per-build redirects */}
+              <div className="mt-3 flex items-center gap-2.5">
+                <a
+                  href={build.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${build.name} source on GitHub`}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                  <FiGithub className="w-4 h-4" aria-hidden="true" />
+                  Code
+                </a>
+                {build.links.live && (
+                  <a
+                    href={build.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${build.name} live demo`}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-sky-400/30 bg-sky-500/15 px-3 py-1.5 text-sm font-medium text-sky-200 hover:bg-sky-500/25 hover:text-sky-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+                    Live
+                    <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </a>
+                )}
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
