@@ -320,7 +320,6 @@ export const techNameMapping = {
   'host.svg': 'Hostinger',
   'digitalocean.png': 'DigitalOcean',
   'replit.png': 'Replit',
-  'render.png': 'Render',
   'render.svg': 'Render',
   'railway.png': 'Railway',
   'drizzle.png': 'Drizzle ORM',

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { techNameMapping, projects } from '@/data/projects'
@@ -72,8 +72,12 @@ const IconCycle: React.FC<IconCycleProps> = ({
   }, [])
 
 
+  const prefersReducedMotion = useReducedMotion()
+
   const startAutoCycle = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
+    // Honor prefers-reduced-motion: no auto-cycling (manual hover still works).
+    if (prefersReducedMotion) return
     intervalRef.current = setInterval(() => {
       if (!isManualHoverRef.current) {
         setCycledIconIndex((prevIndex) => {
@@ -91,7 +95,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
         })
       }
     }, HOVER_INTERVAL)
-  }, [setCurrentCategory])
+  }, [setCurrentCategory, prefersReducedMotion])
 
   const resetCycling = useCallback(() => {
     if (intervalRef.current) {

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 
 export type PortraitTransition = 'fade' | 'slide' | 'zoom-blur'
 
@@ -50,15 +50,17 @@ const PortraitRotator: React.FC<PortraitRotatorProps> = ({
 }) => {
   const [index, setIndex] = useState(0)
   const [hasRotated, setHasRotated] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
-    if (images.length <= 1) return
+    // Honor prefers-reduced-motion: hold on the first portrait, no auto-rotation.
+    if (images.length <= 1 || prefersReducedMotion) return
     const id = setInterval(() => {
       setHasRotated(true)
       setIndex((prev) => (prev + 1) % images.length)
     }, intervalMs)
     return () => clearInterval(id)
-  }, [images.length, intervalMs])
+  }, [images.length, intervalMs, prefersReducedMotion])
 
   const variants = transitionVariants[transition]
 

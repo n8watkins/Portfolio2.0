@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const AUTO_SLIDE_INTERVAL_MS = 4000
@@ -32,6 +32,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   const [isHovered, setIsHovered] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
@@ -63,15 +64,15 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
     }
   }, [])
 
-  // Auto-cycling behavior
+  // Auto-cycling behavior — paused when the user prefers reduced motion.
   useEffect(() => {
-    const shouldAutoCycle = isModalOpen && !isHovered
+    const shouldAutoCycle = isModalOpen && !isHovered && !prefersReducedMotion
 
     if (!shouldAutoCycle) return
 
     const interval = setInterval(nextSlide, AUTO_SLIDE_INTERVAL_MS)
     return () => clearInterval(interval)
-  }, [isModalOpen, isHovered, nextSlide])
+  }, [isModalOpen, isHovered, nextSlide, prefersReducedMotion])
 
   return (
     <>
