@@ -280,21 +280,23 @@ const IconCycle: React.FC<IconCycleProps> = ({
   const renderTitle = () => {
     return (
       <div className="mt-9 1sm:mt-6 1lg:mt-1 md:mt-6 lg:mt-4 flex items-center justify-center mb-1 ">
-        <div className="w-12 h-12 flex items-center justify-center">
-          <ChevronLeft
-            className="cursor-pointer text-white hover:text-sky-400 transition-colors"
-            onClick={handlePreviousCategory}
-          />
-        </div>
+        <button
+          type="button"
+          onClick={handlePreviousCategory}
+          aria-label="Previous tech category"
+          className="w-12 h-12 flex items-center justify-center rounded-full cursor-pointer text-white hover:text-sky-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+          <ChevronLeft aria-hidden="true" />
+        </button>
         <div className="flex justify-center items-center w-40  ">
           <h3 className="font-bold text-lg md:text-xl">{currentCategory}</h3>
         </div>
-        <div className="w-12 h-12 flex items-center justify-center">
-          <ChevronRight
-            className="cursor-pointer text-white hover:text-sky-400 transition-colors"
-            onClick={handleNextCategory}
-          />
-        </div>
+        <button
+          type="button"
+          onClick={handleNextCategory}
+          aria-label="Next tech category"
+          className="w-12 h-12 flex items-center justify-center rounded-full cursor-pointer text-white hover:text-sky-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+          <ChevronRight aria-hidden="true" />
+        </button>
       </div>
     )
   }

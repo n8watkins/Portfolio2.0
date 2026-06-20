@@ -218,3 +218,19 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Default keyboard-focus indicator for interactive elements that don't set
+   their own focus-visible style. Tailwind focus utilities (higher specificity)
+   still win where elements opt into a custom ring, so this is a safety net that
+   guarantees no focusable control ships without a visible focus ring. */
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid theme('colors.sky.400');
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}

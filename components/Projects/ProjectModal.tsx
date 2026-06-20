@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FiGithub } from 'react-icons/fi'
 import { MdOpenInNew } from 'react-icons/md'
@@ -27,6 +27,15 @@ interface ProjectModalProps {
  * - Framer Motion animations + BorderBeam visual effects
  */
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
+  // Close on Escape — standard dialog keyboard behavior.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
+
   if (!isOpen) return null
 
   const handleModalClose = () => {
@@ -50,6 +59,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
       className="fixed inset-0 bg-black bg-opacity-50 z-[10001] flex items-center justify-center p-4 select-none"
       onClick={handleModalClose}>
       <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${project.title} — project details`}
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 50, opacity: 0 }}

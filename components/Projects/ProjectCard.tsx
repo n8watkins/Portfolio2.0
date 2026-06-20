@@ -66,6 +66,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 className="rounded-xl select-none object-cover hover:scale-[1.01] duration-200 transform-gpu will-change-transform"
               />
             </div>
+            {!project.liveSite && (
+              <span className="absolute top-3 left-3 z-10 inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-slate-900/80 px-3 py-1 text-xs font-semibold text-sky-300 shadow-lg backdrop-blur-sm select-none">
+                <span className="h-2 w-2 rounded-full bg-sky-400" aria-hidden="true" />
+                Coming soon
+              </span>
+            )}
           </div>
         </div>
         <div className="relative flex flex-col flex-1 min-w-0 max-w-full overflow-hidden justify-center">
