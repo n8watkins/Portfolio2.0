@@ -59,10 +59,10 @@ const Experience = () => {
                           alt=""
                           fill
                           sizes="40vw"
-                          className="object-cover object-center [mask-image:linear-gradient(to_left,black_18%,transparent_92%)] scale-105 group-hover:scale-100 transition-transform duration-700"
+                          className="object-cover object-center [mask-image:linear-gradient(to_left,black_42%,transparent_98%)] scale-105 group-hover:scale-100 transition-transform duration-700"
                         />
                         {/* Fade the left edge into the page background so it doesn't hard-cut */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-darkBlue via-darkBlue/35 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-darkBlue via-darkBlue/15 to-transparent" />
                       </div>
                     )}
 

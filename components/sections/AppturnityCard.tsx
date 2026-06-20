@@ -45,7 +45,7 @@ const AppturnityCard = () => {
         {/* Appturnity — consulting */}
         <motion.div
           variants={staggerItemVariants}
-          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-sky-400/20 hover:shadow-2xl hover:shadow-sky-500/25 transition-all duration-300 flex flex-col">
+          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:bg-white/10 hover:border-white/40 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 flex flex-col">
           <a
             href="https://appturnity.com/"
             target="_blank"
@@ -66,15 +66,11 @@ const AppturnityCard = () => {
               Consulting
             </p>
             <div className="flex items-center gap-3">
-              {/* Appturnity brand icon */}
-              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl">
-                <Image
-                  src="/brand/appturnity-icon.webp"
-                  alt=""
-                  fill
-                  sizes="40px"
-                  className="object-cover"
-                />
+              {/* Appturnity brand mark — "A" monogram (swap for the real logo when available) */}
+              <span
+                aria-hidden="true"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#3b8bff] to-[#1d6fe0] text-xl font-bold text-white shadow-lg shadow-blue-500/30 group-hover:from-[#4f97ff] group-hover:to-[#2a78f0] transition-colors duration-300">
+                A
               </span>
               <h3 className="text-2xl md:text-3xl font-bold text-slate-100">Appturnity</h3>
             </div>
