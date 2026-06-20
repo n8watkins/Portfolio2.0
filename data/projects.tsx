@@ -191,8 +191,8 @@ export const projects = [
   {
     id: 2,
     title: 'Net-Trailer',
-    subTitle: 'Netflix Clone',
-    des: `A Netflix-style streaming experience: browse TMDB-powered titles, watch trailers, and build a personal watchlist. Includes secure authentication with NextAuth, full Stripe and PayPal subscription checkout flows, and Firebase-backed persistence.`,
+    subTitle: 'AI-Powered Netflix Clone',
+    des: `A Netflix-style streaming app with an AI brain. Describe what you're in the mood for in plain language and Gemini turns it into tailored picks, while a personalized "Recommended For You" engine learns from your watch history and feedback. Plus TMDB-powered browsing and trailers, secure auth, full Stripe and PayPal subscription checkout, and Firebase-backed persistence.`,
     images: [
       '/projects/netflix.webp',
       '/projects/netflix1.webp',
@@ -218,6 +218,10 @@ export const projects = [
       },
       Backend: {
         descriptionParts: [
+          {
+            text: 'AI recommendations powered by Gemini — natural-language search that reads your intent, plus a personalized engine that learns from your history with a feedback loop',
+            icons: [{ icon: 'gemini.svg' }],
+          },
           {
             text: 'Integrated payment gateways for secure transactions',
             icons: [{ icon: 'paypal.png' }, { icon: 'stripe.png' }],
@@ -246,6 +250,8 @@ export const projects = [
       },
     },
     highlights: [
+      'Tell it what you’re in the mood for in plain English — a Gemini-powered analyzer reads your intent (media type, genres, vibe) and builds a matching suggestion row on the fly, with a multi-model router that falls back automatically.',
+      'A personalized “Recommended For You” engine learns from your full watch and rating history with a real-time feedback loop — dislikes and skips reshape future picks, and each suggestion can explain why it surfaced.',
       'Browses live TMDB data — trending titles, genre rows, and trailer playback — with a cinematic, Netflix-style UI built in React and Tailwind CSS.',
       'Secure sign-in with NextAuth; sessions gate the watchlist and checkout flows.',
       'Full subscription checkout implemented twice over: both Stripe and PayPal payment flows, end to end.',

@@ -10,7 +10,7 @@ import ProjectCard from './ProjectCard'
 import { getInitialIconCycleState, createStateHandlerMap } from './utils'
 
 const BLURB =
-  'Generative AI is changing what software can be — and how it gets built. These are the projects where I explore that shift hands-on: a realtime voice agent you can talk over, an agentic researcher that shows its work, streaming chat over vector embeddings, and the full-stack plumbing that makes intelligent products feel effortless.'
+  'Generative AI is changing what software can be — and how it gets built. These are the projects where I explore that shift hands-on: a realtime voice agent you can talk over, an agentic researcher that shows its work, streaming chat over vector embeddings, AI-personalized recommendations, and the full-stack plumbing that makes intelligent products feel effortless.'
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
