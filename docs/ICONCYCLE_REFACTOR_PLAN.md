@@ -5,17 +5,33 @@ component in the app. It works, but it's fragile and hard to change. This is a
 plan to refactor it **incrementally and safely** — no big-bang rewrite. Nothing
 here needs to ship at once; each phase is independently shippable and testable.
 
-> **Status (2026-06-19): steps 2 & 3 DONE.** `allIcons` is now a `useMemo`, the
-> loading skeleton / `renderFrontendIcons` / `setTimeout` are gone, and the
-> imperative `setInterval` + the `isManualHoverRef` / `currentCategoryRef` /
-> `allIconsRef` ref-mirrors were replaced by one declarative effect gated on an
-> `interacting` boolean. Net **525 → 421 lines**, both pre-existing ESLint
-> warnings cleared, behavior verified (auto-cycle + category crossing, hover
-> pause/highlight, chevron nav, icon-click → modal). Category-nav chevrons were
-> also made keyboard-operable `<button>`s. **Remaining (higher-risk, deferred):**
-> step 4 (collapse the overlapping state to one source of truth), step 5 (simplify
-> the `onStateChange` sync), step 6 (extract shared `<IconRow>`/`<IconButton>` and
-> make the icons themselves keyboard-operable), step 1 (tests).
+> **Status (2026-06-19): steps 1–6 essentially DONE.**
+> - **Step 1 (tests):** `tests/icon-cycle.spec.ts` — a Playwright spec locking
+>   auto-cycle, reduced-motion, hover-pause/highlight, category-nav, icon→modal,
+>   and keyboard operability (6 tests, all green). These caught a real hover
+>   regression mid-refactor.
+> - **Step 2:** `allIcons` is a `useMemo`; loading skeleton / `renderFrontendIcons`
+>   / `setTimeout` deleted.
+> - **Step 3:** the imperative `setInterval` + the `isManualHoverRef` /
+>   `currentCategoryRef` / `allIconsRef` ref-mirrors collapsed to one declarative
+>   effect.
+> - **Step 4:** state collapsed to **one source of truth** — `cycledIconIndex` +
+>   an ephemeral `preview` ({icons, descriptionIndex, kind}); `currentCategory`,
+>   `highlightedDescriptionIndex`, `hoveredIcons`, and the pause flag are all
+>   derived. (Also fixed a pre-existing duplicate-`gemini.svg` key collision in
+>   Echo's Backend by giving the Live engine a dedicated WebSocket icon.)
+> - **Step 5:** `onStateChange` sync simplified — dropped the redundant
+>   `lastStateRef` diff (the effect only fires on real primitive changes).
+> - **Step 6 (a11y):** the tech icons are now real keyboard-operable
+>   `<motion.button>`s (focus ring, `onFocus`/`onBlur` mirror hover, Enter opens
+>   the modal). Category-nav chevrons were buttonized earlier.
+>
+> **Deferred (optional, code-org only):** the *component extraction* part of step 6
+> — pulling a shared `<IconRow>`/`<IconButton>` out of `renderIcons`/`renderDetailedView`.
+> The user-facing accessibility it was meant to deliver is already done; this is a
+> pure tidiness refactor that can happen anytime. Note `renderDetailedView` (the
+> `view="detailed"` path) is currently unused — only `view="simple"` ships — so it's
+> a candidate for deletion if the detailed view isn't planned.
 
 ---
 
