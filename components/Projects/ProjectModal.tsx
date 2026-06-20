@@ -155,20 +155,37 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
               />
             </div>
 
-            {/* How it works — stack referenced in prose */}
+            {/* What I'm exploring — the purpose / question behind the project */}
+            {project.purpose && (
+              <div className="text-left">
+                <h4 className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
+                  What I&apos;m exploring
+                </h4>
+                <p className="text-sm md:text-base leading-relaxed text-slate-100">
+                  {project.purpose}
+                </p>
+              </div>
+            )}
+
+            {/* How it works — the technical implementation, stack referenced in prose */}
             {project.highlights && (
-              <ul className="flex flex-col gap-3 pb-4 text-left">
-                {project.highlights.map((highlight, i) => (
-                  <li
-                    key={i}
-                    className="flex gap-3 text-sm md:text-base leading-relaxed text-slate-100">
-                    <span className="text-sky-400 select-none" aria-hidden="true">
-                      ▸
-                    </span>
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="text-left pb-4">
+                <h4 className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
+                  How it works
+                </h4>
+                <ul className="flex flex-col gap-3">
+                  {project.highlights.map((highlight, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-3 text-sm md:text-base leading-relaxed text-slate-100">
+                      <span className="text-sky-400 select-none" aria-hidden="true">
+                        ▸
+                      </span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         </div>

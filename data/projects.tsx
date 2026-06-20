@@ -59,6 +59,7 @@ export const projects = [
       'Two voice engines behind one toggle: a hand-built Classic pipeline (browser STT/TTS) and Gemini’s native Live API — PCM speech-to-speech over WebSocket, connected with single-use ephemeral tokens.',
       'Zero-setup demo on a shared key with a usage meter, plus bring-your-own-key for unlimited use; STT/TTS run in the browser, so no audio ever leaves your machine.',
     ],
+    purpose: `Echo is my deep-dive into the part of voice AI that isn't the model — the ~800 milliseconds of perceived latency and the barge-in turn-taking. The question I wanted to answer: what does it actually take to make a spoken AI conversation feel alive instead of like a 1970s answering machine? The finding that made it click is that the fix is structural — overlap the pipeline stages with a sentence chunker, model turn-taking as an explicit state machine — not "buy a faster model."`,
     github: 'https://github.com/n8watkins/echo-genai-voice-agent',
   },
   {
@@ -121,6 +122,7 @@ export const projects = [
       'fetch_url is treated as the SSRF footgun it is: http/https only, per-hop host re-validation through redirects, blocked private/link-local IPs, 8s/2MB caps, and DOMPurify on the content.',
       'Zero-setup on a shared demo key with a live capacity meter; bring-your-own Gemini key (stored only in your browser) for unlimited runs, with heavier models server-gated to BYOK.',
     ],
+    purpose: `Scout is my exploration of what an AI agent really is once you strip away the frameworks: a while-loop with a budget and a stop condition. The research question is how you make a tool-using agent legible and trustworthy — grounding every claim in a real source, citing by contract, knowing when to stop, and treating each tool as an attack surface. The engineering lives in the scaffolding around the model, which is exactly where I think the interesting work in agents actually is.`,
     github: 'https://github.com/n8watkins/scout-agentic-ai-researcher',
   },
   {
@@ -186,6 +188,7 @@ export const projects = [
       'Bring-your-own-key design: your Gemini API key stays client-side, so usage and conversations remain private.',
       'Chats persist in SQLite; the whole app ships as a Docker container deployed on Railway with CI through GitHub.',
     ],
+    purpose: `GeminiGPT is where I explore making AI chat useful beyond a single thread. The question: what makes a chat assistant feel like it actually remembers you? What I'm testing is semantic memory — every message embedded and searchable across all your past conversations — plus document understanding and token-by-token streaming, all on a bring-your-own-key model so your data stays yours.`,
     github: 'https://github.com/n8watkins/GeminiGPT',
   },
   {
@@ -258,6 +261,7 @@ export const projects = [
       'Your watchlist and profile persist in Firebase, syncing in real time across sessions.',
       'Server-rendered with Next.js and deployed on Vercel, with Cloudinary handling optimized image delivery.',
     ],
+    purpose: `Net-Trailer started as a full-stack streaming clone and became my testbed for grafting AI onto an existing product. The thing I'm exploring: can "what should I watch?" feel like asking a person who actually knows your taste? So it pairs natural-language search with a recommendation engine that learns from your behavior — and explains why it picked each title.`,
     github: 'https://github.com/n8watkins/net_trailer',
     liveSite: 'https://net-trailers.vercel.app/',
   },

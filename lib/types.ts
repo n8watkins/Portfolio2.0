@@ -24,6 +24,8 @@ export interface Project {
   des: string
   images: string[]
   technologies: Technologies
+  /** The "why" — what this project is exploring / the question behind it. Shown in the modal. */
+  purpose?: string
   highlights?: string[]
   github?: string
   liveSite?: string
