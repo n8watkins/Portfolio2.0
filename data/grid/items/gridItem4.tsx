@@ -46,7 +46,7 @@ export const gridItem4: GridItemConfig = {
           fill
           sizes="100%"
           className="absolute w-full h-full pl-52 1sm:pt-10 1sm:h-[10rem] pt-0 rounded-3xl  z-10 group-hover:scale-105 transition duration-500 group-hover:translate-y-10 group-hover:translate-x-6  "
-          alt="/bento/resume.svg"
+          alt=""
           loading="lazy"
         />
       </div>

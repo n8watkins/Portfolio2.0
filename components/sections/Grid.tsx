@@ -25,9 +25,9 @@ const introSnapshots = [
   {
     src: '/brand/appturnity-site.webp',
     alt: 'The Appturnity website',
-    caption: 'appturnity.web.app',
+    caption: 'appturnity.com',
     rotate: '-rotate-2',
-    href: 'https://appturnity.web.app',
+    href: 'https://appturnity.com',
   },
 ]
 
@@ -39,17 +39,20 @@ const Grid = () => {
       <motion.div
         variants={fadeInUpVariants}
         {...defaultAnimationConfig}
-        className="max-w-2xl mx-auto text-center px-4 pt-16 pb-12 select-none">
+        className="max-w-3xl mx-auto text-center px-4 pt-20 pb-12 select-none">
         <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-3">
-          About me
+          Get to know me
         </p>
-        <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+        <h2 className="text-4xl sm:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-6 select-none">
+          About me
+        </h2>
+        <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
           I&apos;m Nathan — an AI-focused full-stack developer in Los Angeles 📍. After years
           of shipping web apps for small businesses, I&apos;m now all-in on what generative
           AI unlocks: smarter products, faster builds, and tools that feel like magic ✨.
           When I&apos;m not consulting through{' '}
           <a
-            href="https://appturnity.web.app"
+            href="https://appturnity.com"
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-sky-500 dark:text-sky-400 underline decoration-sky-400/40 underline-offset-4 hover:text-sky-300 hover:decoration-sky-300 transition-colors duration-200">
@@ -60,7 +63,7 @@ const Grid = () => {
             href="https://n8builds.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 transition-colors duration-200">
+            className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 transition-colors duration-200">
             n8builds.dev
           </a>{' '}
           — sometimes live on{' '}

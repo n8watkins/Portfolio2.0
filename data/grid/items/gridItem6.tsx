@@ -41,7 +41,7 @@ export const gridItem6: GridItemConfig = {
         fill
         sizes="100%"
         className="absolute pl-40 "
-        alt="/bento/code.svg"
+        alt=""
         loading="lazy"
       />
     </div>

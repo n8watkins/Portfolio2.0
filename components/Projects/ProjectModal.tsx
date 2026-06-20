@@ -75,16 +75,16 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                 onClick={handleLiveSiteClick}
                 className="flex flex-row justify-center items-center w-fit">
                 <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 ">
-                  <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-2 flex justify-start  decoration-3 hover-underline-animation">
                     {project.title}
-                  </h2>
+                  </h3>
                   <MdOpenInNew className="flex justify-center items-center w-5 h-5 mb-2" />
                 </span>
               </a>
             ) : (
-              <h2 className="text-2xl sm:text-3xl font-bold mb-2 flex justify-start">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-2 flex justify-start">
                 {project.title}
-              </h2>
+              </h3>
             )}
             {project.github && (
               <a

@@ -40,7 +40,7 @@ export const gridItem2: GridItemConfig = {
           fill
           sizes="100%"
           className="absolute top-0   rounded-3xl  z-10  transition duration-500"
-          alt="/bento/globe.jpeg"
+          alt=""
           loading="lazy"
         />
       </div>

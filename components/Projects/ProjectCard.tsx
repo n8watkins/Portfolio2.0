@@ -52,8 +52,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
         } gap-4 md:gap-8 lg:gap-10 w-full items-stretch`}
       >
-        <div className="relative w-full md:w-[55%] flex-shrink-0">
-          <div className="relative w-full pt-[56.25%] md:pt-0 md:h-full md:min-h-[18rem] lg:min-h-[22rem] xl:min-h-[26rem] rounded-xl overflow-hidden">
+        <div className="relative w-full md:w-[46%] flex-shrink-0">
+          <div className="relative w-full pt-[56.25%] md:pt-0 md:h-full md:min-h-[15rem] lg:min-h-[18rem] xl:min-h-[21rem] rounded-xl overflow-hidden">
             <div
               onClick={() => onProjectClick(project)}
               className="absolute inset-0 rounded-xl cursor-pointer overflow-hidden"
@@ -82,17 +82,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   className="flex flex-row justify-start items-center mb-1 select-none cursor-default"
                 >
                   <span className="flex flex-row text-xl xl:text-3xl font-sans font-bold items-center justify-center gap-1 select-none">
-                    <h2 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl font-bold mb-2 flex justify-center decoration-3 hover-underline-animation truncate select-none">
+                    <h3 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl font-bold mb-2 flex justify-center decoration-3 hover-underline-animation truncate select-none">
                       {project.title}
-                    </h2>
+                    </h3>
                     <MdOpenInNew className="flex justify-center items-center w-5 h-5" />
                   </span>
                 </a>
               ) : (
                 <span className="flex flex-row justify-start items-center mb-1 select-none">
-                  <h2 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl font-bold mb-2 flex justify-center truncate select-none">
+                  <h3 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl font-bold mb-2 flex justify-center truncate select-none">
                     {project.title}
-                  </h2>
+                  </h3>
                 </span>
               )}
               <span className="text-lg md:text-base lg:text-base xl:text-md font-sans font-bold pb-2 -mt-3 select-none truncate">
@@ -116,15 +116,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   </span>
                 </a>
               )}
-              <span
-                className="flex flex-row items-center cursor-pointer select-none"
+              <button
+                type="button"
+                aria-label={`View ${project.title} details`}
+                className="flex flex-row items-center cursor-pointer select-none rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue"
                 onClick={() => onProjectClick(project)}
               >
                 <MdOutlineUnfoldMore className="w-5 h-5 mr-1" />
                 <span className="hidden 1md:inline-block text-sm underline underline-offset-2 whitespace-nowrap decoration-2 hover-underline-animation hover-underline-animation-trigger select-none">
                   Details
                 </span>
-              </span>
+              </button>
             </span>
           </div>
           <p className="text-base md:text-lg min-h-10 mt-1 dark:text-slate-300 select-none">

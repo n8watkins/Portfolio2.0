@@ -51,15 +51,15 @@ export const FloatingNav = ({
           to="home"
           smooth={true}
           duration={300}
-          className="flex items-center cursor-pointer pl-2 sm:pl-3"
+          className="flex items-center cursor-pointer pl-2 sm:pl-3 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
           aria-label="Scroll to top">
-          <span className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-white/20">
+          <span className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-lg overflow-hidden">
             <Image
-              src="/hero/portrait.jpg"
+              src="/tab/n8-icon.png"
               fill
               sizes="32px"
               className="object-cover"
-              alt="Nathan Watkins"
+              alt="n8builds"
             />
           </span>
         </Link>
@@ -79,7 +79,7 @@ export const FloatingNav = ({
                 smooth={true}
                 offset={-80}
                 duration={300}
-                className="flex items-center"
+                className="flex items-center rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
                 aria-label={`Navigate to ${item.name} section`}>
                 <span className="text-xs sm:text-sm">{item.name}</span>
               </Link>

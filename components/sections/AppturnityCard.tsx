@@ -47,7 +47,7 @@ const AppturnityCard = () => {
           variants={staggerItemVariants}
           className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
           <a
-            href="https://appturnity.web.app/"
+            href="https://appturnity.com/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit Appturnity"
@@ -65,7 +65,19 @@ const AppturnityCard = () => {
             <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
               Consulting
             </p>
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-100">Appturnity</h3>
+            <div className="flex items-center gap-3">
+              {/* Appturnity brand icon */}
+              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl">
+                <Image
+                  src="/brand/appturnity-icon.webp"
+                  alt=""
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
+              </span>
+              <h3 className="text-2xl md:text-3xl font-bold text-slate-100">Appturnity</h3>
+            </div>
             <p className="text-sm md:text-base text-slate-400 leading-relaxed mt-3 mb-6 flex-1">
               My consulting company — custom apps and AI automation for small businesses,
               from healthcare to property management to HVAC. The current obsession is{' '}
@@ -75,11 +87,11 @@ const AppturnityCard = () => {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="https://appturnity.web.app/"
+                href="https://appturnity.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-700 text-sm text-slate-300 hover:text-sky-400 hover:border-sky-400/60 transition-colors duration-200">
-                appturnity.web.app
+                appturnity.com
                 <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </a>
               <a
@@ -107,7 +119,7 @@ const AppturnityCard = () => {
               <span className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 group-hover:from-cyan-300 group-hover:to-blue-500 transition-colors duration-300">
                 n8builds.dev
               </span>
-              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-400">
                 Build log
               </span>
             </div>
@@ -117,7 +129,19 @@ const AppturnityCard = () => {
             <p className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-2">
               Follow the work
             </p>
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-100">n8builds.dev</h3>
+            <div className="flex items-center gap-3">
+              {/* n8builds brand icon */}
+              <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl">
+                <Image
+                  src="/tab/n8-icon.png"
+                  alt=""
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
+              </span>
+              <h3 className="text-2xl md:text-3xl font-bold text-slate-100">n8builds.dev</h3>
+            </div>
             <p className="text-sm md:text-base text-slate-400 leading-relaxed mt-3 mb-6 flex-1">
               My build log. I&apos;m making a whole lot of things at once — AI products,
               automations, dev tools — and shipping them in public. Sometimes I&apos;m live

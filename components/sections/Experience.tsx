@@ -33,7 +33,7 @@ const Experience = () => {
               <React.Fragment key={item.id}>
                 {showDivider && (
                   <div className="relative pl-10 md:pl-12 pt-2">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400">
                       Additional Experience
                     </p>
                   </div>

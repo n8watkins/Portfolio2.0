@@ -15,7 +15,7 @@ export const workExperience: WorkExperienceItem[] = [
   {
     id: 1,
     company: 'Appturnity',
-    companyUrl: 'https://appturnity.web.app',
+    companyUrl: 'https://appturnity.com',
     location: 'Los Angeles, CA',
     role: 'Full Stack Developer & Co-Founder',
     period: 'March 2023 – Present',

@@ -4,7 +4,7 @@ _Last updated: 2026-06-13 (session: mobile hero fix, bento overlay retint, portf
 
 ## Project summary
 
-Nathan Watkins' personal portfolio — an **online resume / digital card** whose job is to funnel visitors to **n8builds.dev** (his main build-in-public site, project `n8builds-web`, source at `~/n8builds/n8builds-web`) and **Appturnity** (his consulting company, https://appturnity.web.app). Dark-only, slate + sky-blue palette.
+Nathan Watkins' personal portfolio — an **online resume / digital card** whose job is to funnel visitors to **n8builds.dev** (his main build-in-public site, project `n8builds-web`, source at `~/n8builds/n8builds-web`) and **Appturnity** (his consulting company, https://appturnity.com). Dark-only, slate + sky-blue palette.
 
 - Stack: Next.js 16.2.9 (App Router, Turbopack dev / webpack build), React 19, TypeScript, Tailwind 3.4, framer-motion 12, react-scroll.
 - Run: `npm run dev` → **http://localhost:4829** (non-standard port, set in package.json).

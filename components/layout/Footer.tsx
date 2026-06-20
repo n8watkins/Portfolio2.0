@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="w-full absolute left-0 1sm:-translate-y-52 -bottom-72 min-h-96 pointer-events-none">
          <Image
            src="/footer-grid.svg"
-           alt="grid"
+           alt=""
            className="w-full h-full opacity-50 z-10 pointer-events-none"
            fill
            sizes="100vw"
@@ -55,7 +55,7 @@ const Footer = () => {
                 />
               </a>
               <a
-                href="https://appturnity.web.app"
+                href="https://appturnity.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Consulting inquiries via Appturnity"
@@ -119,7 +119,7 @@ const Footer = () => {
             <FiArrowUpRight className="w-4 h-4" aria-hidden="true" />
           </a>
           <a
-            href="https://appturnity.web.app"
+            href="https://appturnity.com"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit Appturnity, my consulting company"
@@ -134,7 +134,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's GitHub profile"
-            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue transition-all duration-200"
           >
             <FiGithub className="w-full h-full p-3" aria-hidden="true" />
           </a>
@@ -143,7 +143,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's LinkedIn profile"
-            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue transition-all duration-200"
           >
             <CiLinkedin className="w-full h-full p-2" aria-hidden="true" />
           </a>
@@ -152,7 +152,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Nathan's X (Twitter) profile"
-            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue transition-all duration-200"
           >
             <FaXTwitter className="w-full h-full p-3" aria-hidden="true" />
           </a>
@@ -161,7 +161,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow Nathan on Twitch"
-            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue transition-all duration-200"
           >
             <FaTwitch className="w-full h-full p-3" aria-hidden="true" />
           </a>
@@ -170,7 +170,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow Nathan on YouTube"
-            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus:bg-transparent active:bg-transparent transition-all duration-200"
+            className="w-12 h-12 rounded-full hover:bg-blue-500/60 dark:hover:bg-slate-700/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-darkBlue transition-all duration-200"
           >
             <FaYoutube className="w-full h-full p-3" aria-hidden="true" />
           </a>

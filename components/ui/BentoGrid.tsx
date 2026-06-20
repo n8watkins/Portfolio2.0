@@ -99,10 +99,14 @@ export const BentoGridItem = ({
       {/* Background layer - data-driven */}
       {renderBackground?.()}
 
-      {/* Cursor-following glow — above backgrounds, below content */}
+      {/* Cursor-following glow — above backgrounds, below content.
+          Fixed pixel size (not % of the card) so the glow looks identical on
+          every bento item regardless of its dimensions. The element is centered
+          on its own origin via negative margins, then translate() drops that
+          center onto the cursor. */}
       <div
         ref={glowRef}
-        className="absolute w-full h-full -top-1/2 -left-1/2 z-[400] pointer-events-none opacity-0 group-hover:opacity-60 transition-opacity duration-300 [background:radial-gradient(circle_at_center,_rgba(56,189,248,0.8)_0,_rgba(56,189,248,0)_50%)_no-repeat] [mix-blend-mode:hard-light]"
+        className="absolute left-0 top-0 h-[16rem] w-[16rem] -ml-[8rem] -mt-[8rem] rounded-full z-[400] pointer-events-none opacity-0 group-hover:opacity-60 transition-opacity duration-300 [background:radial-gradient(circle,_rgba(56,189,248,0.8)_0,_rgba(56,189,248,0)_60%)] [mix-blend-mode:hard-light]"
       />
 
       {/* Content layer - data-driven */}

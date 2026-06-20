@@ -136,10 +136,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         {/* === Fixed-position indicators BELOW image === */}
         <div className="mt-2 flex justify-center gap-2">
           {images.map((_, index) => (
-            <div
+            <button
               key={index}
+              type="button"
               onClick={() => setCurrentIndex(index)}
-              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+              aria-label={`Go to image ${index + 1} of ${images.length}`}
+              aria-current={index === currentIndex}
+              className={`h-1.5 w-8 rounded-full cursor-pointer transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e1f50] ${
                 index === currentIndex ? 'bg-blue-500' : 'bg-white/60'
               }`}
             />
