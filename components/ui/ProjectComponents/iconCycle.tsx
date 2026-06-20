@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { techNameMapping, projects } from '@/data/projects'
+import { techNameMapping } from '@/data/projects'
 import { Technologies, TechNameMappingInterface, IconCycleState } from '@/lib/types'
 
 interface IconCycleProps {
@@ -31,37 +31,36 @@ const IconCycle: React.FC<IconCycleProps> = ({
   onStateChange,
   onIconClick,
   onIconStateChange,
-  projectId,
 }) => {
-  const categories = Object.keys(technologies) as (keyof Technologies)[]
+  const categories = useMemo(
+    () => Object.keys(technologies) as (keyof Technologies)[],
+    [technologies]
+  )
+
+  // Flattened, ordered list of every icon across all categories, derived from
+  // props. Because it's a memo (not an effect-populated ref) it's correct on the
+  // very first render — which is why no loading skeleton is needed. The
+  // auto-cycle and handlers index into this single source of truth.
+  const allIcons = useMemo(
+    () =>
+      categories.flatMap((category) =>
+        technologies[category].descriptionParts.flatMap((part, descriptionIndex) =>
+          part.icons.map((tech) => ({ icon: tech.icon, category, descriptionIndex }))
+        )
+      ),
+    [technologies, categories]
+  )
+
   const [currentCategory, setCurrentCategory] = useState<keyof Technologies>(
     initialCategory || categories[0]
   )
   const [hoveredIcons, setHoveredIcons] = useState<string[]>([])
   const [cycledIconIndex, setCycledIconIndex] = useState(initialIconIndex)
   const [highlightedDescriptionIndex, setHighlightedDescriptionIndex] = useState<number>(0)
-  const [isFirstRender, setIsFirstRender] = useState(true)
   const [hoveredDescriptionIndex, setHoveredDescriptionIndex] = useState<number | null>(null)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const isManualHoverRef = useRef(false)
-  const [loading, setLoading] = useState(true)
-
-  const allIconsRef = useRef<
-    { icon: string; category: keyof Technologies; descriptionIndex: number }[]
-  >([])
-  const currentCategoryRef = useRef(currentCategory)
-
-  useEffect(() => {
-    allIconsRef.current = categories.flatMap((category) =>
-      technologies[category].descriptionParts.flatMap((part, descriptionIndex) =>
-        part.icons.map((tech) => ({ icon: tech.icon, category, descriptionIndex }))
-      )
-    )
-  }, [technologies, categories])
-
-  useEffect(() => {
-    currentCategoryRef.current = currentCategory
-  }, [currentCategory])
+  // Whether the user is actively previewing an icon/description — pauses the
+  // auto-cycle. Replaces the old `isManualHoverRef` + manual clearInterval calls.
+  const [interacting, setInteracting] = useState(false)
 
 
 
@@ -74,51 +73,43 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
   const prefersReducedMotion = useReducedMotion()
 
-  const startAutoCycle = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    // Honor prefers-reduced-motion: no auto-cycling (manual hover still works).
-    if (prefersReducedMotion) return
-    intervalRef.current = setInterval(() => {
-      if (!isManualHoverRef.current) {
-        setCycledIconIndex((prevIndex) => {
-          const nextIndex = (prevIndex + 1) % allIconsRef.current.length
-          const nextIcon = allIconsRef.current[nextIndex]
-
-          if (nextIcon.category !== currentCategoryRef.current) {
-            setCurrentCategory(nextIcon.category)
-            setHighlightedDescriptionIndex(0)
-          } else {
-            setHighlightedDescriptionIndex(nextIcon.descriptionIndex)
-          }
-
-          return nextIndex
-        })
-      }
+  // Auto-cycle: advance through every icon, crossing into the next category when
+  // this one runs out. Declarative — the interval lives and dies with this effect
+  // and pauses whenever the user is interacting or prefers reduced motion. The
+  // category is derived from the icon list, so no ref-mirror of state is needed.
+  useEffect(() => {
+    if (interacting || prefersReducedMotion || allIcons.length <= 1) return
+    const id = setInterval(() => {
+      setCycledIconIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % allIcons.length
+        const prevIcon = allIcons[prevIndex]
+        const nextIcon = allIcons[nextIndex]
+        if (!nextIcon) return prevIndex
+        if (!prevIcon || nextIcon.category !== prevIcon.category) {
+          setCurrentCategory(nextIcon.category)
+          setHighlightedDescriptionIndex(0)
+        } else {
+          setHighlightedDescriptionIndex(nextIcon.descriptionIndex)
+        }
+        return nextIndex
+      })
     }, HOVER_INTERVAL)
-  }, [setCurrentCategory, prefersReducedMotion])
-
-  const resetCycling = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    if (!isManualHoverRef.current) {
-      startAutoCycle();
-    }
-  }, [startAutoCycle]);
+    return () => clearInterval(id)
+  }, [interacting, prefersReducedMotion, allIcons])
   
   const handleCategoryClick = useCallback((category: keyof Technologies) => {
     setCurrentCategory(category)
-    const firstIconOfCategory = allIconsRef.current.find((icon) => icon.category === category)
-    if (firstIconOfCategory) {
-      setCycledIconIndex(allIconsRef.current.indexOf(firstIconOfCategory))
-      setHighlightedDescriptionIndex(firstIconOfCategory.descriptionIndex)
+    const firstIndex = allIcons.findIndex((icon) => icon.category === category)
+    if (firstIndex !== -1) {
+      setCycledIconIndex(firstIndex)
+      setHighlightedDescriptionIndex(allIcons[firstIndex].descriptionIndex)
     } else {
       setCycledIconIndex(0)
       setHighlightedDescriptionIndex(0)
     }
     setHoveredIcons([])
-    resetCycling()
-  }, [resetCycling])
+    setInteracting(false)
+  }, [allIcons])
 
     
   const handleNextCategory = useCallback(() => {
@@ -134,21 +125,6 @@ const IconCycle: React.FC<IconCycleProps> = ({
   }, [categories, currentCategory, handleCategoryClick])
 
   
-  useEffect(() => {
-    if (isFirstRender) {
-      setCycledIconIndex(initialIconIndex)
-      setHighlightedDescriptionIndex(0)
-      setIsFirstRender(false)
-      // Add delay before setting loading to false for smooth transition
-      setTimeout(() => setLoading(false), 800)
-    } else {
-      startAutoCycle()
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
-    }
-  }, [isFirstRender, startAutoCycle, initialIconIndex])
-
   const didMountRef = useRef(false);
   const lastStateRef = useRef<IconCycleState | null>(null);
 
@@ -177,79 +153,64 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
 
   const handleIconHover = useCallback((icon: string, descriptionIndex: number) => {
-    const newIndex = allIconsRef.current.findIndex(
-      (tech) => tech.icon === icon && tech.category === currentCategoryRef.current
+    const newIndex = allIcons.findIndex(
+      (tech) => tech.icon === icon && tech.category === currentCategory
     )
     if (newIndex !== -1) {
       setCycledIconIndex(newIndex)
       setHighlightedDescriptionIndex(descriptionIndex)
       setHoveredIcons([icon])
-      isManualHoverRef.current = true
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
+      setInteracting(true)
     }
-  }, [])
+  }, [allIcons, currentCategory])
 
   const handleIconHoverEnd = useCallback(() => {
-    isManualHoverRef.current = false
     setHoveredIcons([])
-    startAutoCycle()
-  }, [startAutoCycle])
+    setInteracting(false)
+  }, [])
 
   const handleIconClick = useCallback(
     (icon: string, descriptionIndex: number) => {
-      setCycledIconIndex((prevIndex) => {
-        const newIndex = allIconsRef.current.findIndex(
-          (tech) => tech.icon === icon && tech.category === currentCategoryRef.current
-        )
-        if (newIndex !== -1) {
-          setTimeout(() => {
-            setHighlightedDescriptionIndex(descriptionIndex)
-            if (onIconStateChange) {
-              onIconStateChange(icon, descriptionIndex)
-            }
-            if (onIconClick) {
-              onIconClick()
-            }
-          }, 0)
-          return newIndex
-        }
-        return prevIndex
-      })
+      const newIndex = allIcons.findIndex(
+        (tech) => tech.icon === icon && tech.category === currentCategory
+      )
+      if (newIndex === -1) return
+      setCycledIconIndex(newIndex)
+      setTimeout(() => {
+        setHighlightedDescriptionIndex(descriptionIndex)
+        onIconStateChange?.(icon, descriptionIndex)
+        onIconClick?.()
+      }, 0)
     },
-    [onIconClick, onIconStateChange]
+    [allIcons, currentCategory, onIconClick, onIconStateChange]
   )
 
   const handleDescriptionHover = useCallback(
     (index: number) => {
       setHighlightedDescriptionIndex(index)
       setHoveredDescriptionIndex(index)
-      const descriptionIcons = technologies[currentCategory].descriptionParts[index].icons
-      const icons = descriptionIcons.map((tech) => tech.icon)
+      const icons = technologies[currentCategory].descriptionParts[index].icons.map(
+        (tech) => tech.icon
+      )
 
       setHoveredIcons(icons)
-      isManualHoverRef.current = true
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
+      setInteracting(true)
 
-      const firstIconIndex = allIconsRef.current.findIndex(
+      const firstIconIndex = allIcons.findIndex(
         (tech) => tech.icon === icons[0] && tech.category === currentCategory
       )
       if (firstIconIndex !== -1) {
         setCycledIconIndex(firstIconIndex)
       }
     },
-    [technologies, currentCategory, setCycledIconIndex]
+    [technologies, currentCategory, allIcons]
   )
 
   const handleDescriptionHoverEnd = useCallback(() => {
-    isManualHoverRef.current = false
     setHoveredIcons([])
     setHoveredDescriptionIndex(null)
-    startAutoCycle()
-  }, [startAutoCycle])
+    setInteracting(false)
+  }, [])
 
   const formatIconNames = useCallback(
     (icons: string[]): string => {
@@ -265,7 +226,7 @@ const IconCycle: React.FC<IconCycleProps> = ({
     [getTechName]
   )
 
-  const currentIcon = allIconsRef.current[cycledIconIndex]
+  const currentIcon = allIcons[cycledIconIndex]
 
   const getCurrentIcons = useCallback(() => {
     if (hoveredIcons.length > 0) {
@@ -330,61 +291,12 @@ const IconCycle: React.FC<IconCycleProps> = ({
     )
   }
 
-  const renderFrontendIcons = () => {
-    const project = projects.find((p) => p.id === projectId)
-    if (!project) return null
-
-    const firstTechName = getTechName(
-      project.technologies.Frontend.descriptionParts[0]?.icons[0].icon
-    )
-
-    return (
-      <div>
-        <div className="flex flex-wrap gap-3 justify-center items-start h-12 mb-1 pt-2 select-none">
-          {project.technologies.Frontend.descriptionParts.flatMap((part, partIndex) =>
-            part.icons.map((tech, techIndex) => {
-              const isFirstIcon = partIndex === 0 && techIndex === 0
-              return (
-                <div
-                  key={tech.icon}
-                  className={`relative flex flex-col items-center ${
-                    isFirstIcon ? 'scale-[1.2] -translate-y-[5px] z-10' : ''
-                  }`}
-                >
-                  <div
-                    className={` rounded-full  p-2 bg-slate-800 dark:bg-slate-900  overflow-visible flex flex-col items-center justify-center cursor-pointer ${
-                      isFirstIcon
-                        ? 'border-slate-200 dark:border-slate-200  border-2 w-12 h-12'
-                        : 'w-12 h-12 border-transparent border border-slate-400 dark:border-slate-400'
-                    }`}>
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={`/projectIcons/${tech.icon}`}
-                        alt={getTechName(tech.icon)}
-                        fill
-                        sizes='100%'
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )
-            })
-          )}
-        </div>
-        <div className="flex items-center justify-center text-base md:text-lg lg:text-xl font-bold pt-3">
-          {firstTechName}
-        </div>
-      </div>
-    )
-  }
-
   const renderIcons = () => (
     <div
       className={`flex flex-wrap h-12 mb-1 pt-2 ${
         orientation === 'v' ? 'flex-col' : 'flex-row'
       } items-start justify-center gap-2 sm:gap-3 `}>
-      {allIconsRef.current
+      {allIcons
         .filter((tech) => tech.category === currentCategory)
         .map((tech) => (
           <motion.div
@@ -395,22 +307,22 @@ const IconCycle: React.FC<IconCycleProps> = ({
             onClick={() => handleIconClick(tech.icon, tech.descriptionIndex)}
             animate={{
               scale:
-                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                hoveredIcons.includes(tech.icon) || tech === allIcons[cycledIconIndex]
                   ? 1.2
                   : 1,
               [orientation === 'v' ? 'x' : 'y']:
-                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                hoveredIcons.includes(tech.icon) || tech === allIcons[cycledIconIndex]
                   ? -5
                   : 0,
               zIndex:
-                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                hoveredIcons.includes(tech.icon) || tech === allIcons[cycledIconIndex]
                   ? 10
                   : 1,
             }}
             transition={{ duration: 0.2 }}>
             <div
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full  p-2 bg-slate-800  dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center cursor-pointer ${
-                hoveredIcons.includes(tech.icon) || tech === allIconsRef.current[cycledIconIndex]
+                hoveredIcons.includes(tech.icon) || tech === allIcons[cycledIconIndex]
                   ? 'border-slate-200 border-2 dark:border-slate-200'
                   : 'border-transparent border-slate-400 border dark:border-slate-400'
               }`}>
@@ -431,27 +343,10 @@ const IconCycle: React.FC<IconCycleProps> = ({
 
   const renderSimpleView = () => (
     <div className="select-none relative">
-      {/* Always render this section */}
       {renderTitle()}
-
-      {/* Content container with both skeleton and interactive versions */}
       <div className="relative">
-        {/* Loading skeleton - disappears instantly */}
-        <div
-          className={`${!loading ? 'hidden' : ''}`}
-        >
-          {renderFrontendIcons()}
-        </div>
-
-        {/* Main content - instant show */}
-        <div
-          className={`${
-            !loading ? 'opacity-100' : 'opacity-0'
-          } ${loading ? 'absolute inset-0' : ''}`}
-        >
-          {renderIcons()}
-          {renderTechName()}
-        </div>
+        {renderIcons()}
+        {renderTechName()}
       </div>
     </div>
   )

@@ -5,6 +5,18 @@ component in the app. It works, but it's fragile and hard to change. This is a
 plan to refactor it **incrementally and safely** — no big-bang rewrite. Nothing
 here needs to ship at once; each phase is independently shippable and testable.
 
+> **Status (2026-06-19): steps 2 & 3 DONE.** `allIcons` is now a `useMemo`, the
+> loading skeleton / `renderFrontendIcons` / `setTimeout` are gone, and the
+> imperative `setInterval` + the `isManualHoverRef` / `currentCategoryRef` /
+> `allIconsRef` ref-mirrors were replaced by one declarative effect gated on an
+> `interacting` boolean. Net **525 → 421 lines**, both pre-existing ESLint
+> warnings cleared, behavior verified (auto-cycle + category crossing, hover
+> pause/highlight, chevron nav, icon-click → modal). Category-nav chevrons were
+> also made keyboard-operable `<button>`s. **Remaining (higher-risk, deferred):**
+> step 4 (collapse the overlapping state to one source of truth), step 5 (simplify
+> the `onStateChange` sync), step 6 (extract shared `<IconRow>`/`<IconButton>` and
+> make the icons themselves keyboard-operable), step 1 (tests).
+
 ---
 
 ## 1. What it does (so we don't lose behavior)
