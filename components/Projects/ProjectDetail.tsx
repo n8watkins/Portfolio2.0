@@ -4,29 +4,37 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FiArrowLeft, FiGithub } from 'react-icons/fi'
+import { FiArrowLeft, FiGithub, FiArrowUpRight } from 'react-icons/fi'
 import { MdOpenInNew } from 'react-icons/md'
 import IconCycle from '@/components/ui/ProjectComponents/iconCycle'
 import { Project } from '@/lib/types'
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+const SECTIONS = [
+  { id: 'goal', label: 'The goal' },
+  { id: 'ai', label: 'How it uses AI' },
+  { id: 'how', label: 'How it works' },
+  { id: 'stack', label: 'The stack' },
+] as const
+
+function Heading({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <section>
-      <h2 className="text-xs font-semibold uppercase tracking-widest text-sky-400 mb-3">{title}</h2>
+    <h2
+      id={id}
+      className="scroll-mt-24 text-xs font-semibold uppercase tracking-widest text-sky-400 mb-3">
       {children}
-    </section>
+    </h2>
   )
 }
 
 /**
- * Full project detail page. The screenshot is deliberately small — the page is
- * about the *thinking*: the goal, how it uses AI, what it's testing, and a deep,
- * interactive breakdown of the stack via the IconCycle detailed view.
+ * Project detail page, read like a short blog post: image up top, a sticky
+ * "on this page" itinerary + a meta card on the side, generous spacing, and a
+ * full-width interactive stack breakdown at the bottom.
  */
 export default function ProjectDetail({ project }: { project: Project }) {
   return (
     <main className="min-h-screen bg-blue-400 dark:bg-darkBlue text-slate-700 dark:text-slate-200">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 md:py-16">
         <Link
           href="/#projects"
           className="group inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-sky-400 transition-colors mb-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded">
@@ -42,97 +50,132 @@ export default function ProjectDetail({ project }: { project: Project }) {
           <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100">
             {project.title}
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="mt-4 text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
             {project.des}
           </p>
-
-          <div className="flex flex-wrap items-center gap-3 mt-6">
-            {project.liveSite ? (
-              <a
-                href={project.liveSite}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 hover:shadow-lg hover:shadow-sky-500/40 transition-all duration-300">
-                Live demo
-                <MdOpenInNew className="w-4 h-4" aria-hidden="true" />
-              </a>
-            ) : (
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-sky-300 border border-sky-400/30 bg-sky-500/10">
-                <span className="h-2 w-2 rounded-full bg-sky-400" aria-hidden="true" />
-                Live demo coming soon
-              </span>
-            )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-300 dark:border-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-sky-400 hover:border-sky-400/60 transition-colors">
-                <FiGithub className="w-4 h-4" aria-hidden="true" />
-                Source
-              </a>
-            )}
-          </div>
         </header>
 
-        {/* Small image — intentionally compact */}
+        {/* Hero image — top of the post */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="relative w-full max-w-xl mx-auto h-40 md:h-44 rounded-xl overflow-hidden border border-white/10 bg-slate-900/40 shadow-lg shadow-black/30 mb-12">
+          className="relative w-full h-52 md:h-72 rounded-2xl overflow-hidden border border-white/10 bg-slate-900/40 shadow-xl shadow-black/30 mb-14">
           <Image
             src={project.images[0]}
             alt={project.title}
             fill
-            sizes="(max-width: 768px) 100vw, 36rem"
+            sizes="(max-width: 1024px) 100vw, 64rem"
             className="object-cover object-center"
             priority
           />
         </motion.div>
 
-        {/* Content */}
-        <div className="space-y-12">
-          {project.purpose && (
-            <Section title="The goal — what I'm exploring">
-              <p className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                {project.purpose}
-              </p>
-            </Section>
-          )}
+        {/* Body — article + sticky sidebar */}
+        <div className="grid lg:grid-cols-[1fr_15rem] gap-10 lg:gap-14 items-start">
+          <article className="space-y-12 min-w-0">
+            {project.purpose && (
+              <section>
+                <Heading id="goal">The goal — what I&apos;m exploring</Heading>
+                <p className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                  {project.purpose}
+                </p>
+              </section>
+            )}
 
-          {project.aiUsage && (
-            <Section title="How it uses AI">
-              <p className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                {project.aiUsage}
-              </p>
-            </Section>
-          )}
+            {project.aiUsage && (
+              <section>
+                <Heading id="ai">How it uses AI</Heading>
+                <p className="text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                  {project.aiUsage}
+                </p>
+              </section>
+            )}
 
-          {project.highlights && (
-            <Section title="How it works">
-              <ul className="flex flex-col gap-3">
-                {project.highlights.map((highlight, i) => (
-                  <li
-                    key={i}
-                    className="flex gap-3 text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                    <span className="text-sky-400 select-none mt-1" aria-hidden="true">
-                      ▸
-                    </span>
-                    <span>{highlight}</span>
+            {project.highlights && (
+              <section>
+                <Heading id="how">How it works</Heading>
+                <ul className="flex flex-col gap-3">
+                  {project.highlights.map((highlight, i) => (
+                    <li
+                      key={i}
+                      className="flex gap-3 text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                      <span className="text-sky-400 select-none mt-1" aria-hidden="true">
+                        ▸
+                      </span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </article>
+
+          {/* Sidebar — itinerary + meta card */}
+          <aside className="hidden lg:block sticky top-10 space-y-6 select-none">
+            <nav aria-label="On this page">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
+                On this page
+              </p>
+              <ul className="space-y-2 border-l border-white/10">
+                {SECTIONS.map((s) => (
+                  <li key={s.id}>
+                    <a
+                      href={`#${s.id}`}
+                      className="block -ml-px border-l border-transparent pl-4 text-sm text-slate-400 hover:text-sky-400 hover:border-sky-400 transition-colors">
+                      {s.label}
+                    </a>
                   </li>
                 ))}
               </ul>
-            </Section>
-          )}
+            </nav>
 
-          {/* The stack — interactive IconCycle detailed view */}
-          <Section title="The stack">
-            <div className="rounded-2xl border border-white/10 bg-slate-900/30 px-2 py-6 md:px-6">
-              <IconCycle technologies={project.technologies} view="detailed" projectId={project.id} />
+            <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-5">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-3">
+                Project
+              </p>
+              <div className="flex flex-col gap-2.5 text-sm">
+                {project.liveSite ? (
+                  <a
+                    href={project.liveSite}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200 transition-colors">
+                    <MdOpenInNew className="w-4 h-4" aria-hidden="true" /> Live demo
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2 text-slate-400">
+                    <span className="h-2 w-2 rounded-full bg-sky-400" aria-hidden="true" /> Live demo coming soon
+                  </span>
+                )}
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-slate-300 hover:text-sky-400 transition-colors">
+                    <FiGithub className="w-4 h-4" aria-hidden="true" /> Source
+                  </a>
+                )}
+                <a
+                  href="https://n8builds.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-slate-300 hover:text-sky-400 transition-colors">
+                  <FiArrowUpRight className="w-4 h-4" aria-hidden="true" /> n8builds.dev
+                </a>
+              </div>
             </div>
-          </Section>
+          </aside>
         </div>
+
+        {/* The stack — full width, room to breathe (it's back-end heavy) */}
+        <section className="mt-16">
+          <Heading id="stack">The stack</Heading>
+          <div className="rounded-2xl border border-white/10 bg-slate-900/30 px-2 py-8 md:px-8">
+            <IconCycle technologies={project.technologies} view="detailed" projectId={project.id} />
+          </div>
+        </section>
       </div>
     </main>
   )
