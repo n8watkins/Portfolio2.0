@@ -10,7 +10,7 @@ import ProjectCard from './ProjectCard'
 import { getInitialIconCycleState, createStateHandlerMap } from './utils'
 
 const BLURB =
-  'Generative AI is changing what software can be — and how it gets built. These are the projects where I explore that shift hands-on: a realtime voice agent you can talk over, an agentic researcher that shows its work, streaming chat over vector embeddings, AI-personalized recommendations, and the full-stack plumbing that makes intelligent products feel effortless.'
+  'Generative AI is changing what software can be — and how it gets built. These are the projects where I explore that shift hands-on.'
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
@@ -54,7 +54,7 @@ const Projects: React.FC = () => {
         <motion.h2
           variants={fadeInUpVariants}
           {...defaultAnimationConfig}
-          className="text-5xl font-bold pt-10 pb-4 text-slate-800 dark:text-slate-200 select-none">
+          className="text-5xl font-bold pt-24 md:pt-28 pb-4 text-slate-800 dark:text-slate-200 select-none">
           Building for the <span className="text-sky-400 lg:inline">AI-native web</span>
         </motion.h2>
 

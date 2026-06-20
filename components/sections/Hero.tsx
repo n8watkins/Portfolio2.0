@@ -11,7 +11,7 @@ import { heroPortraits } from '@/data/portraits'
 const Hero = () => {
   return (
     <div
-      className="relative flex flex-col h-auto min-h-[34rem] md:h-[72vh] pb-12 md:pb-0 items-center justify-center bg-blue-400 dark:bg-darkBlue transition-bg select-none"
+      className="relative flex flex-col h-auto min-h-[40rem] md:h-[86vh] pb-16 md:pb-0 items-center justify-center bg-blue-400 dark:bg-darkBlue transition-bg select-none"
       id="home">
       <GridBackground />
       <div className="max-w-[100vw] h-full md:max-w-2xl lg:max-w-[70vw] flex flex-col items-center justify-center z-50">
@@ -48,7 +48,7 @@ const Hero = () => {
             Innovate.
           </motion.span>
         </motion.p>
-        <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-3 md:gap-5">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-center w-full gap-8 md:gap-14">
           <div className="flex max-w-[100vw] md:max-w-2xl lg:max-w-[60vw] flex-col items-start gap-2 md:gap-3">
             <motion.h1
               initial={{ opacity: 0, x: -20 }}

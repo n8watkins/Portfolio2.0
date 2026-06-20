@@ -45,7 +45,7 @@ const AppturnityCard = () => {
         {/* Appturnity — consulting */}
         <motion.div
           variants={staggerItemVariants}
-          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
+          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-sky-400/20 hover:shadow-2xl hover:shadow-sky-500/25 transition-all duration-300 flex flex-col">
           <a
             href="https://appturnity.com/"
             target="_blank"
@@ -106,7 +106,7 @@ const AppturnityCard = () => {
         {/* n8builds.dev — build in public */}
         <motion.div
           variants={staggerItemVariants}
-          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-white/10 transition-all duration-300 flex flex-col">
+          className="group rounded-xl overflow-hidden bg-slate-900/30 border border-white/5 shadow-xl shadow-black/30 hover:border-sky-400/20 hover:shadow-2xl hover:shadow-sky-500/25 transition-all duration-300 flex flex-col">
           <a
             href="https://n8builds.dev"
             target="_blank"
