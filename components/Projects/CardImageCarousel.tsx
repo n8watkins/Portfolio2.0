@@ -21,7 +21,7 @@ export default function CardImageCarousel({ images, alt, onClick }: CardImageCar
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const prefersReducedMotion = useReducedMotion()
-  const current = index % images.length
+  const current = images.length ? index % images.length : 0
 
   useEffect(() => {
     if (images.length <= 1 || paused || prefersReducedMotion) return
@@ -29,12 +29,14 @@ export default function CardImageCarousel({ images, alt, onClick }: CardImageCar
     return () => clearInterval(id)
   }, [images.length, paused, prefersReducedMotion])
 
+  if (images.length === 0) return null
+
   return (
     <div
       onClick={onClick}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="group/img relative w-full h-52 sm:h-60 md:h-72 rounded-xl overflow-hidden cursor-pointer border border-white/10 bg-slate-900/40 shadow-lg shadow-black/30">
+      className="group/img relative w-full h-52 sm:h-60 md:h-64 rounded-xl overflow-hidden cursor-pointer border border-white/10 bg-slate-900/40 shadow-lg shadow-black/30">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}

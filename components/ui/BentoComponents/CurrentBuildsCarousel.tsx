@@ -16,8 +16,6 @@ type BuildLink = { github: string; live?: string }
 interface Build {
   name: string
   tag: string
-  status: 'Shipped' | 'Active'
-  statusDot: string
   desc: string
   image: string
   gradient: string
@@ -30,8 +28,6 @@ const BUILDS: Build[] = [
   {
     name: 'LocalDictate',
     tag: 'Desktop · Rust + Whisper',
-    status: 'Shipped',
-    statusDot: 'bg-emerald-400',
     desc: 'Hold a hotkey, talk, release — transcribed on-device by whisper.cpp and dropped right at your cursor. No cloud, no account, no audio leaves your machine.',
     image: '/builds/localdictate.png',
     gradient: 'from-slate-500/25 via-blue-600/15 to-transparent',
@@ -42,8 +38,6 @@ const BUILDS: Build[] = [
   {
     name: 'TL;DW',
     tag: 'Chrome extension · Gemini',
-    status: 'Shipped',
-    statusDot: 'bg-emerald-400',
     desc: 'Too Long; Didn’t Watch — press Alt+G on any YouTube video and it opens Gemini with your saved prompt and the video URL already filled in.',
     image: '/builds/tldw.png',
     gradient: 'from-orange-500/25 via-amber-500/12 to-transparent',
@@ -54,8 +48,6 @@ const BUILDS: Build[] = [
   {
     name: 'Portfolio Rank',
     tag: 'Web app · AI scoring',
-    status: 'Active',
-    statusDot: 'bg-amber-400',
     desc: '1,700+ developer portfolios, browsable and searchable — soon ranked by head-to-head votes and AI scoring instead of alphabetically.',
     image: '/builds/portfolio-rank.png',
     gradient: 'from-sky-500/25 via-blue-500/12 to-transparent',
@@ -89,7 +81,7 @@ export default function CurrentBuildsCarousel() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
           </span>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-100">
+          <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-slate-100">
             Currently building
           </p>
         </div>
@@ -132,25 +124,13 @@ export default function CurrentBuildsCarousel() {
             <div
               className={`relative hidden sm:block h-24 w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 flex-shrink-0 rounded-2xl border border-white/10 bg-gradient-to-br ${build.gradient}`}>
               <div className="absolute inset-[18%]">
-                <Image
-                  src={build.image}
-                  alt={`${build.name} icon`}
-                  fill
-                  sizes="128px"
-                  className="object-contain"
-                />
+                <Image src={build.image} alt="" fill sizes="128px" className="object-contain" />
               </div>
             </div>
 
             {/* Details */}
             <div className="flex min-w-0 flex-col">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                <h3 className="text-2xl font-bold text-slate-100 lg:text-3xl">{build.name}</h3>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-slate-200">
-                  <span className={`h-1.5 w-1.5 rounded-full ${build.statusDot}`} aria-hidden="true" />
-                  {build.status}
-                </span>
-              </div>
+              <h3 className="text-2xl font-bold text-slate-100 lg:text-3xl">{build.name}</h3>
               <p className={`mt-1 text-xs font-semibold uppercase tracking-wider ${build.accent}`}>
                 {build.tag}
               </p>
@@ -163,7 +143,7 @@ export default function CurrentBuildsCarousel() {
                 {build.stack.map((s) => (
                   <span
                     key={s}
-                    className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] font-medium text-slate-300">
+                    className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-xs font-medium text-slate-300">
                     {s}
                   </span>
                 ))}

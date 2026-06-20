@@ -62,12 +62,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   href={project.liveSite}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Open the ${project.title} live site (new tab)`}
                   onClick={() => trackProjectEvent('live_site_click', project.title, { source: 'grid' })}
                   className="group/title flex items-center gap-1.5 w-fit cursor-pointer">
                   <h3 className="text-2xl md:text-3xl font-bold text-slate-100 truncate group-hover/title:text-sky-300 transition-colors">
                     {project.title}
                   </h3>
-                  <MdOpenInNew className="w-5 h-5 flex-shrink-0 text-slate-400 group-hover/title:text-sky-300 transition-colors" />
+                  <MdOpenInNew className="w-5 h-5 flex-shrink-0 text-slate-400 group-hover/title:text-sky-300 transition-colors" aria-hidden="true" />
                 </a>
               ) : (
                 <h3 className="text-2xl md:text-3xl font-bold text-slate-100 truncate">
@@ -105,7 +106,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
           </div>
 
-          <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed select-none">
+          <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed select-none line-clamp-3">
             {project.tagline ?? project.des}
           </p>
 

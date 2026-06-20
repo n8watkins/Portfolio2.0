@@ -136,7 +136,7 @@ export const projects = [
     slug: 'geminigpt',
     title: 'GeminiGPT',
     subTitle: 'AI Chat Platform',
-    tagline: 'A full-stack AI chat platform with semantic search and document understanding.',
+    tagline: 'Chat across sessions, search every past conversation, and drop in PDFs to ask about them.',
     des: `A full-stack AI chat platform powered by Google's Gemini 2.5 Flash. Supports multi-chat sessions, cross-chat semantic search over LanceDB vector embeddings, PDF and DOCX document understanding, and real-time response streaming over WebSockets — with a bring-your-own-key model that keeps usage private.`,
     images: ['/projects/geminigpt.webp', '/projects/geminigpt1.webp'],
     technologies: {
