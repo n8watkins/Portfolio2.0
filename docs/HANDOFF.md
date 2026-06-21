@@ -1,6 +1,6 @@
 # HANDOFF — portfolio2.0
 
-_Last updated: 2026-06-20 (session: full projects redesign — image-led cards + blog-style detail pages + "Building in public" bento; reCAPTCHA purge; unified GA4 analytics across n8builds.dev + subdomains; repo moved into `~/n8builds/`)._
+_Last updated: 2026-06-20 (full projects redesign + blog-style detail pages + "Building in public" bento; reCAPTCHA purge; unified GA4 analytics LIVE across both sites; live demo links for all 4 projects; old vercel.app URL now 308-redirects to the real domain; repo moved into `~/n8builds/`)._
 
 ## Project summary
 
@@ -11,7 +11,7 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 - Run: `npm run dev` → http://localhost:4829. Checks: `npm run build` / `type-check` / `lint`. Husky + lint-staged on commit.
 - Tests: `npx playwright test --project=chromium --workers=1`. Specs: `tests/icon-cycle.spec.ts` (6, the redesign's coverage) + `tests/web-vitals.spec.ts`.
 - Deploy: Vercel project **`portfolio`** → **portfolio.n8builds.dev**. Git-connected; pushes to `main` auto-deploy.
-- **Fully committed + pushed through `fedc75a`. Clean tree, one branch (`main`), no worktrees/stashes.**
+- **Fully committed + pushed. Clean tree, one branch (`main`), no worktrees/stashes.**
 
 ## This session (2026-06-20)
 
@@ -28,19 +28,22 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 
 **reCAPTCHA fully purged** (was a prior backlog item): gone from code, README, `.env.local`, AND Vercel (`NEXT_PUBLIC_RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY` removed from the `portfolio` project). README also de-fictionalized — it documented a contact-form/Resend/7-layer-security system that **never existed** in the code. Left `RESEND_API_KEY` + `CONTACT_EMAIL_TO` in Vercel (the `ContactInput/Select/Textarea` field components still exist; a real contact form may be wired later).
 
-**Unified GA4 analytics — LIVE + verified.** One property (renamed to **n8builds.dev**), Measurement ID **`G-JZQGKY9Q37`**, on BOTH sites. portfolio.n8builds.dev was already wired; this session set the same ID on the `n8builds-web` Vercel project (Production) and redeployed — `G-JZQGKY9Q37` confirmed live on **both** n8builds.dev and portfolio.n8builds.dev. No Google Cloud project needed (GA4 is web-console only); segment by **Hostname**. n8builds-web set Production-only; **portfolio still has the ID in all envs, so dev/preview hits also reach the property** (could tighten — see next steps).
+**Unified GA4 analytics — LIVE + verified.** One property (renamed to **n8builds.dev**), Measurement ID **`G-JZQGKY9Q37`**, on BOTH sites. portfolio.n8builds.dev was already wired; this session set the same ID on the `n8builds-web` Vercel project (Production) and redeployed — `G-JZQGKY9Q37` confirmed live on **both** n8builds.dev and portfolio.n8builds.dev. No Google Cloud project needed (GA4 is web-console only); segment by **Hostname**. Both **Production-only** now (Vercel + `.env.local`) — only the live sites report. Route changes are handled by GA4 Enhanced Measurement (no custom tracker — see "Done since the redesign").
 
 **Housekeeping:** repo moved into `~/n8builds/`; Claude memory migrated to the new path namespace (`~/.claude/projects/-home-natkins-n8builds-portfolio2-0/memory/`); test artifacts (`playwright-report/`, `test-results/`) gitignored + untracked; stale `backup-before-improvements` branch deleted (recover via `git branch backup-before-improvements 3eb79f0` within git's gc window).
 
 ## Next steps
 
-1. **(Optional) SPA route-change page_view tracking** — `lib/analytics.ts` doesn't fire a page_view on client-side navigation, so `/projects/[slug]` views under-report. Add a `usePathname`-based tracker; if added, turn OFF GA4 Enhanced Measurement → "page changes based on browser history events" to avoid double-counting. Applies to both sites.
-2. **(Optional) Tighten portfolio GA to Production-only** — it's set in all Vercel envs, so local/preview traffic pollutes the property. Match n8builds-web.
-3. **Delete dead code** — `components/Projects/ProjectModal.tsx` + `ImageSlider.tsx` (unused after the modal→page move).
-4. **Appturnity "A" logo** — `AppturnityCard.tsx` uses a placeholder gradient "A" monogram; swap for the real logo when available.
-5. **GeminiGPT deploy** (backlog) — deploy `~/portfolio/examples/gemini-chat-app` (Railway-ready), then add `liveSite` to GeminiGPT in `data/projects.tsx` + replace placeholder screenshots.
-6. **Resume PDF** (outside repo) still links the old portfolio URL → update to portfolio.n8builds.dev.
-7. **Deferred dep majors** (user opt-in): tailwindcss 4, eslint 10, typescript 6, @types/node 25.
+1. **Resume PDF** (outside repo) still links the old portfolio URL → update to portfolio.n8builds.dev. (Nathan's task — outside this repo. The old `n8sportfolio.vercel.app` now redirects, so existing links won't break.)
+2. **Replace GeminiGPT placeholder screenshots** — `public/projects/geminigpt*.webp` are basic captures; swap for populated-chat shots now that it's deployed.
+3. **Appturnity "A" logo** — `AppturnityCard.tsx` uses a placeholder gradient "A" monogram; swap for the real logo when available. (Deprioritized by Nathan.)
+4. **Deferred dep majors** (user opt-in): tailwindcss 4, eslint 10, typescript 6, @types/node 25.
+
+### Done since the redesign (2026-06-20, later in the session)
+- **Analytics finalized + LIVE on both sites.** GA tightened to **Production-only** (portfolio Vercel + `.env.local`; n8builds-web already so). Decided **against a custom route tracker** — GA4 Enhanced Measurement already tracks App Router soft navigations; leave its "page changes based on browser history events" ON (the default), no code needed.
+- **Live demo links** added for Echo (`echo-kzw1.onrender.com`), Scout (`scout-agentic-researcher.onrender.com`), GeminiGPT (`geminigpt-n8.onrender.com`) — all on Render, all 200. **GeminiGPT is now deployed** (prior backlog item, done). Net-Trailer already had one.
+- **Dead code deleted**: `ProjectModal.tsx` + `ImageSlider.tsx`.
+- **Old default Vercel URL redirects**: `n8sportfolio.vercel.app/*` → 308 → `portfolio.n8builds.dev/*` (host-scoped redirect in `next.config.mjs`; verified live, path-preserving). It was a leftover alias on the project, not a second deploy.
 
 ## Stale docs (flagged 2026-06-20 — candidates to delete/archive)
 
