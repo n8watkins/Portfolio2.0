@@ -7,8 +7,6 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import { WebVitals } from './web-vitals'
 import { WebVitalsHUD } from '@/components/WebVitalsHUD'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Suspense } from 'react'
-import GoogleAnalyticsRouteTracker from '@/components/GoogleAnalyticsRouteTracker'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -102,9 +100,6 @@ export default function RootLayout({
           <WebVitals />
           <WebVitalsHUD />
           <SpeedInsights />
-          <Suspense fallback={null}>
-            <GoogleAnalyticsRouteTracker />
-          </Suspense>
         </ThemeProvider>
       </body>
     </html>
