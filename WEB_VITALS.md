@@ -54,7 +54,7 @@ All Web Vitals are automatically logged to the browser console with:
 
 All metrics are automatically sent to Google Analytics as custom events:
 - Event name: `web_vital`
-- Parameters: metric name, value, rating, ID
+- Parameters: metric name, value, rating
 
 ### 3. Visual HUD (Development Only)
 

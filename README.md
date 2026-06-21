@@ -26,7 +26,6 @@ A modern, production-ready developer portfolio built with Next.js 16, featuring 
 - TypeScript for type safety
 - Tailwind CSS for styling
 - Framer Motion for animations
-- React Hook Form + Zod validation
 - Next Themes for theme management
 
 **Backend:**
@@ -66,7 +65,7 @@ Portfolio2.0/
 ```
 
 **Key Stats:**
-- **6,818 lines** of TypeScript/TSX
+- **~6,900 lines** of TypeScript/TSX
 - **340 kB** First Load JS (15% under budget)
 - **A+ grade** (96/100) code quality
 - **Zero** technical debt (no TODO/FIXME)
@@ -116,6 +115,8 @@ NEXT_PUBLIC_VERSION=2.0
 # Sentry (Optional - Error Tracking)
 SENTRY_AUTH_TOKEN=your_sentry_token
 NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn
+SENTRY_ORG=your_sentry_org
+SENTRY_PROJECT=your_sentry_project
 ```
 
 #### 🔑 Where to Get API Keys
@@ -133,7 +134,7 @@ NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn
 - **Staggered reveals** for portfolio grid items
 - **Smooth page transitions** and micro-interactions
 - **Loading states** with skeleton animations
-- **Success celebrations** with Lottie animations
+- **Lottie micro-animations** (e.g. the email button)
 
 ### Performance Optimizations
 
@@ -171,7 +172,7 @@ npm run prepare      # Setup Husky git hooks
 
 ### Code Quality
 
-- **TypeScript Strict Mode** - 100% type-safe codebase (zero `any` types)
+- **TypeScript Strict Mode** — near-fully type-safe (a few isolated `any` casts in perf/HUD glue)
 - **ESLint** with Next.js configuration (zero warnings/errors)
 - **Prettier** integration for consistent formatting
 - **Husky + lint-staged** - Pre-commit hooks enforce code quality
@@ -194,7 +195,7 @@ npm run prepare      # Setup Husky git hooks
   - Section views (IntersectionObserver-based)
   - Scroll depth milestones (25%, 50%, 75%, 100%)
   - Project interactions (views, icon clicks)
-  - Contact form events (view, focus, submit, errors)
+  - Modal interactions (open/close)
   - Resume downloads/views
   - Social media clicks
   - Web Vitals metrics
@@ -233,7 +234,7 @@ npm run start
 
 1. Create component in `components/`
 2. Add to main page in `app/page.tsx`
-3. Update navigation in `FloatingNavbar.tsx`
+3. Update navigation in `components/layout/FloatingNav.tsx`
 4. Add animations and styling
 
 ## 🔒 Security Considerations
@@ -241,7 +242,6 @@ npm run start
 - Never commit API keys or secrets
 - Use environment variables for all sensitive data
 - Regular dependency updates for security patches
-- Rate limiting and validation on all endpoints
 - Proper error handling without information disclosure
 
 ## 📝 Development Notes
@@ -258,7 +258,7 @@ npm run start
 - **Marquee Components**: Magic UI marquee for performant infinite scroll
 - **Animation Performance**: Framer Motion optimized for 60fps
 - **Error Resilience**: Section-level boundaries prevent cascading failures
-- **Type Safety**: Zod schemas provide runtime validation + TypeScript types
+- **Type Safety**: TypeScript strict mode across the codebase
 
 ## 🏛️ Architecture Decisions
 

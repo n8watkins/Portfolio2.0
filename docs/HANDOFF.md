@@ -38,6 +38,8 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 2. **Replace GeminiGPT placeholder screenshots** — `public/projects/geminigpt*.webp` are basic captures; swap for populated-chat shots now that it's deployed.
 3. **Appturnity "A" logo** — `AppturnityCard.tsx` uses a placeholder gradient "A" monogram; swap for the real logo when available. (Deprioritized by Nathan.)
 4. **Deferred dep majors** (user opt-in): tailwindcss 4, eslint 10, typescript 6, @types/node 25.
+5. **Richer About / Experience copy** — flesh out the bios (carried over from the retired FOLLOW_UP roadmap).
+6. **Extract a shared `IconRow`/`IconButton`** in `iconCycle.tsx` — `renderIcons` is inline-duplicated across the simple + detailed views (carried over from the retired iconCycle refactor plan).
 
 ### Done since the redesign (2026-06-20, later in the session)
 - **Analytics finalized + LIVE on both sites.** GA tightened to **Production-only** (portfolio Vercel + `.env.local`; n8builds-web already so). Decided **against a custom route tracker** — GA4 Enhanced Measurement already tracks App Router soft navigations; leave its "page changes based on browser history events" ON (the default), no code needed.
@@ -45,13 +47,11 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 - **Dead code deleted**: `ProjectModal.tsx` + `ImageSlider.tsx`.
 - **Old default Vercel URL redirects**: `n8sportfolio.vercel.app/*` → 308 → `portfolio.n8builds.dev/*` (host-scoped redirect in `next.config.mjs`; verified live, path-preserving). It was a leftover alias on the project, not a second deploy.
 
-## Stale docs (flagged 2026-06-20 — candidates to delete/archive)
+## Docs (consolidated 2026-06-20: 8 → 4)
 
-- `FOLLOW_UP.md`, `PIN_IT.md` (both 2025-09) — 9-month-old roadmaps, superseded.
-- `docs/bundle-analysis.md` (2025-10, "Next.js 14.2.32") — predates the Next 16 upgrade.
-- `docs/code-quality-improvements-summary.md` (2025-10) — old one-off summary.
-- `docs/ICONCYCLE_REFACTOR_PLAN.md` (2026-06-19) — the refactor it plans is **done**.
-- `WEB_VITALS.md` — still plausibly accurate (WebVitals/HUD code is live); leave.
+Live set: **`README.md`** (product overview + setup), **`docs/HANDOFF.md`** (this — session handoff + backlog), **`WEB_VITALS.md`** (Web Vitals monitoring reference), **`docs/bundle-analysis.md`** (bundle-size snapshot — re-run `npm run analyze` to refresh the byte counts).
+
+Deleted (fully stale / historical, recoverable in git history): `FOLLOW_UP.md` + `PIN_IT.md` (2025-09 roadmaps tied to the removed contact-form stack), `docs/code-quality-improvements-summary.md` (one-off Oct-2025 changelog), `docs/ICONCYCLE_REFACTOR_PLAN.md` (refactor done; its one open cleanup carried into Next steps above).
 
 ## Conventions & gotchas
 
@@ -61,7 +61,7 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 - Vercel: both projects are git-connected. To apply an env-var change without shipping local WIP, `vercel redeploy <latest-prod-deployment-url>` (rebuilds live source + current env — re-inlines `NEXT_PUBLIC_*`). **n8builds-web currently has WIP on `feat/hero-terminal-circuit` (7 commits ahead) — do NOT `vercel --prod` from its local tree.**
 - No Google Cloud project is used or needed. No Vercel/GA MCP is connected — analytics work was done via the authenticated Vercel CLI (`natkins23`).
 - Twitch/YouTube handle **n8builds**; GitHub/X/LinkedIn **n8watkins**.
-- 12 pre-existing lint warnings (React Compiler/refs) — not errors.
+- 9 pre-existing lint warnings (0 errors, React Compiler/refs).
 
 ## File map
 

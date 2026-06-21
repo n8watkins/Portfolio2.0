@@ -1,14 +1,24 @@
 # Bundle Analysis Report
 
-**Date**: 2025-10-19
-**Next.js Version**: 14.2.32
+**Date**: 2026-06-20 (structure refreshed; the byte counts below were measured on Next 14 in 2025-10 — **re-run `npm run analyze` to refresh them**)
+**Next.js Version**: 16.2.7
 **Analysis Tool**: @next/bundle-analyzer
 
 ## Executive Summary
 
-The portfolio application has been optimized with modern Next.js 14 App Router features and demonstrates excellent bundle sizes for a feature-rich portfolio.
+The portfolio application is optimized with Next.js 16 App Router features and keeps lean bundle sizes for a feature-rich portfolio. ⚠️ The byte counts in the tables below predate the Next 16 upgrade and the projects redesign — treat them as historical until `npm run analyze` is re-run.
 
-### Key Metrics
+### Routes (current)
+
+| Route | Type |
+|-------|------|
+| `/` (Home) | Static |
+| `/projects/[slug]` — echo, scout, geminigpt, net-trailer | SSG |
+| `/sitemap.xml` | Static |
+| `/_not-found`, `/sentry-example-page` | Static |
+| `/api/health`, `/api/health/error`, `/api/sentry-example-api` | Dynamic |
+
+### Key Metrics (⚠️ stale — Next 14 / pre-redesign, re-measure)
 
 | Route | Size | First Load JS | Type |
 |-------|------|---------------|------|
@@ -31,9 +41,10 @@ The portfolio application has been optimized with modern Next.js 14 App Router f
 
 ### Already Implemented
 
-1. **Dynamic Imports**: Below-the-fold components lazy loaded
+1. **Dynamic Imports**: Below-the-fold components lazy loaded (`app/page.tsx`)
+   - Projects section
    - Experience section
-   - Clients/Testimonials section
+   - AppturnityCard
    - Footer
    - ScrollToTop button
 
@@ -43,7 +54,6 @@ The portfolio application has been optimized with modern Next.js 14 App Router f
    - `react-icons`
    - `@radix-ui/react-dropdown-menu`
    - `@radix-ui/react-icons`
-   - `@tabler/icons-react`
 
 3. **Image Optimization**:
    - AVIF and WebP formats
@@ -87,9 +97,9 @@ The portfolio application has been optimized with modern Next.js 14 App Router f
 - `/_not-found` - 305 B (error page)
 
 ✅ **API Routes**: Zero initial JavaScript (server-rendered)
-- `/api/contact` - 0 B
 - `/api/health` - 0 B
 - `/api/health/error` - 0 B
+- `/api/sentry-example-api` - 0 B
 
 ## Recommendations
 
