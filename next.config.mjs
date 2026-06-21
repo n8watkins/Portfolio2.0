@@ -48,6 +48,15 @@ const nextConfig = {
   // Redirect common routes to home page
   async redirects() {
     return [
+      // Canonicalize the old default Vercel URL → the real domain (preserves path).
+      // Only fires when the Host is n8sportfolio.vercel.app; portfolio.n8builds.dev
+      // and preview deploys are unaffected.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'n8sportfolio.vercel.app' }],
+        destination: 'https://portfolio.n8builds.dev/:path*',
+        permanent: true,
+      },
       {
         source: '/about',
         destination: '/',
