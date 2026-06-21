@@ -19,7 +19,7 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 - Cards: alternating "back and forth" layout — auto-cycling screenshot on one side, title + full `des` + interactive tech-stack cycler on the other (`ProjectCard.tsx`, `CardImageCarousel.tsx`).
 - **Per-project detail PAGES** at `/projects/[slug]` (`app/projects/[slug]/page.tsx`, `ProjectDetail.tsx`) — blog-style: hero image, sticky "On this page" TOC, sections (goal / how it uses AI / how it works), full-width tech-stack breakdown. **Replaces the old Details modal.**
 - **`iconCycle` re-added + refactored** — simple view on cards, detailed (keyboard-accessible) view on detail pages. `tests/icon-cycle.spec.ts` = 6 passing.
-- **`ProjectModal.tsx` + `ImageSlider.tsx` are now DEAD code** (navigation replaced the modal) — safe to delete.
+- **`ProjectModal.tsx` + `ImageSlider.tsx` deleted** — navigation replaced the modal (preserved in git history).
 - 4 projects (echo, scout, geminigpt, net-trailer) carry slug/purpose/aiUsage/highlights in `data/projects.tsx`; sitemap includes the 4 detail URLs.
 
 **"Building in public" bento** (`components/ui/BentoComponents/CurrentBuildsCarousel.tsx`, `data/grid/items/gridItem6.tsx`): auto-cycling feed of LocalDictate / TL;DW / Portfolio Rank — real icons (copied from n8builds into `public/builds/`), stack chips, per-build Code/Live links, pause-on-hover/focus (WCAG 2.2.2). Header is **"Building in public"** (renamed from "Currently building" — honest, since two of the three are shipped, not in-progress).
@@ -68,11 +68,10 @@ Nathan Watkins' personal portfolio — an **online resume / digital card** that 
 - `components/Projects/ProjectCard.tsx` — alternating image-led card
 - `components/Projects/CardImageCarousel.tsx` — auto-cycling card screenshot
 - `components/Projects/ProjectDetail.tsx` + `app/projects/[slug]/page.tsx` — blog-style detail page
-- `components/Projects/{ProjectModal,ImageSlider}.tsx` — **DEAD, delete**
 - `components/ui/ProjectComponents/iconCycle.tsx` — tech-stack cycler (simple + detailed views)
 - `components/ui/BentoComponents/CurrentBuildsCarousel.tsx` + `data/grid/items/gridItem6.tsx` — "Building in public" bento
 - `components/sections/Grid.tsx` — About me + bento wrapper
 - `components/sections/AppturnityCard.tsx` — twin Appturnity/n8builds cards ("A" monogram placeholder)
 - `data/projects.tsx` — project copy (slug/des/purpose/aiUsage/highlights)
 - `app/layout.tsx` — GA snippet (reads `NEXT_PUBLIC_GA_ID`) + metadata
-- `lib/analytics.ts` — GA event helpers (no route-change page_view yet)
+- `lib/analytics.ts` — GA custom-event helpers (route page-views handled by GA4 Enhanced Measurement)
