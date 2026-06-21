@@ -63,6 +63,7 @@ export const projects = [
     purpose: `Echo is my deep-dive into the part of voice AI that isn't the model — the ~800 milliseconds of perceived latency and the barge-in turn-taking. The question I wanted to answer: what does it actually take to make a spoken AI conversation feel alive instead of like a 1970s answering machine? The finding that made it click is that the fix is structural — overlap the pipeline stages with a sentence chunker, model turn-taking as an explicit state machine — not "buy a faster model."`,
     aiUsage: `Echo runs on Google Gemini. The text-and-tools model (gemini-3.1-flash-lite by default) streams tokens over Server-Sent Events and calls functions — weather, time-zone, web search — mid-conversation. Speech-to-text and text-to-speech run in the browser via the Web Speech API, so the model is the only thing that ever touches the network. A second "Live" engine swaps in Gemini's native Live API for full speech-to-speech over a WebSocket. The model is the easy part; the orchestration around it — the sentence chunker that starts talking on the first sentence, the turn-taking state machine, the barge-in handling — is where the real engineering lives.`,
     github: 'https://github.com/n8watkins/echo-genai-voice-agent',
+    liveSite: 'https://echo-kzw1.onrender.com',
   },
   {
     id: 4,
@@ -128,6 +129,7 @@ export const projects = [
     purpose: `Scout is my exploration of what an AI agent really is once you strip away the frameworks: a while-loop with a budget and a stop condition. The research question is how you make a tool-using agent legible and trustworthy — grounding every claim in a real source, citing by contract, knowing when to stop, and treating each tool as an attack surface. The engineering lives in the scaffolding around the model, which is exactly where I think the interesting work in agents actually is.`,
     aiUsage: `Scout is a from-scratch ReAct agent on Gemini — no agent framework, the whole loop is a few hundred lines on purpose. Each iteration the model decides its next move via function calling (search the web, read a page, or finish); Scout runs that tool, summarizes the result so it doesn't blow the context window, and feeds it back. A separate synthesis call writes the final report and is only allowed to cite sources it actually fetched, so the model can't invent references. The whole point is to make the reasoning loop legible rather than hiding it behind a black box.`,
     github: 'https://github.com/n8watkins/scout-agentic-ai-researcher',
+    liveSite: 'https://scout-agentic-researcher.onrender.com',
   },
   {
     id: 1,
@@ -196,6 +198,7 @@ export const projects = [
     purpose: `GeminiGPT is where I explore making AI chat useful beyond a single thread. The question: what makes a chat assistant feel like it actually remembers you? What I'm testing is semantic memory — every message embedded and searchable across all your past conversations — plus document understanding and token-by-token streaming, all on a bring-your-own-key model so your data stays yours.`,
     aiUsage: `GeminiGPT wraps Gemini 2.5 Flash with streaming and function calling. The interesting AI piece is memory: every message is embedded and stored in a LanceDB vector index, so semantic search can pull relevant context from any past conversation — not just the current thread. A custom Node pipeline parses uploaded PDFs and DOCX files so the model can reason over your own documents, and a bring-your-own-key model keeps every conversation private to you.`,
     github: 'https://github.com/n8watkins/GeminiGPT',
+    liveSite: 'https://geminigpt-n8.onrender.com',
   },
   {
     id: 2,
